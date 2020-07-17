@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="PythonPython可变参数args，*kwargsPython内置容器及其容器及其使用场景">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字节跳动">
+<meta property="og:url" content="https://huangliu0909.github.io/2020/07/14/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8/index.html">
+<meta property="og:site_name" content="Wiwi&#39;s Blog">
+<meta property="og:description" content="PythonPython可变参数args，*kwargsPython内置容器及其容器及其使用场景">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-14T06:27:16.868Z">
+<meta property="article:modified_time" content="2020-07-17T04:34:08.764Z">
+<meta property="article:author" content="Kelly Huang">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://huangliu0909.github.io/2020/07/14/字节跳动/"/>
+
+
+
+
+
+  <title>字节跳动 | Wiwi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiwi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/14/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kelly Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">字节跳动</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-14T14:27:16+08:00">
+                2020-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="Python可变参数args，-kwargs"><a href="#Python可变参数args，-kwargs" class="headerlink" title="Python可变参数args，*kwargs"></a>Python可变参数<em>args，*</em>kwargs</h3><h3 id="Python内置容器及其容器及其使用场景"><a href="#Python内置容器及其容器及其使用场景" class="headerlink" title="Python内置容器及其容器及其使用场景 "></a>Python内置容器及其容器及其使用场景 <a id="more"></a></h3><h3 id="python多线程"><a href="#python多线程" class="headerlink" title="python多线程"></a>python多线程</h3><h3 id="对Python了解吗？说说它底层的实现原理。"><a href="#对Python了解吗？说说它底层的实现原理。" class="headerlink" title="对Python了解吗？说说它底层的实现原理。"></a>对Python了解吗？说说它底层的实现原理。</h3><h3 id="什么是Python生成器，迭代器；"><a href="#什么是Python生成器，迭代器；" class="headerlink" title="什么是Python生成器，迭代器；"></a>什么是Python生成器，迭代器；</h3><h3 id="Python中的dict底层怎么实现的"><a href="#Python中的dict底层怎么实现的" class="headerlink" title="Python中的dict底层怎么实现的"></a>Python中的dict底层怎么实现的</h3><h3 id="Python多线程用了几个CPU"><a href="#Python多线程用了几个CPU" class="headerlink" title="Python多线程用了几个CPU"></a>Python多线程用了几个CPU</h3><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="C-中const与-define的区别与优势"><a href="#C-中const与-define的区别与优势" class="headerlink" title="C++中const与#define的区别与优势"></a>C++中const与#define的区别与优势</h3><h3 id="C-11新特性auto的用法"><a href="#C-11新特性auto的用法" class="headerlink" title="C++11新特性auto的用法"></a>C++11新特性auto的用法</h3><h3 id="C-虚函数，读程序写结果"><a href="#C-虚函数，读程序写结果" class="headerlink" title="C++虚函数，读程序写结果"></a>C++虚函数，读程序写结果</h3><h3 id="C-关键字static、extern"><a href="#C-关键字static、extern" class="headerlink" title="C++关键字static、extern"></a>C++关键字static、extern</h3><h3 id="C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景"><a href="#C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景" class="headerlink" title="C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景"></a>C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景</h3><h3 id="C-中new和delete语句的底层实现"><a href="#C-中new和delete语句的底层实现" class="headerlink" title="C++中new和delete语句的底层实现"></a>C++中new和delete语句的底层实现</h3><h2 id="编程语言之间的对比"><a href="#编程语言之间的对比" class="headerlink" title="编程语言之间的对比"></a>编程语言之间的对比</h2><h3 id="Java和C-相比有什么特点？"><a href="#Java和C-相比有什么特点？" class="headerlink" title="Java和C++相比有什么特点？"></a>Java和C++相比有什么特点？</h3><h3 id="C-为什么比Java运行得快？"><a href="#C-为什么比Java运行得快？" class="headerlink" title="C++为什么比Java运行得快？"></a>C++为什么比Java运行得快？</h3><h3 id="java和python的异同？"><a href="#java和python的异同？" class="headerlink" title="java和python的异同？"></a>java和python的异同？</h3><h2 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h2><h3 id="了解Linux么？用过哪些命令？"><a href="#了解Linux么？用过哪些命令？" class="headerlink" title="了解Linux么？用过哪些命令？"></a>了解Linux么？用过哪些命令？</h3><h3 id="SSO了解吗？"><a href="#SSO了解吗？" class="headerlink" title="SSO了解吗？"></a>SSO了解吗？</h3><h3 id="负载均衡了解吗？"><a href="#负载均衡了解吗？" class="headerlink" title="负载均衡了解吗？"></a>负载均衡了解吗？</h3><h3 id="MD5加密可逆吗？会被破解吗-如何破解？"><a href="#MD5加密可逆吗？会被破解吗-如何破解？" class="headerlink" title="MD5加密可逆吗？会被破解吗?如何破解？"></a>MD5加密可逆吗？会被破解吗?如何破解？</h3><h3 id="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"><a href="#DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）" class="headerlink" title="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"></a>DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）</h3><h3 id="并发用什么"><a href="#并发用什么" class="headerlink" title="并发用什么"></a>并发用什么</h3><h3 id="get和post的区别"><a href="#get和post的区别" class="headerlink" title="get和post的区别"></a>get和post的区别</h3><h3 id="说下http-request-和-response"><a href="#说下http-request-和-response" class="headerlink" title="说下http request 和 response"></a>说下http request 和 response</h3><h3 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h3><h3 id="讲一下接收窗口"><a href="#讲一下接收窗口" class="headerlink" title="讲一下接收窗口"></a>讲一下接收窗口</h3><h3 id="滑动窗口是干什么的？"><a href="#滑动窗口是干什么的？" class="headerlink" title="滑动窗口是干什么的？"></a>滑动窗口是干什么的？</h3><h3 id="拥塞窗口是干什么的？"><a href="#拥塞窗口是干什么的？" class="headerlink" title="拥塞窗口是干什么的？"></a>拥塞窗口是干什么的？</h3><h3 id="7层模型和4层模型，每一层有哪些常见协议？"><a href="#7层模型和4层模型，每一层有哪些常见协议？" class="headerlink" title="7层模型和4层模型，每一层有哪些常见协议？"></a>7层模型和4层模型，每一层有哪些常见协议？</h3><p>应用层、传输层、网络层常见协议 ： {  DNS 、 HTTP 、FTP、 STMP 、SSL、 TCP、 UDP、 ARP、 IP   }</p>
+<h3 id="路由器-交换机是哪一层"><a href="#路由器-交换机是哪一层" class="headerlink" title="路由器/交换机是哪一层"></a>路由器/交换机是哪一层</h3><h3 id="网络层用来干嘛？传输层用来干嘛？"><a href="#网络层用来干嘛？传输层用来干嘛？" class="headerlink" title="网络层用来干嘛？传输层用来干嘛？"></a>网络层用来干嘛？传输层用来干嘛？</h3><h3 id="HTTP可以使用UDP吗，"><a href="#HTTP可以使用UDP吗，" class="headerlink" title="HTTP可以使用UDP吗，"></a>HTTP可以使用UDP吗，</h3><h3 id="HTTP协议的报文格式"><a href="#HTTP协议的报文格式" class="headerlink" title="HTTP协议的报文格式"></a>HTTP协议的报文格式</h3><h3 id="Http1-0-和HTTP1-1-和-Http2-x-的区别"><a href="#Http1-0-和HTTP1-1-和-Http2-x-的区别" class="headerlink" title="Http1.0 和HTTP1.1 和 Http2.x 的区别"></a>Http1.0 和HTTP1.1 和 Http2.x 的区别</h3><h3 id="HTTPS怎么确认收到的包就是服务器发来的，说一下整个过程（对称加密，非对称加密）"><a href="#HTTPS怎么确认收到的包就是服务器发来的，说一下整个过程（对称加密，非对称加密）" class="headerlink" title="HTTPS怎么确认收到的包就是服务器发来的，说一下整个过程（对称加密，非对称加密）"></a>HTTPS怎么确认收到的包就是服务器发来的，说一下整个过程（对称加密，非对称加密）</h3><h3 id="https-ssl讲一下，讲一下证书签发过程"><a href="#https-ssl讲一下，讲一下证书签发过程" class="headerlink" title="https ssl讲一下，讲一下证书签发过程"></a>https ssl讲一下，讲一下证书签发过程</h3><h3 id="确定发送窗口的大小，如何最大利用带宽，假设延迟100ms，发送端10Mb-s，接收端100Mb-s"><a href="#确定发送窗口的大小，如何最大利用带宽，假设延迟100ms，发送端10Mb-s，接收端100Mb-s" class="headerlink" title="确定发送窗口的大小，如何最大利用带宽，假设延迟100ms，发送端10Mb/s，接收端100Mb/s"></a>确定发送窗口的大小，如何最大利用带宽，假设延迟100ms，发送端10Mb/s，接收端100Mb/s</h3><h3 id="浏览器从输入一个URL到响应的全过程。"><a href="#浏览器从输入一个URL到响应的全过程。" class="headerlink" title="浏览器从输入一个URL到响应的全过程。"></a>浏览器从输入一个URL到响应的全过程。</h3><h3 id="讲讲了解的垃圾回收算法和回收器，什么时候执行STOP-THE-WORLD？"><a href="#讲讲了解的垃圾回收算法和回收器，什么时候执行STOP-THE-WORLD？" class="headerlink" title="讲讲了解的垃圾回收算法和回收器，什么时候执行STOP THE WORLD？"></a>讲讲了解的垃圾回收算法和回收器，什么时候执行STOP THE WORLD？</h3><h3 id="进程与线程的区别，进程间通信方式"><a href="#进程与线程的区别，进程间通信方式" class="headerlink" title="进程与线程的区别，进程间通信方式"></a>进程与线程的区别，进程间通信方式</h3><p>{  管道 、FIFO 、 信号量 、 共享内存 、 消息队列 、 Socket  }</p>
+<h3 id="为什么sleep是Thread的方法而不是Object的"><a href="#为什么sleep是Thread的方法而不是Object的" class="headerlink" title="为什么sleep是Thread的方法而不是Object的"></a>为什么sleep是Thread的方法而不是Object的</h3><h3 id="TCP和UDP有什么区别？"><a href="#TCP和UDP有什么区别？" class="headerlink" title="TCP和UDP有什么区别？"></a>TCP和UDP有什么区别？</h3><h3 id="TCP可靠性"><a href="#TCP可靠性" class="headerlink" title="TCP可靠性"></a>TCP可靠性</h3><p>{   ARQ 、 流量控制 、 拥塞控制 、 校验和  }</p>
+<h3 id="TCP的流量控制和拥塞控制，TCP-是长连接还是短连接"><a href="#TCP的流量控制和拥塞控制，TCP-是长连接还是短连接" class="headerlink" title="TCP的流量控制和拥塞控制，TCP 是长连接还是短连接"></a>TCP的流量控制和拥塞控制，TCP 是长连接还是短连接</h3><h3 id="TCP的拥塞控制，具体过程是怎么样的？UDP有拥塞控制吗？如何解决？"><a href="#TCP的拥塞控制，具体过程是怎么样的？UDP有拥塞控制吗？如何解决？" class="headerlink" title="TCP的拥塞控制，具体过程是怎么样的？UDP有拥塞控制吗？如何解决？"></a>TCP的拥塞控制，具体过程是怎么样的？UDP有拥塞控制吗？如何解决？</h3><h3 id="TCP连接过程？TCP三次握手、TCP四次挥手的过程以及原因，握手时产生的序列号干什么用的"><a href="#TCP连接过程？TCP三次握手、TCP四次挥手的过程以及原因，握手时产生的序列号干什么用的" class="headerlink" title="TCP连接过程？TCP三次握手、TCP四次挥手的过程以及原因，握手时产生的序列号干什么用的"></a>TCP连接过程？TCP三次握手、TCP四次挥手的过程以及原因，握手时产生的序列号干什么用的</h3><h3 id="http与https的区别以及https建立连接的过程-HTTPS为什么比HTTP安全？具体是怎么做到的？"><a href="#http与https的区别以及https建立连接的过程-HTTPS为什么比HTTP安全？具体是怎么做到的？" class="headerlink" title="http与https的区别以及https建立连接的过程,HTTPS为什么比HTTP安全？具体是怎么做到的？"></a>http与https的区别以及https建立连接的过程,HTTPS为什么比HTTP安全？具体是怎么做到的？</h3><h3 id="浏览器中输入网址到获得页面的全过程"><a href="#浏览器中输入网址到获得页面的全过程" class="headerlink" title="浏览器中输入网址到获得页面的全过程"></a>浏览器中输入网址到获得页面的全过程</h3><h3 id="输入-www-baidu-com，怎么变成-https-www-baidu-com-的，怎么确定用HTTP还是HTTPS"><a href="#输入-www-baidu-com，怎么变成-https-www-baidu-com-的，怎么确定用HTTP还是HTTPS" class="headerlink" title="输入 www.baidu.com，怎么变成 https://www.baidu.com 的，怎么确定用HTTP还是HTTPS"></a>输入 www.baidu.com，怎么变成 <a href="https://www.baidu.com">https://www.baidu.com</a> 的，怎么确定用HTTP还是HTTPS</h3><h3 id="输入URL显示主页的过程"><a href="#输入URL显示主页的过程" class="headerlink" title="输入URL显示主页的过程"></a>输入URL显示主页的过程</h3><h3 id="接触过哪些后端框架"><a href="#接触过哪些后端框架" class="headerlink" title="接触过哪些后端框架"></a>接触过哪些后端框架</h3><h3 id="知道redis吗"><a href="#知道redis吗" class="headerlink" title="知道redis吗"></a>知道redis吗</h3><h3 id="你用Django的时候，觉得它有哪些好的特性"><a href="#你用Django的时候，觉得它有哪些好的特性" class="headerlink" title="你用Django的时候，觉得它有哪些好的特性"></a>你用Django的时候，觉得它有哪些好的特性</h3><h3 id="操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"><a href="#操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换" class="headerlink" title="操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"></a>操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换</h3><h3 id="说说new和delete发生了什么。"><a href="#说说new和delete发生了什么。" class="headerlink" title="说说new和delete发生了什么。"></a>说说new和delete发生了什么。</h3><h3 id="谈谈你对前后端交互中使用的JSON的理解"><a href="#谈谈你对前后端交互中使用的JSON的理解" class="headerlink" title="谈谈你对前后端交互中使用的JSON的理解"></a>谈谈你对前后端交互中使用的JSON的理解</h3><h3 id="实现读写锁"><a href="#实现读写锁" class="headerlink" title="实现读写锁"></a>实现读写锁</h3><h3 id="怎么给大量url和ip去重"><a href="#怎么给大量url和ip去重" class="headerlink" title="怎么给大量url和ip去重"></a>怎么给大量url和ip去重</h3><h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h3 id="常见锁机制"><a href="#常见锁机制" class="headerlink" title="常见锁机制"></a>常见锁机制</h3><h3 id="ReetrantLock原理"><a href="#ReetrantLock原理" class="headerlink" title="ReetrantLock原理"></a>ReetrantLock原理</h3><h3 id="CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）"><a href="#CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）" class="headerlink" title="CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）"></a>CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）</h3><h3 id="ThreadLocal-原理"><a href="#ThreadLocal-原理" class="headerlink" title="ThreadLocal 原理"></a>ThreadLocal 原理</h3><h3 id="为什么要并发控制？"><a href="#为什么要并发控制？" class="headerlink" title="为什么要并发控制？"></a>为什么要并发控制？</h3><h3 id="了解索引吗？知道实现原理吗？（B-树）"><a href="#了解索引吗？知道实现原理吗？（B-树）" class="headerlink" title="了解索引吗？知道实现原理吗？（B+树）"></a>了解索引吗？知道实现原理吗？（B+树）</h3><h3 id="DNS是什么？内部如何实现？"><a href="#DNS是什么？内部如何实现？" class="headerlink" title="DNS是什么？内部如何实现？"></a>DNS是什么？内部如何实现？</h3><h3 id="ARP是什么？ARP内部如何实现？"><a href="#ARP是什么？ARP内部如何实现？" class="headerlink" title="ARP是什么？ARP内部如何实现？"></a>ARP是什么？ARP内部如何实现？</h3><h3 id="Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别"><a href="#Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别" class="headerlink" title="Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)"></a>Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)</h3><h3 id="cookie的参数有哪些？"><a href="#cookie的参数有哪些？" class="headerlink" title="cookie的参数有哪些？"></a>cookie的参数有哪些？</h3><h3 id="cookie被仿造怎么办？"><a href="#cookie被仿造怎么办？" class="headerlink" title="cookie被仿造怎么办？"></a>cookie被仿造怎么办？</h3><h3 id="Cookie和Session的区别"><a href="#Cookie和Session的区别" class="headerlink" title="Cookie和Session的区别"></a>Cookie和Session的区别</h3><h3 id="session校验服务器该如何设计"><a href="#session校验服务器该如何设计" class="headerlink" title="session校验服务器该如何设计"></a>session校验服务器该如何设计</h3><h3 id="32位整数-1右移两位是啥"><a href="#32位整数-1右移两位是啥" class="headerlink" title="32位整数-1右移两位是啥"></a>32位整数-1右移两位是啥</h3><h3 id="聊一聊多进程多线程，各自的优势，一个服务器大量的请求怎么同步等等"><a href="#聊一聊多进程多线程，各自的优势，一个服务器大量的请求怎么同步等等" class="headerlink" title="聊一聊多进程多线程，各自的优势，一个服务器大量的请求怎么同步等等"></a>聊一聊多进程多线程，各自的优势，一个服务器大量的请求怎么同步等等</h3><h3 id="解释下怎么用自己的协程实现三个协程来做IO，然后等做完后再来做事情，怎么做"><a href="#解释下怎么用自己的协程实现三个协程来做IO，然后等做完后再来做事情，怎么做" class="headerlink" title="解释下怎么用自己的协程实现三个协程来做IO，然后等做完后再来做事情，怎么做"></a>解释下怎么用自己的协程实现三个协程来做IO，然后等做完后再来做事情，怎么做</h3><h3 id="解释下Cache的运行过程，怎么保证cache一致性"><a href="#解释下Cache的运行过程，怎么保证cache一致性" class="headerlink" title="解释下Cache的运行过程，怎么保证cache一致性"></a>解释下Cache的运行过程，怎么保证cache一致性</h3><h3 id="怎么等一个线程做完"><a href="#怎么等一个线程做完" class="headerlink" title="怎么等一个线程做完"></a>怎么等一个线程做完</h3><h3 id="解释下线程和协程区别，协程库中yield干嘛用的"><a href="#解释下线程和协程区别，协程库中yield干嘛用的" class="headerlink" title="解释下线程和协程区别，协程库中yield干嘛用的"></a>解释下线程和协程区别，协程库中yield干嘛用的</h3><h3 id="你写的协程库有没有参考goroutine"><a href="#你写的协程库有没有参考goroutine" class="headerlink" title="你写的协程库有没有参考goroutine"></a>你写的协程库有没有参考goroutine</h3><h3 id="怎么创建新进程，内核做了啥？这个回答了下fork-vfork等，然后具体do-fork过程，copy-on-write等"><a href="#怎么创建新进程，内核做了啥？这个回答了下fork-vfork等，然后具体do-fork过程，copy-on-write等" class="headerlink" title="怎么创建新进程，内核做了啥？这个回答了下fork, vfork等，然后具体do_fork过程，copy on write等"></a>怎么创建新进程，内核做了啥？这个回答了下fork, vfork等，然后具体do_fork过程，copy on write等</h3><h3 id="函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧"><a href="#函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧" class="headerlink" title="函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧"></a>函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧</h3><h3 id="GDB有用过哪些"><a href="#GDB有用过哪些" class="headerlink" title="GDB有用过哪些"></a>GDB有用过哪些</h3><h3 id="TCP-IP-模型-amp-OSI模型"><a href="#TCP-IP-模型-amp-OSI模型" class="headerlink" title="TCP/IP 模型  &amp; OSI模型"></a>TCP/IP 模型  &amp; OSI模型</h3><h3 id="Go的协程说一下，了解协程吗（大概说了下）"><a href="#Go的协程说一下，了解协程吗（大概说了下）" class="headerlink" title="Go的协程说一下，了解协程吗（大概说了下）"></a>Go的协程说一下，了解协程吗（大概说了下）</h3><h3 id="保证线程安全怎么做？"><a href="#保证线程安全怎么做？" class="headerlink" title="保证线程安全怎么做？"></a>保证线程安全怎么做？</h3><h3 id="线程池了解吗？为什么要线程池？"><a href="#线程池了解吗？为什么要线程池？" class="headerlink" title="线程池了解吗？为什么要线程池？"></a>线程池了解吗？为什么要线程池？</h3><p>节省线程创建销毁的开销balabala……</p>
+<h3 id="线程池的中的线程数量能不能无限增加，为什么"><a href="#线程池的中的线程数量能不能无限增加，为什么" class="headerlink" title="线程池的中的线程数量能不能无限增加，为什么?"></a>线程池的中的线程数量能不能无限增加，为什么?</h3><p>不能，线程需要一定开销，太多线程会耗尽计算机资源，（而且过多线程也无法发挥多线程的优势，毕竟cpu核就那么多）</p>
+<h3 id="java-里任务提交给线程池后，那些任务是存储在哪的"><a href="#java-里任务提交给线程池后，那些任务是存储在哪的" class="headerlink" title="java 里任务提交给线程池后，那些任务是存储在哪的?"></a>java 里任务提交给线程池后，那些任务是存储在哪的?</h3><p>这里一开始没懂面试官的意思，面试官给了两次提醒，想起是把任务用 Runable（其实也可以是Callable） 表示，放在一个阻塞队列里。</p>
+<h3 id="阻塞队列怎么实现？"><a href="#阻塞队列怎么实现？" class="headerlink" title="阻塞队列怎么实现？"></a>阻塞队列怎么实现？</h3><p>创建一个数组或者链表，每次取元素或者放元素就对数组操作。没有元素而要取元素时，阻塞，满了而要放元素时，阻塞。</p>
+<h3 id="队列满了，那个线程池的-submit-方法会阻塞在那里？"><a href="#队列满了，那个线程池的-submit-方法会阻塞在那里？" class="headerlink" title="队列满了，那个线程池的 submit 方法会阻塞在那里？"></a>队列满了，那个线程池的 submit 方法会阻塞在那里？</h3><p>emmm应该不会，那应该是动态扩容……</p>
+<h3 id="数组怎么扩容？"><a href="#数组怎么扩容？" class="headerlink" title="数组怎么扩容？"></a>数组怎么扩容？</h3><p>新建一个更大新数组，然后复制过去……</p>
+<h3 id="复制的时候锁住数组，所有的操作都阻塞？"><a href="#复制的时候锁住数组，所有的操作都阻塞？" class="headerlink" title="复制的时候锁住数组，所有的操作都阻塞？"></a>复制的时候锁住数组，所有的操作都阻塞？</h3><p>（面试之后去看了线程池里的阻塞队列，似乎都是用链表实现的，没有用数组。用到的队列似乎默认都是动态扩容的，最大为整数最大值。如果队列满了又不支持动态扩容，可以通过设置饱和策略来处理，默认是中止，也就是抛出 RejectedExecutionException。）</p>
+<h3 id="讲一下-volatile-。"><a href="#讲一下-volatile-。" class="headerlink" title="讲一下 volatile 。"></a>讲一下 volatile 。</h3><p>内存可见性、指令重排、32位jvm对64数据的原子操作什么的</p>
+<h3 id="volatile-可以保证并发计数正确性？"><a href="#volatile-可以保证并发计数正确性？" class="headerlink" title="volatile 可以保证并发计数正确性？"></a>volatile 可以保证并发计数正确性？</h3><p>不能</p>
+<h3 id="如果需要保证并发计数正确怎么办，只能加锁吗？"><a href="#如果需要保证并发计数正确怎么办，只能加锁吗？" class="headerlink" title="如果需要保证并发计数正确怎么办，只能加锁吗？"></a>如果需要保证并发计数正确怎么办，只能加锁吗？</h3><p>计数是个轻量级的操作，java 有原子变量，于是说 AtomicInteger。</p>
+<h3 id="为什么原子变量能保证高效正确计数？"><a href="#为什么原子变量能保证高效正确计数？" class="headerlink" title="为什么原子变量能保证高效正确计数？"></a>为什么原子变量能保证高效正确计数？</h3><h3 id="读写分离有什么用？"><a href="#读写分离有什么用？" class="headerlink" title="读写分离有什么用？"></a>读写分离有什么用？</h3><p>写操作都在主库，读操作都在分库，让读操作能并发，提高效率。</p>
+<h3 id="如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？"><a href="#如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？" class="headerlink" title="如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？"></a>如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？</h3><p>只在写时加锁，读不加锁……</p>
+<h3 id="那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？"><a href="#那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？" class="headerlink" title="那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？"></a>那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？</h3><p>emmm写操作时，先锁住锁1，在线程本地也就是函数局部计算完所有结果后，锁住锁2，一次更新完后再释放2个锁，读操作只锁住锁2……</p>
+<h3 id="为什么要有-time-wait-。"><a href="#为什么要有-time-wait-。" class="headerlink" title="为什么要有 time_wait 。"></a>为什么要有 time_wait 。</h3><p>防止影响新连接，主动关闭方如果直接退出了，收到被动关闭方的重发 fin 时，只能返回 RST 而不能返回 ACK</p>
+<h3 id="time-wait-和-close-wait-具体干什么"><a href="#time-wait-和-close-wait-具体干什么" class="headerlink" title="time_wait 和 close_wait 具体干什么"></a>time_wait 和 close_wait 具体干什么</h3><h3 id="用户态和内核态的区别"><a href="#用户态和内核态的区别" class="headerlink" title="用户态和内核态的区别"></a>用户态和内核态的区别</h3><h3 id="fork-作用"><a href="#fork-作用" class="headerlink" title="fork()作用"></a>fork()作用</h3><h3 id="Select-poll-epoll的区别"><a href="#Select-poll-epoll的区别" class="headerlink" title="Select poll epoll的区别"></a>Select poll epoll的区别</h3><h3 id="虚拟内存作用？-内存分页的作用？"><a href="#虚拟内存作用？-内存分页的作用？" class="headerlink" title="虚拟内存作用？ 内存分页的作用？"></a>虚拟内存作用？ 内存分页的作用？</h3><h3 id="缺页异常的介绍"><a href="#缺页异常的介绍" class="headerlink" title="缺页异常的介绍"></a>缺页异常的介绍</h3><h3 id="OOM问题和-StackOverFlow的区别"><a href="#OOM问题和-StackOverFlow的区别" class="headerlink" title="OOM问题和 StackOverFlow的区别"></a>OOM问题和 StackOverFlow的区别</h3><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="数据库事务隔离级别"><a href="#数据库事务隔离级别" class="headerlink" title="数据库事务隔离级别"></a>数据库事务隔离级别</h3><h3 id="多人同时使用数据库的注意事项"><a href="#多人同时使用数据库的注意事项" class="headerlink" title="多人同时使用数据库的注意事项"></a>多人同时使用数据库的注意事项</h3><h3 id="MySQL与其他主流数据库相比有什么特点？"><a href="#MySQL与其他主流数据库相比有什么特点？" class="headerlink" title="MySQL与其他主流数据库相比有什么特点？"></a>MySQL与其他主流数据库相比有什么特点？</h3><h3 id="事务的四大特性"><a href="#事务的四大特性" class="headerlink" title="事务的四大特性"></a>事务的四大特性</h3><h3 id="四种隔离级别"><a href="#四种隔离级别" class="headerlink" title="四种隔离级别"></a>四种隔离级别</h3><h3 id="什么是幻读"><a href="#什么是幻读" class="headerlink" title="什么是幻读"></a>什么是幻读</h3><h3 id="InnoDB-怎么防止幻读"><a href="#InnoDB-怎么防止幻读" class="headerlink" title="InnoDB 怎么防止幻读"></a>InnoDB 怎么防止幻读</h3><h3 id="B-树原理，为什么使用B-而不是二叉平衡树"><a href="#B-树原理，为什么使用B-而不是二叉平衡树" class="headerlink" title="B+树原理，为什么使用B+而不是二叉平衡树"></a>B+树原理，为什么使用B+而不是二叉平衡树</h3><h3 id="为什么要分用户态和内核态"><a href="#为什么要分用户态和内核态" class="headerlink" title="为什么要分用户态和内核态"></a>为什么要分用户态和内核态</h3><h3 id="Git-切换分支，提交，具体如何合并分支"><a href="#Git-切换分支，提交，具体如何合并分支" class="headerlink" title="Git 切换分支，提交，具体如何合并分支"></a>Git 切换分支，提交，具体如何合并分支</h3><h3 id="数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）"><a href="#数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）" class="headerlink" title="数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）"></a>数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）</h3><h3 id="MySQL的索引-B-和B树的区别，为啥用B-；"><a href="#MySQL的索引-B-和B树的区别，为啥用B-；" class="headerlink" title="MySQL的索引(B+和B树的区别，为啥用B+)；"></a>MySQL的索引(B+和B树的区别，为啥用B+)；</h3><h3 id="让你设计数据库会注意什么；"><a href="#让你设计数据库会注意什么；" class="headerlink" title="让你设计数据库会注意什么；"></a>让你设计数据库会注意什么；</h3><h3 id="【高频】MyISAM-和-InnoDB的区别"><a href="#【高频】MyISAM-和-InnoDB的区别" class="headerlink" title="【高频】MyISAM 和 InnoDB的区别"></a>【高频】MyISAM 和 InnoDB的区别</h3><p>{是否支持行锁 、 是否支持十五 、 是否支持 MVCC 、 底层索引结构不同 }</p>
+<h3 id="update时什么锁-next-key-lock，但唯一性索引时降级为行锁，"><a href="#update时什么锁-next-key-lock，但唯一性索引时降级为行锁，" class="headerlink" title="update时什么锁 (next-key lock，但唯一性索引时降级为行锁，"></a>update时什么锁 (next-key lock，但唯一性索引时降级为行锁，</h3><h3 id="Mysql-比较熟悉是吧？说一下底层数据存储原理？"><a href="#Mysql-比较熟悉是吧？说一下底层数据存储原理？" class="headerlink" title="Mysql 比较熟悉是吧？说一下底层数据存储原理？"></a>Mysql 比较熟悉是吧？说一下底层数据存储原理？</h3><p>如果直接线性存储的话，每次查找数据都要整个遍历一遍，那么复杂度就是log(n)，于是可以用二叉树来存储，把复杂度降低到约log(n)，但是二叉树有个特点就是，它有可能因为插入顺序的问题，变得不平衡，最坏情况就是都在节点一边，又变成了log(n)，所有就通过改进插入和删除等操作，保证每次操作完后树都是平衡的，就有了B树……</p>
+<h3 id="说一下建表时，建索引有哪些要注意的。"><a href="#说一下建表时，建索引有哪些要注意的。" class="headerlink" title="说一下建表时，建索引有哪些要注意的。"></a>说一下建表时，建索引有哪些要注意的。</h3><p>选区分度比较大的，选数据类型比较小的比如整数而不要选长字符串，选where子句中出现的，覆盖索引 balabala……</p>
+<h3 id="事务特性ACID"><a href="#事务特性ACID" class="headerlink" title="事务特性ACID"></a>事务特性ACID</h3><p>深入一些 ： 为什么要有一致性 ？ AID不是已经保证了一致性了吗 ？</p>
+<h3 id="并发事务带来的问题"><a href="#并发事务带来的问题" class="headerlink" title="并发事务带来的问题"></a>并发事务带来的问题</h3><p>{    脏读 、 修改丢失 、 不可重复读 、 幻影读    }</p>
+<h3 id="【高频】事务的隔离级别"><a href="#【高频】事务的隔离级别" class="headerlink" title="【高频】事务的隔离级别"></a>【高频】事务的隔离级别</h3><h3 id="【高频】-MVCC机制"><a href="#【高频】-MVCC机制" class="headerlink" title="【高频】 MVCC机制"></a>【高频】 MVCC机制</h3><h3 id="【高频】索引"><a href="#【高频】索引" class="headerlink" title="【高频】索引"></a>【高频】索引</h3><h3 id="为什么索引使用B-树结构，而不是B树"><a href="#为什么索引使用B-树结构，而不是B树" class="headerlink" title="为什么索引使用B+树结构，而不是B树"></a>为什么索引使用B+树结构，而不是B树</h3><h3 id="为什么索引使用B-树结构，而不是红黑树-：-磁盘预读取-、红黑树高度"><a href="#为什么索引使用B-树结构，而不是红黑树-：-磁盘预读取-、红黑树高度" class="headerlink" title="为什么索引使用B+树结构，而不是红黑树 ： {  磁盘预读取 、红黑树高度 }"></a>为什么索引使用B+树结构，而不是红黑树 ： {  磁盘预读取 、红黑树高度 }</h3><h3 id="聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？"><a href="#聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？" class="headerlink" title="聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？"></a>聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？</h3><h3 id="为什么不对每个列创建索引呢？"><a href="#为什么不对每个列创建索引呢？" class="headerlink" title="为什么不对每个列创建索引呢？"></a>为什么不对每个列创建索引呢？</h3><h3 id="【高频】SQL语句优化-，SQL题目（字节要求撸代码）"><a href="#【高频】SQL语句优化-，SQL题目（字节要求撸代码）" class="headerlink" title="【高频】SQL语句优化 ，SQL题目（字节要求撸代码）"></a>【高频】SQL语句优化 ，SQL题目（字节要求撸代码）</h3><h3 id="explain中-rows-type-key-extra字段的含义？"><a href="#explain中-rows-type-key-extra字段的含义？" class="headerlink" title="explain中 rows type key extra字段的含义？"></a>explain中 rows type key extra字段的含义？</h3><h3 id="count-1-count-count-列值-的区别"><a href="#count-1-count-count-列值-的区别" class="headerlink" title="count(1) count(*) count(列值)的区别"></a>count(1) count(*) count(列值)的区别</h3><h3 id="数据库的关系有哪些？"><a href="#数据库的关系有哪些？" class="headerlink" title="数据库的关系有哪些？"></a>数据库的关系有哪些？</h3><h3 id="一对多怎么实现？多对多怎么实现？"><a href="#一对多怎么实现？多对多怎么实现？" class="headerlink" title="一对多怎么实现？多对多怎么实现？"></a>一对多怎么实现？多对多怎么实现？</h3><h3 id="MySQL数据库有哪些类型？这些类型有什么区别？"><a href="#MySQL数据库有哪些类型？这些类型有什么区别？" class="headerlink" title="MySQL数据库有哪些类型？这些类型有什么区别？"></a>MySQL数据库有哪些类型？这些类型有什么区别？</h3><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="哈希表如何扩容？具体的操作是什么？"><a href="#哈希表如何扩容？具体的操作是什么？" class="headerlink" title="哈希表如何扩容？具体的操作是什么？"></a>哈希表如何扩容？具体的操作是什么？</h3><h3 id="解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程"><a href="#解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程" class="headerlink" title="解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程"></a>解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程</h3><h3 id="设计一个线程池"><a href="#设计一个线程池" class="headerlink" title="设计一个线程池"></a>设计一个线程池</h3><h3 id="解释下内存中堆和栈，写一个stack-overflow的代码"><a href="#解释下内存中堆和栈，写一个stack-overflow的代码" class="headerlink" title="解释下内存中堆和栈，写一个stack overflow的代码"></a>解释下内存中堆和栈，写一个stack overflow的代码</h3><h3 id="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"><a href="#什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？" class="headerlink" title="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"></a>什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？</h3><h3 id="元组和list的区别；"><a href="#元组和list的区别；" class="headerlink" title="元组和list的区别；"></a>元组和list的区别；</h3><h3 id="list的底层怎么实现的；"><a href="#list的底层怎么实现的；" class="headerlink" title="list的底层怎么实现的；"></a>list的底层怎么实现的；</h3><h3 id="双等于和is有什么区别"><a href="#双等于和is有什么区别" class="headerlink" title="双等于和is有什么区别"></a>双等于和is有什么区别</h3><h3 id="栈的默认大小（1M）"><a href="#栈的默认大小（1M）" class="headerlink" title="栈的默认大小（1M）"></a>栈的默认大小（1M）</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="说一说各种排序算法原理，及其时间复杂度。"><a href="#说一说各种排序算法原理，及其时间复杂度。" class="headerlink" title="说一说各种排序算法原理，及其时间复杂度。"></a>说一说各种排序算法原理，及其时间复杂度。</h3><h3 id="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"><a href="#一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和" class="headerlink" title="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"></a>一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和</h3><h3 id="栈，队列是什么？区别是什么？"><a href="#栈，队列是什么？区别是什么？" class="headerlink" title="栈，队列是什么？区别是什么？"></a>栈，队列是什么？区别是什么？</h3><h3 id="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"><a href="#设计一个可以满足高效率获取第k大和前k个大的元素的数据结构" class="headerlink" title="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"></a>设计一个可以满足高效率获取第k大和前k个大的元素的数据结构</h3><h3 id="手写求两个链表第一个交叉节点"><a href="#手写求两个链表第一个交叉节点" class="headerlink" title="手写求两个链表第一个交叉节点"></a>手写求两个链表第一个交叉节点</h3><h3 id="求x的y次方，想出比直接for循环更好的方案"><a href="#求x的y次方，想出比直接for循环更好的方案" class="headerlink" title="求x的y次方，想出比直接for循环更好的方案"></a>求x的y次方，想出比直接for循环更好的方案</h3><h3 id="求绝对众数"><a href="#求绝对众数" class="headerlink" title="求绝对众数"></a>求绝对众数</h3><h3 id="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"><a href="#二叉树，输出所有和为n的路径（可以从中间结点到中间结点）" class="headerlink" title="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"></a>二叉树，输出所有和为n的路径（可以从中间结点到中间结点）</h3><h3 id="如何用两个栈实现一个队列。"><a href="#如何用两个栈实现一个队列。" class="headerlink" title="如何用两个栈实现一个队列。"></a>如何用两个栈实现一个队列。</h3><h3 id="如何开启一个进程。"><a href="#如何开启一个进程。" class="headerlink" title="如何开启一个进程。"></a>如何开启一个进程。</h3><h3 id="实现一个-hashtable"><a href="#实现一个-hashtable" class="headerlink" title="实现一个 hashtable"></a>实现一个 hashtable</h3><h3 id="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"><a href="#写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。" class="headerlink" title="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"></a>写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。</h3><h3 id="最长公共连续子串"><a href="#最长公共连续子串" class="headerlink" title="最长公共连续子串"></a>最长公共连续子串</h3><h3 id="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；"><a href="#几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；" class="headerlink" title="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；"></a>几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；</h3><h3 id="判断平衡二叉树。"><a href="#判断平衡二叉树。" class="headerlink" title="判断平衡二叉树。"></a>判断平衡二叉树。</h3><h3 id="1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL"><a href="#1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL" class="headerlink" title="1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL"></a>1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL</h3><h3 id="有序数组转二叉搜索树"><a href="#有序数组转二叉搜索树" class="headerlink" title="有序数组转二叉搜索树"></a>有序数组转二叉搜索树</h3><h3 id="设计阻塞队列（不能用JDK的api"><a href="#设计阻塞队列（不能用JDK的api" class="headerlink" title="设计阻塞队列（不能用JDK的api"></a>设计阻塞队列（不能用JDK的api</h3><h3 id="了解哪些设计模式？手写一个工厂方法模式"><a href="#了解哪些设计模式？手写一个工厂方法模式" class="headerlink" title="了解哪些设计模式？手写一个工厂方法模式"></a>了解哪些设计模式？手写一个工厂方法模式</h3><h3 id="手撕sql"><a href="#手撕sql" class="headerlink" title="手撕sql"></a>手撕sql</h3><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><h3 id="expoll了解吗"><a href="#expoll了解吗" class="headerlink" title="expoll了解吗"></a>expoll了解吗</h3><h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><h3 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h3><h3 id="讲一下spring-mvc的原理"><a href="#讲一下spring-mvc的原理" class="headerlink" title="讲一下spring mvc的原理"></a>讲一下spring mvc的原理</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/12/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/14/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8-JAVA/" rel="prev" title="字节跳动-JAVA">
+                字节跳动-JAVA <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kelly Huang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/huangliu0909" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="wiwillow@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python"><span class="nav-number">1.</span> <span class="nav-text">Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python可变参数args，-kwargs"><span class="nav-number">1.1.</span> <span class="nav-text">Python可变参数args，*kwargs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python内置容器及其容器及其使用场景"><span class="nav-number">1.2.</span> <span class="nav-text">Python内置容器及其容器及其使用场景 </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python多线程"><span class="nav-number">1.3.</span> <span class="nav-text">python多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对Python了解吗？说说它底层的实现原理。"><span class="nav-number">1.4.</span> <span class="nav-text">对Python了解吗？说说它底层的实现原理。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Python生成器，迭代器；"><span class="nav-number">1.5.</span> <span class="nav-text">什么是Python生成器，迭代器；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python中的dict底层怎么实现的"><span class="nav-number">1.6.</span> <span class="nav-text">Python中的dict底层怎么实现的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python多线程用了几个CPU"><span class="nav-number">1.7.</span> <span class="nav-text">Python多线程用了几个CPU</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C"><span class="nav-number">2.</span> <span class="nav-text">C++</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-中const与-define的区别与优势"><span class="nav-number">2.1.</span> <span class="nav-text">C++中const与#define的区别与优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-11新特性auto的用法"><span class="nav-number">2.2.</span> <span class="nav-text">C++11新特性auto的用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-虚函数，读程序写结果"><span class="nav-number">2.3.</span> <span class="nav-text">C++虚函数，读程序写结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-关键字static、extern"><span class="nav-number">2.4.</span> <span class="nav-text">C++关键字static、extern</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景"><span class="nav-number">2.5.</span> <span class="nav-text">C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-中new和delete语句的底层实现"><span class="nav-number">2.6.</span> <span class="nav-text">C++中new和delete语句的底层实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言之间的对比"><span class="nav-number">3.</span> <span class="nav-text">编程语言之间的对比</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java和C-相比有什么特点？"><span class="nav-number">3.1.</span> <span class="nav-text">Java和C++相比有什么特点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-为什么比Java运行得快？"><span class="nav-number">3.2.</span> <span class="nav-text">C++为什么比Java运行得快？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java和python的异同？"><span class="nav-number">3.3.</span> <span class="nav-text">java和python的异同？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机系统"><span class="nav-number">4.</span> <span class="nav-text">计算机系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解Linux么？用过哪些命令？"><span class="nav-number">4.1.</span> <span class="nav-text">了解Linux么？用过哪些命令？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSO了解吗？"><span class="nav-number">4.2.</span> <span class="nav-text">SSO了解吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡了解吗？"><span class="nav-number">4.3.</span> <span class="nav-text">负载均衡了解吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MD5加密可逆吗？会被破解吗-如何破解？"><span class="nav-number">4.4.</span> <span class="nav-text">MD5加密可逆吗？会被破解吗?如何破解？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"><span class="nav-number">4.5.</span> <span class="nav-text">DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发用什么"><span class="nav-number">4.6.</span> <span class="nav-text">并发用什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get和post的区别"><span class="nav-number">4.7.</span> <span class="nav-text">get和post的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说下http-request-和-response"><span class="nav-number">4.8.</span> <span class="nav-text">说下http request 和 response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的状态码"><span class="nav-number">4.9.</span> <span class="nav-text">常见的状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讲一下接收窗口"><span class="nav-number">4.10.</span> <span class="nav-text">讲一下接收窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#滑动窗口是干什么的？"><span class="nav-number">4.11.</span> <span class="nav-text">滑动窗口是干什么的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拥塞窗口是干什么的？"><span class="nav-number">4.12.</span> <span class="nav-text">拥塞窗口是干什么的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7层模型和4层模型，每一层有哪些常见协议？"><span class="nav-number">4.13.</span> <span class="nav-text">7层模型和4层模型，每一层有哪些常见协议？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由器-交换机是哪一层"><span class="nav-number">4.14.</span> <span class="nav-text">路由器&#x2F;交换机是哪一层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络层用来干嘛？传输层用来干嘛？"><span class="nav-number">4.15.</span> <span class="nav-text">网络层用来干嘛？传输层用来干嘛？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP可以使用UDP吗，"><span class="nav-number">4.16.</span> <span class="nav-text">HTTP可以使用UDP吗，</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP协议的报文格式"><span class="nav-number">4.17.</span> <span class="nav-text">HTTP协议的报文格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Http1-0-和HTTP1-1-和-Http2-x-的区别"><span class="nav-number">4.18.</span> <span class="nav-text">Http1.0 和HTTP1.1 和 Http2.x 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS怎么确认收到的包就是服务器发来的，说一下整个过程（对称加密，非对称加密）"><span class="nav-number">4.19.</span> <span class="nav-text">HTTPS怎么确认收到的包就是服务器发来的，说一下整个过程（对称加密，非对称加密）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#https-ssl讲一下，讲一下证书签发过程"><span class="nav-number">4.20.</span> <span class="nav-text">https ssl讲一下，讲一下证书签发过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定发送窗口的大小，如何最大利用带宽，假设延迟100ms，发送端10Mb-s，接收端100Mb-s"><span class="nav-number">4.21.</span> <span class="nav-text">确定发送窗口的大小，如何最大利用带宽，假设延迟100ms，发送端10Mb&#x2F;s，接收端100Mb&#x2F;s</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器从输入一个URL到响应的全过程。"><span class="nav-number">4.22.</span> <span class="nav-text">浏览器从输入一个URL到响应的全过程。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讲讲了解的垃圾回收算法和回收器，什么时候执行STOP-THE-WORLD？"><span class="nav-number">4.23.</span> <span class="nav-text">讲讲了解的垃圾回收算法和回收器，什么时候执行STOP THE WORLD？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程与线程的区别，进程间通信方式"><span class="nav-number">4.24.</span> <span class="nav-text">进程与线程的区别，进程间通信方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么sleep是Thread的方法而不是Object的"><span class="nav-number">4.25.</span> <span class="nav-text">为什么sleep是Thread的方法而不是Object的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP和UDP有什么区别？"><span class="nav-number">4.26.</span> <span class="nav-text">TCP和UDP有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP可靠性"><span class="nav-number">4.27.</span> <span class="nav-text">TCP可靠性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP的流量控制和拥塞控制，TCP-是长连接还是短连接"><span class="nav-number">4.28.</span> <span class="nav-text">TCP的流量控制和拥塞控制，TCP 是长连接还是短连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP的拥塞控制，具体过程是怎么样的？UDP有拥塞控制吗？如何解决？"><span class="nav-number">4.29.</span> <span class="nav-text">TCP的拥塞控制，具体过程是怎么样的？UDP有拥塞控制吗？如何解决？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP连接过程？TCP三次握手、TCP四次挥手的过程以及原因，握手时产生的序列号干什么用的"><span class="nav-number">4.30.</span> <span class="nav-text">TCP连接过程？TCP三次握手、TCP四次挥手的过程以及原因，握手时产生的序列号干什么用的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http与https的区别以及https建立连接的过程-HTTPS为什么比HTTP安全？具体是怎么做到的？"><span class="nav-number">4.31.</span> <span class="nav-text">http与https的区别以及https建立连接的过程,HTTPS为什么比HTTP安全？具体是怎么做到的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器中输入网址到获得页面的全过程"><span class="nav-number">4.32.</span> <span class="nav-text">浏览器中输入网址到获得页面的全过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入-www-baidu-com，怎么变成-https-www-baidu-com-的，怎么确定用HTTP还是HTTPS"><span class="nav-number">4.33.</span> <span class="nav-text">输入 www.baidu.com，怎么变成 https:&#x2F;&#x2F;www.baidu.com 的，怎么确定用HTTP还是HTTPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入URL显示主页的过程"><span class="nav-number">4.34.</span> <span class="nav-text">输入URL显示主页的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接触过哪些后端框架"><span class="nav-number">4.35.</span> <span class="nav-text">接触过哪些后端框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#知道redis吗"><span class="nav-number">4.36.</span> <span class="nav-text">知道redis吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你用Django的时候，觉得它有哪些好的特性"><span class="nav-number">4.37.</span> <span class="nav-text">你用Django的时候，觉得它有哪些好的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"><span class="nav-number">4.38.</span> <span class="nav-text">操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说说new和delete发生了什么。"><span class="nav-number">4.39.</span> <span class="nav-text">说说new和delete发生了什么。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谈谈你对前后端交互中使用的JSON的理解"><span class="nav-number">4.40.</span> <span class="nav-text">谈谈你对前后端交互中使用的JSON的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现读写锁"><span class="nav-number">4.41.</span> <span class="nav-text">实现读写锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么给大量url和ip去重"><span class="nav-number">4.42.</span> <span class="nav-text">怎么给大量url和ip去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">4.43.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见锁机制"><span class="nav-number">4.44.</span> <span class="nav-text">常见锁机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReetrantLock原理"><span class="nav-number">4.45.</span> <span class="nav-text">ReetrantLock原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）"><span class="nav-number">4.46.</span> <span class="nav-text">CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal-原理"><span class="nav-number">4.47.</span> <span class="nav-text">ThreadLocal 原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要并发控制？"><span class="nav-number">4.48.</span> <span class="nav-text">为什么要并发控制？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解索引吗？知道实现原理吗？（B-树）"><span class="nav-number">4.49.</span> <span class="nav-text">了解索引吗？知道实现原理吗？（B+树）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS是什么？内部如何实现？"><span class="nav-number">4.50.</span> <span class="nav-text">DNS是什么？内部如何实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARP是什么？ARP内部如何实现？"><span class="nav-number">4.51.</span> <span class="nav-text">ARP是什么？ARP内部如何实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别"><span class="nav-number">4.52.</span> <span class="nav-text">Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie的参数有哪些？"><span class="nav-number">4.53.</span> <span class="nav-text">cookie的参数有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie被仿造怎么办？"><span class="nav-number">4.54.</span> <span class="nav-text">cookie被仿造怎么办？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie和Session的区别"><span class="nav-number">4.55.</span> <span class="nav-text">Cookie和Session的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session校验服务器该如何设计"><span class="nav-number">4.56.</span> <span class="nav-text">session校验服务器该如何设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32位整数-1右移两位是啥"><span class="nav-number">4.57.</span> <span class="nav-text">32位整数-1右移两位是啥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聊一聊多进程多线程，各自的优势，一个服务器大量的请求怎么同步等等"><span class="nav-number">4.58.</span> <span class="nav-text">聊一聊多进程多线程，各自的优势，一个服务器大量的请求怎么同步等等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解释下怎么用自己的协程实现三个协程来做IO，然后等做完后再来做事情，怎么做"><span class="nav-number">4.59.</span> <span class="nav-text">解释下怎么用自己的协程实现三个协程来做IO，然后等做完后再来做事情，怎么做</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解释下Cache的运行过程，怎么保证cache一致性"><span class="nav-number">4.60.</span> <span class="nav-text">解释下Cache的运行过程，怎么保证cache一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么等一个线程做完"><span class="nav-number">4.61.</span> <span class="nav-text">怎么等一个线程做完</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解释下线程和协程区别，协程库中yield干嘛用的"><span class="nav-number">4.62.</span> <span class="nav-text">解释下线程和协程区别，协程库中yield干嘛用的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你写的协程库有没有参考goroutine"><span class="nav-number">4.63.</span> <span class="nav-text">你写的协程库有没有参考goroutine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么创建新进程，内核做了啥？这个回答了下fork-vfork等，然后具体do-fork过程，copy-on-write等"><span class="nav-number">4.64.</span> <span class="nav-text">怎么创建新进程，内核做了啥？这个回答了下fork, vfork等，然后具体do_fork过程，copy on write等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧"><span class="nav-number">4.65.</span> <span class="nav-text">函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GDB有用过哪些"><span class="nav-number">4.66.</span> <span class="nav-text">GDB有用过哪些</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-模型-amp-OSI模型"><span class="nav-number">4.67.</span> <span class="nav-text">TCP&#x2F;IP 模型  &amp; OSI模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go的协程说一下，了解协程吗（大概说了下）"><span class="nav-number">4.68.</span> <span class="nav-text">Go的协程说一下，了解协程吗（大概说了下）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保证线程安全怎么做？"><span class="nav-number">4.69.</span> <span class="nav-text">保证线程安全怎么做？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池了解吗？为什么要线程池？"><span class="nav-number">4.70.</span> <span class="nav-text">线程池了解吗？为什么要线程池？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的中的线程数量能不能无限增加，为什么"><span class="nav-number">4.71.</span> <span class="nav-text">线程池的中的线程数量能不能无限增加，为什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-里任务提交给线程池后，那些任务是存储在哪的"><span class="nav-number">4.72.</span> <span class="nav-text">java 里任务提交给线程池后，那些任务是存储在哪的?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞队列怎么实现？"><span class="nav-number">4.73.</span> <span class="nav-text">阻塞队列怎么实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列满了，那个线程池的-submit-方法会阻塞在那里？"><span class="nav-number">4.74.</span> <span class="nav-text">队列满了，那个线程池的 submit 方法会阻塞在那里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组怎么扩容？"><span class="nav-number">4.75.</span> <span class="nav-text">数组怎么扩容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制的时候锁住数组，所有的操作都阻塞？"><span class="nav-number">4.76.</span> <span class="nav-text">复制的时候锁住数组，所有的操作都阻塞？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讲一下-volatile-。"><span class="nav-number">4.77.</span> <span class="nav-text">讲一下 volatile 。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile-可以保证并发计数正确性？"><span class="nav-number">4.78.</span> <span class="nav-text">volatile 可以保证并发计数正确性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果需要保证并发计数正确怎么办，只能加锁吗？"><span class="nav-number">4.79.</span> <span class="nav-text">如果需要保证并发计数正确怎么办，只能加锁吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么原子变量能保证高效正确计数？"><span class="nav-number">4.80.</span> <span class="nav-text">为什么原子变量能保证高效正确计数？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读写分离有什么用？"><span class="nav-number">4.81.</span> <span class="nav-text">读写分离有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？"><span class="nav-number">4.82.</span> <span class="nav-text">如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？"><span class="nav-number">4.83.</span> <span class="nav-text">那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要有-time-wait-。"><span class="nav-number">4.84.</span> <span class="nav-text">为什么要有 time_wait 。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#time-wait-和-close-wait-具体干什么"><span class="nav-number">4.85.</span> <span class="nav-text">time_wait 和 close_wait 具体干什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户态和内核态的区别"><span class="nav-number">4.86.</span> <span class="nav-text">用户态和内核态的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-作用"><span class="nav-number">4.87.</span> <span class="nav-text">fork()作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Select-poll-epoll的区别"><span class="nav-number">4.88.</span> <span class="nav-text">Select poll epoll的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存作用？-内存分页的作用？"><span class="nav-number">4.89.</span> <span class="nav-text">虚拟内存作用？ 内存分页的作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺页异常的介绍"><span class="nav-number">4.90.</span> <span class="nav-text">缺页异常的介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OOM问题和-StackOverFlow的区别"><span class="nav-number">4.91.</span> <span class="nav-text">OOM问题和 StackOverFlow的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">5.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库事务隔离级别"><span class="nav-number">5.1.</span> <span class="nav-text">数据库事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多人同时使用数据库的注意事项"><span class="nav-number">5.2.</span> <span class="nav-text">多人同时使用数据库的注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL与其他主流数据库相比有什么特点？"><span class="nav-number">5.3.</span> <span class="nav-text">MySQL与其他主流数据库相比有什么特点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务的四大特性"><span class="nav-number">5.4.</span> <span class="nav-text">事务的四大特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种隔离级别"><span class="nav-number">5.5.</span> <span class="nav-text">四种隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是幻读"><span class="nav-number">5.6.</span> <span class="nav-text">什么是幻读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB-怎么防止幻读"><span class="nav-number">5.7.</span> <span class="nav-text">InnoDB 怎么防止幻读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树原理，为什么使用B-而不是二叉平衡树"><span class="nav-number">5.8.</span> <span class="nav-text">B+树原理，为什么使用B+而不是二叉平衡树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要分用户态和内核态"><span class="nav-number">5.9.</span> <span class="nav-text">为什么要分用户态和内核态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git-切换分支，提交，具体如何合并分支"><span class="nav-number">5.10.</span> <span class="nav-text">Git 切换分支，提交，具体如何合并分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）"><span class="nav-number">5.11.</span> <span class="nav-text">数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL的索引-B-和B树的区别，为啥用B-；"><span class="nav-number">5.12.</span> <span class="nav-text">MySQL的索引(B+和B树的区别，为啥用B+)；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让你设计数据库会注意什么；"><span class="nav-number">5.13.</span> <span class="nav-text">让你设计数据库会注意什么；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【高频】MyISAM-和-InnoDB的区别"><span class="nav-number">5.14.</span> <span class="nav-text">【高频】MyISAM 和 InnoDB的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update时什么锁-next-key-lock，但唯一性索引时降级为行锁，"><span class="nav-number">5.15.</span> <span class="nav-text">update时什么锁 (next-key lock，但唯一性索引时降级为行锁，</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql-比较熟悉是吧？说一下底层数据存储原理？"><span class="nav-number">5.16.</span> <span class="nav-text">Mysql 比较熟悉是吧？说一下底层数据存储原理？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说一下建表时，建索引有哪些要注意的。"><span class="nav-number">5.17.</span> <span class="nav-text">说一下建表时，建索引有哪些要注意的。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务特性ACID"><span class="nav-number">5.18.</span> <span class="nav-text">事务特性ACID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发事务带来的问题"><span class="nav-number">5.19.</span> <span class="nav-text">并发事务带来的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【高频】事务的隔离级别"><span class="nav-number">5.20.</span> <span class="nav-text">【高频】事务的隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【高频】-MVCC机制"><span class="nav-number">5.21.</span> <span class="nav-text">【高频】 MVCC机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【高频】索引"><span class="nav-number">5.22.</span> <span class="nav-text">【高频】索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么索引使用B-树结构，而不是B树"><span class="nav-number">5.23.</span> <span class="nav-text">为什么索引使用B+树结构，而不是B树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么索引使用B-树结构，而不是红黑树-：-磁盘预读取-、红黑树高度"><span class="nav-number">5.24.</span> <span class="nav-text">为什么索引使用B+树结构，而不是红黑树 ： {  磁盘预读取 、红黑树高度 }</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？"><span class="nav-number">5.25.</span> <span class="nav-text">聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么不对每个列创建索引呢？"><span class="nav-number">5.26.</span> <span class="nav-text">为什么不对每个列创建索引呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【高频】SQL语句优化-，SQL题目（字节要求撸代码）"><span class="nav-number">5.27.</span> <span class="nav-text">【高频】SQL语句优化 ，SQL题目（字节要求撸代码）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explain中-rows-type-key-extra字段的含义？"><span class="nav-number">5.28.</span> <span class="nav-text">explain中 rows type key extra字段的含义？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#count-1-count-count-列值-的区别"><span class="nav-number">5.29.</span> <span class="nav-text">count(1) count(*) count(列值)的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库的关系有哪些？"><span class="nav-number">5.30.</span> <span class="nav-text">数据库的关系有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一对多怎么实现？多对多怎么实现？"><span class="nav-number">5.31.</span> <span class="nav-text">一对多怎么实现？多对多怎么实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL数据库有哪些类型？这些类型有什么区别？"><span class="nav-number">5.32.</span> <span class="nav-text">MySQL数据库有哪些类型？这些类型有什么区别？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">6.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表如何扩容？具体的操作是什么？"><span class="nav-number">6.1.</span> <span class="nav-text">哈希表如何扩容？具体的操作是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程"><span class="nav-number">6.2.</span> <span class="nav-text">解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计一个线程池"><span class="nav-number">6.3.</span> <span class="nav-text">设计一个线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解释下内存中堆和栈，写一个stack-overflow的代码"><span class="nav-number">6.4.</span> <span class="nav-text">解释下内存中堆和栈，写一个stack overflow的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"><span class="nav-number">6.5.</span> <span class="nav-text">什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组和list的区别；"><span class="nav-number">6.6.</span> <span class="nav-text">元组和list的区别；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list的底层怎么实现的；"><span class="nav-number">6.7.</span> <span class="nav-text">list的底层怎么实现的；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双等于和is有什么区别"><span class="nav-number">6.8.</span> <span class="nav-text">双等于和is有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的默认大小（1M）"><span class="nav-number">6.9.</span> <span class="nav-text">栈的默认大小（1M）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">7.</span> <span class="nav-text">算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#说一说各种排序算法原理，及其时间复杂度。"><span class="nav-number">7.1.</span> <span class="nav-text">说一说各种排序算法原理，及其时间复杂度。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"><span class="nav-number">7.2.</span> <span class="nav-text">一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈，队列是什么？区别是什么？"><span class="nav-number">7.3.</span> <span class="nav-text">栈，队列是什么？区别是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"><span class="nav-number">7.4.</span> <span class="nav-text">设计一个可以满足高效率获取第k大和前k个大的元素的数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手写求两个链表第一个交叉节点"><span class="nav-number">7.5.</span> <span class="nav-text">手写求两个链表第一个交叉节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求x的y次方，想出比直接for循环更好的方案"><span class="nav-number">7.6.</span> <span class="nav-text">求x的y次方，想出比直接for循环更好的方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求绝对众数"><span class="nav-number">7.7.</span> <span class="nav-text">求绝对众数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"><span class="nav-number">7.8.</span> <span class="nav-text">二叉树，输出所有和为n的路径（可以从中间结点到中间结点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何用两个栈实现一个队列。"><span class="nav-number">7.9.</span> <span class="nav-text">如何用两个栈实现一个队列。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何开启一个进程。"><span class="nav-number">7.10.</span> <span class="nav-text">如何开启一个进程。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现一个-hashtable"><span class="nav-number">7.11.</span> <span class="nav-text">实现一个 hashtable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"><span class="nav-number">7.12.</span> <span class="nav-text">写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最长公共连续子串"><span class="nav-number">7.13.</span> <span class="nav-text">最长公共连续子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；"><span class="nav-number">7.14.</span> <span class="nav-text">几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断平衡二叉树。"><span class="nav-number">7.15.</span> <span class="nav-text">判断平衡二叉树。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL"><span class="nav-number">7.16.</span> <span class="nav-text">1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序数组转二叉搜索树"><span class="nav-number">7.17.</span> <span class="nav-text">有序数组转二叉搜索树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计阻塞队列（不能用JDK的api"><span class="nav-number">7.18.</span> <span class="nav-text">设计阻塞队列（不能用JDK的api</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解哪些设计模式？手写一个工厂方法模式"><span class="nav-number">7.19.</span> <span class="nav-text">了解哪些设计模式？手写一个工厂方法模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手撕sql"><span class="nav-number">7.20.</span> <span class="nav-text">手撕sql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反转链表"><span class="nav-number">7.21.</span> <span class="nav-text">反转链表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">8.</span> <span class="nav-text">其它</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MVCC"><span class="nav-number">8.1.</span> <span class="nav-text">MVCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#expoll了解吗"><span class="nav-number">8.2.</span> <span class="nav-text">expoll了解吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis"><span class="nav-number">8.3.</span> <span class="nav-text">redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spring"><span class="nav-number">8.4.</span> <span class="nav-text">spring</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讲一下spring-mvc的原理"><span class="nav-number">8.5.</span> <span class="nav-text">讲一下spring mvc的原理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kelly Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
