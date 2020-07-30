@@ -1,51 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>B树 B+树</title>
-    <url>/2020/07/21/B%E6%A0%91-B+%E6%A0%91/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>学习笔记：数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二叉搜索树 红黑树</title>
-    <url>/2020/07/20/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
-    <content><![CDATA[<h2 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h2><p>一棵搜索树既可以作为一个字典又可以作为一个优先队列。</p>
-<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2>]]></content>
-      <categories>
-        <category>学习笔记：数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/07/12/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
-<p>ss<br> <strong>BP算法</strong></p>
-<p>  训练集    $\left\{\left(x^{(1)}, y^{(1)}\right), \ldots,\left(x^{(m)}, y^{(m)}\right)\right\}$</p>
-<p>  设    $\Delta_{i j}^{(l)}=0(\text { for all } l, i, j)$</p>
-<p>  $\begin{array}{l}{\text {For } i=1 \text { to } m}\end{array}$</p>
-<script type="math/tex; mode=display">
-  \begin{array}{l}{\text { Set } a^{(1)}=x^{(i)}} \\ {\text { Perform forward propagation to compute } a^{(l)} \text { for } l=2,3, \ldots, L} \\ {\text { Using } y^{(i)}, \text { compute } \delta^{(L)}=a^{(L)}-y^{(i)}} \\ {\text { Compute } \delta^{(L-1)}, \delta^{(l+1)}, \ldots, \delta^{(2)}} \\ {\Delta_{i j}^{(l)} :=\Delta_{i j}^{(l)}+a_{j}^{(l)} \delta_{i}^{(l+1)}}\end{array}</script><p>  $\begin{array}{l}{D_{i j}^{(l)} :=\frac{1}{m} \Delta_{i j}^{(l)}+\lambda \Theta_{i j}^{(l)}} &amp; {\text { if } j \neq 0} \\ {D_{i j}^{(l)} :=\frac{1}{m} \Delta_{i j}^{(l)}} &amp; {\text { if } j=0}\end{array}$</p>
-<p>  其中    $\frac{\partial}{\partial \Theta_{i j}^{(l)}} J(\Theta)=D_{i j}^{(l)}$</p>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>CNN</title>
     <url>/2020/07/11/CNN/</url>
     <content><![CDATA[<h2 id="卷积运算的定义"><a href="#卷积运算的定义" class="headerlink" title="卷积运算的定义"></a>卷积运算的定义</h2><p>卷积是对两个实变函数的一种特殊的线性运算，满足交换律和结合律。连续形式如下：</p>
@@ -72,43 +27,14 @@
       </tags>
   </entry>
   <entry>
-    <title>分治 动态规划 贪心</title>
-    <url>/2020/07/18/%E5%88%86%E6%B2%BB-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%B4%AA%E5%BF%83/</url>
-    <content><![CDATA[<h2 id="分治-Divide-and-Conquer"><a href="#分治-Divide-and-Conquer" class="headerlink" title="分治 Divide and Conquer"></a>分治 Divide and Conquer</h2><p>将问题划分为互不相交的子问题。递归地求解子问题的解，再将这些解组合起来，得到原问题的最优解。（eg. 归并排序算法 $T(n)$）</p>
-<ol>
-<li><strong>分解</strong>原问题为若干子问题，这些子问题是原问题的规模较小的实例。<br>eg. 分解带排序的n个元素的序列成各具n/2个元素的两个子序列。 - - -$D(n)=\theta (1)$</li>
-<li><strong>解决</strong>这些子问题。<br>如果子问题规模足够小（<strong>基本情况</strong>），就直接求解，否则（<strong>递归情况</strong>）使用递归进行求解。<br>eg. 使用归并排序递归地排序两个子序列。 - - -$2T(n/2)$</li>
-<li><strong>合并</strong>这些子问题的解获得原问题的解。<br>eg. 合并两个已排序的子序列以产生已排序的答案。 - - -$C(n)=\theta (n)$<a id="more"></a>
-</li>
-</ol>
-<p>将原问题划分为a个问题，每个问题的大小是n/b：$T(n)=aT(n/b)+D(n)+C(n)$。<br>递归式：一个等式或不等式，通过更小的输入上的函数值来描述一个函数。（用自身定义自身）<br>求解递归式的方法：</p>
-<ol>
-<li><strong>代入法 Substitution</strong> 猜测解的形式，减少不确定范围，用数学归纳法求出解中常熟并证明这个界是正确的。<br>$T(n)=2T(n/2)+n\to T(n)=O(nlgn)$<br>$T(n)=T(n-1)+n\to T(n)=O(n^2)$<br>$T(n)=T(n/2)+1\to T(n)=O(lgn)$</li>
-<li><strong>递归树法 Iteration</strong> 将递归式转换为一棵树，其结点表示不同层次的递归调用产生的代价。然后采用边界和技术来求解递归式。</li>
-<li><strong>主方法 Master</strong>  对于递归式 $T(n)=aT(n/b)+f(n)$：<br>a. 若对于某个常数 $\epsilon &gt;0$ 有 $f(n)=O(n^{log_ba-\epsilon })$，则 $T(n)=\theta (n^{log_ba})$。<br>b. 若 $f(n)=\theta (n^{log_ba})$，则 $T(n)=\theta (n^{log_ba}lgn)$。（适用于分治的递归式）<br>c. 若对某个常数$\epsilon &gt;0$ 有$f(n)=\Omega (n^{log_ba+\epsilon })$，且对某个常数$c&lt;1$和所有足够大的n有$af(n/b)\le cf(n)$，则 $T(n)=\theta (f(n))$。</li>
-</ol>
-<h2 id="动态规划-Dynamic-Programming"><a href="#动态规划-Dynamic-Programming" class="headerlink" title="动态规划 Dynamic Programming"></a>动态规划 Dynamic Programming</h2><p><strong>优化子结构</strong>：一个问题包含其子问题的最优解<br><strong>重叠子问题</strong>：利用递归算法反复求解相同的子问题<br><strong>动态规划算法无后效性，总是能够得到全局最优解。</strong><br>动态规划算法对每个子问题只求解一次并将其解记录在表格中。任何子问题都会等到它依赖的子问题已经求解结束才会进行求解。动态规划算法运行时间相当于每个子问题的求解时间之和。</p>
-<ol>
-<li>寻找最优解的特征结构<br>证明问题含有<strong>优化子结构</strong><br>eg. 最短路径问题具有优化子结构，而最长简单路径问题（不允许成环）不具有优化子结构。根本原因在于求解最长路径子问题时用到的某些资源（顶点），导致这些资源在求解其它子问题时不可用（若两个最长路径子问题旋律共同的顶点则会成环）。<br>a. 证明问题的最优解的第一个组成部分是做出一个选择。例如选择钢条的第一次切割位置、选择矩阵链的划分位置。做出这次选择会产生一个或者多个子问题。<br>b. 对于一个给定问题，在其可能的第一步选择中，假定已经知道哪种选择才会得到最优解。<br>c. 给定可获得最优解的选择之后，确定这个选择会产生哪些子问题，以及如何最好地刻画子问题空间。<br>d. 证明：<u>作为构成原问题最优解的组成部分，每个子问题的解就是它本身的最优解。（反证）</u></li>
-<li>递归地定义最优解的值<br>找到问题规模为n的最优解与规模小于n的子问题的最优解之间的数量关系。</li>
-<li>计算最优解的值，通常采用<strong>自底向上</strong>的方法<br>自底向上方法使得任何子问题的求解只依赖于规模更小的问题的求解，也可以用过自顶向下加入备忘机制来实现。<br>计算最优解的过程中可以重构解来记录最优解的获取方式。</li>
-<li>利用计算出的信息构造一个最优解</li>
-</ol>
-<p>eg. 最长公共子序列、钢条切割、最优二叉搜索树</p>
-<h2 id="贪心-Greedy"><a href="#贪心-Greedy" class="headerlink" title="贪心 Greedy"></a>贪心 Greedy</h2><p><strong>优化子结构</strong>：问题的优化解包含了子问题的最优解。<br><strong>贪心选择性(greedy-choice property)</strong>：全局优化解可以通过局部优化选择得到。即：进行选择时可以直接做出在当前问题中看来最优的选择而不必考虑子问题的解。即：存在一个最优解是以贪心选择开始的。<br>证明贪心选择性：先考察一个全局最优解，如果全局最优解可以转换成以贪心选择开始，则已得证，如果不能，则将这个全局最优解的开始替换成贪心选择，从而可以得到一个更优的解。因此全局最优解应该选择这个贪心选择做为第一次选择，从而得到一个规模更小的子问题，<u>通过数学归纳法可证每次都对子问题进行贪心选择可以得到原问题的最优解。</u><br><strong>贪心算法并不能保证得到全局最优解。</strong><br>通过贪心选择性的证明，我们说明了存在一个全局最优解是以贪心选择开始的，<u>但我们没有证明所有贪心选择开始的解都是全局最优解，</u>因此在某些问题上使用贪心算法可能无法得到全局最优解。<br>贪心算法与动态规划最大的不同在于，贪心并不是首先寻找子问题的最优解然后在其中进行选择（这种选择通常依赖于子问题的解），而是直接做出一次贪心选择（局部最优解）然后求解剩下的唯一子问题，不必求解所有可能相关的子问题。即：贪心算法总是做出局部最优的选择，希望这样的选择可以最终达到全局最优，这种选择可能依赖于之前做出的选择，但不会依赖于任何将来的选择或者子问题的解。<br>贪心算法通常采用<strong>自顶向下</strong>的设计：做出一个选择，然后求解剩下那个子问题。而不是自底向上求解出很多子问题再做出选择。<em>每个贪心算法下，几乎总有一个更繁琐的动态规划算法。</em></p>
-<ol>
-<li>将最优化问题转化为这样的形式：对其做出一次选择之后，只剩下一个子问题需要求解。</li>
-<li>证明做出贪心选择后，原问题总是存在最优解，<strong>即贪心总是安全的</strong>。<br>进行贪心选择时，可以通过数据预处理（排序）或者使用合适的数据结构（优先队列）来使得贪心选择更快速高效。</li>
-<li>证明做出贪心选择后，剩余的子问题的最优解与该贪心选择组合即可得到原问题的最优解，这样就得到了<strong>最优子结构</strong>。</li>
-</ol>
-<p>eg. 最小生成树、Dijkstra算法、赫夫曼编码、任务调度问题、部分背包问题</p>
-<pre><code>参考：《算法导论》机械工业出版社 第2、4、15、16章
-</code></pre>]]></content>
+    <title>B树 B+树</title>
+    <url>/2020/07/21/B%E6%A0%91-B+%E6%A0%91/</url>
+    <content><![CDATA[]]></content>
       <categories>
-        <category>学习笔记：算法</category>
+        <category>学习笔记：数据结构</category>
       </categories>
       <tags>
-        <tag>算法</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -160,6 +86,80 @@ https://www.jianshu.com/p/038f0b356e9a
 ]]></content>
   </entry>
   <entry>
+    <title>二叉搜索树 红黑树</title>
+    <url>/2020/07/20/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
+    <content><![CDATA[<h2 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h2><p>一棵搜索树既可以作为一个字典又可以作为一个优先队列。</p>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2>]]></content>
+      <categories>
+        <category>学习笔记：数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分治 动态规划 贪心</title>
+    <url>/2020/07/18/%E5%88%86%E6%B2%BB-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%B4%AA%E5%BF%83/</url>
+    <content><![CDATA[<h2 id="分治-Divide-and-Conquer"><a href="#分治-Divide-and-Conquer" class="headerlink" title="分治 Divide and Conquer"></a>分治 Divide and Conquer</h2><p>将问题划分为互不相交的子问题。递归地求解子问题的解，再将这些解组合起来，得到原问题的最优解。（eg. 归并排序算法 $T(n)$）</p>
+<ol>
+<li><strong>分解</strong>原问题为若干子问题，这些子问题是原问题的规模较小的实例。<br>eg. 分解带排序的n个元素的序列成各具n/2个元素的两个子序列。 - - -$D(n)=\theta (1)$</li>
+<li><strong>解决</strong>这些子问题。<br>如果子问题规模足够小（<strong>基本情况</strong>），就直接求解，否则（<strong>递归情况</strong>）使用递归进行求解。<br>eg. 使用归并排序递归地排序两个子序列。 - - -$2T(n/2)$</li>
+<li><strong>合并</strong>这些子问题的解获得原问题的解。<br>eg. 合并两个已排序的子序列以产生已排序的答案。 - - -$C(n)=\theta (n)$<a id="more"></a>
+</li>
+</ol>
+<p>将原问题划分为a个问题，每个问题的大小是n/b：$T(n)=aT(n/b)+D(n)+C(n)$。<br>递归式：一个等式或不等式，通过更小的输入上的函数值来描述一个函数。（用自身定义自身）<br>求解递归式的方法：</p>
+<ol>
+<li><strong>代入法 Substitution</strong> 猜测解的形式，减少不确定范围，用数学归纳法求出解中常熟并证明这个界是正确的。<br>$T(n)=2T(n/2)+n\to T(n)=O(nlgn)$<br>$T(n)=T(n-1)+n\to T(n)=O(n^2)$<br>$T(n)=T(n/2)+1\to T(n)=O(lgn)$</li>
+<li><strong>递归树法 Iteration</strong> 将递归式转换为一棵树，其结点表示不同层次的递归调用产生的代价。然后采用边界和技术来求解递归式。</li>
+<li><strong>主方法 Master</strong>  对于递归式 $T(n)=aT(n/b)+f(n)$：<br>a. 若对于某个常数 $\epsilon &gt;0$ 有 $f(n)=O(n^{log_ba-\epsilon })$，则 $T(n)=\theta (n^{log_ba})$。<br>b. 若 $f(n)=\theta (n^{log_ba})$，则 $T(n)=\theta (n^{log_ba}lgn)$。（适用于分治的递归式）<br>c. 若对某个常数$\epsilon &gt;0$ 有$f(n)=\Omega (n^{log_ba+\epsilon })$，且对某个常数$c&lt;1$和所有足够大的n有$af(n/b)\le cf(n)$，则 $T(n)=\theta (f(n))$。</li>
+</ol>
+<h2 id="动态规划-Dynamic-Programming"><a href="#动态规划-Dynamic-Programming" class="headerlink" title="动态规划 Dynamic Programming"></a>动态规划 Dynamic Programming</h2><p><strong>优化子结构</strong>：一个问题包含其子问题的最优解<br><strong>重叠子问题</strong>：利用递归算法反复求解相同的子问题<br><strong>动态规划算法无后效性，总是能够得到全局最优解。</strong><br>动态规划算法对每个子问题只求解一次并将其解记录在表格中。任何子问题都会等到它依赖的子问题已经求解结束才会进行求解。动态规划算法运行时间相当于每个子问题的求解时间之和。</p>
+<ol>
+<li>寻找最优解的特征结构<br>证明问题含有<strong>优化子结构</strong><br>eg. 最短路径问题具有优化子结构，而最长简单路径问题（不允许成环）不具有优化子结构。根本原因在于求解最长路径子问题时用到的某些资源（顶点），导致这些资源在求解其它子问题时不可用（若两个最长路径子问题旋律共同的顶点则会成环）。<br>a. 证明问题的最优解的第一个组成部分是做出一个选择。例如选择钢条的第一次切割位置、选择矩阵链的划分位置。做出这次选择会产生一个或者多个子问题。<br>b. 对于一个给定问题，在其可能的第一步选择中，假定已经知道哪种选择才会得到最优解。<br>c. 给定可获得最优解的选择之后，确定这个选择会产生哪些子问题，以及如何最好地刻画子问题空间。<br>d. 证明：<u>作为构成原问题最优解的组成部分，每个子问题的解就是它本身的最优解。（反证）</u></li>
+<li>递归地定义最优解的值<br>找到问题规模为n的最优解与规模小于n的子问题的最优解之间的数量关系。</li>
+<li>计算最优解的值，通常采用<strong>自底向上</strong>的方法<br>自底向上方法使得任何子问题的求解只依赖于规模更小的问题的求解，也可以用过自顶向下加入备忘机制来实现。<br>计算最优解的过程中可以重构解来记录最优解的获取方式。</li>
+<li>利用计算出的信息构造一个最优解</li>
+</ol>
+<p>eg. 最长公共子序列、钢条切割、最优二叉搜索树</p>
+<h2 id="贪心-Greedy"><a href="#贪心-Greedy" class="headerlink" title="贪心 Greedy"></a>贪心 Greedy</h2><p><strong>优化子结构</strong>：问题的优化解包含了子问题的最优解。<br><strong>贪心选择性(greedy-choice property)</strong>：全局优化解可以通过局部优化选择得到。即：进行选择时可以直接做出在当前问题中看来最优的选择而不必考虑子问题的解。即：存在一个最优解是以贪心选择开始的。<br>证明贪心选择性：先考察一个全局最优解，如果全局最优解可以转换成以贪心选择开始，则已得证，如果不能，则将这个全局最优解的开始替换成贪心选择，从而可以得到一个更优的解。因此全局最优解应该选择这个贪心选择做为第一次选择，从而得到一个规模更小的子问题，<u>通过数学归纳法可证每次都对子问题进行贪心选择可以得到原问题的最优解。</u><br><strong>贪心算法并不能保证得到全局最优解。</strong><br>通过贪心选择性的证明，我们说明了存在一个全局最优解是以贪心选择开始的，<u>但我们没有证明所有贪心选择开始的解都是全局最优解，</u>因此在某些问题上使用贪心算法可能无法得到全局最优解。<br>贪心算法与动态规划最大的不同在于，贪心并不是首先寻找子问题的最优解然后在其中进行选择（这种选择通常依赖于子问题的解），而是直接做出一次贪心选择（局部最优解）然后求解剩下的唯一子问题，不必求解所有可能相关的子问题。即：贪心算法总是做出局部最优的选择，希望这样的选择可以最终达到全局最优，这种选择可能依赖于之前做出的选择，但不会依赖于任何将来的选择或者子问题的解。<br>贪心算法通常采用<strong>自顶向下</strong>的设计：做出一个选择，然后求解剩下那个子问题。而不是自底向上求解出很多子问题再做出选择。<em>每个贪心算法下，几乎总有一个更繁琐的动态规划算法。</em></p>
+<ol>
+<li>将最优化问题转化为这样的形式：对其做出一次选择之后，只剩下一个子问题需要求解。</li>
+<li>证明做出贪心选择后，原问题总是存在最优解，<strong>即贪心总是安全的</strong>。<br>进行贪心选择时，可以通过数据预处理（排序）或者使用合适的数据结构（优先队列）来使得贪心选择更快速高效。</li>
+<li>证明做出贪心选择后，剩余的子问题的最优解与该贪心选择组合即可得到原问题的最优解，这样就得到了<strong>最优子结构</strong>。</li>
+</ol>
+<p>eg. 最小生成树、Dijkstra算法、赫夫曼编码、任务调度问题、部分背包问题</p>
+<pre><code>参考：《算法导论》机械工业出版社 第2、4、15、16章
+</code></pre>]]></content>
+      <categories>
+        <category>学习笔记：算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/07/12/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
+<p>ss<br> <strong>BP算法</strong></p>
+<p>  训练集    $\left\{\left(x^{(1)}, y^{(1)}\right), \ldots,\left(x^{(m)}, y^{(m)}\right)\right\}$</p>
+<p>  设    $\Delta_{i j}^{(l)}=0(\text { for all } l, i, j)$</p>
+<p>  $\begin{array}{l}{\text {For } i=1 \text { to } m}\end{array}$</p>
+<script type="math/tex; mode=display">
+  \begin{array}{l}{\text { Set } a^{(1)}=x^{(i)}} \\ {\text { Perform forward propagation to compute } a^{(l)} \text { for } l=2,3, \ldots, L} \\ {\text { Using } y^{(i)}, \text { compute } \delta^{(L)}=a^{(L)}-y^{(i)}} \\ {\text { Compute } \delta^{(L-1)}, \delta^{(l+1)}, \ldots, \delta^{(2)}} \\ {\Delta_{i j}^{(l)} :=\Delta_{i j}^{(l)}+a_{j}^{(l)} \delta_{i}^{(l+1)}}\end{array}</script><p>  $\begin{array}{l}{D_{i j}^{(l)} :=\frac{1}{m} \Delta_{i j}^{(l)}+\lambda \Theta_{i j}^{(l)}} &amp; {\text { if } j \neq 0} \\ {D_{i j}^{(l)} :=\frac{1}{m} \Delta_{i j}^{(l)}} &amp; {\text { if } j=0}\end{array}$</p>
+<p>  其中    $\frac{\partial}{\partial \Theta_{i j}^{(l)}} J(\Theta)=D_{i j}^{(l)}$</p>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>字节跳动</title>
     <url>/2020/07/14/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8/</url>
     <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="Python可变参数args，-kwargs"><a href="#Python可变参数args，-kwargs" class="headerlink" title="Python可变参数args，*kwargs"></a>Python可变参数<em>args，*</em>kwargs</h3><h3 id="Python内置容器及其容器及其使用场景"><a href="#Python内置容器及其容器及其使用场景" class="headerlink" title="Python内置容器及其容器及其使用场景 "></a>Python内置容器及其容器及其使用场景 <a id="more"></a></h3><h3 id="python多线程"><a href="#python多线程" class="headerlink" title="python多线程"></a>python多线程</h3><h3 id="对Python了解吗？说说它底层的实现原理。"><a href="#对Python了解吗？说说它底层的实现原理。" class="headerlink" title="对Python了解吗？说说它底层的实现原理。"></a>对Python了解吗？说说它底层的实现原理。</h3><h3 id="什么是Python生成器，迭代器；"><a href="#什么是Python生成器，迭代器；" class="headerlink" title="什么是Python生成器，迭代器；"></a>什么是Python生成器，迭代器；</h3><h3 id="Python中的dict底层怎么实现的"><a href="#Python中的dict底层怎么实现的" class="headerlink" title="Python中的dict底层怎么实现的"></a>Python中的dict底层怎么实现的</h3><h3 id="Python多线程用了几个CPU"><a href="#Python多线程用了几个CPU" class="headerlink" title="Python多线程用了几个CPU"></a>Python多线程用了几个CPU</h3><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="C-中const与-define的区别与优势"><a href="#C-中const与-define的区别与优势" class="headerlink" title="C++中const与#define的区别与优势"></a>C++中const与#define的区别与优势</h3><h3 id="C-11新特性auto的用法"><a href="#C-11新特性auto的用法" class="headerlink" title="C++11新特性auto的用法"></a>C++11新特性auto的用法</h3><h3 id="C-虚函数，读程序写结果"><a href="#C-虚函数，读程序写结果" class="headerlink" title="C++虚函数，读程序写结果"></a>C++虚函数，读程序写结果</h3><h3 id="C-关键字static、extern"><a href="#C-关键字static、extern" class="headerlink" title="C++关键字static、extern"></a>C++关键字static、extern</h3><h3 id="C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景"><a href="#C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景" class="headerlink" title="C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景"></a>C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景</h3><h3 id="C-中new和delete语句的底层实现"><a href="#C-中new和delete语句的底层实现" class="headerlink" title="C++中new和delete语句的底层实现"></a>C++中new和delete语句的底层实现</h3><h2 id="编程语言之间的对比"><a href="#编程语言之间的对比" class="headerlink" title="编程语言之间的对比"></a>编程语言之间的对比</h2><h3 id="Java和C-相比有什么特点？"><a href="#Java和C-相比有什么特点？" class="headerlink" title="Java和C++相比有什么特点？"></a>Java和C++相比有什么特点？</h3><h3 id="C-为什么比Java运行得快？"><a href="#C-为什么比Java运行得快？" class="headerlink" title="C++为什么比Java运行得快？"></a>C++为什么比Java运行得快？</h3><h3 id="java和python的异同？"><a href="#java和python的异同？" class="headerlink" title="java和python的异同？"></a>java和python的异同？</h3><h2 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h2><h3 id="了解Linux么？用过哪些命令？"><a href="#了解Linux么？用过哪些命令？" class="headerlink" title="了解Linux么？用过哪些命令？"></a>了解Linux么？用过哪些命令？</h3><h3 id="SSO了解吗？"><a href="#SSO了解吗？" class="headerlink" title="SSO了解吗？"></a>SSO了解吗？</h3><h3 id="负载均衡了解吗？"><a href="#负载均衡了解吗？" class="headerlink" title="负载均衡了解吗？"></a>负载均衡了解吗？</h3><h3 id="MD5加密可逆吗？会被破解吗-如何破解？"><a href="#MD5加密可逆吗？会被破解吗-如何破解？" class="headerlink" title="MD5加密可逆吗？会被破解吗?如何破解？"></a>MD5加密可逆吗？会被破解吗?如何破解？</h3><h3 id="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"><a href="#DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）" class="headerlink" title="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"></a>DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）</h3><h3 id="并发用什么"><a href="#并发用什么" class="headerlink" title="并发用什么"></a>并发用什么</h3><h2 id="后端框架"><a href="#后端框架" class="headerlink" title="后端框架"></a>后端框架</h2><h3 id="接触过哪些后端框架"><a href="#接触过哪些后端框架" class="headerlink" title="接触过哪些后端框架"></a>接触过哪些后端框架</h3><h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><h3 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h3><h3 id="讲一下spring-mvc的原理"><a href="#讲一下spring-mvc的原理" class="headerlink" title="讲一下spring mvc的原理"></a>讲一下spring mvc的原理</h3><h3 id="你用Django的时候，觉得它有哪些好的特性"><a href="#你用Django的时候，觉得它有哪些好的特性" class="headerlink" title="你用Django的时候，觉得它有哪些好的特性"></a>你用Django的时候，觉得它有哪些好的特性</h3><h3 id="操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"><a href="#操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换" class="headerlink" title="操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"></a>操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换</h3><h3 id="说说new和delete发生了什么。"><a href="#说说new和delete发生了什么。" class="headerlink" title="说说new和delete发生了什么。"></a>说说new和delete发生了什么。</h3><h3 id="谈谈你对前后端交互中使用的JSON的理解"><a href="#谈谈你对前后端交互中使用的JSON的理解" class="headerlink" title="谈谈你对前后端交互中使用的JSON的理解"></a>谈谈你对前后端交互中使用的JSON的理解</h3><h3 id="CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）"><a href="#CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）" class="headerlink" title="CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）"></a>CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）</h3><h3 id="为什么要并发控制？"><a href="#为什么要并发控制？" class="headerlink" title="为什么要并发控制？"></a>为什么要并发控制？</h3><h3 id="了解索引吗？知道实现原理吗？（B-树）"><a href="#了解索引吗？知道实现原理吗？（B-树）" class="headerlink" title="了解索引吗？知道实现原理吗？（B+树）"></a>了解索引吗？知道实现原理吗？（B+树）</h3><h3 id="DNS是什么？内部如何实现？"><a href="#DNS是什么？内部如何实现？" class="headerlink" title="DNS是什么？内部如何实现？"></a>DNS是什么？内部如何实现？</h3><h3 id="ARP是什么？ARP内部如何实现？"><a href="#ARP是什么？ARP内部如何实现？" class="headerlink" title="ARP是什么？ARP内部如何实现？"></a>ARP是什么？ARP内部如何实现？</h3><h3 id="Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别"><a href="#Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别" class="headerlink" title="Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)"></a>Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)</h3><h3 id="32位整数-1右移两位是啥"><a href="#32位整数-1右移两位是啥" class="headerlink" title="32位整数-1右移两位是啥"></a>32位整数-1右移两位是啥</h3><h3 id="函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧"><a href="#函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧" class="headerlink" title="函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧"></a>函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧</h3><h3 id="GDB有用过哪些"><a href="#GDB有用过哪些" class="headerlink" title="GDB有用过哪些"></a>GDB有用过哪些</h3><h3 id="数组怎么扩容？"><a href="#数组怎么扩容？" class="headerlink" title="数组怎么扩容？"></a>数组怎么扩容？</h3><p>新建一个更大新数组，然后复制过去……</p>
@@ -171,17 +171,6 @@ https://www.jianshu.com/p/038f0b356e9a
 <h3 id="事务特性ACID"><a href="#事务特性ACID" class="headerlink" title="事务特性ACID"></a>事务特性ACID</h3><p>深入一些 ： 为什么要有一致性 ？ AID不是已经保证了一致性了吗 ？</p>
 <h3 id="并发事务带来的问题"><a href="#并发事务带来的问题" class="headerlink" title="并发事务带来的问题"></a>并发事务带来的问题</h3><p>{    脏读 、 修改丢失 、 不可重复读 、 幻影读    }</p>
 <h3 id="【高频】事务的隔离级别"><a href="#【高频】事务的隔离级别" class="headerlink" title="【高频】事务的隔离级别"></a>【高频】事务的隔离级别</h3><h3 id="【高频】-MVCC机制"><a href="#【高频】-MVCC机制" class="headerlink" title="【高频】 MVCC机制"></a>【高频】 MVCC机制</h3><h3 id="【高频】索引"><a href="#【高频】索引" class="headerlink" title="【高频】索引"></a>【高频】索引</h3><h3 id="为什么索引使用B-树结构，而不是B树"><a href="#为什么索引使用B-树结构，而不是B树" class="headerlink" title="为什么索引使用B+树结构，而不是B树"></a>为什么索引使用B+树结构，而不是B树</h3><h3 id="为什么索引使用B-树结构，而不是红黑树-：-磁盘预读取-、红黑树高度"><a href="#为什么索引使用B-树结构，而不是红黑树-：-磁盘预读取-、红黑树高度" class="headerlink" title="为什么索引使用B+树结构，而不是红黑树 ： {  磁盘预读取 、红黑树高度 }"></a>为什么索引使用B+树结构，而不是红黑树 ： {  磁盘预读取 、红黑树高度 }</h3><h3 id="聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？"><a href="#聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？" class="headerlink" title="聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？"></a>聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？</h3><h3 id="为什么不对每个列创建索引呢？"><a href="#为什么不对每个列创建索引呢？" class="headerlink" title="为什么不对每个列创建索引呢？"></a>为什么不对每个列创建索引呢？</h3><h3 id="【高频】SQL语句优化-，SQL题目（字节要求撸代码）"><a href="#【高频】SQL语句优化-，SQL题目（字节要求撸代码）" class="headerlink" title="【高频】SQL语句优化 ，SQL题目（字节要求撸代码）"></a>【高频】SQL语句优化 ，SQL题目（字节要求撸代码）</h3><h3 id="explain中-rows-type-key-extra字段的含义？"><a href="#explain中-rows-type-key-extra字段的含义？" class="headerlink" title="explain中 rows type key extra字段的含义？"></a>explain中 rows type key extra字段的含义？</h3><h3 id="count-1-count-count-列值-的区别"><a href="#count-1-count-count-列值-的区别" class="headerlink" title="count(1) count(*) count(列值)的区别"></a>count(1) count(*) count(列值)的区别</h3><h3 id="数据库的关系有哪些？"><a href="#数据库的关系有哪些？" class="headerlink" title="数据库的关系有哪些？"></a>数据库的关系有哪些？</h3><h3 id="一对多怎么实现？多对多怎么实现？"><a href="#一对多怎么实现？多对多怎么实现？" class="headerlink" title="一对多怎么实现？多对多怎么实现？"></a>一对多怎么实现？多对多怎么实现？</h3><h3 id="MySQL数据库有哪些类型？这些类型有什么区别？"><a href="#MySQL数据库有哪些类型？这些类型有什么区别？" class="headerlink" title="MySQL数据库有哪些类型？这些类型有什么区别？"></a>MySQL数据库有哪些类型？这些类型有什么区别？</h3><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="哈希表如何扩容？具体的操作是什么？"><a href="#哈希表如何扩容？具体的操作是什么？" class="headerlink" title="哈希表如何扩容？具体的操作是什么？"></a>哈希表如何扩容？具体的操作是什么？</h3><h3 id="解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程"><a href="#解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程" class="headerlink" title="解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程"></a>解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程</h3><h3 id="设计一个线程池"><a href="#设计一个线程池" class="headerlink" title="设计一个线程池"></a>设计一个线程池</h3><h3 id="解释下内存中堆和栈，写一个stack-overflow的代码"><a href="#解释下内存中堆和栈，写一个stack-overflow的代码" class="headerlink" title="解释下内存中堆和栈，写一个stack overflow的代码"></a>解释下内存中堆和栈，写一个stack overflow的代码</h3><h3 id="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"><a href="#什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？" class="headerlink" title="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"></a>什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？</h3><h3 id="元组和list的区别；"><a href="#元组和list的区别；" class="headerlink" title="元组和list的区别；"></a>元组和list的区别；</h3><h3 id="list的底层怎么实现的；"><a href="#list的底层怎么实现的；" class="headerlink" title="list的底层怎么实现的；"></a>list的底层怎么实现的；</h3><h3 id="双等于和is有什么区别"><a href="#双等于和is有什么区别" class="headerlink" title="双等于和is有什么区别"></a>双等于和is有什么区别</h3><h3 id="栈的默认大小（1M）"><a href="#栈的默认大小（1M）" class="headerlink" title="栈的默认大小（1M）"></a>栈的默认大小（1M）</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="说一说各种排序算法原理，及其时间复杂度。"><a href="#说一说各种排序算法原理，及其时间复杂度。" class="headerlink" title="说一说各种排序算法原理，及其时间复杂度。"></a>说一说各种排序算法原理，及其时间复杂度。</h3><h3 id="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"><a href="#一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和" class="headerlink" title="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"></a>一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和</h3><h3 id="栈，队列是什么？区别是什么？"><a href="#栈，队列是什么？区别是什么？" class="headerlink" title="栈，队列是什么？区别是什么？"></a>栈，队列是什么？区别是什么？</h3><h3 id="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"><a href="#设计一个可以满足高效率获取第k大和前k个大的元素的数据结构" class="headerlink" title="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"></a>设计一个可以满足高效率获取第k大和前k个大的元素的数据结构</h3><h3 id="手写求两个链表第一个交叉节点"><a href="#手写求两个链表第一个交叉节点" class="headerlink" title="手写求两个链表第一个交叉节点"></a>手写求两个链表第一个交叉节点</h3><h3 id="求x的y次方，想出比直接for循环更好的方案"><a href="#求x的y次方，想出比直接for循环更好的方案" class="headerlink" title="求x的y次方，想出比直接for循环更好的方案"></a>求x的y次方，想出比直接for循环更好的方案</h3><h3 id="求绝对众数"><a href="#求绝对众数" class="headerlink" title="求绝对众数"></a>求绝对众数</h3><h3 id="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"><a href="#二叉树，输出所有和为n的路径（可以从中间结点到中间结点）" class="headerlink" title="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"></a>二叉树，输出所有和为n的路径（可以从中间结点到中间结点）</h3><h3 id="如何用两个栈实现一个队列。"><a href="#如何用两个栈实现一个队列。" class="headerlink" title="如何用两个栈实现一个队列。"></a>如何用两个栈实现一个队列。</h3><h3 id="如何开启一个进程。"><a href="#如何开启一个进程。" class="headerlink" title="如何开启一个进程。"></a>如何开启一个进程。</h3><h3 id="实现一个-hashtable"><a href="#实现一个-hashtable" class="headerlink" title="实现一个 hashtable"></a>实现一个 hashtable</h3><h3 id="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"><a href="#写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。" class="headerlink" title="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"></a>写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。</h3><h3 id="最长公共连续子串"><a href="#最长公共连续子串" class="headerlink" title="最长公共连续子串"></a>最长公共连续子串</h3><h3 id="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；"><a href="#几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；" class="headerlink" title="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；"></a>几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；</h3><h3 id="判断平衡二叉树。"><a href="#判断平衡二叉树。" class="headerlink" title="判断平衡二叉树。"></a>判断平衡二叉树。</h3><h3 id="1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL"><a href="#1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL" class="headerlink" title="1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL"></a>1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL</h3><h3 id="有序数组转二叉搜索树"><a href="#有序数组转二叉搜索树" class="headerlink" title="有序数组转二叉搜索树"></a>有序数组转二叉搜索树</h3><h3 id="设计阻塞队列（不能用JDK的api"><a href="#设计阻塞队列（不能用JDK的api" class="headerlink" title="设计阻塞队列（不能用JDK的api"></a>设计阻塞队列（不能用JDK的api</h3><h3 id="了解哪些设计模式？手写一个工厂方法模式"><a href="#了解哪些设计模式？手写一个工厂方法模式" class="headerlink" title="了解哪些设计模式？手写一个工厂方法模式"></a>了解哪些设计模式？手写一个工厂方法模式</h3><h3 id="手撕sql"><a href="#手撕sql" class="headerlink" title="手撕sql"></a>手撕sql</h3><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2>]]></content>
-  </entry>
-  <entry>
-    <title>排序算法</title>
-    <url>/2020/07/19/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2>]]></content>
-      <categories>
-        <category>学习笔记：算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
   </entry>
   <entry>
     <title>散列表 Hash Table</title>
@@ -203,6 +192,17 @@ https://www.jianshu.com/p/038f0b356e9a
       </categories>
       <tags>
         <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>排序算法</title>
+    <url>/2020/07/19/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2>]]></content>
+      <categories>
+        <category>学习笔记：算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
