@@ -1,203 +1,369 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/07/12/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><a id="more"></a>
-<p>ss<br> <strong>BP算法</strong></p>
-<p>  训练集    $\left\{\left(x^{(1)}, y^{(1)}\right), \ldots,\left(x^{(m)}, y^{(m)}\right)\right\}$</p>
-<p>  设    $\Delta_{i j}^{(l)}=0(\text { for all } l, i, j)$</p>
-<p>  $\begin{array}{l}{\text {For } i=1 \text { to } m}\end{array}$</p>
-<script type="math/tex; mode=display">
-  \begin{array}{l}{\text { Set } a^{(1)}=x^{(i)}} \\ {\text { Perform forward propagation to compute } a^{(l)} \text { for } l=2,3, \ldots, L} \\ {\text { Using } y^{(i)}, \text { compute } \delta^{(L)}=a^{(L)}-y^{(i)}} \\ {\text { Compute } \delta^{(L-1)}, \delta^{(l+1)}, \ldots, \delta^{(2)}} \\ {\Delta_{i j}^{(l)} :=\Delta_{i j}^{(l)}+a_{j}^{(l)} \delta_{i}^{(l+1)}}\end{array}</script><p>  $\begin{array}{l}{D_{i j}^{(l)} :=\frac{1}{m} \Delta_{i j}^{(l)}+\lambda \Theta_{i j}^{(l)}} &amp; {\text { if } j \neq 0} \\ {D_{i j}^{(l)} :=\frac{1}{m} \Delta_{i j}^{(l)}} &amp; {\text { if } j=0}\end{array}$</p>
-<p>  其中    $\frac{\partial}{\partial \Theta_{i j}^{(l)}} J(\Theta)=D_{i j}^{(l)}$</p>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>分治 动态规划 贪心</title>
-    <url>/2020/07/18/%E5%88%86%E6%B2%BB-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%B4%AA%E5%BF%83/</url>
-    <content><![CDATA[<h2 id="分治-Divide-and-Conquer"><a href="#分治-Divide-and-Conquer" class="headerlink" title="分治 Divide and Conquer"></a>分治 Divide and Conquer</h2><p>将问题划分为互不相交的子问题。递归地求解子问题的解，再将这些解组合起来，得到原问题的最优解。（eg. 归并排序算法 $T(n)$）</p>
-<ol>
-<li><strong>分解</strong>原问题为若干子问题，这些子问题是原问题的规模较小的实例。<br>eg. 分解带排序的n个元素的序列成各具n/2个元素的两个子序列。 - - -$D(n)=\theta (1)$</li>
-<li><strong>解决</strong>这些子问题。<br>如果子问题规模足够小（<strong>基本情况</strong>），就直接求解，否则（<strong>递归情况</strong>）使用递归进行求解。<br>eg. 使用归并排序递归地排序两个子序列。 - - -$2T(n/2)$</li>
-<li><strong>合并</strong>这些子问题的解获得原问题的解。<br>eg. 合并两个已排序的子序列以产生已排序的答案。 - - -$C(n)=\theta (n)$<a id="more"></a>
-</li>
-</ol>
-<p>将原问题划分为a个问题，每个问题的大小是n/b：$T(n)=aT(n/b)+D(n)+C(n)$。<br>递归式：一个等式或不等式，通过更小的输入上的函数值来描述一个函数。（用自身定义自身）<br>求解递归式的方法：</p>
-<ol>
-<li><strong>代入法 Substitution</strong> 猜测解的形式，减少不确定范围，用数学归纳法求出解中常熟并证明这个界是正确的。<br>$T(n)=2T(n/2)+n\to T(n)=O(nlgn)$<br>$T(n)=T(n-1)+n\to T(n)=O(n^2)$<br>$T(n)=T(n/2)+1\to T(n)=O(lgn)$</li>
-<li><strong>递归树法 Iteration</strong> 将递归式转换为一棵树，其结点表示不同层次的递归调用产生的代价。然后采用边界和技术来求解递归式。</li>
-<li><strong>主方法 Master</strong>  对于递归式 $T(n)=aT(n/b)+f(n)$：<br>a. 若对于某个常数 $\epsilon &gt;0$ 有 $f(n)=O(n^{log_ba-\epsilon })$，则 $T(n)=\theta (n^{log_ba})$。<br>b. 若 $f(n)=\theta (n^{log_ba})$，则 $T(n)=\theta (n^{log_ba}lgn)$。（适用于分治的递归式）<br>c. 若对某个常数$\epsilon &gt;0$ 有$f(n)=\Omega (n^{log_ba+\epsilon })$，且对某个常数$c&lt;1$和所有足够大的n有$af(n/b)\le cf(n)$，则 $T(n)=\theta (f(n))$。</li>
-</ol>
-<h2 id="动态规划-Dynamic-Programming"><a href="#动态规划-Dynamic-Programming" class="headerlink" title="动态规划 Dynamic Programming"></a>动态规划 Dynamic Programming</h2><p><strong>优化子结构</strong>：一个问题包含其子问题的最优解<br><strong>重叠子问题</strong>：利用递归算法反复求解相同的子问题<br><strong>动态规划算法无后效性，总是能够得到全局最优解。</strong><br>动态规划算法对每个子问题只求解一次并将其解记录在表格中。任何子问题都会等到它依赖的子问题已经求解结束才会进行求解。动态规划算法运行时间相当于每个子问题的求解时间之和。</p>
-<ol>
-<li>寻找最优解的特征结构<br>证明问题含有<strong>优化子结构</strong><br>eg. 最短路径问题具有优化子结构，而最长简单路径问题（不允许成环）不具有优化子结构。根本原因在于求解最长路径子问题时用到的某些资源（顶点），导致这些资源在求解其它子问题时不可用（若两个最长路径子问题旋律共同的顶点则会成环）。<br>a. 证明问题的最优解的第一个组成部分是做出一个选择。例如选择钢条的第一次切割位置、选择矩阵链的划分位置。做出这次选择会产生一个或者多个子问题。<br>b. 对于一个给定问题，在其可能的第一步选择中，假定已经知道哪种选择才会得到最优解。<br>c. 给定可获得最优解的选择之后，确定这个选择会产生哪些子问题，以及如何最好地刻画子问题空间。<br>d. 证明：<u>作为构成原问题最优解的组成部分，每个子问题的解就是它本身的最优解。（反证）</u></li>
-<li>递归地定义最优解的值<br>找到问题规模为n的最优解与规模小于n的子问题的最优解之间的数量关系。</li>
-<li>计算最优解的值，通常采用<strong>自底向上</strong>的方法<br>自底向上方法使得任何子问题的求解只依赖于规模更小的问题的求解，也可以用过自顶向下加入备忘机制来实现。<br>计算最优解的过程中可以重构解来记录最优解的获取方式。</li>
-<li>利用计算出的信息构造一个最优解</li>
-</ol>
-<p>eg. 最长公共子序列、钢条切割、最优二叉搜索树</p>
-<h2 id="贪心-Greedy"><a href="#贪心-Greedy" class="headerlink" title="贪心 Greedy"></a>贪心 Greedy</h2><p><strong>优化子结构</strong>：问题的优化解包含了子问题的最优解。<br><strong>贪心选择性(greedy-choice property)</strong>：全局优化解可以通过局部优化选择得到。即：进行选择时可以直接做出在当前问题中看来最优的选择而不必考虑子问题的解。即：存在一个最优解是以贪心选择开始的。<br>证明贪心选择性：先考察一个全局最优解，如果全局最优解可以转换成以贪心选择开始，则已得证，如果不能，则将这个全局最优解的开始替换成贪心选择，从而可以得到一个更优的解。因此全局最优解应该选择这个贪心选择做为第一次选择，从而得到一个规模更小的子问题，<u>通过数学归纳法可证每次都对子问题进行贪心选择可以得到原问题的最优解。</u><br><strong>贪心算法并不能保证得到全局最优解。</strong><br>通过贪心选择性的证明，我们说明了存在一个全局最优解是以贪心选择开始的，<u>但我们没有证明所有贪心选择开始的解都是全局最优解，</u>因此在某些问题上使用贪心算法可能无法得到全局最优解。<br>贪心算法与动态规划最大的不同在于，贪心并不是首先寻找子问题的最优解然后在其中进行选择（这种选择通常依赖于子问题的解），而是直接做出一次贪心选择（局部最优解）然后求解剩下的唯一子问题，不必求解所有可能相关的子问题。即：贪心算法总是做出局部最优的选择，希望这样的选择可以最终达到全局最优，这种选择可能依赖于之前做出的选择，但不会依赖于任何将来的选择或者子问题的解。<br>贪心算法通常采用<strong>自顶向下</strong>的设计：做出一个选择，然后求解剩下那个子问题。而不是自底向上求解出很多子问题再做出选择。<em>每个贪心算法下，几乎总有一个更繁琐的动态规划算法。</em></p>
-<ol>
-<li>将最优化问题转化为这样的形式：对其做出一次选择之后，只剩下一个子问题需要求解。</li>
-<li>证明做出贪心选择后，原问题总是存在最优解，<strong>即贪心总是安全的</strong>。<br>进行贪心选择时，可以通过数据预处理（排序）或者使用合适的数据结构（优先队列）来使得贪心选择更快速高效。</li>
-<li>证明做出贪心选择后，剩余的子问题的最优解与该贪心选择组合即可得到原问题的最优解，这样就得到了<strong>最优子结构</strong>。</li>
-</ol>
-<p>eg. 最小生成树、Dijkstra算法、赫夫曼编码、任务调度问题、部分背包问题</p>
-<pre><code>参考：《算法导论》机械工业出版社 第2、4、15、16章
-</code></pre>]]></content>
-      <categories>
-        <category>学习笔记：算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>B树 B+树</title>
-    <url>/2020/07/21/B%E6%A0%91-B+%E6%A0%91/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>学习笔记：数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CNN</title>
-    <url>/2020/07/11/CNN/</url>
-    <content><![CDATA[<h2 id="卷积运算的定义"><a href="#卷积运算的定义" class="headerlink" title="卷积运算的定义"></a>卷积运算的定义</h2><p>卷积是对两个实变函数的一种特殊的线性运算，满足交换律和结合律。连续形式如下：</p>
-<script type="math/tex; mode=display">s(t)=∫x(a)w(t-a)da</script><p>其中x(·)是输入信号强度(input)，w(·)是权重，也称作核函数(kernel function)。<a id="more"></a><br>离散形式如下（$da=1$）：</p>
-<script type="math/tex; mode=display">s(t)=Σx(a)w(t-a)</script><p>卷积运算可以用星号表示：</p>
-<script type="math/tex; mode=display">s(t)=(x*w)(t)</script><p>卷积操作的实际含义是对输入信号的每个位置进行加权得到对某个参数的估计，其输出被称作特征映射(feature map)。<br>使用一张二维图像$I$进行输入，使用一个二维的核$K$：</p>
-<h2 id="稀疏交互，感受野，参数共享，等变表示"><a href="#稀疏交互，感受野，参数共享，等变表示" class="headerlink" title="稀疏交互，感受野，参数共享，等变表示"></a>稀疏交互，感受野，参数共享，等变表示</h2><h3 id="稀疏交互-sparse-interactions"><a href="#稀疏交互-sparse-interactions" class="headerlink" title="稀疏交互 sparse interactions"></a>稀疏交互 sparse interactions</h3><p>也叫稀疏连接(sparse connectivity)、稀疏权重(sparse weights)<br>核的大小远小于输入大小，使得需要存储的参数显著减少，提高了模型的统计效率，计算量减少。卷积核是一个权值矩阵，表示如何处理单个像素和相邻像素之间的关系，会影响输出的效果和亮度。卷积核中各个元素的相对差值小，就具有模糊降噪的效果；差值大就拉大了每个像素与相邻像素的距离，可以提取边缘或者达到锐化的效果。卷积核的元素相加为1，基本上保持了同样的亮度；如果大于1则图像变亮，小于1则变暗；如果累加为0则输出亮度极低，但不是全黑，可以用于边缘提取。<br>感受野 receptive field也称作接受域。输入x中影响输出单元s1的这些单元称作s1的接受域，即：每一层输出的特征图上像素点在原始图像上的映射区域大小。处于卷积网络中更深层的单元的接受域比浅层单元的接受域更大。这说明尽管网络层之间的直接连接很稀疏，但更深层的单元可以直接或间接连接到全部或者大部分输入单元。<br>感受野大小：$r_=r_{l-1}+k_{l-1}\cdot j_{l-1}$。<br>其中$j_l=j_{1-1} \cdot s_l$，因此$r_l=r_{l-1}+((k_{l-1}-1)\cdot ∏_{i=1}^{l-1}s_i)$。<br>k是核大小，s是步长，j是特征图上相邻元素间的像素距离，也可以理解为特征图上移动一个元素在原始图像上移动的像素个数。<br>局部感知域是指对于每个计算单元来说，只需要考虑其像素位置附近的输入，并不需要与上一层所有节点相连。</p>
-<h3 id="参数共享-parameter-sharing"><a href="#参数共享-parameter-sharing" class="headerlink" title="参数共享 parameter sharing"></a>参数共享 parameter sharing</h3><p>参数共享是指在一个模型的多个函数中使用相同的参数。传统神经网络中权重的每个元素只使用一次，而参数共享时核的每个元素都作用在输入的每个位置上，即网络含有绑定的权重(tied weight)。卷积运算中的参数共享保证了我们只需要学习一个参数集合而不是对每一个位置都需要学习一个参数集合，大大减少了需要学习的参数数量。</p>
-<h3 id="等变表示-equivariant-representations"><a href="#等变表示-equivariant-representations" class="headerlink" title="等变表示 equivariant representations"></a>等变表示 equivariant representations</h3><p>参数共享的特殊形式使得神经网络具有平移等变的性质。相同的边缘或多或少地分布在图像各处，所以应当对整个图像进行参数共享。<br>如果f(x)与g(x)满足f(g(x))=g(f(x))，则f(x)对于变换g具有等变性。</p>
-<h2 id="池化"><a href="#池化" class="headerlink" title="池化"></a>池化</h2><p>卷积网络中一个典型层包含三级：卷积级、探测级、池化级<br>卷积级：并行计算多个卷积产生一组线性激活相应（多个卷积核学习到多个特征）<br>探测级：非线性激活函数<br>池化级：使用池化函数来调整输出<br>探测级输出的特征图与原图像像素大小相同，降维的关键在于池化，用于汇总输出。<br>池化函数使用某一位置的相邻输出的总体统计特征（max、mean）来代替该位置的输出，池化能够使特征提取拥有平移不变性(translation invariant)，可以极大提高网络的统计效率。将池化与降采样（步幅移动）结合，可以使得池化单元少于探测单元，提高计算效率，减少过拟合。<br>池化对于处理不同大小的输入具有重要作用。<br>使用池化是一个无限强的先验：每一个单元都具有对少量平移的不变性。<br>卷积和池化可能导致欠拟合：如果一项任务依赖于保存精确的空间信息，那么在所有特征上使用池化会增大训练误差。</p>
-<h2 id="步幅卷积，标准卷积，平铺卷积，局部连接，全连接"><a href="#步幅卷积，标准卷积，平铺卷积，局部连接，全连接" class="headerlink" title="步幅卷积，标准卷积，平铺卷积，局部连接，全连接"></a>步幅卷积，标准卷积，平铺卷积，局部连接，全连接</h2><p>步幅卷积：下采样，零填充（valid，same，full）<br>标准卷积等效于1个核的平铺卷积</p>
-<h2 id="不通过监督训练得到卷积核"><a href="#不通过监督训练得到卷积核" class="headerlink" title="不通过监督训练得到卷积核"></a>不通过监督训练得到卷积核</h2><pre><code>随机初始化
-手动设计
-使用无监督的标准来学习核
-</code></pre><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>训练CNN时可以对输入进行旋转、平移、缩放等预处理来提高模型泛化能力(generalization ability)。</p>
-<h3 id="Classic-cnn"><a href="#Classic-cnn" class="headerlink" title="Classic cnn"></a>Classic cnn</h3><h4 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h4><h4 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h4><h4 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h4><h4 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h4><p>PyTorch Tensorflow Keras</p>
-<h3 id="A-brief-summary"><a href="#A-brief-summary" class="headerlink" title="A brief summary"></a>A brief summary</h3><p>Convolution is a special kind of linear operation which satisfies the commutative and associative laws. It’s used to accumulate the weighted input.<br>Convolution Neural Network is the network that uses convolution instead of matrix multiplication. CNN mainly uses the idea of sparse connectivity and parameter sharing to improve the computing effectivity rapidly. The receptive field is defined as the region in the input space that a particular CNN’s feature is looking at.<br>CNN learns multiple features in parallel using multiple convolutional kernals.<br>The pooling function represents the output of a location using the overall statistical characteristics of adjacent output at that location. It can reduce the amount of data and prevent over-fitting.</p>
-]]></content>
-      <categories>
-        <category>学习笔记：深度学习</category>
-      </categories>
-      <tags>
-        <tag>神经网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二叉搜索树 红黑树</title>
-    <url>/2020/07/20/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-%E7%BA%A2%E9%BB%91%E6%A0%91/</url>
-    <content><![CDATA[<h2 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h2><p>一棵搜索树既可以作为一个字典又可以作为一个优先队列。</p>
-<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2>]]></content>
-      <categories>
-        <category>学习笔记：数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字节跳动-JAVA</title>
-    <url>/2020/07/14/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8-JAVA/</url>
-    <content><![CDATA[<h2 id="面向对象有哪些特征？解释一下"><a href="#面向对象有哪些特征？解释一下" class="headerlink" title="面向对象有哪些特征？解释一下"></a>面向对象有哪些特征？解释一下</h2><p>面向对象主要有四大特性：<em>抽象、封装、继承和多态</em>。<br>OO开发范式大致为：<strong>划分对象→抽象类→将类组织成为层次化结构(继承和合成) →用类与实例进行设计和实现几个阶段。</strong><a id="more"></a><br>    <a href="https://juejin.im/entry/59f292635188254115701364">https://juejin.im/entry/59f292635188254115701364</a><br>    <a href="https://blog.csdn.net/cancan8538/article/details/8057095">https://blog.csdn.net/cancan8538/article/details/8057095</a></p>
-<ol>
-<li>抽象就是将一类实体的共同特性抽象出来，封装在一个新的概念(类) 中，所以抽象是面向对象语言的基础。</li>
-<li>封装特性是由类来体现的。将现实生活中的一类实体定义成类，其中包括属性和行为（在Java中就是方法）。</li>
-<li>一个类可以继承另一个类的一些特性，从而可以代码重用，其实继承体现的是is-a关系，父类和子类在本质上还是一类实体。继承是一个对象获得另一个对象的属性的过程，使一个对象成为一个更具通用类的一个特定实例（可传递可扩展、可复用、可维护）通过继承创建的新类称为“子类”或“派生类”；被继承的类称为“基类”、“父类”或“超类”。</li>
-<li>多态是允许一个接口被多个同类动作使用的特性，具体使用哪个动作与应用场合有关。多态就是通过传递给父类对象引用不同的子类对象从而表现出不同的行为，多态可为程序提供更好的可扩展性，同样也可以代码重用。<br>“向上转型”: Animal a = new Dog(); 定义了一个Animal类型的引用，指向新建的Dog类型的对象。<strong>父类引用a可以直接调用Animal中未被dog重写(override)的方法，调用被重写的方法时会调用子类中的这个方法，这就是动态连接。</strong>这样的函数调用在编译期间是无法确定的（调用的子类的虚函数的地址无法给出）。当需要在子类中调用父类的被重写方法时，要使用 super 关键字。</li>
-</ol>
-<p>注意：重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。编译器根据函数不同的参数表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（对于编译器来说）。对于这两个函数的调用，在编译器间就已经确定了，是静态的（记住：是静态）。也就是说，它们的地址在编译期就绑定了（早绑定），因此，重载只是一种语言特性，与多态无关，与面向对象也无关。<strong>无法以返回值类型作为重载函数的区分标准。</strong></p>
-<h2 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h2><pre><code>https://www.runoob.com/java/java-collections.html
-</code></pre><p>集合框架是一个用来代表和操纵集合的统一架构。所有的集合框架都包含如下内容：<br>    接口：是代表集合的抽象数据类型。例如 Collection、List、Set、Map 等。之所以定义多个接口，是为了以不同的方式操作集合对象<br>    实现（类）：是集合接口的具体实现。从本质上讲，它们是可重复使用的数据结构，例如：ArrayList、LinkedList、HashSet、HashMap。<br>    算法：是实现集合接口的对象里的方法执行的一些有用的计算，例如：搜索和排序。这些算法被称为多态，那是因为相同的方法可以在相似的接口上有着不同的实现。</p>
-<h3 id="接口和抽象类区别"><a href="#接口和抽象类区别" class="headerlink" title="接口和抽象类区别"></a>接口和抽象类区别</h3><pre><code>https://www.cnblogs.com/dolphin0520/p/3811437.html
-https://www.jianshu.com/p/038f0b356e9a
-</code></pre><p>抽象方法是一种特殊的方法：它只有声明，而没有具体的实现：abstract void fun();因为抽象类中含有无具体实现的方法，所以不能用抽象类创建对象。包含抽象方法的类称为<em>抽象类</em>，抽象方法必须为public或者protected（因为如果为private，则不能被子类继承，子类便无法实现该方法），缺省情况下默认为public；抽象类不能用来创建对象；如果一个类继承于一个抽象类，则子类必须实现父类的抽象方法。如果子类没有实现父类的抽象方法，则必须将子类也定义为为abstract类。<br><em>接口</em>泛指供别人调用的方法或者函数。接口中的变量会被隐式地指定为public static final变量，方法会被隐式地指定为public abstract方法，并且接口中所有的方法不能有具体的实现，也就是说，<strong>接口中的方法必须都是抽象方法。</strong>可以看出，接口是一种极度抽象的类型。<br><strong>允许一个类实现(implements)多个特定的接口。</strong><br><strong>如果一个非抽象类实现(implements)某个接口，就必须实现该接口中的所有方法。</strong><br>对于实现(implements)某个接口的抽象类，可以不实现该接口中的抽象方法。</p>
-<ol>
-<li>抽象类可以有默认的方法实现完全是抽象的。接口根本不存在方法的实现。</li>
-<li>抽象类使用extends关键字来继承抽象类。如果子类不是抽象类的话，它需要提供抽象类中所有声明的方法的实现。子类使用关键字implements来实现接口。它需要提供接口中所有声明的方法的实现。</li>
-<li>抽象类可以有构造器，而接口不能有构造器。</li>
-<li>抽象方法可以有public、protected和default这些修饰符 ;接口方法默认修饰符是public，不可以使用其它修饰符。</li>
-<li>抽象类在java语言中所表示的是一种继承关系，一个子类只能存在一个父类，但是可以存在多个接口。</li>
-<li>抽象方法比接口速度要快，接口是稍微有点慢的，因为它需要时间去寻找在类中实现的方法。</li>
-<li>如果你往抽象类中添加新的方法，你可以给它提供默认的实现。因此你不需要改变你现在的代码。如果你往接口中添加方法，那么你必须改变实现该接口的类。</li>
-</ol>
-<h3 id="【高频】-类加载过程"><a href="#【高频】-类加载过程" class="headerlink" title="【高频】 类加载过程"></a>【高频】 类加载过程</h3><p> 加载，连接，初始化 </p>
-<h3 id="有哪些类加载器，能否自定义-Java-Object-String-的类加载器-？"><a href="#有哪些类加载器，能否自定义-Java-Object-String-的类加载器-？" class="headerlink" title="有哪些类加载器，能否自定义 Java.Object.String 的类加载器 ？"></a>有哪些类加载器，能否自定义 Java.Object.String 的类加载器 ？</h3><h3 id="双亲委派机制介绍-amp-作用"><a href="#双亲委派机制介绍-amp-作用" class="headerlink" title="双亲委派机制介绍 &amp; 作用"></a>双亲委派机制介绍 &amp; 作用</h3><p>类加载器加载类时先委派给父类加载，只有父类无法加载时，自己才尝试加载。<br>保证java类库中的类不受用户类影响，防止用户自定义一个类库中的同名类，引起问题。</p>
-<h2 id="源码-amp-原理-amp-对比：arraylist、linkedlist"><a href="#源码-amp-原理-amp-对比：arraylist、linkedlist" class="headerlink" title="源码&amp;原理&amp;对比：arraylist、linkedlist"></a>源码&amp;原理&amp;对比：arraylist、linkedlist</h2><h2 id="Hash的相关问题"><a href="#Hash的相关问题" class="headerlink" title="Hash的相关问题"></a>Hash的相关问题</h2><h3 id="java里hashmap是如何实现的？hashArray和list有什么区别？"><a href="#java里hashmap是如何实现的？hashArray和list有什么区别？" class="headerlink" title="java里hashmap是如何实现的？hashArray和list有什么区别？"></a>java里hashmap是如何实现的？hashArray和list有什么区别？</h3><h3 id="HashMap-amp-ConcurrentHashMap-的比较"><a href="#HashMap-amp-ConcurrentHashMap-的比较" class="headerlink" title="HashMap &amp; ConcurrentHashMap 的比较"></a>HashMap &amp; ConcurrentHashMap 的比较</h3><p>线程安全问题等等</p>
-<h3 id="HashMap-为什么线程不安全？-能否举例"><a href="#HashMap-为什么线程不安全？-能否举例" class="headerlink" title="HashMap 为什么线程不安全？ 能否举例"></a>HashMap 为什么线程不安全？ 能否举例</h3><p> { 并发resize()触发闭环结构 ，覆盖put操作 }</p>
-<h3 id="HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？"><a href="#HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？" class="headerlink" title="HashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？"></a>HashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？</h3><h3 id="hash值的计算，为什么这样优化"><a href="#hash值的计算，为什么这样优化" class="headerlink" title="hash值的计算，为什么这样优化"></a>hash值的计算，为什么这样优化</h3><h3 id="为什么-HashMap的size为2的幂次方-？"><a href="#为什么-HashMap的size为2的幂次方-？" class="headerlink" title="为什么 HashMap的size为2的幂次方 ？"></a>为什么 HashMap的size为2的幂次方 ？</h3><h3 id="HashMap-resize-过程能否介绍-？"><a href="#HashMap-resize-过程能否介绍-？" class="headerlink" title="HashMap resize()过程能否介绍 ？"></a>HashMap resize()过程能否介绍 ？</h3><h3 id="HashMap效率受什么影响-负载因子、hash数组size-？"><a href="#HashMap效率受什么影响-负载因子、hash数组size-？" class="headerlink" title="HashMap效率受什么影响 (负载因子、hash数组size)？"></a>HashMap效率受什么影响 (负载因子、hash数组size)？</h3><h3 id="HashMap中扰动函数的作用-？"><a href="#HashMap中扰动函数的作用-？" class="headerlink" title="HashMap中扰动函数的作用 ？"></a>HashMap中扰动函数的作用 ？</h3><h3 id="HashMap原理，为什么用红黑树，红黑树的特点？"><a href="#HashMap原理，为什么用红黑树，红黑树的特点？" class="headerlink" title="HashMap原理，为什么用红黑树，红黑树的特点？"></a>HashMap原理，为什么用红黑树，红黑树的特点？</h3><h3 id="Hashtable-和-HashMap的区别"><a href="#Hashtable-和-HashMap的区别" class="headerlink" title="Hashtable 和 HashMap的区别"></a>Hashtable 和 HashMap的区别</h3><p>{ 底层数据结构 (JDK1.8后不同)、父类不同  、扩容方法不同 、 线程上锁范围不同（重点） }</p>
-<h3 id="hashtable的理想的查找效率是多少？"><a href="#hashtable的理想的查找效率是多少？" class="headerlink" title="hashtable的理想的查找效率是多少？"></a>hashtable的理想的查找效率是多少？</h3><h3 id="哈希碰撞怎么解决？"><a href="#哈希碰撞怎么解决？" class="headerlink" title="哈希碰撞怎么解决？"></a>哈希碰撞怎么解决？</h3><h2 id="JVM相关问题"><a href="#JVM相关问题" class="headerlink" title="JVM相关问题"></a>JVM相关问题</h2><h3 id="JOOM-如何定位"><a href="#JOOM-如何定位" class="headerlink" title="JOOM 如何定位"></a>JOOM 如何定位</h3><h3 id="说几个虚拟机指令以及虚拟机栈可能会发生什么错误"><a href="#说几个虚拟机指令以及虚拟机栈可能会发生什么错误" class="headerlink" title="说几个虚拟机指令以及虚拟机栈可能会发生什么错误"></a>说几个虚拟机指令以及虚拟机栈可能会发生什么错误</h3><h3 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h3><h3 id="jvm-的局部变量表是做什么的？"><a href="#jvm-的局部变量表是做什么的？" class="headerlink" title="jvm 的局部变量表是做什么的？"></a>jvm 的局部变量表是做什么的？</h3><p>存储局部变量、函数调用时传递参数，很多字节码指令都是对局部变量表和操作数栈进行操作的。</p>
-<h2 id="static变量什么作用，放在哪里"><a href="#static变量什么作用，放在哪里" class="headerlink" title="static变量什么作用，放在哪里"></a>static变量什么作用，放在哪里</h2><h2 id="线程池的执行过程、核心参数以及常用的几个线程池"><a href="#线程池的执行过程、核心参数以及常用的几个线程池" class="headerlink" title="线程池的执行过程、核心参数以及常用的几个线程池"></a>线程池的执行过程、核心参数以及常用的几个线程池</h2><h2 id="Java内存区域-："><a href="#Java内存区域-：" class="headerlink" title="Java内存区域   ："></a>Java内存区域   ：</h2><p>程序计数器 ， 虚拟机栈 ，本地方法栈 ， 堆 ，方法区 ，元空间 </p>
-<h3 id="讲一下-volatile-。"><a href="#讲一下-volatile-。" class="headerlink" title="讲一下 volatile 。"></a>讲一下 volatile 。</h3><p>内存可见性、指令重排、32位jvm对64数据的原子操作什么的</p>
-<h3 id="volatile-可以保证并发计数正确性？"><a href="#volatile-可以保证并发计数正确性？" class="headerlink" title="volatile 可以保证并发计数正确性？"></a>volatile 可以保证并发计数正确性？</h3><p>不能</p>
-<h3 id="如果需要保证并发计数正确怎么办，只能加锁吗？"><a href="#如果需要保证并发计数正确怎么办，只能加锁吗？" class="headerlink" title="如果需要保证并发计数正确怎么办，只能加锁吗？"></a>如果需要保证并发计数正确怎么办，只能加锁吗？</h3><p>计数是个轻量级的操作，java 有原子变量，于是说 AtomicInteger。</p>
-<h3 id="为什么原子变量能保证高效正确计数？"><a href="#为什么原子变量能保证高效正确计数？" class="headerlink" title="为什么原子变量能保证高效正确计数？"></a>为什么原子变量能保证高效正确计数？</h3><h2 id="垃圾回收：JVM-GC的一整套-算法、分区、判断方法、GC器"><a href="#垃圾回收：JVM-GC的一整套-算法、分区、判断方法、GC器" class="headerlink" title="垃圾回收：JVM GC的一整套(算法、分区、判断方法、GC器)"></a>垃圾回收：JVM GC的一整套(算法、分区、判断方法、GC器)</h2><h3 id="【高频】-判断对象死亡的方法-：-引用计数法-，可达分析算法"><a href="#【高频】-判断对象死亡的方法-：-引用计数法-，可达分析算法" class="headerlink" title="【高频】 判断对象死亡的方法 ： { 引用计数法 ，可达分析算法 }"></a>【高频】 判断对象死亡的方法 ： { 引用计数法 ，可达分析算法 }</h3><h3 id="垃圾收集算法-："><a href="#垃圾收集算法-：" class="headerlink" title="垃圾收集算法  ："></a>垃圾收集算法  ：</h3><p> { 标记清除算法 、标记整理算法 、 复制算法、 分代收集算法 }<br>深入一些： 各个算法的优点和适用场景</p>
-<h3 id="垃圾收集器-："><a href="#垃圾收集器-：" class="headerlink" title="垃圾收集器 ："></a>垃圾收集器 ：</h3><p> { serial  、 parallel 、 CMS 、 G1  }</p>
-<h3 id="垃圾回收怎么判断哪些对象应该回收？"><a href="#垃圾回收怎么判断哪些对象应该回收？" class="headerlink" title="垃圾回收怎么判断哪些对象应该回收？"></a>垃圾回收怎么判断哪些对象应该回收？</h3><p>可达性分析，从 GCRoot 开始遍历，不能遍历到的对象就可以认为已经死了，可以回收。</p>
-<h3 id="什么可以作为GCRoot？"><a href="#什么可以作为GCRoot？" class="headerlink" title="什么可以作为GCRoot？"></a>什么可以作为GCRoot？</h3><p>方法区的数据引用、当前代码处的局部变量，基本就是用户能通过代码引用到的。</p>
-<h3 id="Minor-GC-触发条件-："><a href="#Minor-GC-触发条件-：" class="headerlink" title="Minor GC 触发条件 ："></a>Minor GC 触发条件 ：</h3><p>eden区剩余内存是否足够 两种情况分开分析</p>
-<h3 id="FULL-GC-触发条件-："><a href="#FULL-GC-触发条件-：" class="headerlink" title="FULL GC  触发条件 ："></a>FULL GC  触发条件 ：</h3><p>Minor GC 平均晋升空间大小 &gt; 老年代连续剩余空间，则触发FULL GC</p>
-<h3 id="讲讲了解的垃圾回收算法和回收器，什么时候执行STOP-THE-WORLD？"><a href="#讲讲了解的垃圾回收算法和回收器，什么时候执行STOP-THE-WORLD？" class="headerlink" title="讲讲了解的垃圾回收算法和回收器，什么时候执行STOP THE WORLD？"></a>讲讲了解的垃圾回收算法和回收器，什么时候执行STOP THE WORLD？</h3><h3 id="CMS-、G1-重点-，-介绍工作流程和优缺点"><a href="#CMS-、G1-重点-，-介绍工作流程和优缺点" class="headerlink" title="CMS 、G1 重点 ， 介绍工作流程和优缺点"></a>CMS 、G1 重点 ， 介绍工作流程和优缺点</h3><h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><p>例子： { 单例 ， 容器 等等}<br>原因 ： 长生命周期持有短生命周期引用</p>
-<h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><p>强引用、 软引用、 弱引用 、 虚引用  </p>
-<h3 id="如何高效进行数组拷贝（其实是System-arraycopy-的原理"><a href="#如何高效进行数组拷贝（其实是System-arraycopy-的原理" class="headerlink" title="如何高效进行数组拷贝（其实是System.arraycopy()的原理"></a>如何高效进行数组拷贝（其实是System.arraycopy()的原理</h3><h3 id="equals-和-区别"><a href="#equals-和-区别" class="headerlink" title="equals 和 == 区别"></a>equals 和 == 区别</h3><h3 id="为啥重写equals要重写hashCode"><a href="#为啥重写equals要重写hashCode" class="headerlink" title="为啥重写equals要重写hashCode()"></a>为啥重写equals要重写hashCode()</h3><p>hash值相等，而两个对象不一定equals</p>
-<h3 id="String-StringBuffer-StringBuilder-区别-和各自使用场景"><a href="#String-StringBuffer-StringBuilder-区别-和各自使用场景" class="headerlink" title="String StringBuffer StringBuilder  区别 和各自使用场景"></a>String StringBuffer StringBuilder  区别 和各自使用场景</h3><p>深入一些 ： String 是如何实现它不可变的？ 为什么要设置String为不可变对象  ?  </p>
-<h3 id="深拷贝和浅拷贝区别"><a href="#深拷贝和浅拷贝区别" class="headerlink" title="深拷贝和浅拷贝区别"></a>深拷贝和浅拷贝区别</h3><h3 id="Object的方法-：-finalize-、-clone、-getClass-、-equals-、-hashCode"><a href="#Object的方法-：-finalize-、-clone、-getClass-、-equals-、-hashCode" class="headerlink" title="Object的方法 ： { finalize 、 clone、 getClass 、 equals 、 hashCode }"></a>Object的方法 ： { finalize 、 clone、 getClass 、 equals 、 hashCode }</h3><h3 id="【高频】-设计模式-：-单例模式-、-工厂模式-、-装饰者模式-、-代理模式-、-策略模式-等等-（此处我的掌握也不是很好）"><a href="#【高频】-设计模式-：-单例模式-、-工厂模式-、-装饰者模式-、-代理模式-、-策略模式-等等-（此处我的掌握也不是很好）" class="headerlink" title="【高频】 设计模式    ： {    单例模式 、 工厂模式 、 装饰者模式 、 代理模式 、 策略模式 等等} （此处我的掌握也不是很好）"></a>【高频】 设计模式    ： {    单例模式 、 工厂模式 、 装饰者模式 、 代理模式 、 策略模式 等等} （此处我的掌握也不是很好）</h3><h3 id="深入一些-：-单例模式为什么采用双检测机制-？-单例为什么用Volatile修饰？-装饰模式和代理模式区别？"><a href="#深入一些-：-单例模式为什么采用双检测机制-？-单例为什么用Volatile修饰？-装饰模式和代理模式区别？" class="headerlink" title="深入一些 ： 单例模式为什么采用双检测机制 ？ 单例为什么用Volatile修饰？ 装饰模式和代理模式区别？"></a>深入一些 ： 单例模式为什么采用双检测机制 ？ 单例为什么用Volatile修饰？ 装饰模式和代理模式区别？</h3><h3 id="B树怎么保证每次操作完都平衡的？"><a href="#B树怎么保证每次操作完都平衡的？" class="headerlink" title="B树怎么保证每次操作完都平衡的？"></a>B树怎么保证每次操作完都平衡的？</h3><p>跟红黑树还是差不太多</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>字节跳动</title>
-    <url>/2020/07/14/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8/</url>
-    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="Python可变参数args，-kwargs"><a href="#Python可变参数args，-kwargs" class="headerlink" title="Python可变参数args，*kwargs"></a>Python可变参数<em>args，*</em>kwargs</h3><h3 id="Python内置容器及其容器及其使用场景"><a href="#Python内置容器及其容器及其使用场景" class="headerlink" title="Python内置容器及其容器及其使用场景 "></a>Python内置容器及其容器及其使用场景 <a id="more"></a></h3><h3 id="python多线程"><a href="#python多线程" class="headerlink" title="python多线程"></a>python多线程</h3><h3 id="对Python了解吗？说说它底层的实现原理。"><a href="#对Python了解吗？说说它底层的实现原理。" class="headerlink" title="对Python了解吗？说说它底层的实现原理。"></a>对Python了解吗？说说它底层的实现原理。</h3><h3 id="什么是Python生成器，迭代器；"><a href="#什么是Python生成器，迭代器；" class="headerlink" title="什么是Python生成器，迭代器；"></a>什么是Python生成器，迭代器；</h3><h3 id="Python中的dict底层怎么实现的"><a href="#Python中的dict底层怎么实现的" class="headerlink" title="Python中的dict底层怎么实现的"></a>Python中的dict底层怎么实现的</h3><h3 id="Python多线程用了几个CPU"><a href="#Python多线程用了几个CPU" class="headerlink" title="Python多线程用了几个CPU"></a>Python多线程用了几个CPU</h3><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="C-中const与-define的区别与优势"><a href="#C-中const与-define的区别与优势" class="headerlink" title="C++中const与#define的区别与优势"></a>C++中const与#define的区别与优势</h3><h3 id="C-11新特性auto的用法"><a href="#C-11新特性auto的用法" class="headerlink" title="C++11新特性auto的用法"></a>C++11新特性auto的用法</h3><h3 id="C-虚函数，读程序写结果"><a href="#C-虚函数，读程序写结果" class="headerlink" title="C++虚函数，读程序写结果"></a>C++虚函数，读程序写结果</h3><h3 id="C-关键字static、extern"><a href="#C-关键字static、extern" class="headerlink" title="C++关键字static、extern"></a>C++关键字static、extern</h3><h3 id="C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景"><a href="#C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景" class="headerlink" title="C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景"></a>C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景</h3><h3 id="C-中new和delete语句的底层实现"><a href="#C-中new和delete语句的底层实现" class="headerlink" title="C++中new和delete语句的底层实现"></a>C++中new和delete语句的底层实现</h3><h2 id="编程语言之间的对比"><a href="#编程语言之间的对比" class="headerlink" title="编程语言之间的对比"></a>编程语言之间的对比</h2><h3 id="Java和C-相比有什么特点？"><a href="#Java和C-相比有什么特点？" class="headerlink" title="Java和C++相比有什么特点？"></a>Java和C++相比有什么特点？</h3><h3 id="C-为什么比Java运行得快？"><a href="#C-为什么比Java运行得快？" class="headerlink" title="C++为什么比Java运行得快？"></a>C++为什么比Java运行得快？</h3><h3 id="java和python的异同？"><a href="#java和python的异同？" class="headerlink" title="java和python的异同？"></a>java和python的异同？</h3><h2 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h2><h3 id="了解Linux么？用过哪些命令？"><a href="#了解Linux么？用过哪些命令？" class="headerlink" title="了解Linux么？用过哪些命令？"></a>了解Linux么？用过哪些命令？</h3><h3 id="SSO了解吗？"><a href="#SSO了解吗？" class="headerlink" title="SSO了解吗？"></a>SSO了解吗？</h3><h3 id="负载均衡了解吗？"><a href="#负载均衡了解吗？" class="headerlink" title="负载均衡了解吗？"></a>负载均衡了解吗？</h3><h3 id="MD5加密可逆吗？会被破解吗-如何破解？"><a href="#MD5加密可逆吗？会被破解吗-如何破解？" class="headerlink" title="MD5加密可逆吗？会被破解吗?如何破解？"></a>MD5加密可逆吗？会被破解吗?如何破解？</h3><h3 id="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"><a href="#DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）" class="headerlink" title="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"></a>DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）</h3><h3 id="并发用什么"><a href="#并发用什么" class="headerlink" title="并发用什么"></a>并发用什么</h3><h2 id="后端框架"><a href="#后端框架" class="headerlink" title="后端框架"></a>后端框架</h2><h3 id="接触过哪些后端框架"><a href="#接触过哪些后端框架" class="headerlink" title="接触过哪些后端框架"></a>接触过哪些后端框架</h3><h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><h3 id="spring"><a href="#spring" class="headerlink" title="spring"></a>spring</h3><h3 id="讲一下spring-mvc的原理"><a href="#讲一下spring-mvc的原理" class="headerlink" title="讲一下spring mvc的原理"></a>讲一下spring mvc的原理</h3><h3 id="你用Django的时候，觉得它有哪些好的特性"><a href="#你用Django的时候，觉得它有哪些好的特性" class="headerlink" title="你用Django的时候，觉得它有哪些好的特性"></a>你用Django的时候，觉得它有哪些好的特性</h3><h3 id="操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"><a href="#操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换" class="headerlink" title="操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"></a>操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换</h3><h3 id="说说new和delete发生了什么。"><a href="#说说new和delete发生了什么。" class="headerlink" title="说说new和delete发生了什么。"></a>说说new和delete发生了什么。</h3><h3 id="谈谈你对前后端交互中使用的JSON的理解"><a href="#谈谈你对前后端交互中使用的JSON的理解" class="headerlink" title="谈谈你对前后端交互中使用的JSON的理解"></a>谈谈你对前后端交互中使用的JSON的理解</h3><h3 id="CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）"><a href="#CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）" class="headerlink" title="CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）"></a>CAS底层有了解吗（只知道是硬件支持的，没看native方法的具体实现）</h3><h3 id="为什么要并发控制？"><a href="#为什么要并发控制？" class="headerlink" title="为什么要并发控制？"></a>为什么要并发控制？</h3><h3 id="了解索引吗？知道实现原理吗？（B-树）"><a href="#了解索引吗？知道实现原理吗？（B-树）" class="headerlink" title="了解索引吗？知道实现原理吗？（B+树）"></a>了解索引吗？知道实现原理吗？（B+树）</h3><h3 id="DNS是什么？内部如何实现？"><a href="#DNS是什么？内部如何实现？" class="headerlink" title="DNS是什么？内部如何实现？"></a>DNS是什么？内部如何实现？</h3><h3 id="ARP是什么？ARP内部如何实现？"><a href="#ARP是什么？ARP内部如何实现？" class="headerlink" title="ARP是什么？ARP内部如何实现？"></a>ARP是什么？ARP内部如何实现？</h3><h3 id="Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别"><a href="#Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别" class="headerlink" title="Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)"></a>Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)</h3><h3 id="32位整数-1右移两位是啥"><a href="#32位整数-1右移两位是啥" class="headerlink" title="32位整数-1右移两位是啥"></a>32位整数-1右移两位是啥</h3><h3 id="函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧"><a href="#函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧" class="headerlink" title="函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧"></a>函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧</h3><h3 id="GDB有用过哪些"><a href="#GDB有用过哪些" class="headerlink" title="GDB有用过哪些"></a>GDB有用过哪些</h3><h3 id="数组怎么扩容？"><a href="#数组怎么扩容？" class="headerlink" title="数组怎么扩容？"></a>数组怎么扩容？</h3><p>新建一个更大新数组，然后复制过去……</p>
-<h3 id="复制的时候锁住数组，所有的操作都阻塞？"><a href="#复制的时候锁住数组，所有的操作都阻塞？" class="headerlink" title="复制的时候锁住数组，所有的操作都阻塞？"></a>复制的时候锁住数组，所有的操作都阻塞？</h3><p>（面试之后去看了线程池里的阻塞队列，似乎都是用链表实现的，没有用数组。用到的队列似乎默认都是动态扩容的，最大为整数最大值。如果队列满了又不支持动态扩容，可以通过设置饱和策略来处理，默认是中止，也就是抛出 RejectedExecutionException。）</p>
-<h3 id="读写分离有什么用？"><a href="#读写分离有什么用？" class="headerlink" title="读写分离有什么用？"></a>读写分离有什么用？</h3><p>写操作都在主库，读操作都在分库，让读操作能并发，提高效率。</p>
-<h3 id="虚拟内存作用？-内存分页的作用？"><a href="#虚拟内存作用？-内存分页的作用？" class="headerlink" title="虚拟内存作用？ 内存分页的作用？"></a>虚拟内存作用？ 内存分页的作用？</h3><h3 id="缺页异常的介绍"><a href="#缺页异常的介绍" class="headerlink" title="缺页异常的介绍"></a>缺页异常的介绍</h3><h3 id="OOM问题和-StackOverFlow的区别"><a href="#OOM问题和-StackOverFlow的区别" class="headerlink" title="OOM问题和 StackOverFlow的区别"></a>OOM问题和 StackOverFlow的区别</h3><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="Select-poll-epoll的区别"><a href="#Select-poll-epoll的区别" class="headerlink" title="Select poll epoll的区别"></a>Select poll epoll的区别</h3><h3 id="expoll了解吗"><a href="#expoll了解吗" class="headerlink" title="expoll了解吗"></a>expoll了解吗</h3><h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><h3 id="数据库事务隔离级别"><a href="#数据库事务隔离级别" class="headerlink" title="数据库事务隔离级别"></a>数据库事务隔离级别</h3><h3 id="多人同时使用数据库的注意事项"><a href="#多人同时使用数据库的注意事项" class="headerlink" title="多人同时使用数据库的注意事项"></a>多人同时使用数据库的注意事项</h3><h3 id="MySQL与其他主流数据库相比有什么特点？"><a href="#MySQL与其他主流数据库相比有什么特点？" class="headerlink" title="MySQL与其他主流数据库相比有什么特点？"></a>MySQL与其他主流数据库相比有什么特点？</h3><h3 id="事务的四大特性"><a href="#事务的四大特性" class="headerlink" title="事务的四大特性"></a>事务的四大特性</h3><h3 id="四种隔离级别"><a href="#四种隔离级别" class="headerlink" title="四种隔离级别"></a>四种隔离级别</h3><h3 id="什么是幻读"><a href="#什么是幻读" class="headerlink" title="什么是幻读"></a>什么是幻读</h3><h3 id="InnoDB-怎么防止幻读"><a href="#InnoDB-怎么防止幻读" class="headerlink" title="InnoDB 怎么防止幻读"></a>InnoDB 怎么防止幻读</h3><h3 id="B-树原理，为什么使用B-而不是二叉平衡树"><a href="#B-树原理，为什么使用B-而不是二叉平衡树" class="headerlink" title="B+树原理，为什么使用B+而不是二叉平衡树"></a>B+树原理，为什么使用B+而不是二叉平衡树</h3><h3 id="为什么要分用户态和内核态"><a href="#为什么要分用户态和内核态" class="headerlink" title="为什么要分用户态和内核态"></a>为什么要分用户态和内核态</h3><h3 id="用户态和内核态的区别"><a href="#用户态和内核态的区别" class="headerlink" title="用户态和内核态的区别"></a>用户态和内核态的区别</h3><h3 id="Git-切换分支，提交，具体如何合并分支"><a href="#Git-切换分支，提交，具体如何合并分支" class="headerlink" title="Git 切换分支，提交，具体如何合并分支"></a>Git 切换分支，提交，具体如何合并分支</h3><h3 id="数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）"><a href="#数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）" class="headerlink" title="数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）"></a>数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）</h3><h3 id="MySQL的索引-B-和B树的区别，为啥用B-；"><a href="#MySQL的索引-B-和B树的区别，为啥用B-；" class="headerlink" title="MySQL的索引(B+和B树的区别，为啥用B+)；"></a>MySQL的索引(B+和B树的区别，为啥用B+)；</h3><h3 id="让你设计数据库会注意什么；"><a href="#让你设计数据库会注意什么；" class="headerlink" title="让你设计数据库会注意什么；"></a>让你设计数据库会注意什么；</h3><h3 id="【高频】MyISAM-和-InnoDB的区别"><a href="#【高频】MyISAM-和-InnoDB的区别" class="headerlink" title="【高频】MyISAM 和 InnoDB的区别"></a>【高频】MyISAM 和 InnoDB的区别</h3><p>{是否支持行锁 、 是否支持十五 、 是否支持 MVCC 、 底层索引结构不同 }</p>
-<h3 id="update时什么锁-next-key-lock，但唯一性索引时降级为行锁，"><a href="#update时什么锁-next-key-lock，但唯一性索引时降级为行锁，" class="headerlink" title="update时什么锁 (next-key lock，但唯一性索引时降级为行锁，"></a>update时什么锁 (next-key lock，但唯一性索引时降级为行锁，</h3><h3 id="Mysql-比较熟悉是吧？说一下底层数据存储原理？"><a href="#Mysql-比较熟悉是吧？说一下底层数据存储原理？" class="headerlink" title="Mysql 比较熟悉是吧？说一下底层数据存储原理？"></a>Mysql 比较熟悉是吧？说一下底层数据存储原理？</h3><p>如果直接线性存储的话，每次查找数据都要整个遍历一遍，那么复杂度就是log(n)，于是可以用二叉树来存储，把复杂度降低到约log(n)，但是二叉树有个特点就是，它有可能因为插入顺序的问题，变得不平衡，最坏情况就是都在节点一边，又变成了log(n)，所有就通过改进插入和删除等操作，保证每次操作完后树都是平衡的，就有了B树……</p>
-<h3 id="说一下建表时，建索引有哪些要注意的。"><a href="#说一下建表时，建索引有哪些要注意的。" class="headerlink" title="说一下建表时，建索引有哪些要注意的。"></a>说一下建表时，建索引有哪些要注意的。</h3><p>选区分度比较大的，选数据类型比较小的比如整数而不要选长字符串，选where子句中出现的，覆盖索引 balabala……</p>
-<h3 id="事务特性ACID"><a href="#事务特性ACID" class="headerlink" title="事务特性ACID"></a>事务特性ACID</h3><p>深入一些 ： 为什么要有一致性 ？ AID不是已经保证了一致性了吗 ？</p>
-<h3 id="并发事务带来的问题"><a href="#并发事务带来的问题" class="headerlink" title="并发事务带来的问题"></a>并发事务带来的问题</h3><p>{    脏读 、 修改丢失 、 不可重复读 、 幻影读    }</p>
-<h3 id="【高频】事务的隔离级别"><a href="#【高频】事务的隔离级别" class="headerlink" title="【高频】事务的隔离级别"></a>【高频】事务的隔离级别</h3><h3 id="【高频】-MVCC机制"><a href="#【高频】-MVCC机制" class="headerlink" title="【高频】 MVCC机制"></a>【高频】 MVCC机制</h3><h3 id="【高频】索引"><a href="#【高频】索引" class="headerlink" title="【高频】索引"></a>【高频】索引</h3><h3 id="为什么索引使用B-树结构，而不是B树"><a href="#为什么索引使用B-树结构，而不是B树" class="headerlink" title="为什么索引使用B+树结构，而不是B树"></a>为什么索引使用B+树结构，而不是B树</h3><h3 id="为什么索引使用B-树结构，而不是红黑树-：-磁盘预读取-、红黑树高度"><a href="#为什么索引使用B-树结构，而不是红黑树-：-磁盘预读取-、红黑树高度" class="headerlink" title="为什么索引使用B+树结构，而不是红黑树 ： {  磁盘预读取 、红黑树高度 }"></a>为什么索引使用B+树结构，而不是红黑树 ： {  磁盘预读取 、红黑树高度 }</h3><h3 id="聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？"><a href="#聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？" class="headerlink" title="聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？"></a>聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？</h3><h3 id="为什么不对每个列创建索引呢？"><a href="#为什么不对每个列创建索引呢？" class="headerlink" title="为什么不对每个列创建索引呢？"></a>为什么不对每个列创建索引呢？</h3><h3 id="【高频】SQL语句优化-，SQL题目（字节要求撸代码）"><a href="#【高频】SQL语句优化-，SQL题目（字节要求撸代码）" class="headerlink" title="【高频】SQL语句优化 ，SQL题目（字节要求撸代码）"></a>【高频】SQL语句优化 ，SQL题目（字节要求撸代码）</h3><h3 id="explain中-rows-type-key-extra字段的含义？"><a href="#explain中-rows-type-key-extra字段的含义？" class="headerlink" title="explain中 rows type key extra字段的含义？"></a>explain中 rows type key extra字段的含义？</h3><h3 id="count-1-count-count-列值-的区别"><a href="#count-1-count-count-列值-的区别" class="headerlink" title="count(1) count(*) count(列值)的区别"></a>count(1) count(*) count(列值)的区别</h3><h3 id="数据库的关系有哪些？"><a href="#数据库的关系有哪些？" class="headerlink" title="数据库的关系有哪些？"></a>数据库的关系有哪些？</h3><h3 id="一对多怎么实现？多对多怎么实现？"><a href="#一对多怎么实现？多对多怎么实现？" class="headerlink" title="一对多怎么实现？多对多怎么实现？"></a>一对多怎么实现？多对多怎么实现？</h3><h3 id="MySQL数据库有哪些类型？这些类型有什么区别？"><a href="#MySQL数据库有哪些类型？这些类型有什么区别？" class="headerlink" title="MySQL数据库有哪些类型？这些类型有什么区别？"></a>MySQL数据库有哪些类型？这些类型有什么区别？</h3><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="哈希表如何扩容？具体的操作是什么？"><a href="#哈希表如何扩容？具体的操作是什么？" class="headerlink" title="哈希表如何扩容？具体的操作是什么？"></a>哈希表如何扩容？具体的操作是什么？</h3><h3 id="解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程"><a href="#解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程" class="headerlink" title="解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程"></a>解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程</h3><h3 id="设计一个线程池"><a href="#设计一个线程池" class="headerlink" title="设计一个线程池"></a>设计一个线程池</h3><h3 id="解释下内存中堆和栈，写一个stack-overflow的代码"><a href="#解释下内存中堆和栈，写一个stack-overflow的代码" class="headerlink" title="解释下内存中堆和栈，写一个stack overflow的代码"></a>解释下内存中堆和栈，写一个stack overflow的代码</h3><h3 id="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"><a href="#什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？" class="headerlink" title="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"></a>什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？</h3><h3 id="元组和list的区别；"><a href="#元组和list的区别；" class="headerlink" title="元组和list的区别；"></a>元组和list的区别；</h3><h3 id="list的底层怎么实现的；"><a href="#list的底层怎么实现的；" class="headerlink" title="list的底层怎么实现的；"></a>list的底层怎么实现的；</h3><h3 id="双等于和is有什么区别"><a href="#双等于和is有什么区别" class="headerlink" title="双等于和is有什么区别"></a>双等于和is有什么区别</h3><h3 id="栈的默认大小（1M）"><a href="#栈的默认大小（1M）" class="headerlink" title="栈的默认大小（1M）"></a>栈的默认大小（1M）</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="说一说各种排序算法原理，及其时间复杂度。"><a href="#说一说各种排序算法原理，及其时间复杂度。" class="headerlink" title="说一说各种排序算法原理，及其时间复杂度。"></a>说一说各种排序算法原理，及其时间复杂度。</h3><h3 id="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"><a href="#一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和" class="headerlink" title="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"></a>一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和</h3><h3 id="栈，队列是什么？区别是什么？"><a href="#栈，队列是什么？区别是什么？" class="headerlink" title="栈，队列是什么？区别是什么？"></a>栈，队列是什么？区别是什么？</h3><h3 id="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"><a href="#设计一个可以满足高效率获取第k大和前k个大的元素的数据结构" class="headerlink" title="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"></a>设计一个可以满足高效率获取第k大和前k个大的元素的数据结构</h3><h3 id="手写求两个链表第一个交叉节点"><a href="#手写求两个链表第一个交叉节点" class="headerlink" title="手写求两个链表第一个交叉节点"></a>手写求两个链表第一个交叉节点</h3><h3 id="求x的y次方，想出比直接for循环更好的方案"><a href="#求x的y次方，想出比直接for循环更好的方案" class="headerlink" title="求x的y次方，想出比直接for循环更好的方案"></a>求x的y次方，想出比直接for循环更好的方案</h3><h3 id="求绝对众数"><a href="#求绝对众数" class="headerlink" title="求绝对众数"></a>求绝对众数</h3><h3 id="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"><a href="#二叉树，输出所有和为n的路径（可以从中间结点到中间结点）" class="headerlink" title="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"></a>二叉树，输出所有和为n的路径（可以从中间结点到中间结点）</h3><h3 id="如何用两个栈实现一个队列。"><a href="#如何用两个栈实现一个队列。" class="headerlink" title="如何用两个栈实现一个队列。"></a>如何用两个栈实现一个队列。</h3><h3 id="如何开启一个进程。"><a href="#如何开启一个进程。" class="headerlink" title="如何开启一个进程。"></a>如何开启一个进程。</h3><h3 id="实现一个-hashtable"><a href="#实现一个-hashtable" class="headerlink" title="实现一个 hashtable"></a>实现一个 hashtable</h3><h3 id="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"><a href="#写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。" class="headerlink" title="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"></a>写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。</h3><h3 id="最长公共连续子串"><a href="#最长公共连续子串" class="headerlink" title="最长公共连续子串"></a>最长公共连续子串</h3><h3 id="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；"><a href="#几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；" class="headerlink" title="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；"></a>几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；</h3><h3 id="判断平衡二叉树。"><a href="#判断平衡二叉树。" class="headerlink" title="判断平衡二叉树。"></a>判断平衡二叉树。</h3><h3 id="1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL"><a href="#1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL" class="headerlink" title="1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL"></a>1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL</h3><h3 id="有序数组转二叉搜索树"><a href="#有序数组转二叉搜索树" class="headerlink" title="有序数组转二叉搜索树"></a>有序数组转二叉搜索树</h3><h3 id="设计阻塞队列（不能用JDK的api"><a href="#设计阻塞队列（不能用JDK的api" class="headerlink" title="设计阻塞队列（不能用JDK的api"></a>设计阻塞队列（不能用JDK的api</h3><h3 id="了解哪些设计模式？手写一个工厂方法模式"><a href="#了解哪些设计模式？手写一个工厂方法模式" class="headerlink" title="了解哪些设计模式？手写一个工厂方法模式"></a>了解哪些设计模式？手写一个工厂方法模式</h3><h3 id="手撕sql"><a href="#手撕sql" class="headerlink" title="手撕sql"></a>手撕sql</h3><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2>]]></content>
-  </entry>
-  <entry>
-    <title>散列表 Hash Table</title>
-    <url>/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/</url>
-    <content><![CDATA[<p>散列表是实现字典操作的一种有效数据结构，最坏情况的查找时间是$\theta (n)$，平均查找时间为$O(1)$。<br>散列表是普通数组概念的推广，数组可以直接寻址。<br>当实际存储的关键字数目比全部可能的关键字总数要小时，可以使用散列表来替代直接数组寻址。<br><a id="more"></a></p>
-<h2 id="直接寻址表-Direct-address-table"><a href="#直接寻址表-Direct-address-table" class="headerlink" title="直接寻址表 Direct-address table"></a>直接寻址表 Direct-address table</h2><p>关键字的全域U较小，没有两个元素具有相同的关键字。<br>使用数组，即直接寻址表，其中每个位置成为槽(slot)，实际关键字集合K对应的槽指向对应的元素（关键字为k的元素存放在槽k中），其它槽为NIL，也可以使用其他关键字说明该槽为空。<br>缺点：如果全域U很大，计算机可能无法完整存储这张表；如果实际存储的关键字集合K相对于U来说很小，则T的大部分空间被浪费。</p>
-<h2 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h2><p>散列表需要的存储空间比直接寻址表少很多，关键字为k的元素存放在槽$h(k)$中。即：利用散列函数（hash function）h来计算出关键字为k的元素的槽的位置。散列函数将全域U映射到大小为m的散列表上，其中$m&lt;&lt;|U|$。<br>两个关键字可能被映射到同一个槽中，成为冲突(collision)。<br><strong>通过链接法解决冲突</strong>：把映射到同一个槽中的关键字连成链表。<br>最坏情况：所有n个关键字都散列到同一个槽中，性能相当于普通链表。<br>平均情况：依赖于散列函数把n个关键字映射到m个槽位的平均程度。定义表T的装载因子$\alpha =n/m$。<br>在简单均匀散列(simple uniform hash)的情况下，一次查找的平均时间为$\theta(1+\alpha)$，说明总元素个数应该与表中元素个数成正比，则$\alpha=n/m=O(m)/m=O(1)$，此时查找操作平均需要常数时间。<br>当链表使用双向链表时，插入和删除的最坏情况也是$O(1)$，此时字典的全部操作都可以在常数时间完成。</p>
-<h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><p>好的散列函数应该尽量满足简单均匀，尽量将相近的字符散列到不同的槽。</p>
-<h3 id="除法散列法"><a href="#除法散列法" class="headerlink" title="除法散列法"></a>除法散列法</h3><p>散列函数：$k(h) = k\% m$<br>注意：m不应该为2的幂。如果$m=2^p$，则$h(k)$就是k的二进制表示的p个最低位数字。设计散列函数时最好考虑所有位，因为无法保证各种最低p位的排列形式为等可能。<em>m最好是一个不太接近2的幂的素数。</em></p>
-<h3 id="乘法散列法"><a href="#乘法散列法" class="headerlink" title="乘法散列法"></a>乘法散列法</h3><p>散列函数：$\lfloor m(kA\%1)\rfloor$<br>其中常数A满足$0 &lt; A &lt; 1$。即：对kA的小数部分乘以m再向下取整。<br>优点：对于m的取值不是很关键。一般选择$A\approx (\sqrt5-1)/2=0.618…$</p>
-<h3 id="全域散列法-universal-hashing"><a href="#全域散列法-universal-hashing" class="headerlink" title="全域散列法 universal hashing"></a>全域散列法 universal hashing</h3><p>在一个函数组中随机地选择散列函数，使之独立于要存储的关键字，从而避免了将全部关键字散列到同一个槽中的最坏情况，选定后不再更改。</p>
-<h2 id="开放寻址法-open-addressing"><a href="#开放寻址法-open-addressing" class="headerlink" title="开放寻址法 open addressing"></a>开放寻址法 open addressing</h2><p>所有的元素都存放在散列表里，每个表项要么是u元素要么是NIL。散列表可能会填满，以至于无法再插入新的元素。该方法导致的一个结果是装载因子$\alpha$绝对不会超过1。槽中同样可以存放链表。<br>使用开放寻址法插入元素时，需要连续地检查散列表，或称为探查(probe)，直到找到一个空槽来放置待插入的元素。<br>线性探查，二次探查，双重探查</p>
-<h2 id="完全散列"><a href="#完全散列" class="headerlink" title="完全散列"></a>完全散列</h2><p>主要针对静态(static)的关键字集合，即：一旦各关键字存入表中，关键字集合就不再变化了。<br>采用两级的散列方法来设计完全散列方案，每级上都使用全域散列。<br>为了保证不冲突，每个二级哈希表的数量是第一级映射到这个槽中元素个数的平方（在第 1 级，如果有$N_i$个元素映射到第i个槽，那么第$N_i$个槽对应的2级哈希表采用全域哈希。表的长度取$M_i = N_i^2$），这样可以保证整个哈希表非常的稀疏。<br>属性：将n个键映射到$n^2$个槽，如果从全域哈希H中随机选择h，那么期望的冲突次数小于1/2，不发生冲突的概率大于1/2。<br>        <a href="https://blog.csdn.net/lzq20115395/article/details/80517225">https://blog.csdn.net/lzq20115395/article/details/80517225</a></p>
-<h2 id="java中HashTable和HashMap的源代码"><a href="#java中HashTable和HashMap的源代码" class="headerlink" title="java中HashTable和HashMap的源代码"></a>java中HashTable和HashMap的源代码</h2>
-<p><img src="/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png" alt="hash"></p>
-]]></content>
-      <categories>
-        <category>学习笔记：数据结构</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>面试准备：计算机网络</title>
-    <url>/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h2><p>进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。<br>线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部变量。线程由CPU独立调度执行，在多CPU环境下就允许多个线程同时运行。同样多线程也可以实现并发操作，每个请求分配一个线程来处理。<br><a id="more"></a></p>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="进程和线程进程与线程的区别进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试准备：计算机网络">
+<meta property="og:url" content="https://huangliu0909.github.io/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Wiwi&#39;s Blog">
+<meta property="og:description" content="进程和线程进程与线程的区别进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-28T02:53:07.990Z">
+<meta property="article:modified_time" content="2020-07-28T10:49:36.858Z">
+<meta property="article:author" content="Kelly Huang">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://huangliu0909.github.io/2020/07/28/面试准备：计算机网络/"/>
+
+
+
+
+
+  <title>面试准备：计算机网络 | Wiwi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiwi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kelly Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试准备：计算机网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-28T10:53:07+08:00">
+                2020-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h2><p>进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。<br>线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部变量。线程由CPU独立调度执行，在多CPU环境下就允许多个线程同时运行。同样多线程也可以实现并发操作，每个请求分配一个线程来处理。<br><a id="more"></a></p>
 <ol>
 <li>进程是资源分配的最小单位，线程是程序执行的最小单位。</li>
 <li>进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵。而线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多。</li>
@@ -521,17 +687,740 @@ https://www.cnblogs.com/hongdada/p/10406902.html
 </ol>
 <pre><code>https://blog.csdn.net/weixin_34212762/article/details/85514043
 https://www.nowcoder.com/questionTerminal/e515ae7a18924fe3b6952ae7fbb985bc
-</code></pre>]]></content>
-  </entry>
-  <entry>
-    <title>排序算法</title>
-    <url>/2020/07/19/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2>]]></content>
-      <categories>
-        <category>学习笔记：算法</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-</search>
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/21/B%E6%A0%91-B+%E6%A0%91/" rel="next" title="B树 B+树">
+                <i class="fa fa-chevron-left"></i> B树 B+树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kelly Huang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/huangliu0909" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="wiwillow@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程与线程的区别"><span class="nav-number">1.1.</span> <span class="nav-text">进程与线程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同一进程中的线程"><span class="nav-number">1.2.</span> <span class="nav-text">同一进程中的线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程"><span class="nav-number">1.3.</span> <span class="nav-text">多进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么创建新进程，内核做了啥？"><span class="nav-number">1.3.1.</span> <span class="nav-text">怎么创建新进程，内核做了啥？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-作用"><span class="nav-number">1.3.2.</span> <span class="nav-text">fork()作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程相关函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">多进程相关函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信方式"><span class="nav-number">1.3.4.</span> <span class="nav-text">进程间通信方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程"><span class="nav-number">1.4.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程的实现"><span class="nav-number">1.4.1.</span> <span class="nav-text">多线程的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析"><span class="nav-number">1.4.2.</span> <span class="nav-text">优劣分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程优点"><span class="nav-number">1.4.3.</span> <span class="nav-text">多线程优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程缺点"><span class="nav-number">1.4.4.</span> <span class="nav-text">多线程缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？"><span class="nav-number">1.4.5.</span> <span class="nav-text">什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的调度策略"><span class="nav-number">1.4.6.</span> <span class="nav-text">线程的调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的状态"><span class="nav-number">1.4.7.</span> <span class="nav-text">线程的状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的相关问题"><span class="nav-number">1.5.</span> <span class="nav-text">线程的相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal是什么？有什么用？"><span class="nav-number">1.5.1.</span> <span class="nav-text">ThreadLocal是什么？有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么sleep是Thread的方法而不是Object的"><span class="nav-number">1.5.2.</span> <span class="nav-text">为什么sleep是Thread的方法而不是Object的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程B怎么知道线程A修改了变量"><span class="nav-number">1.5.3.</span> <span class="nav-text">线程B怎么知道线程A修改了变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保证线程安全怎么做？"><span class="nav-number">1.5.4.</span> <span class="nav-text">保证线程安全怎么做？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么等一个线程做完"><span class="nav-number">1.5.5.</span> <span class="nav-text">怎么等一个线程做完</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">1.6.</span> <span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程池"><span class="nav-number">1.6.1.</span> <span class="nav-text">什么是线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要线程池"><span class="nav-number">1.6.2.</span> <span class="nav-text">为什么要线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种线程池的创建："><span class="nav-number">1.6.3.</span> <span class="nav-text">四种线程池的创建：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的优点？"><span class="nav-number">1.6.4.</span> <span class="nav-text">线程池的优点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的中的线程数量能不能无限增加，为什么"><span class="nav-number">1.6.5.</span> <span class="nav-text">线程池的中的线程数量能不能无限增加，为什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-里任务提交给线程池后，那些任务是存储在哪的"><span class="nav-number">1.6.6.</span> <span class="nav-text">java 里任务提交给线程池后，那些任务是存储在哪的?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞队列怎么实现？"><span class="nav-number">1.6.7.</span> <span class="nav-text">阻塞队列怎么实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列满了，那个线程池的-submit-方法会阻塞在那里？"><span class="nav-number">1.6.8.</span> <span class="nav-text">队列满了，那个线程池的 submit 方法会阻塞在那里？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程"><span class="nav-number">1.7.</span> <span class="nav-text">协程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程和协程区别"><span class="nav-number">1.7.1.</span> <span class="nav-text">线程和协程区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协程Coroutine用法"><span class="nav-number">1.7.2.</span> <span class="nav-text">协程Coroutine用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield"><span class="nav-number">1.7.3.</span> <span class="nav-text">yield</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁"><span class="nav-number">2.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见锁机制"><span class="nav-number">2.1.</span> <span class="nav-text">常见锁机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">2.2.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#独享锁-共享锁"><span class="nav-number">2.3.</span> <span class="nav-text">独享锁&#x2F;共享锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公平锁-amp-非公平锁"><span class="nav-number">2.4.</span> <span class="nav-text">公平锁 &amp; 非公平锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#乐观锁-amp-悲观锁"><span class="nav-number">2.5.</span> <span class="nav-text">乐观锁 &amp; 悲观锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现读写锁ReentrantReadWriteLock"><span class="nav-number">2.6.</span> <span class="nav-text">实现读写锁ReentrantReadWriteLock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重入锁ReetrantLock原理"><span class="nav-number">2.7.</span> <span class="nav-text">可重入锁ReetrantLock原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized和ReentrantLock的区别"><span class="nav-number">2.8.</span> <span class="nav-text">synchronized和ReentrantLock的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？"><span class="nav-number">2.9.</span> <span class="nav-text">如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？"><span class="nav-number">2.10.</span> <span class="nav-text">那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized-amp-lock"><span class="nav-number">2.11.</span> <span class="nav-text">synchronized &amp; lock</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-amp-UDP"><span class="nav-number">3.</span> <span class="nav-text">TCP &amp; UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP和UDP有什么区别？"><span class="nav-number">3.1.</span> <span class="nav-text">TCP和UDP有什么区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP可靠性机制"><span class="nav-number">3.2.</span> <span class="nav-text">TCP可靠性机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检验和"><span class="nav-number">3.2.1.</span> <span class="nav-text">检验和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列号"><span class="nav-number">3.2.2.</span> <span class="nav-text">序列号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确认应答机制（ACK）"><span class="nav-number">3.2.3.</span> <span class="nav-text">确认应答机制（ACK）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时重传机制"><span class="nav-number">3.2.4.</span> <span class="nav-text">超时重传机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接管理机制"><span class="nav-number">3.2.5.</span> <span class="nav-text">连接管理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三次握手："><span class="nav-number">3.2.5.1.</span> <span class="nav-text">三次握手：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四次挥手："><span class="nav-number">3.2.5.2.</span> <span class="nav-text">四次挥手：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止等待协议"><span class="nav-number">3.2.6.</span> <span class="nav-text">停止等待协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流量控制-滑动窗口（发送窗口和接收窗口）"><span class="nav-number">3.2.7.</span> <span class="nav-text">流量控制  滑动窗口（发送窗口和接收窗口）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拥塞控制"><span class="nav-number">3.2.8.</span> <span class="nav-text">拥塞控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP长连接-amp-短连接"><span class="nav-number">3.3.</span> <span class="nav-text">TCP长连接 &amp; 短连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP有拥塞控制吗？如何解决？"><span class="nav-number">3.4.</span> <span class="nav-text">UDP有拥塞控制吗？如何解决？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要有-time-wait"><span class="nav-number">3.5.</span> <span class="nav-text">为什么要有 time_wait</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-amp-https"><span class="nav-number">4.</span> <span class="nav-text">http &amp; https</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#http与https的区别"><span class="nav-number">4.1.</span> <span class="nav-text">http与https的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器中输入网址到获得页面的全过程"><span class="nav-number">4.2.</span> <span class="nav-text">浏览器中输入网址到获得页面的全过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入-www-baidu-com，怎么变成-https-www-baidu-com-的，怎么确定用HTTP还是HTTPS？"><span class="nav-number">4.3.</span> <span class="nav-text">输入 www.baidu.com，怎么变成 https:&#x2F;&#x2F;www.baidu.com 的，怎么确定用HTTP还是HTTPS？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP可以使用UDP吗"><span class="nav-number">4.4.</span> <span class="nav-text">HTTP可以使用UDP吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议的报文格式"><span class="nav-number">4.5.</span> <span class="nav-text">HTTP协议的报文格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http1-0-amp-HTTP1-1"><span class="nav-number">4.6.</span> <span class="nav-text">Http1.0 &amp; HTTP1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP2-0和HTTP1-X相比的新特性"><span class="nav-number">4.7.</span> <span class="nav-text">HTTP2.0和HTTP1.X相比的新特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP请求方法"><span class="nav-number">4.8.</span> <span class="nav-text">HTTP请求方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET与POST的区别"><span class="nav-number">4.9.</span> <span class="nav-text">GET与POST的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的状态码"><span class="nav-number">4.10.</span> <span class="nav-text">常见的状态码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie-amp-Session"><span class="nav-number">5.</span> <span class="nav-text">Cookie &amp; Session</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie的参数有哪些？"><span class="nav-number">5.1.</span> <span class="nav-text">Cookie的参数有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie被仿造怎么办？"><span class="nav-number">5.2.</span> <span class="nav-text">Cookie被仿造怎么办？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie和Session的区别"><span class="nav-number">5.3.</span> <span class="nav-text">Cookie和Session的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session校验服务器该如何设计"><span class="nav-number">5.4.</span> <span class="nav-text">Session校验服务器该如何设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session劫持"><span class="nav-number">5.5.</span> <span class="nav-text">Session劫持</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cache"><span class="nav-number">6.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解释下Cache的运行过程，怎么保证cache一致性"><span class="nav-number">6.1.</span> <span class="nav-text">解释下Cache的运行过程，怎么保证cache一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache的算法"><span class="nav-number">6.2.</span> <span class="nav-text">Cache的算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FIFO算法"><span class="nav-number">6.2.1.</span> <span class="nav-text">FIFO算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU算法"><span class="nav-number">6.2.2.</span> <span class="nav-text">LRU算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LFU算法"><span class="nav-number">6.2.3.</span> <span class="nav-text">LFU算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机系统架构"><span class="nav-number">7.</span> <span class="nav-text">计算机系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7层模型（OSI模型）和4层模型（TCP-IP-模型），每一层有哪些常见协议？"><span class="nav-number">7.1.</span> <span class="nav-text">7层模型（OSI模型）和4层模型（TCP&#x2F;IP 模型），每一层有哪些常见协议？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由器-交换机是哪一层"><span class="nav-number">7.2.</span> <span class="nav-text">路由器&#x2F;交换机是哪一层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层用来干嘛？传输层用来干嘛？"><span class="nav-number">7.3.</span> <span class="nav-text">网络层用来干嘛？传输层用来干嘛？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么给大量url和ip去重"><span class="nav-number">7.4.</span> <span class="nav-text">怎么给大量url和ip去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当在局域网中使用ping-www-xxx-com时，用到了哪些协议？"><span class="nav-number">7.5.</span> <span class="nav-text">当在局域网中使用ping www.xxx.com时，用到了哪些协议？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kelly Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

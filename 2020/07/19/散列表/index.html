@@ -88,7 +88,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://huangliu0909.github.io/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png">
 <meta property="article:published_time" content="2020-07-19T09:23:04.000Z">
-<meta property="article:modified_time" content="2020-07-22T06:01:33.766Z">
+<meta property="article:modified_time" content="2020-07-22T07:00:22.022Z">
 <meta property="article:author" content="Kelly Huang">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
@@ -396,8 +396,9 @@
 <h3 id="乘法散列法"><a href="#乘法散列法" class="headerlink" title="乘法散列法"></a>乘法散列法</h3><p>散列函数：$\lfloor m(kA\%1)\rfloor$<br>其中常数A满足$0 &lt; A &lt; 1$。即：对kA的小数部分乘以m再向下取整。<br>优点：对于m的取值不是很关键。一般选择$A\approx (\sqrt5-1)/2=0.618…$</p>
 <h3 id="全域散列法-universal-hashing"><a href="#全域散列法-universal-hashing" class="headerlink" title="全域散列法 universal hashing"></a>全域散列法 universal hashing</h3><p>在一个函数组中随机地选择散列函数，使之独立于要存储的关键字，从而避免了将全部关键字散列到同一个槽中的最坏情况，选定后不再更改。</p>
 <h2 id="开放寻址法-open-addressing"><a href="#开放寻址法-open-addressing" class="headerlink" title="开放寻址法 open addressing"></a>开放寻址法 open addressing</h2><p>所有的元素都存放在散列表里，每个表项要么是u元素要么是NIL。散列表可能会填满，以至于无法再插入新的元素。该方法导致的一个结果是装载因子$\alpha$绝对不会超过1。槽中同样可以存放链表。<br>使用开放寻址法插入元素时，需要连续地检查散列表，或称为探查(probe)，直到找到一个空槽来放置待插入的元素。<br>线性探查，二次探查，双重探查</p>
-<h2 id="完全散列"><a href="#完全散列" class="headerlink" title="完全散列"></a>完全散列</h2><p>主要针对静态(static)的关键字集合，即：一旦各关键字存入表中，关键字集合就不再变化了。<br>采用两级的散列方法来设计完全散列方案，每级上都使用全域散列。</p>
-<h2 id="java中HashTable和HashMap的源代码"><a href="#java中HashTable和HashMap的源代码" class="headerlink" title="java中HashTable和HashMap的源代码"></a>java中HashTable和HashMap的源代码</h2><p><img src="/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png" alt="hash"></p>
+<h2 id="完全散列"><a href="#完全散列" class="headerlink" title="完全散列"></a>完全散列</h2><p>主要针对静态(static)的关键字集合，即：一旦各关键字存入表中，关键字集合就不再变化了。<br>采用两级的散列方法来设计完全散列方案，每级上都使用全域散列。<br>为了保证不冲突，每个二级哈希表的数量是第一级映射到这个槽中元素个数的平方（在第 1 级，如果有$N_i$个元素映射到第i个槽，那么第$N_i$个槽对应的2级哈希表采用全域哈希。表的长度取$M_i = N_i^2$），这样可以保证整个哈希表非常的稀疏。<br>属性：将n个键映射到$n^2$个槽，如果从全域哈希H中随机选择h，那么期望的冲突次数小于1/2，不发生冲突的概率大于1/2。<br>        <a href="https://blog.csdn.net/lzq20115395/article/details/80517225">https://blog.csdn.net/lzq20115395/article/details/80517225</a></p>
+<h2 id="java中HashTable和HashMap的源代码"><a href="#java中HashTable和HashMap的源代码" class="headerlink" title="java中HashTable和HashMap的源代码"></a>java中HashTable和HashMap的源代码</h2>
+<p><img src="/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png" alt="hash"></p>
 
       
     </div>
@@ -519,7 +520,7 @@
               
                 <a href="/archives/%7C%7Carchive">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
