@@ -40,7 +40,7 @@
 
   
   
-  <link href="/huangliu/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,21 +48,21 @@
 
 
 
-<link href="/huangliu/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/huangliu/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/huangliu/images/apple-touch-icon-next.png?v=5.1.4">
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/huangliu/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/huangliu/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/huangliu/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -82,24 +82,24 @@
 <meta name="description" content="散列表是实现字典操作的一种有效数据结构，最坏情况的查找时间是$\theta (n)$，平均查找时间为$O(1)$。散列表是普通数组概念的推广，数组可以直接寻址。当实际存储的关键字数目比全部可能的关键字总数要小时，可以使用散列表来替代直接数组寻址。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="散列表 Hash Table">
-<meta property="og:url" content="https://huangliu0909.github.io/huangliu/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/index.html">
+<meta property="og:url" content="https://huangliu0909.github.io/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/index.html">
 <meta property="og:site_name" content="Wiwi&#39;s Blog">
 <meta property="og:description" content="散列表是实现字典操作的一种有效数据结构，最坏情况的查找时间是$\theta (n)$，平均查找时间为$O(1)$。散列表是普通数组概念的推广，数组可以直接寻址。当实际存储的关键字数目比全部可能的关键字总数要小时，可以使用散列表来替代直接数组寻址。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://huangliu0909.github.io/huangliu/huangliu/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png">
+<meta property="og:image" content="https://huangliu0909.github.io/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png">
 <meta property="article:published_time" content="2020-07-19T09:23:04.000Z">
 <meta property="article:modified_time" content="2020-07-22T07:00:22.022Z">
 <meta property="article:author" content="Kelly Huang">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://huangliu0909.github.io/huangliu/huangliu/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png">
+<meta name="twitter:image" content="https://huangliu0909.github.io/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png">
 
 
 
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/huangliu/',
+    root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://huangliu0909.github.io/huangliu/2020/07/19/散列表/"/>
+  <link rel="canonical" href="https://huangliu0909.github.io/2020/07/19/散列表/"/>
 
 
 
@@ -156,7 +156,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/huangliu/"  class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Wiwi's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -184,7 +184,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/huangliu/" rel="section">
+          <a href="/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -194,7 +194,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/huangliu/about/" rel="section">
+          <a href="/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -204,7 +204,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/huangliu/tags/" rel="section">
+          <a href="/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -214,7 +214,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/huangliu/categories/" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -224,7 +224,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/huangliu/archives/" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -299,12 +299,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/huangliu/huangliu/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kelly Huang">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/huangliu/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -351,7 +351,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/huangliu/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
                     <span itemprop="name">学习笔记：数据结构</span>
                   </a>
                 </span>
@@ -398,7 +398,7 @@
 <h2 id="开放寻址法-open-addressing"><a href="#开放寻址法-open-addressing" class="headerlink" title="开放寻址法 open addressing"></a>开放寻址法 open addressing</h2><p>所有的元素都存放在散列表里，每个表项要么是u元素要么是NIL。散列表可能会填满，以至于无法再插入新的元素。该方法导致的一个结果是装载因子$\alpha$绝对不会超过1。槽中同样可以存放链表。<br>使用开放寻址法插入元素时，需要连续地检查散列表，或称为探查(probe)，直到找到一个空槽来放置待插入的元素。<br>线性探查，二次探查，双重探查</p>
 <h2 id="完全散列"><a href="#完全散列" class="headerlink" title="完全散列"></a>完全散列</h2><p>主要针对静态(static)的关键字集合，即：一旦各关键字存入表中，关键字集合就不再变化了。<br>采用两级的散列方法来设计完全散列方案，每级上都使用全域散列。<br>为了保证不冲突，每个二级哈希表的数量是第一级映射到这个槽中元素个数的平方（在第 1 级，如果有$N_i$个元素映射到第i个槽，那么第$N_i$个槽对应的2级哈希表采用全域哈希。表的长度取$M_i = N_i^2$），这样可以保证整个哈希表非常的稀疏。<br>属性：将n个键映射到$n^2$个槽，如果从全域哈希H中随机选择h，那么期望的冲突次数小于1/2，不发生冲突的概率大于1/2。<br>        <a href="https://blog.csdn.net/lzq20115395/article/details/80517225">https://blog.csdn.net/lzq20115395/article/details/80517225</a></p>
 <h2 id="java中HashTable和HashMap的源代码"><a href="#java中HashTable和HashMap的源代码" class="headerlink" title="java中HashTable和HashMap的源代码"></a>java中HashTable和HashMap的源代码</h2>
-<p><img src="/huangliu/huangliu/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png" alt="hash"></p>
+<p><img src="/2020/07/19/%E6%95%A3%E5%88%97%E8%A1%A8/perfect-hash.png" alt="hash"></p>
 
       
     </div>
@@ -416,7 +416,7 @@
       
         <div class="post-tags">
           
-            <a href="/huangliu/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
           
         </div>
       
@@ -429,7 +429,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/huangliu/2020/07/19/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="next" title="排序算法">
+              <a href="/2020/07/19/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="next" title="排序算法">
                 <i class="fa fa-chevron-left"></i> 排序算法
               </a>
             
@@ -439,7 +439,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/huangliu/2020/07/20/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-%E7%BA%A2%E9%BB%91%E6%A0%91/" rel="prev" title="二叉搜索树 红黑树">
+              <a href="/2020/07/20/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-%E7%BA%A2%E9%BB%91%E6%A0%91/" rel="prev" title="二叉搜索树 红黑树">
                 二叉搜索树 红黑树 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -518,7 +518,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/huangliu/archives/%7C%7Carchive">
+                <a href="/archives/%7C%7Carchive">
               
                   <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">posts</span>
@@ -530,7 +530,7 @@
               
               
               <div class="site-state-item site-state-categories">
-                <a href="/huangliu/categories/index.html">
+                <a href="/categories/index.html">
                   <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
@@ -541,7 +541,7 @@
               
               
               <div class="site-state-item site-state-tags">
-                <a href="/huangliu/tags/index.html">
+                <a href="/tags/index.html">
                   <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
@@ -690,64 +690,64 @@
 
   
   
-    <script type="text/javascript" src="/huangliu/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
 
   
   
-    <script type="text/javascript" src="/huangliu/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
   
 
   
   
-    <script type="text/javascript" src="/huangliu/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
   
 
   
   
-    <script type="text/javascript" src="/huangliu/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/huangliu/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/huangliu/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
-
-
-  
-
-
-  <script type="text/javascript" src="/huangliu/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/huangliu/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/huangliu/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/huangliu/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/huangliu/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/huangliu/js/src/post-details.js?v=5.1.4"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/huangliu/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
@@ -797,7 +797,7 @@
     } else if (/json$/i.test(search_path)) {
       isXml = false;
     }
-    var path = "/huangliu/" + search_path;
+    var path = "/" + search_path;
     // monitor main search box;
 
     var onPopupClose = function (e) {
