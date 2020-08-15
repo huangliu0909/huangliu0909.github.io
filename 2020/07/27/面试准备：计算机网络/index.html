@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机网络," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="进程和线程进程与线程的区别进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="http://yoursite.com/2020/07/27/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Wiwi&#39;s Blog">
+<meta property="og:description" content="进程和线程进程与线程的区别进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-27T09:23:04.000Z">
+<meta property="article:modified_time" content="2020-08-08T12:08:40.292Z">
+<meta property="article:author" content="Kelly Huang">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/27/面试准备：计算机网络/"/>
+
+
+
+
+
+  <title>计算机网络 | Wiwi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiwi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/27/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kelly Huang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-27T17:23:04+08:00">
+                2020-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
+                    <span itemprop="name">面试准备</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h2><p>进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。<br>线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部变量。线程由CPU独立调度执行，在多CPU环境下就允许多个线程同时运行。同样多线程也可以实现并发操作，每个请求分配一个线程来处理。<br><a id="more"></a></p>
+<ol>
+<li>进程是资源分配的最小单位，线程是程序执行的最小单位。</li>
+<li>进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵。而线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多。</li>
+<li>线程之间的通信更方便，同一进程下的线程共享全局变量、静态变量等数据，而进程之间的通信需要以通信的方式（IPC)进行。不过如何处理好同步与互斥是编写多线程程序的难点。</li>
+<li>多进程程序更健壮，多线程程序只要有一个线程死掉，整个进程也死掉了，而一个进程死掉并不会对另外一个进程造成影响，因为进程有自己独立的地址空间。</li>
+</ol>
+<h2 id="同一进程中的线程"><a href="#同一进程中的线程" class="headerlink" title="同一进程中的线程"></a>同一进程中的线程</h2><p>线程共享的环境包括：进程代码段、进程的公有数据(利用这些共享的数据，线程很容易的实现相互之间的通讯)、进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户ID与进程组ID。<br><strong>在一个进程的线程共享堆区，而进程中的线程各自维持自己堆栈。</strong><br>堆：是大家共有的空间，分全局堆和局部堆。全局堆就是所有没有分配的空间，局部堆就是用户分配的空间。堆在操作系统对进程初始化的时候分配，运行过程中也可以向系统要额外的堆，但是记得用完了要还给操作系统，要不然就是内存泄漏。<br>栈：是个线程独有的，保存其运行状态和局部自动变量的。栈在线程开始的时候初始化，每个线程的栈互相独立，因此，栈是　thread safe的。操作系统在切换线程的时候会自动的切换栈，就是切换　ＳＳ／ＥＳＰ寄存器。栈空间不需要在高级语言里面显式的分配和释放。</p>
+<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><h3 id="怎么创建新进程，内核做了啥？"><a href="#怎么创建新进程，内核做了啥？" class="headerlink" title="怎么创建新进程，内核做了啥？"></a>怎么创建新进程，内核做了啥？</h3><p>fork, vfork，然后具体do_fork过程，copy on write等<br>进程 : 代码 + 数据 + 堆栈 + PCB<br>PCB （进程控制块）：pid 进程标识符 + pwd 进程标识 + ppid 父进程进程号</p>
+<ol>
+<li>分配一个 PID 从小到大找一个未被使用的进程号<br>0号进程是内核进程，它创建1号进程、还将物理内存搬到磁盘和磁盘搬到物理内存</li>
+<li>分配PCB，拷贝父进程的 PCB的绝大部分数据</li>
+<li>给子进程分配资源</li>
+<li>复制父进程地址空间 </li>
+<li>将子进程置成就绪状态，放入就绪队列</li>
+</ol>
+<p>在unix中系统调用的是：fork，fork会创建一个与父进程一摸一样的副本<br>在windows中该系统调用是：cresteprocess，既负责处理进程的创建，也负责把正确的程序装入新进程<br>无论是unix还是windows，进程只有一个父进程，不同的是：<br>在unix中所有的进程，都是以init进程为根，组成树形结构。父子进程共同组成一个进程组<br>在windows中，没有进程层次的概念，所有的进程地位都相同</p>
+<h3 id="fork-作用"><a href="#fork-作用" class="headerlink" title="fork()作用"></a>fork()作用</h3><p>Linux系统函数fork()可以<strong>在父进程中创建一个子进程</strong>，这样的话，在一个进程接到来自客户端新的请求时就可以复制出一个子进程让其来处理，父进程只需负责监控请求的到来，然后创建子进程让其去处理，这样就能做到并发处理。<strong>fork函数会返回两次结果</strong>，因为操作系统会把当前进程的数据复制一遍，然后程序就分两个进程继续运行后面的代码，fork分别在父进程和子进程中返回，在子进程返回的值pid永远是0，在父进程返回的是子进程的进程id。打印的顺序与系统的进程调度有关。</p>
+<ul>
+<li>父子进程交替进行</li>
+<li>父进程死亡，子进程将变成孤儿进程，由 1号 进程领养</li>
+<li>子进程死亡，成为僵尸进程</li>
+</ul>
+<h3 id="多进程相关函数"><a href="#多进程相关函数" class="headerlink" title="多进程相关函数"></a>多进程相关函数</h3><p>multiprocessing模块就是跨平台版本的多进程模块。创建子进程时，只需要传入一个执行函数和函数的参数，创建一个Process实例，用start()方法启动，这样创建进程比fork()还要简单。<br>join()方法可以等待子进程结束后再继续往下运行，通常用于进程间的同步。<br>如果要启动大量的子进程，可以用进程池的方式批量创建子进程：对Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前必须先调用close()，调用close()之后就不能继续添加新的Process了。<br>subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。<br>小结：</p>
+<ul>
+<li>在Unix/Linux下，可以使用fork()调用实现多进程。</li>
+<li>要实现跨平台的多进程，可以使用multiprocessing模块。</li>
+<li>进程间通信是通过Queue、Pipes等实现的。</li>
+</ul>
+<h3 id="进程间通信方式"><a href="#进程间通信方式" class="headerlink" title="进程间通信方式"></a>进程间通信方式</h3><ol>
+<li>管道pipe：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
+<li>命名管道FIFO：有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。<br>消息队列MessageQueue：消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
+<li>共享存储SharedMemory：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。</li>
+<li>信号量Semaphore：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，<strong>主要作为进程间以及同一进程内不同线程之间的同步手段</strong>。</li>
+<li><strong>套接字Socket</strong>：套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</li>
+<li>信号signal： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</li>
+</ol>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="多线程的实现"><a href="#多线程的实现" class="headerlink" title="多线程的实现"></a>多线程的实现</h3><ol>
+<li>继承Thread类，重写run方法</li>
+<li>创建MyRunnable类实现runnable接口，重写run方法，创建MyRunnable类的对象，创建Thread类的对象，并把MyRunnable类对象作为参数传递</li>
+<li>使用ExecutorService、Callable、Future实现有返回结果的多线程</li>
+<li>通过线程池创建</li>
+</ol>
+<h3 id="优劣分析"><a href="#优劣分析" class="headerlink" title="优劣分析"></a>优劣分析</h3><ul>
+<li>继承Thread<br>优势：编写简单，如果需要访问当前线程，则无需使用Thread.currentThread()方法，直接使用this即可获得当前线程。<br>劣势是：线程类已经继承了Thread类，所以不能再继承其他父类。</li>
+<li>使用runnable或者callable<br>优势是：线程类只是实现了Runnable接口或Callable接口，还可以继承其他类。<br>在这种方式下，多个线程可以共享同一个target对象，所以非常适合多个相同线程来处理同一份资源的情况，从而可以将CPU、代码和数据分开，形成清晰的模型，较好地体现了面向对象的思想。<br>劣势是：编程稍微复杂，如果要访问当前线程，则必须使用Thread.currentThread()方法。</li>
+<li>runnable和callable区别<br>Callable规定（重写）的方法是call()，Runnable规定（重写）的方法是run()。<br>Callable的任务执行后可返回值，而Runnable的任务是不能返回值的。<br>Call方法可以抛出异常，run方法不可以。<br>运行Callable任务可以拿到一个Future对象，表示异步计算的结果。它提供了检查计算是否完成的方法，以等待计算的完成，并检索计算的结果。通过Future对象可以了解任务执行情况，可取消任务的执行，还可获取执行结果。</li>
+</ul>
+<h3 id="多线程优点"><a href="#多线程优点" class="headerlink" title="多线程优点"></a>多线程优点</h3><ul>
+<li>在一个程序中，有很多的操作是非常耗时的，如数据库读写操作，IO操作等，如果使用单线程，那么程序就必须等待这些操作执行完成之后才能执行其他操作。使用多线程，可以在将耗时任务放在后台继续执行的同时，同时执行其他操作。</li>
+<li>可以提高程序的效率。</li>
+<li>在一些等待的任务上，如用户输入，文件读取等，多线程就非常有用了。</li>
+</ul>
+<h3 id="多线程缺点"><a href="#多线程缺点" class="headerlink" title="多线程缺点"></a>多线程缺点</h3><ul>
+<li>使用太多线程，是很耗系统资源，因为线程需要开辟内存。更多线程需要更多内存。</li>
+<li>影响系统性能，因为操作系统需要在线程之间来回切换。</li>
+<li>需要考虑线程操作对程序的影响，如线程挂起，中止等操作对程序的影响。</li>
+<li>线程使用不当会发生很多问题。</li>
+</ul>
+<h3 id="什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？"><a href="#什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？" class="headerlink" title="什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？"></a>什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？</h3><p>线程调度器是一个操作系统服务，它负责为Runnable状态的线程分配CPU时间。一旦我们创建一个线程并启动它，它的执行便依赖于线程调度器的实现。时间分片是指将可用的CPU时间分配给可用的Runnable线程的过程。分配CPU时间可以基于线程优先级或者线程等待的时间。线程调度并不受到Java虚拟机控制，所以由应用程序来控制它是更好的选择（也就是说不要让你的程序依赖于线程的优先级）。</p>
+<h3 id="线程的调度策略"><a href="#线程的调度策略" class="headerlink" title="线程的调度策略"></a>线程的调度策略</h3><p>线程调度器选择优先级最高的线程运行，但是，如果发生以下情况，就会终止线程的运行：</p>
+<ul>
+<li>线程体中调用了yield方法让出了对cpu的占用权利</li>
+<li>线程体中调用了sleep方法使线程进入睡眠状态</li>
+<li>线程由于IO操作受到阻塞</li>
+<li>另外一个更高优先级线程出现</li>
+<li>在支持时间片的系统中，该线程的时间片用完</li>
+</ul>
+<h3 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h3><ol>
+<li>新建状态（New）：新建一个线程对象。</li>
+<li>就绪/可运行状态（Runnable）：线程对象创建后，其他线程调用了该对象的start方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。</li>
+<li>运行状态（Running）：就绪状态的线程获得CPU并执行程序代码。</li>
+<li>阻塞状态（Blocked）：阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种：<br> <strong>等待阻塞</strong>：运行的线程执行wait方法，JVM会把该线程放入等待池中。(wait会释放持有的锁)<br> <strong>同步阻塞</strong>：运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。<br> <strong>其他阻塞</strong>：运行的线程执行sleep或join方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep的状态超时、join等待线程终止或者超时、以及I/O处理完毕时，线程重新转入就绪状态。</li>
+<li>死亡状态（Dead）：线程执行完成或者因异常退出run方法，该线程结束生命周期。</li>
+</ol>
+<h2 id="线程的相关问题"><a href="#线程的相关问题" class="headerlink" title="线程的相关问题"></a>线程的相关问题</h2><h3 id="ThreadLocal是什么？有什么用？"><a href="#ThreadLocal是什么？有什么用？" class="headerlink" title="ThreadLocal是什么？有什么用？"></a>ThreadLocal是什么？有什么用？</h3><p>ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线程和该线程存放的副本对象做一个映射，各个线程之间的变量互不干扰，在高并发场景下，可以实现无状态的调用，特别适用于各个线程依赖不通的变量值完成操作的场景。<br>简单说ThreadLocal就是一种以空间换时间的做法，在每个Thread里面维护了一个以开地址法实现的ThreadLocal.ThreadLocalMap，把数据进行隔离，数据不共享，自然就没有线程安全方面的问题了。</p>
+<h3 id="为什么sleep是Thread的方法而不是Object的"><a href="#为什么sleep是Thread的方法而不是Object的" class="headerlink" title="为什么sleep是Thread的方法而不是Object的"></a>为什么sleep是Thread的方法而不是Object的</h3><ul>
+<li>在java的内置锁机制中，每个对象都可以成为锁，也就是说每个对象都可以去调用wait，notify方法，而Object类是所有类的一个父类，把这些方法放在Object中，则java中的所有对象都可以去调用这些方法了。</li>
+<li>一个线程可以拥有多个对象锁，wait，notify，notifyAll跟对象锁之间是有一个绑定关系的，比如你用对象锁aObject调用的wait()方法，那么你只能通过aObject.notify()或者aObject.notifyAll()来唤醒这个线程，这样jvm很容易就知道应该从哪个对象锁的等待池中去唤醒线程，假如用Thread.wait()，Thread.notify()，Thread.notifyAll()来调用，虚拟机根本就不知道需要操作的对象锁是哪一个。</li>
+<li>sleep()是让某个线程暂停运行一段时间,其控制范围是由当前线程决定,也就是说,在线程里面决定.sleep()可以将一个线程睡眠，参数可以指定一个时间。</li>
+<li>wait(),是由某个确定的对象来调用的，wait()可以将一个线程挂起，直到超时或者该线程被唤。</li>
+<li>wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用。</li>
+</ul>
+<h3 id="线程B怎么知道线程A修改了变量"><a href="#线程B怎么知道线程A修改了变量" class="headerlink" title="线程B怎么知道线程A修改了变量"></a>线程B怎么知道线程A修改了变量</h3><ul>
+<li>volatile修饰变量<br>Volatile实现内存可见性是通过store和load指令完成的；也就是对volatile变量执行写操作时，会在写操作后加入一条store指令，即强迫线程/进程将最新的值刷新到主内存中；而在读操作时，会加入一条load指令，即强迫从主内存中读入变量的值。每次读取volatile的变量时，都要从它的内存地址中读取，并没有说每次修改完volatile的变量后，都要立刻将它的值写回内存。volatile只提供了内存可见性，而没有提供原子性。<br><em>可见性：当多个线程同时访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</em><br><em>原子性：一个操作或多个操作要么全部执行完成且执行过程不被中断，要么就不执行。</em><br><em>有序性：程序执行的顺序按照代码的先后顺序执行。</em></li>
+<li>synchronized修饰修改变量的方法</li>
+<li>wait/notify<br>wait()：使调用该方法的线程释放共享资源锁，然后从运行状态退出，进入等待队列，直到被再次唤醒。<br>wait(long)：超时等待一段时间，这里的参数时间是毫秒，也就是等待长达n毫秒，如果没有通知就超时返回。<br>wait(long，int)：对于超时时间更细力度的控制，单位为纳秒。<br>notify()：随机唤醒等待队列中等待同一共享资源的一个线程，并使该线程退出等待队列，进入可运行状态，也就是notify()方法仅通知一个线程。<br>notifyAll()：使所有正在等待队列中等待同一共享资源的全部线程退出等待队列，进入可运行状态。此时，优先级最高的那个线程最先执行，但也有可能是随机执行，这取决于JVM虚拟机的实现。</li>
+<li>while轮询</li>
+</ul>
+<h3 id="保证线程安全怎么做？"><a href="#保证线程安全怎么做？" class="headerlink" title="保证线程安全怎么做？"></a>保证线程安全怎么做？</h3><p>当多个线程访问某个方法时，不管你通过怎样的调用方式、或者说这些线程如何交替地执行，我们在主程序中不需要去做任何的同步，这个类的结果行为都是我们设想的正确行为，那么我们就可以说这个类是线程安全的。<br>最常见的一种不安全的情况，就是我们A线程在进入方法后，拿到了count的值，刚把这个值读取出来，还没有改变count的值的时候，结果线程B也进来的，那么导致线程A和线程B拿到的count值是一样的。</p>
+<ol>
+<li>synchronized关键字<br>用来控制线程同步的，保证我们的线程在多线程环境下，不被多个线程同时执行，确保我们数据的完整性，使用方法一般是加在方法上。当synchronized锁住一个对象之后，别的线程如果想要获取锁对象，那么就必须等这个线程执行完释放锁对象之后才可以，否则一直处于等待状态。</li>
+<li>Lock<br>Lock是在Java1.6被引入进来的，Lock的引入让锁有了可操作性。从使用上说Lock明显没有synchronized使用起来方便快捷。进入方法我们首先要获取到锁，然后去执行我们业务代码，这里跟synchronized不同的是，Lock获取的所对象需要我们亲自去进行释放，为了防止我们代码出现异常，所以我们的释放锁操作放在finally中，因为finally中的代码无论如何都是会执行的。<br>Lock在获取锁的时候，如果拿不到锁，就一直处于等待状态，直到拿到锁。<br>tryLock有一个Boolean的返回值，如果没有拿到锁，直接返回false，停止等待。</li>
+</ol>
+<h3 id="怎么等一个线程做完"><a href="#怎么等一个线程做完" class="headerlink" title="怎么等一个线程做完"></a>怎么等一个线程做完</h3><p>join ：主线程等待p终止（强调：是主线程处于等的状态，而p是处于运行的状态）<br>p.join只能join住start开启的进程，而不能join住run开启的进程 （即task）</p>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><h3 id="什么是线程池"><a href="#什么是线程池" class="headerlink" title="什么是线程池"></a>什么是线程池</h3><p>线程池就是提前创建若干个线程，如果有任务需要处理，线程池里的线程就会处理任务，处理完之后线程并不会被销毁，而是等待下一个任务。</p>
+<h3 id="为什么要线程池"><a href="#为什么要线程池" class="headerlink" title="为什么要线程池"></a>为什么要线程池</h3><p>由于创建和销毁线程都是消耗系统资源的，所以当需要频繁的创建和销毁线程的时候就可以考虑使用线程池来提升系统的性能。</p>
+<h3 id="四种线程池的创建："><a href="#四种线程池的创建：" class="headerlink" title="四种线程池的创建："></a>四种线程池的创建：</h3><ol>
+<li>newCachedThreadPool创建一个可缓存线程池</li>
+<li>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数。</li>
+<li>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。</li>
+<li>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务。</li>
+</ol>
+<h3 id="线程池的优点？"><a href="#线程池的优点？" class="headerlink" title="线程池的优点？"></a>线程池的优点？</h3><ol>
+<li>重用存在的线程，减少对象创建销毁的开销。</li>
+<li>可有效的控制最大并发线程数，提高系统资源的使用率，同时避免过多资源竞争，避免堵塞。</li>
+<li>提供定时执行、定期执行、单线程、并发数控制等功能。</li>
+</ol>
+<h3 id="线程池的中的线程数量能不能无限增加，为什么"><a href="#线程池的中的线程数量能不能无限增加，为什么" class="headerlink" title="线程池的中的线程数量能不能无限增加，为什么?"></a>线程池的中的线程数量能不能无限增加，为什么?</h3><p>不能，线程需要一定开销，太多线程会耗尽计算机资源，（而且过多线程也无法发挥多线程的优势，毕竟cpu核就那么多）</p>
+<h3 id="java-里任务提交给线程池后，那些任务是存储在哪的"><a href="#java-里任务提交给线程池后，那些任务是存储在哪的" class="headerlink" title="java 里任务提交给线程池后，那些任务是存储在哪的?"></a>java 里任务提交给线程池后，那些任务是存储在哪的?</h3><p>把任务用 Runable（其实也可以是Callable） 表示，放在一个阻塞队列里。</p>
+<h3 id="阻塞队列怎么实现？"><a href="#阻塞队列怎么实现？" class="headerlink" title="阻塞队列怎么实现？"></a>阻塞队列怎么实现？</h3><p>创建一个数组或者链表，每次取元素或者放元素就对数组操作。没有元素而要取元素时，阻塞，满了而要放元素时，阻塞。</p>
+<h3 id="队列满了，那个线程池的-submit-方法会阻塞在那里？"><a href="#队列满了，那个线程池的-submit-方法会阻塞在那里？" class="headerlink" title="队列满了，那个线程池的 submit 方法会阻塞在那里？"></a>队列满了，那个线程池的 submit 方法会阻塞在那里？</h3><ol>
+<li>如果使用的是无界队列 LinkedBlockingQueue，也就是无界队列的话，可以继续添加任务到阻塞队列中等待执行，因为 LinkedBlockingQueue 可以近乎认为是一个无穷大的队列，可以无限存放任务</li>
+<li>如果使用的是有界队列比如 ArrayBlockingQueue，任务首先会被添加到ArrayBlockingQueue 中，ArrayBlockingQueue满了，会根据maximumPoolSize 的值增加线程数量，如果增加了线程数量还是处理不过来，ArrayBlockingQueue 继续满，那么则会使用拒绝策略RejectedExecutionHandler处理满了的任务，默认是AbortPolicy。</li>
+</ol>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><h3 id="线程和协程区别"><a href="#线程和协程区别" class="headerlink" title="线程和协程区别"></a>线程和协程区别</h3><p>协程（Coroutines）是一种比线程更加轻量级的存在，<strong>一个线程可以拥有多个协程。协程不是被操作系统内核所管理的，而是完全由程序所控制，也就是在用户态执行。</strong>这样带来的好处是性能大幅度的提升，因为不会像线程切换那样消耗资源。<br>协程不是进程也不是线程，而是一个特殊的函数，这个函数可以在某个地方挂起，并且可以重新在挂起处外继续运行。所以说，协程与进程、线程相比并不是一个维度的概念。</p>
+<ul>
+<li>进程的切换者是操作系统，切换时机是根据操作系统自己的切换策略，用户是无感知的。进程的切换内容包括页全局目录、内核栈、硬件上下文，切换内容保存在内存中。进程切换过程是由“用户态到内核态到用户态”的方式，切换效率低。</li>
+<li>线程的切换者是操作系统，切换时机是根据操作系统自己的切换策略，用户无感知。线程的切换内容包括内核栈和硬件上下文。线程切换内容保存在内核栈中。线程切换过程是由“用户态到内核态到用户态”， 切换效率中等。</li>
+<li>协程的切换者是用户（编程者或应用程序），切换时机是用户自己的程序所决定的。协程的切换内容是硬件上下文，切换内存保存在用户自己的变量（用户栈或堆）中。协程的切换过程只有用户态，即没有陷入内核态，因此切换效率高。</li>
+</ul>
+<h3 id="协程Coroutine用法"><a href="#协程Coroutine用法" class="headerlink" title="协程Coroutine用法"></a>协程Coroutine用法</h3><ul>
+<li>将复杂操作分帧计算。</li>
+<li>异步下载。</li>
+<li>使用yield return coroutine等待协程，将多个异步逻辑串联。如先进行异步下载，完成下载任务后再接着运算。</li>
+<li>创建互斥区。如某个下载函数同一时刻只能有一个协程进入。</li>
+</ul>
+<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><p>协程的完成主要靠yield关键字，带有yield关键字的函数自动变成生成器，根据yield函数的记录标签位置继续执行协程函数的后面部分代码。</p>
+<ul>
+<li>yield return new WaitForSeconds(3.0f); // 等待3秒，然后继续从此处开始，常用于做定时器</li>
+<li>yield return null; // 这一帧到此暂停，下一帧再从暂停处继续，常用于循环中</li>
+<li>yield return new WaitForEndOfFrame(); // 等到这一帧的cameras和GUI渲染结束后再从此处继续，即等到这帧的末尾再往下运行。这行之后的代码还是在当前帧运行，是在下一帧开始前执行，跟return null很相似</li>
+<li>yield return new WaitForFixedUpdate(); // 在下一次执行FixedUpdate的时候继续执行这段代码，即等一次物理引擎的更新</li>
+<li>yield return www; // 等待直至异步下载完成</li>
+<li>yield break; // 直接跳出协程，对某些判定失败必须跳出的时候，比如加载AssetBundle的时候，WWW失败了，后边加载bundle没有必要了，这时候可以yield break跳出。</li>
+<li>yield return StartCoroutine(methodName); // 等待另一个协程执行完。这是把协程串联起来的关键，常用于让多个协程按顺序逐个运行</li>
+</ul>
+<blockquote>
+<p>  <a href="https://www.cnblogs.com/zhehan54/p/6130030.html">https://www.cnblogs.com/zhehan54/p/6130030.html</a><br>    <a href="https://blog.csdn.net/zhaohong_bo/java/article/details/89552188">https://blog.csdn.net/zhaohong_bo/java/article/details/89552188</a><br>    <a href="https://blog.csdn.net/shuilan0066/article/details/7683315">https://blog.csdn.net/shuilan0066/article/details/7683315</a><br>    <a href="https://www.cnblogs.com/YeLing0119/p/9754090.html">https://www.cnblogs.com/YeLing0119/p/9754090.html</a><br>    <a href="https://blog.csdn.net/boteman123/article/details/81000631">https://blog.csdn.net/boteman123/article/details/81000631</a><br>    <a href="https://blog.csdn.net/beidaol/article/details/89135277">https://blog.csdn.net/beidaol/article/details/89135277</a><br>    <a href="https://blog.csdn.net/tanmomo/article/details/99671622">https://blog.csdn.net/tanmomo/article/details/99671622</a><br>    <a href="https://www.jianshu.com/p/bb07a4d047eb">https://www.jianshu.com/p/bb07a4d047eb</a><br>    <a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017628290184064">https://www.liaoxuefeng.com/wiki/1016959663602400/1017628290184064</a><br>    <a href="https://www.cnblogs.com/linuxAndMcu/p/11064916.html">https://www.cnblogs.com/linuxAndMcu/p/11064916.html</a><br>    <a href="https://www.cnblogs.com/CharlesGrant/p/8125841.html">https://www.cnblogs.com/CharlesGrant/p/8125841.html</a><br>    <a href="https://blog.csdn.net/y277an/java/article/details/98697454">https://blog.csdn.net/y277an/java/article/details/98697454</a><br>    <a href="https://www.jianshu.com/p/6dde7f92951e">https://www.jianshu.com/p/6dde7f92951e</a><br>    <a href="https://blog.csdn.net/qq_18995513/article/details/51944602?utm_source=itdadao&amp;utm_medium=referral">https://blog.csdn.net/qq_18995513/article/details/51944602?utm_source=itdadao&amp;utm_medium=referral</a></p>
+</blockquote>
+<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><p>锁(lock)或互斥(mutex)是一种同步机制，用于在有许多执行线程的环境中强制对资源的访问限制。锁旨在强制实施互斥排他、并发控制策略。</p>
+<h2 id="常见锁机制"><a href="#常见锁机制" class="headerlink" title="常见锁机制"></a>常见锁机制</h2><p>读写锁、可重入锁、乐观锁、悲观锁、公平锁、非公平锁</p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>Java中的死锁是一种编程情况，其中两个或多个线程被永久阻塞，Java死锁情况出现至少两个线程和两个或更多资源。<br>Java发生死锁的根本原因是：在申请锁时发生了交叉闭环申请。</p>
+<ul>
+<li>是多个线程涉及到多个锁，这些锁存在着交叉，所以可能会导致了一个锁依赖的闭环。<br>例如：线程在获得了锁A并且没有释放的情况下去申请锁B，这时，另一个线程已经获得了锁B，在释放锁B之前又要先获得锁A，因此闭环发生，陷入死锁循环。</li>
+<li>默认的锁申请操作是阻塞的。<br>所以要避免死锁，就要在一遇到多个对象锁交叉的情况，就要仔细审查这几个对象的类中的所有方法，是否存在着导致锁依赖的环路的可能性。总之是尽量避免在一个同步方法中调用其它对象的延时方法和同步方法。</li>
+</ul>
+<h2 id="独享锁-共享锁"><a href="#独享锁-共享锁" class="headerlink" title="独享锁/共享锁"></a>独享锁/共享锁</h2><p>独享锁是指该锁一次只能被一个线程所持有。 (ReentrantLock、 Synchronized)<br>共享锁是指该锁可被多个线程所持有。 (ReadWriteLock)<br>互斥锁/读写锁<br>独享锁/共享锁这是广义上的说法，互斥锁/读写锁就分别对应具体的实现。在Java中如ReentrantLock就是互斥锁(独享锁)， ReadWriteLock就是读写锁(共享锁)。 独享锁与共享锁也是通过AQS来实现的<br>锁升级：读锁到写锁 (不支持)<br>锁降级：写锁到读锁 (支持)</p>
+<h2 id="公平锁-amp-非公平锁"><a href="#公平锁-amp-非公平锁" class="headerlink" title="公平锁 &amp; 非公平锁"></a>公平锁 &amp; 非公平锁</h2><p>公平锁是指多个线程按照申请锁的顺序来获取锁。<br>非公平锁是指多个线程获取锁的顺序并不是按照申请锁的顺序，有可能后申请的线程比先申请的线程优先获取锁。有可能会造成饥饿现象。<br>对于Java ReentrantLock而言，通过构造函数指定该锁是否是公平锁，默认是非公平锁。非公平锁的优点在于吞吐量比公平锁大。<br>对于Synchronized而言，也是一种非公平锁。由于其并不像ReentrantLock是通过AQS的控制线程对锁的获取， 所以并没有任何办法使其变成公平锁。</p>
+<h2 id="乐观锁-amp-悲观锁"><a href="#乐观锁-amp-悲观锁" class="headerlink" title="乐观锁 &amp; 悲观锁"></a>乐观锁 &amp; 悲观锁</h2><p>乐观锁：就像它的名字一样，对于并发间操作产生的线程安全问题持乐观状态，乐观锁认为竞争不总是会发生，因此它不需要持有锁，将比较-替换这两个动作作为一个原子操作尝试去修改内存中的变量，如果失败则表示发生冲突，那么就应该有相应的重试逻辑。<br>悲观锁：还是像它的名字一样，对于并发间操作产生的线程安全问题持悲观状态，悲观锁认为竞争总是会发生，因此每次对某资源进行操作时，都会持有一个独占的锁，就像synchronized，不管三七二十一，直接上了锁就操作资源了。</p>
+<h2 id="实现读写锁ReentrantReadWriteLock"><a href="#实现读写锁ReentrantReadWriteLock" class="headerlink" title="实现读写锁ReentrantReadWriteLock"></a>实现读写锁ReentrantReadWriteLock</h2><p>低16位代表写锁，高16位代表读锁</p>
+<h2 id="可重入锁ReetrantLock原理"><a href="#可重入锁ReetrantLock原理" class="headerlink" title="可重入锁ReetrantLock原理"></a>可重入锁ReetrantLock原理</h2><p>可重入锁又名递归锁，是指同一个线程在外层方法获取锁的时候，在进入内层方法会自动获取锁。<br>ReentrantLock和Synchronized都是可重入锁。<strong>可重入锁的一个好处是可一定程度避免死锁。</strong><br>ReentrantLock主要利用CAS+AQS队列来实现。它支持公平锁和非公平锁，两者的实现类似。<br><strong>CAS：Compare and Swap，比较并交换。</strong>CAS有3个操作数：内存值V、预期值A、要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。该操作是一个原子操作，被广泛的应用在Java的底层实现中。在Java中，CAS主要是由sun.misc.Unsafe这个类通过JNI调用CPU底层指令实现<br><strong>AbstractQueuedSynchronizer简称AQS，是一个用于构建锁和同步容器的框架。</strong>事实上concurrent包内许多类都是基于AQS构建，例如ReentrantLock，Semaphore，CountDownLatch，ReentrantReadWriteLock，FutureTask等。AQS解决了在实现同步容器时设计的大量细节问题。</p>
+<h2 id="synchronized和ReentrantLock的区别"><a href="#synchronized和ReentrantLock的区别" class="headerlink" title="synchronized和ReentrantLock的区别"></a>synchronized和ReentrantLock的区别</h2><p>synchronized是和if、else、for、while一样的关键字，ReentrantLock是类，这是二者的本质区别。既然ReentrantLock是类，那么它就提供了比synchronized更多更灵活的特性，可以被继承、可以有方法、可以有各种各样的类变量，ReentrantLock比synchronized的扩展性体现在几点上：</p>
+<ul>
+<li>ReentrantLock可以对获取锁的等待时间进行设置，这样就避免了死锁</li>
+<li>ReentrantLock可以获取各种锁的信息</li>
+<li>ReentrantLock可以灵活地实现多路通知</li>
+</ul>
+<h2 id="如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？"><a href="#如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？" class="headerlink" title="如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？"></a>如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？</h2><p>只在写时加锁，读不加锁</p>
+<h2 id="那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？"><a href="#那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？" class="headerlink" title="那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？"></a>那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？</h2><p>写操作时，先锁住锁1，在线程本地也就是函数局部计算完所有结果后，锁住锁2，一次更新完后再释放2个锁，读操作只锁住锁2</p>
+<h2 id="synchronized-amp-lock"><a href="#synchronized-amp-lock" class="headerlink" title="synchronized &amp; lock"></a>synchronized &amp; lock</h2><p>synchronized原始采用的是CPU悲观锁机制，即线程获得的是独占锁。独占锁意味着其他线程只能依靠阻塞来等待线程释放锁。而在CPU转换线程阻塞时会引起线程上下文切换，当有很多线程竞争锁的时候，会引起CPU频繁的上下文切换导致效率很低。<br>Lock用的是乐观锁方式。所谓乐观锁就是，每次不加锁而是假设没有冲突而去完成某项操作，如果因为冲突失败就重试，直到成功为止。乐观锁实现的机制就是CAS操作（Compare and Swap）。</p>
+<blockquote>
+<p>  <a href="https://blog.csdn.net/tanmomo/article/details/99671622">https://blog.csdn.net/tanmomo/article/details/99671622</a><br>    <a href="https://blog.csdn.net/fuyuwei2015/article/details/83719444">https://blog.csdn.net/fuyuwei2015/article/details/83719444</a><br>    <a href="https://zhuanlan.zhihu.com/p/108224026?from_voters_page=true">https://zhuanlan.zhihu.com/p/108224026?from_voters_page=true</a><br>    <a href="https://blog.csdn.net/natian306/article/details/18504111">https://blog.csdn.net/natian306/article/details/18504111</a></p>
+</blockquote>
+<h1 id="TCP-amp-UDP"><a href="#TCP-amp-UDP" class="headerlink" title="TCP &amp; UDP"></a>TCP &amp; UDP</h1><h2 id="TCP和UDP有什么区别？"><a href="#TCP和UDP有什么区别？" class="headerlink" title="TCP和UDP有什么区别？"></a>TCP和UDP有什么区别？</h2><ol>
+<li>TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接</li>
+<li>TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付</li>
+<li>TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的。UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）</li>
+<li>每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信</li>
+<li>TCP首部开销20字节;UDP的首部开销小，只有8个字节</li>
+<li>TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道</li>
+</ol>
+<p>具体编程时的区别</p>
+<ol>
+<li>socket()的参数不同   </li>
+<li>UDP Server不需要调用listen和accept </li>
+<li>UDP收发数据用sendto/recvfrom函数 </li>
+<li>TCP：地址信息在connect/accept时确定  </li>
+<li>UDP：在sendto/recvfrom函数中每次均 需指定地址信息 </li>
+<li>UDP：shutdown函数无效</li>
+</ol>
+<h2 id="TCP可靠性机制"><a href="#TCP可靠性机制" class="headerlink" title="TCP可靠性机制"></a><strong>TCP可靠性机制</strong></h2><h3 id="检验和"><a href="#检验和" class="headerlink" title="检验和"></a>检验和</h3><p>TCP检验和的计算与UDP一样，在计算时要加上12byte的伪首部，检验范围包括TCP首部及数据部分，但是UDP的检验和字段为可选的，而TCP中是必须有的。计算方法为：在发送方将整个报文段分为多个16位的段，然后将所有段进行反码相加，将结果存放在检验和字段中，接收方用相同的方法进行计算，如最终结果为检验字段所有位是全1则正确（UDP中为0是正确），否则存在错误。 </p>
+<h3 id="序列号"><a href="#序列号" class="headerlink" title="序列号"></a>序列号</h3><p>TCP将每个字节的数据都进行了编号，这就是序列号。<br>序列号的作用：<br>a. 保证可靠性（当接收到的数据总少了某个序号的数据时，能马上知道）<br>b. 保证数据的按序到达<br>c. 提高效率，可实现多次发送，一次确认<br>d. 去除重复数据<br>数据传输过程中的确认应答处理、重发控制以及重复控制等功能都可以通过序列号来实现 </p>
+<h3 id="确认应答机制（ACK）"><a href="#确认应答机制（ACK）" class="headerlink" title="确认应答机制（ACK）"></a>确认应答机制（ACK）</h3><p>TCP通过确认应答机制实现可靠的数据传输。在TCP的首部中有一个标志位——<strong>ACK，此标志位表示确认号是否有效</strong>。接收方对于按序到达的数据会进行确认，当标志位ACK=1时确认首部的确认字段有效。进行确认时，确认字段值表示这个值之前的数据都已经按序到达了。而发送方如果收到了已发送的数据的确认报文，则继续传输下一部分数据；而如果等待了一定时间还没有收到确认报文就会启动重传机制。 </p>
+<h3 id="超时重传机制"><a href="#超时重传机制" class="headerlink" title="超时重传机制"></a>超时重传机制</h3><p>当报文发出后在一定的时间内未收到接收方的确认，发送方就会进行重传（通常是在发出报文段后设定一个闹钟，到点了还没有收到应答则进行重传）<br>当接收方接收到重复的数据时就将其丢掉，重新发送ACK。而要识别出重复的数据，就要用到前面提到的序列号了，利用序列号很容易就可以做到去重的效果。 </p>
+<h3 id="连接管理机制"><a href="#连接管理机制" class="headerlink" title="连接管理机制"></a>连接管理机制</h3><p>连接管理机制即TCP建立连接时的三次握手和断开连接时的四次挥手。 </p>
+<h4 id="三次握手："><a href="#三次握手：" class="headerlink" title="三次握手："></a>三次握手：</h4><ul>
+<li>客户端发出：syn包（seq=j），并进入SYN_SENT状态，等待服务器确认。</li>
+<li>服务端发出：ack=j+1，同时自己也发送一个SYN包（seq=k），此时服务器进入SYN_RECV状态。</li>
+<li>客户端发出：确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。</li>
+</ul>
+<h4 id="四次挥手："><a href="#四次挥手：" class="headerlink" title="四次挥手："></a>四次挥手：</h4><ul>
+<li>主机1发出：主机1（可以使客户端，也可以是服务器端），设置序列号Seq和确认号ACK，向主机2发送一个FIN报文段；此时，主机1进入FIN_WAIT_1状态；这表示主机1没有数据要发送给主机2了； </li>
+<li>主机2发出：主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，ACK = Seq + 1；主机1进入FIN_WAIT_2状态；主机2告诉主机1，我“同意”你的关闭请求；</li>
+<li>主机2发出：FIN报文段，请求关闭连接，同时主机2进入LAST_ACK状态；</li>
+<li>主机1发出：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。</li>
+</ul>
+<p>FIN_WAIT_1: 其实FIN_WAIT_1和FIN_WAIT_2状态的真正含义都是表示等待对方的FIN报文。而这两种状态的区别是：FIN_WAIT_1状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即进入到FIN_WAIT_1状态。而当对方回应ACK报文后，则进入到FIN_WAIT_2状态，当然在实际的正常情况下，无论对方何种情况下，都应该马上回应ACK报文，所以FIN_WAIT_1状态一般是比较难见到的，而FIN_WAIT_2状态还有时常常可以用netstat看到。（主动方）<br>FIN_WAIT_2：实际上FIN_WAIT_2状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点数据需要传送给你(ACK信息)，稍后再关闭连接。（主动方）<br><strong>CLOSE_WAIT：表示在等待关闭。当对方close一个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文给对方，此时则进入到CLOSE_WAIT状态。</strong>接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话，那么你也就可以 close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。（被动方）<br>LAST_ACK: 被动关闭一方在发送FIN报文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。（被动方）<br><strong>TIME_WAIT: 表示收到了对方的FIN报文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。</strong>如果FIN WAIT1状态下，收到了对方同时带FIN标志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过FIN_WAIT_2状态。（主动方）<br>CLOSED: 表示连接中断。</p>
+<h3 id="停止等待协议"><a href="#停止等待协议" class="headerlink" title="停止等待协议"></a>停止等待协议</h3><p>停止等待协议是一种ARQ协议。(Automatic Repeat reQuest自动重传请求)<br>A向B每发送一个分组，都要停止发送，等待B的确认应答；<strong>A只有收到了B的确认应答后才能发送下一个分组</strong>。当分组丢失或出现差错 的情况下，A都会超时重传分组。TCP会给每个字节都打上序号，用于判断该分组是否已经接收。 </p>
+<ul>
+<li>必须设置超时计时器。每发送一个分组就要启动计时器，超时就要重发分组。计时器的超时时间要大于应答的平均返回时间，否则会出现很多不必要的重传，降低传输效率。但超时时间也不能太长。</li>
+</ul>
+<h3 id="流量控制-滑动窗口（发送窗口和接收窗口）"><a href="#流量控制-滑动窗口（发送窗口和接收窗口）" class="headerlink" title="流量控制  滑动窗口（发送窗口和接收窗口）"></a>流量控制  滑动窗口（发送窗口和接收窗口）</h3><p>在ARQ协议发送者每次只能发送一个分组，在应答到来前必须等待。而连续ARQ协议的发送者拥有一个发送窗口，发送者可以在没有得到应答的情况下连续发送窗口中的分组。这样降低了等待时间，提高了传输效率。<br>接收端处理数据的速度是有限的，如果发送方发送数据的速度过快，导致接收端的缓冲区满，而发送方继续发送，就会造成丢包，继而引起丢包重传等一系列连锁反应。<br><strong>TCP支持根据接收端的处理能力，来决定发送端的发送速度，这个机制叫做流量控制。</strong><br>在TCP报文段首部中有一个16位窗口长度，当接收端接收到发送方的数据后，在应答报文ACK中就将自身缓冲区的剩余大小，放入16窗口大小中。这个大小随数据传输情况而变，窗口越大，网络吞吐量越高，而一旦接收方发现自身的缓冲区快满了，就将窗口设置为更小的值通知发送方。如果缓冲区满，就将窗口置为0，发送方收到后就不再发送数据，但是需要定期发送一个窗口探测数据段，使接收端把窗口大小告诉发送端。 </p>
+<ul>
+<li>已经发送并且对端确认（Sent/ACKed）———————-发送窗外 缓冲区外<br>已经发送但未收到确认数据（Sent/UnACKed） ————-发送窗内 缓冲区内<br>允许发送但尚未防的数据（Unsent/Inside）—————发送窗内 缓冲区内<br>未发送暂不允许（Unsent/Outside）————————-发送窗外 缓冲区内<br>第二、三为<strong>发送窗口，存放在TCP header中有一个Window Size字段，用来告知发送端自己所能接收的数据量，从而达到一部分流控的目的。</strong></li>
+<li>对于TCP的接收方，在某一时刻在它的接收缓存内存在3种。<br>“已接收”，“未接收准备接收”，“未接收并未准备接收”（由于ACK直接由TCP协议栈回复，默认无应用延迟，不存在“已接收未回复ACK”）。<br><strong>其中“未接收准备接收”称之为接收窗口。</strong></li>
+<li>TCP是<strong>双工</strong>的协议，会话的双方都可以同时接收、发送数据。<strong>TCP会话的双方都各自维护一个“发送窗口”和一个“接收窗口”。</strong>其中各自的“接收窗口”大小取决于应用、系统、硬件的限制（TCP传输速率不能大于应用的数据处理速率）。各自的“发送窗口”则要求取决于对端通告的“接收窗口”，要求相同。</li>
+</ul>
+<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>流量控制解决了两台主机之间因传送速率而可能引起的丢包问题，在一方面保证了TCP数据传送的可靠性。然而如果网络非常拥堵，此时再发送数据就会加重网络负担，那么发送的数据段很可能超过了最大生存时间也没有到达接收方，就会产生丢包问题。<br>为此TCP引入慢启动机制，先发出少量数据，就像探路一样，先摸清当前的网络拥堵状态后，再决定按照多大的速度传送数据。<br>此处引入一个<strong>拥塞窗口</strong>：<br>发送开始时定义拥塞窗口大小为1；每次收到一个ACK应答，拥塞窗口加1；而在每次发送数据时，发送窗口取拥塞窗口与接送段接收窗口最小者。<br>慢启动：在启动初期以指数增长方式增长；设置一个慢启动的阈值，当以指数增长达到阈值时就停止指数增长，按照线性增长方式增加；线性增长达到网络拥塞时立即“乘法减小”，拥塞窗口置回1，进行新一轮的“慢启动”，同时新一轮的阈值变为原来的一半。 </p>
+<h2 id="TCP长连接-amp-短连接"><a href="#TCP长连接-amp-短连接" class="headerlink" title="TCP长连接 &amp; 短连接"></a>TCP长连接 &amp; 短连接</h2><ul>
+<li><p>长连接，也叫持久连接，在TCP层握手成功后，不立即断开连接，并在此连接的基础上进行多次消息（包括心跳）交互，直至连接的任意一方（客户端OR服务端）主动断开连接，此过程称为一次完整的长连接。<strong>HTTP 1.1相对于1.0最重要的新特性就是引入了长连接。</strong><br>短连接</p>
+</li>
+<li><p>短连接，客户端收到服务端的响应后，立刻发送FIN消息，主动释放连接。也有服务端主动断连的情况，凡是在一次消息交互（发请求-收响应）之后立刻断开连接的情况都称为短连接。<strong>短连接是建立在TCP协议上的，有完整的握手挥手流程，区别于UDP协议。</strong></p>
+</li>
+</ul>
+<h2 id="UDP有拥塞控制吗？如何解决？"><a href="#UDP有拥塞控制吗？如何解决？" class="headerlink" title="UDP有拥塞控制吗？如何解决？"></a>UDP有拥塞控制吗？如何解决？</h2><p>UDP没有拥塞控制，可以根据丢包率来判断网络的拥塞情况,如果网络拥塞,接收方通知发送方调整发送速率从而有效解决公平性问题以及UDP的拥塞控制问题。</p>
+<h2 id="为什么要有-time-wait"><a href="#为什么要有-time-wait" class="headerlink" title="为什么要有 time_wait"></a>为什么要有 time_wait</h2><p>假设最终的ACK丢失，主机2将重发FIN，主机1必须维护TCP状态信息以便可以重发最终的ACK，否则会发送RST，结果主机2认为发生错误。TCP实现必须可靠地终止连接的两个方向(全双工关闭)，主机1必须进入 TIME_WAIT 状态，因为主机1可能面临重发最终ACK的情形。</p>
+<blockquote>
+<p>  <a href="https://www.zhihu.com/question/47378601/answer/276353285">https://www.zhihu.com/question/47378601/answer/276353285</a><br>    <a href="https://blog.csdn.net/xuzhangze/article/details/80490362">https://blog.csdn.net/xuzhangze/article/details/80490362</a><br>    <a href="https://www.cnblogs.com/xdyixia/p/9294885.html">https://www.cnblogs.com/xdyixia/p/9294885.html</a><br>    <a href="https://www.cnblogs.com/hongdada/p/11171068.html">https://www.cnblogs.com/hongdada/p/11171068.html</a><br>    <a href="https://www.cnblogs.com/Paul-watermelon/p/11141422.html">https://www.cnblogs.com/Paul-watermelon/p/11141422.html</a><br>    <a href="https://xueshu.baidu.com/usercenter/paper/show?paperid=6576ba05a97ec447bcf1111cbd0485e9&amp;site=xueshu_se">https://xueshu.baidu.com/usercenter/paper/show?paperid=6576ba05a97ec447bcf1111cbd0485e9&amp;site=xueshu_se</a><br>    <a href="https://blog.51cto.com/11859650/1917938">https://blog.51cto.com/11859650/1917938</a></p>
+</blockquote>
+<h1 id="http-amp-https"><a href="#http-amp-https" class="headerlink" title="http &amp; https"></a>http &amp; https</h1><h2 id="http与https的区别"><a href="#http与https的区别" class="headerlink" title="http与https的区别"></a>http与https的区别</h2><p>HTTPS是在HTTP上建立SSL加密层，并对传输数据进行加密，是HTTP协议的安全版。HTTPS协议，它比HTTP协议相比多了以下优势:<br>数据隐私性：内容经过对称加密，每个连接生成一个唯一的加密密钥<br>数据完整性：内容传输经过完整性校验<br>身份认证：第三方无法伪造服务端（客户端）身份（数字签名）<br>发送密文的一方使用对方的公钥进行加密处理“对称的密钥”，然后对方用自己的私钥解密拿到“对称的密钥”，这样可以确保交换的密钥是安全的前提下，使用对称加密方式进行通信。所以，<strong>HTTPS采用对称加密和非对称加密两者并用的混合加密机制。</strong></p>
+<ul>
+<li>HTTPS比HTTP更加安全，对搜索引擎更友好，利于SEO，谷歌、百度优先索引HTTPS网页;</li>
+<li>HTTPS需要用到SSL证书，而HTTP不用;</li>
+<li>HTTPS标准端口443，HTTP标准端口80;</li>
+<li>HTTPS基于传输层，HTTP基于应用层;</li>
+<li>HTTPS在浏览器显示绿色安全锁，HTTP没有显示;s</li>
+<li>HTTPS需要使用证书，必须向认证机构（CA）购买。</li>
+<li>HTTPS加密通信会消耗更多的CPU及内存资源</li>
+</ul>
+<h2 id="浏览器中输入网址到获得页面的全过程"><a href="#浏览器中输入网址到获得页面的全过程" class="headerlink" title="浏览器中输入网址到获得页面的全过程"></a>浏览器中输入网址到获得页面的全过程</h2><ol>
+<li>浏览器中输入域名www.baidu.com</li>
+<li>域名解析DNS得到对应的ip<br>找浏览器缓存-&gt;查看本机的host文件-&gt;路由器缓存-&gt;对本地DNS服务器进行递归查询-&gt;本地域名服务器采用迭代查询-&gt;根域名服务器（告诉本地顶级ip）-&gt;顶级域名服务器（告诉本地权威ip）-&gt;权威域名服务器（告诉本地查找结果）-&gt;本地域名服务器把查询结果告诉本机。</li>
+<li>浏览器与目标服务器建立TCP连接：3次握手连接</li>
+<li>浏览器通过http协议向目标服务器发送请求<br>浏览器向主机发起一个HTTP-GET方法报文请求。请求中包含访问的URL，也就是<a href="http://www.baidu.com/等信息。Cookies如果是首次访问，会提示服务器建立用户缓存信息。">http://www.baidu.com/等信息。Cookies如果是首次访问，会提示服务器建立用户缓存信息。</a></li>
+<li>服务器给出响应，将指定文件发送给浏览器<br>状态行，响应头，响应实体内容，返回状态码200 OK，表示服务器可以响应请求，返回报文，由于在报头中Content-type为“text/html”，浏览器以HTML形式呈现，而不是下载文件。</li>
+<li>TCP释放链接<br>浏览器所在主机向服务器发出连接释放报文，然后停止发送数据；<br><strong>服务器接收到释放报文后发出确认报文，然后将服务器上未传送完的数据发送完；</strong><br>服务器数据传输完毕后，向客户机发送连接释放报文；<br>客户机接收到报文后，发出确认，然后等待一段时间后，释放TCP连接；</li>
+<li>浏览器显示页面中所有文本。<br>浏览器接收到返回的数据包，根据浏览器的渲染机制对相应的数据进行渲染。渲染后的数据，进行相应的页面呈现和脚步的交互。</li>
+</ol>
+<ul>
+<li>涉及到的协议<br>  应用层：HTTP(WWW访问协议)，DNS(域名解析服务)<br>  传输层：TCP(为HTTP提供可靠的数据传输)，UDP(DNS使用UDP传输)<br>  网络层：IP(IP数据数据包传输和路由选择)，ICMP(提供网络传输过程中的差错检测)，ARP(将本机的默认网关IP地址映射成物理MAC地址)</li>
+</ul>
+<h2 id="输入-www-baidu-com，怎么变成-https-www-baidu-com-的，怎么确定用HTTP还是HTTPS？"><a href="#输入-www-baidu-com，怎么变成-https-www-baidu-com-的，怎么确定用HTTP还是HTTPS？" class="headerlink" title="输入 www.baidu.com，怎么变成 https://www.baidu.com 的，怎么确定用HTTP还是HTTPS？"></a>输入 www.baidu.com，怎么变成 <a href="https://www.baidu.com">https://www.baidu.com</a> 的，怎么确定用HTTP还是HTTPS？</h2><p>一种是原始的302跳转，服务器把所有的HTTP流量跳转到HTTPS。但这样有一个漏洞，就是中间人可能在第一次访问站点的时候就劫持。<br>解决方法是引入HSTS机制，用户浏览器在访问站点的时候强制使用HTTPS。</p>
+<h2 id="HTTP可以使用UDP吗"><a href="#HTTP可以使用UDP吗" class="headerlink" title="HTTP可以使用UDP吗"></a>HTTP可以使用UDP吗</h2><p>HTTP3。对传输的报文进行充分的加密</p>
+<h2 id="HTTP协议的报文格式"><a href="#HTTP协议的报文格式" class="headerlink" title="HTTP协议的报文格式"></a>HTTP协议的报文格式</h2><p>客户端请求request报文格式：请求行（请求方法，URL，HTTP协议版本）、请求头部（header）、空行、请求数据<br>服务器响应response报文格式：状态行（HTTP协议版本， 状态码， 状态消息）、消息报头、空行、响应正文</p>
+<h2 id="Http1-0-amp-HTTP1-1"><a href="#Http1-0-amp-HTTP1-1" class="headerlink" title="Http1.0 &amp; HTTP1.1"></a>Http1.0 &amp; HTTP1.1</h2><ol>
+<li>缓存处理，在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</li>
+<li>带宽优化及网络连接的使用，HTTP1.0中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。</li>
+<li>错误通知的管理，在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</li>
+<li>Host头处理，在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</li>
+<li>长连接，HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。</li>
+</ol>
+<h2 id="HTTP2-0和HTTP1-X相比的新特性"><a href="#HTTP2-0和HTTP1-X相比的新特性" class="headerlink" title="HTTP2.0和HTTP1.X相比的新特性"></a>HTTP2.0和HTTP1.X相比的新特性</h2><ol>
+<li>新的二进制格式（Binary Format），HTTP1.x的解析是基于文本。基于文本协议的格式解析存在天然缺陷，文本的表现形式有多样性，要做到健壮性考虑的场景必然很多，二进制则不同，只认0和1的组合。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。</li>
+<li>多路复用（MultiPlexing），即连接共享，即每一个request都是是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面。</li>
+<li>header压缩，如上文中所言，对前面提到过HTTP1.x的header带有大量信息，而且每次都要重复发送，HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。</li>
+<li>服务端推送（server push），同SPDY一样，HTTP2.0也具有server push功能。</li>
+</ol>
+<h2 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h2><ol>
+<li><strong>GET方法意思是获取URL指定的资源</strong>，使用GET方法时，可以将请求参数和对应的值附加在 URI 后面，利用一个问号(“?”)将资源的URI和请求参数隔开，参数之间使用与符号(“&amp;”)隔开，因此传递参数长度也受到了限制，而且与隐私相关的信息也直接暴露在URI中。比如/index.jsp?username=holmofy&amp;password=123123</li>
+<li>HEAD 方法与GET用法相同，但没有响应体，使用场合没有GET多。比如下载前使用HEAD发送请求，通过ContentLength响应字段，来了解网络资源的大小；或者通过LastModified响应字段来判断本地缓存资源是否要更新。 </li>
+<li><strong>POST 方法一般用提交信息或数据，请求服务器进行处理（例如提交表单或者上传文件）。</strong>表单使用POST相对GET来说还是比较隐秘的，而且GET的URL有长度限制，而上传大文件就必须要使用POST了。</li>
+<li>OPTIONS方法比较少见，该方法用于请求服务器告知其支持哪些其他的功能和方法。通过OPTIONS 方法，可以询问服务器具体支持哪些方法，或者服务器会使用什么样的方法来处理一些特殊资源。可以说这是一个探测性的方法，客户端通过该方法可以在不访问服务器上实际资源的情况下就知道处理该资源的最优方式。这个选项在跨域HTTP请求的情况出现的比较多，这里有一片关于跨域请求的文章，其中有一张图很好的解释了什么是跨域HTTP请求。 </li>
+</ol>
+<h2 id="GET与POST的区别"><a href="#GET与POST的区别" class="headerlink" title="GET与POST的区别"></a>GET与POST的区别</h2><p>GET是幂等的，即读取同一个资源，总是得到相同的数据，POST不是幂等的；<br>GET一般用于从服务器获取资源，而POST有可能改变服务器上的资源；<br>请求形式上：GET请求的数据附在URL之后，在HTTP请求头中；POST请求的数据在请求体中；<br>安全性：GET请求可被缓存、收藏、保留到历史记录，且其请求数据明文出现在URL中。POST的参数不会被保存，安全性相对较高；<br>GET只允许ASCII字符，POST对数据类型没有要求，也允许二进制数据；<br>GET的长度有限制（操作系统或者浏览器），而POST数据大小无限制</p>
+<h2 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h2><p>1XX：信息提示。表示请求已被服务器接受，但需要继续处理，范围为100~101。<br>2XX：请求成功。服务器成功处理了请求。范围为200~206。<br>3XX：客户端重定向。重定向状态码用于告诉客户端浏览器，它们访问的资源已被移动，并告诉客户端新的资源位置。客户端收到重定向会重新对新资源发起请求。范围为300~305。<br>4XX：客户端信息错误。客户端可能发送了服务器无法处理的东西，比如请求的格式错误，或者请求了一个不存在的资源。范围为400~415。<br>5XX：服务器出错。客户端发送了有效的请求，但是服务器自身出现错误，比如Web程序运行出错。范围是500~505。<br>200: ok<br>304: not modified<br>400: bad request<br>404: not found</p>
+<blockquote>
+<p>  <a href="https://blog.csdn.net/Goligory/article/details/104513317">https://blog.csdn.net/Goligory/article/details/104513317</a><br>    <a href="https://blog.csdn.net/qiuchaoxi/article/details/79415400">https://blog.csdn.net/qiuchaoxi/article/details/79415400</a><br>    <a href="https://www.cnblogs.com/jpfss/p/10984966.html">https://www.cnblogs.com/jpfss/p/10984966.html</a><br>    <a href="https://blog.csdn.net/qq_38128179/article/details/85068195">https://blog.csdn.net/qq_38128179/article/details/85068195</a><br>    <a href="https://blog.csdn.net/qq_40638598/article/details/105293250">https://blog.csdn.net/qq_40638598/article/details/105293250</a><br>    <a href="https://www.cnblogs.com/heluan/p/8620312.html">https://www.cnblogs.com/heluan/p/8620312.html</a></p>
+</blockquote>
+<h1 id="Cookie-amp-Session"><a href="#Cookie-amp-Session" class="headerlink" title="Cookie &amp; Session"></a>Cookie &amp; Session</h1><h2 id="Cookie的参数有哪些？"><a href="#Cookie的参数有哪些？" class="headerlink" title="Cookie的参数有哪些？"></a>Cookie的参数有哪些？</h2><p>setcookie()函数向客户端发送一个 HTTP cookie。<br>cookie的名称指定为相同名称的变量。例如，如果被发送的 cookie 名为 “name”，会自动创建名为 $user 的变量，包含cookie 的值。<br>setcookie(name,value,expire,path,domain,secure)<br>名称、值、有效期、服务器路径、域名、是否用安全的https来传输</p>
+<h2 id="Cookie被仿造怎么办？"><a href="#Cookie被仿造怎么办？" class="headerlink" title="Cookie被仿造怎么办？"></a>Cookie被仿造怎么办？</h2><p>建议对客户端标识的用户敏感信息数据，使用Session会话认证方式，避免被他人仿冒身份。<br>敏感的信息如账号密码等尽量不要写到Cookie中。最好是像Google、Baidu那样将Cookie信息加密，提交到服务器后再进行解密，保证Cookie中的信息只要本人能读得懂。而假如选择Session就省事多了，反正是放在服务器上，Session里任何隐私都能够有效的保护。</p>
+<h2 id="Cookie和Session的区别"><a href="#Cookie和Session的区别" class="headerlink" title="Cookie和Session的区别"></a>Cookie和Session的区别</h2><ol>
+<li>数据存放位置不同：cookie数据存放在客户的浏览器上，session数据放在服务器上。</li>
+<li>安全程度不同：cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗，考虑到安全应当使用session。</li>
+<li>性能使用程度不同：session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能，考虑到减轻服务器性能方面，应当使用cookie；cookie会附加在每个http请求中，无形增加了流量，对于大data不适用。</li>
+<li>数据存储大小不同：单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie，而session则存储与服务端，浏览器对其没有限制。</li>
+<li>浏览器支持不同：Cookie是需要客户端浏览器支持的。假如客户端禁用了Cookie，或者不支持Cookie，则会话跟踪会失效。关于WAP上的应用，常规的Cookie就派不上用场了。</li>
+<li>跨域支持不同：Cookie支持跨域名访问，例如将domain属性设置为“.biaodianfu.com”，则以“.biaodianfu.com”为后缀的一切域名均能够访问该Cookie。跨域名Cookie如今被普遍用在网络中，例如Google、Baidu、Sina等。而Session则不会支持跨域名访问。Session仅在他所在的域名内有效。</li>
+<li>存放数据类型不同：cookie存放的树ASCLL码表示的数据，而Session中可以保存任意类型的数据。</li>
+</ol>
+<h2 id="Session校验服务器该如何设计"><a href="#Session校验服务器该如何设计" class="headerlink" title="Session校验服务器该如何设计"></a>Session校验服务器该如何设计</h2><p>session机制是一种服务器端的机制，服务器使用一种类似于散列表的结构（也可能就是使用散列表）来保存信息。为此客户端创建一个session并且生成一个与此session相关联的session id，session id的值应该是一个既不会重复，又不容易被找到规律以仿造的字符串。<br>每个客户端请求都会和服务器建立一个会话，会有一个唯一的SessionId, 客户端在收到SessionId之后可以将seesionId保存(比如保存在cookie中)，然后每次通过cookie的sessionId去验证。<br>缺点：时间较短，需要服务器设置；服务器挂了需要重新登录。<br>1、用户向服务器发送用户名和密码。<br>2、服务器验证通过后，在当前session里面保存相关数据，比如用户角色、登录时间等等。<br>3、服务器向用户返回一个 session_id，写入用户的 Cookie。<br>4、用户随后的每一次请求，都会通过 Cookie，将 session_id 传回服务器。<br>5、服务器收到 session_id，找到前期保存的数据，由此得知用户的身份。</p>
+<h2 id="Session劫持"><a href="#Session劫持" class="headerlink" title="Session劫持"></a>Session劫持</h2><p>Session劫持攻击通过窃取或预测有效的Session令牌来获得未经授权Web服务器访问权限。<br>Session ID应至少为128位长，以防止蛮力Session猜测攻击。</p>
+<blockquote>
+<p>  <a href="https://blog.csdn.net/qq_36031499/article/details/54573461">https://blog.csdn.net/qq_36031499/article/details/54573461</a><br>    <a href="https://zhidao.baidu.com/question/575343552.html">https://zhidao.baidu.com/question/575343552.html</a><br>    <a href="https://www.cnblogs.com/hnzheng/p/12732047.html">https://www.cnblogs.com/hnzheng/p/12732047.html</a></p>
+</blockquote>
+<h1 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h1><h2 id="解释下Cache的运行过程，怎么保证cache一致性"><a href="#解释下Cache的运行过程，怎么保证cache一致性" class="headerlink" title="解释下Cache的运行过程，怎么保证cache一致性"></a>解释下Cache的运行过程，怎么保证cache一致性</h2><p>三级缓存结构cpu -&gt; cache -&gt; memory<br>缓存一致性：用于保证多个CPU cache之间缓存共享数据的一致。<br>MESI，则是缓存一致性协议中的一个，到底怎么实现，还是得看具体的处理器指令集。<br><strong>读的时候，先读缓存，缓存没有的话，就读数据库，然后取出数据后放入缓存，同时返回响应。读的时候，先读缓存，缓存没有的话，就读数据库，然后取出数据后放入缓存，同时返回响应。更新的时候，先更新数据库，然后再删除缓存。</strong><br><strong>更新的时候，先更新数据库，然后再删除缓存。</strong><br>如果不删除而是使用更新，在并发的情况下可能导致数据不一致。</p>
+<h2 id="Cache的算法"><a href="#Cache的算法" class="headerlink" title="Cache的算法"></a>Cache的算法</h2><h3 id="FIFO算法"><a href="#FIFO算法" class="headerlink" title="FIFO算法"></a>FIFO算法</h3><p><strong>FIFO算法的思想是先进先出（FIFO，队列）</strong>，这是最简单、最公平的一种思想，即如果一个数据是最先进入的，那么可以认为在将来它被访问的可能性很小。<strong>空间满的时候，最先进入的数据会被最早置换（淘汰）掉</strong>。<br>FIFO 算法的描述：设计一种缓存结构，该结构在构造时确定大小，假设大小为 K，并有两个功能：<br>set(key,value)：将记录(key,value)插入该结构。当缓存满时，将最先进入缓存的数据置换掉。<br>get(key)：返回key对应的value值。<br>实现：维护一个FIFO队列，按照时间顺序将各数据（已分配页面）链接起来组成队列，并将置换指针指向队列的队首。再进行置换时，只需把置换指针所指的数据（页面）顺次换出，并把新加入的数据插到队尾即可。<br>缺点：判断一个页面置换算法优劣的指标就是缺页率，而FIFO算法的一个显著的缺点是，在某些特定的时刻，缺页率反而会随着分配页面的增加而增加，这称为Belady现象。产生Belady现象现象的原因是，FIFO置换算法与进程访问内存的动态特征是不相容的，被置换的内存页面往往是被频繁访问的，或者没有给进程分配足够的页面，因此FIFO算法会使一些页面频繁地被替换和重新申请内存，从而导致缺页率增加。因此，现在不再使用FIFO算法。</p>
+<h3 id="LRU算法"><a href="#LRU算法" class="headerlink" title="LRU算法"></a>LRU算法</h3><p><strong>LRU（The Least Recently Used，最近最久未使用算法）</strong>的思想是：如果一个数据在最近一段时间没有被访问到，那么可以认为在将来它被访问的可能性也很小。因此，<strong>当空间满时，最久没有访问的数据最先被置换（淘汰）。</strong><br>LRU算法的描述： 设计一种缓存结构，该结构在构造时确定大小，假设大小为 K，并有两个功能：<br>set(key,value)：将记录(key,value)插入该结构。当缓存满时，将最久未使用的数据置换掉。<br>get(key)：返回key对应的value值。<br>实现：最朴素的思想就是用数组+时间戳的方式，不过这样做效率较低。因此，我们可以用双向链表（LinkedList）+哈希表（HashMap）实现（链表用来表示位置，哈希表用来存储和查找），在Java里有对应的数据结构LinkedHashMap。</p>
+<h3 id="LFU算法"><a href="#LFU算法" class="headerlink" title="LFU算法"></a>LFU算法</h3><p><strong>LFU（Least Frequently Used ，最近最少使用算法）</strong>的思想是：如果一个数据在最近一段时间很少被访问到，那么可以认为在将来它被访问的可能性也很小。因此，当空间满时，<strong>最小频率访问的数据最先被淘汰</strong>。<br>LFU 算法的描述：<br>设计一种缓存结构，该结构在构造时确定大小，假设大小为 K，并有两个功能：<br>set(key,value)：将记录(key,value)插入该结构。当缓存满时，将访问频率最低的数据置换掉。<br>get(key)：返回key对应的value值。<br>算法实现策略：考虑到 LFU 会淘汰访问频率最小的数据，我们需要一种合适的方法按大小顺序维护数据访问的频率。LFU 算法本质上可以看做是一个 top K 问题(K = 1)，即选出频率最小的元素，因此我们很容易想到可以用二项堆来选择频率最小的元素，这样的实现比较高效。最终实现策略为小顶堆+哈希表。</p>
+<blockquote>
+<p>  <a href="https://www.cnblogs.com/snow826520/p/8574824.html">https://www.cnblogs.com/snow826520/p/8574824.html</a><br>    <a href="https://www.cnblogs.com/hongdada/p/10406902.html">https://www.cnblogs.com/hongdada/p/10406902.html</a></p>
+</blockquote>
+<h1 id="计算机系统架构"><a href="#计算机系统架构" class="headerlink" title="计算机系统架构"></a>计算机系统架构</h1><h2 id="7层模型（OSI模型）和4层模型（TCP-IP-模型），每一层有哪些常见协议？"><a href="#7层模型（OSI模型）和4层模型（TCP-IP-模型），每一层有哪些常见协议？" class="headerlink" title="7层模型（OSI模型）和4层模型（TCP/IP 模型），每一层有哪些常见协议？"></a>7层模型（OSI模型）和4层模型（TCP/IP 模型），每一层有哪些常见协议？</h2><p>应用层、传输层、网络层常见协议：DNS 、 HTTP 、FTP、 STMP 、SSL、 TCP、 UDP、 ARP、 IP  </p>
+<h2 id="路由器-交换机是哪一层"><a href="#路由器-交换机是哪一层" class="headerlink" title="路由器/交换机是哪一层"></a>路由器/交换机是哪一层</h2><p>网络层</p>
+<h2 id="网络层用来干嘛？传输层用来干嘛？"><a href="#网络层用来干嘛？传输层用来干嘛？" class="headerlink" title="网络层用来干嘛？传输层用来干嘛？"></a>网络层用来干嘛？传输层用来干嘛？</h2><p>网络层只是负责传输，把数据交给指定的目标，<br>传输层用来把收到的数据，根据协议分发给各个应用</p>
+<h2 id="怎么给大量url和ip去重"><a href="#怎么给大量url和ip去重" class="headerlink" title="怎么给大量url和ip去重"></a>怎么给大量url和ip去重</h2><ol>
+<li>内存够用，将URL存入hash链表，每个URL读入到hash链表中，遇到重复的就舍弃，否则加入到链表里面，最后遍历得到所有不重复的URL。空间复杂度M，时间复杂度为O(N+N/M)，M为不重复的URL，N为总URL数，但是M无法预测，所以存在风险，可能内存不足以存储所有的不重复URL。 </li>
+<li>为了解决内存可能不足的问题，需要把hash链表变化成普通的hash表，每个hash表元素指向一个文件文件，这个文件记录了所有该hash值对应的无重复的URL，那么在加入URL的时候就遍历对应文件中的URL，没有重复则加入到文件中。这样做时间复杂度没有提升，但是每次都要读写文件，消耗的时间应该是上一种方式的三倍（依赖于io速度），而对内存的要求比较小。一个改进是加入URL的时候进行排序，这样能减少比对的次数。 </li>
+</ol>
+<h2 id="当在局域网中使用ping-www-xxx-com时，用到了哪些协议？"><a href="#当在局域网中使用ping-www-xxx-com时，用到了哪些协议？" class="headerlink" title="当在局域网中使用ping www.xxx.com时，用到了哪些协议？"></a>当在局域网中使用ping www.xxx.com时，用到了哪些协议？</h2><ol>
+<li>因为ping的话 后面跟的是地址，所以要先<strong>将域名转换为ip地址，即用到了DNS</strong> </li>
+<li>获取到ip地址后，<strong>在数据链路层是根据MAC地址传输的，所以要用到ARP解析服务，获取到MAC地址</strong></li>
+<li>ping功能是测试另一台主机是否可达，<strong>程序发送一份ICMP回显请求给目标主机，并等待返回ICMP回显应答,</strong>（ICMP主要是用于ip主机、路由器之间传递控制信息，控制信息是指网络通不通，主机是否可达）</li>
+</ol>
+<blockquote>
+<p>  <a href="https://blog.csdn.net/weixin_34212762/article/details/85514043">https://blog.csdn.net/weixin_34212762/article/details/85514043</a><br>    <a href="https://www.nowcoder.com/questionTerminal/e515ae7a18924fe3b6952ae7fbb985bc">https://www.nowcoder.com/questionTerminal/e515ae7a18924fe3b6952ae7fbb985bc</a></p>
+</blockquote>
+<h1 id="待整理问题"><a href="#待整理问题" class="headerlink" title="待整理问题"></a>待整理问题</h1><h3 id="为什么要并发控制？"><a href="#为什么要并发控制？" class="headerlink" title="为什么要并发控制？"></a>为什么要并发控制？</h3><h3 id="了解索引吗？知道实现原理吗？（B-树）"><a href="#了解索引吗？知道实现原理吗？（B-树）" class="headerlink" title="了解索引吗？知道实现原理吗？（B+树）"></a>了解索引吗？知道实现原理吗？（B+树）</h3><h3 id="DNS是什么？内部如何实现？"><a href="#DNS是什么？内部如何实现？" class="headerlink" title="DNS是什么？内部如何实现？"></a>DNS是什么？内部如何实现？</h3><h3 id="ARP是什么？ARP内部如何实现？"><a href="#ARP是什么？ARP内部如何实现？" class="headerlink" title="ARP是什么？ARP内部如何实现？"></a>ARP是什么？ARP内部如何实现？</h3><h3 id="Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别"><a href="#Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别" class="headerlink" title="Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)"></a>Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)</h3><h3 id="GDB有用过哪些"><a href="#GDB有用过哪些" class="headerlink" title="GDB有用过哪些"></a>GDB有用过哪些</h3><h3 id="谈谈你对前后端交互中使用的JSON的理解"><a href="#谈谈你对前后端交互中使用的JSON的理解" class="headerlink" title="谈谈你对前后端交互中使用的JSON的理解"></a>谈谈你对前后端交互中使用的JSON的理解</h3><h3 id="操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"><a href="#操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换" class="headerlink" title="操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"></a>操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换</h3><h3 id="函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧"><a href="#函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧" class="headerlink" title="函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧"></a>函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧</h3><h3 id="虚拟内存作用？-内存分页的作用？"><a href="#虚拟内存作用？-内存分页的作用？" class="headerlink" title="虚拟内存作用？ 内存分页的作用？"></a>虚拟内存作用？ 内存分页的作用？</h3><h3 id="缺页异常的介绍"><a href="#缺页异常的介绍" class="headerlink" title="缺页异常的介绍"></a>缺页异常的介绍</h3><h3 id="OOM问题和-StackOverFlow的区别"><a href="#OOM问题和-StackOverFlow的区别" class="headerlink" title="OOM问题和 StackOverFlow的区别"></a>OOM问题和 StackOverFlow的区别</h3><h3 id="数组怎么扩容？"><a href="#数组怎么扩容？" class="headerlink" title="数组怎么扩容？"></a>数组怎么扩容？</h3><p>新建一个更大新数组，然后复制过去……</p>
+<h3 id="复制的时候锁住数组，所有的操作都阻塞？"><a href="#复制的时候锁住数组，所有的操作都阻塞？" class="headerlink" title="复制的时候锁住数组，所有的操作都阻塞？"></a>复制的时候锁住数组，所有的操作都阻塞？</h3><p>（面试之后去看了线程池里的阻塞队列，似乎都是用链表实现的，没有用数组。用到的队列似乎默认都是动态扩容的，最大为整数最大值。如果队列满了又不支持动态扩容，可以通过设置饱和策略来处理，默认是中止，也就是抛出 RejectedExecutionException。）</p>
+<h3 id="读写分离有什么用？"><a href="#读写分离有什么用？" class="headerlink" title="读写分离有什么用？"></a>读写分离有什么用？</h3><p>写操作都在主库，读操作都在分库，让读操作能并发，提高效率。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Kelly Huang
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://yoursite.com/2020/07/27/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="计算机网络">http://yoursite.com/2020/07/27/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/20/Tree%20Structure/" rel="next" title="树结构 Tree">
+                <i class="fa fa-chevron-left"></i> 树结构 Tree
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9AJAVA/" rel="prev" title="JAVA">
+                JAVA <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Kelly Huang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7Carchive">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/huangliu0909" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="wiwillow@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程与线程的区别"><span class="nav-number">1.1.</span> <span class="nav-text">进程与线程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同一进程中的线程"><span class="nav-number">1.2.</span> <span class="nav-text">同一进程中的线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程"><span class="nav-number">1.3.</span> <span class="nav-text">多进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么创建新进程，内核做了啥？"><span class="nav-number">1.3.1.</span> <span class="nav-text">怎么创建新进程，内核做了啥？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-作用"><span class="nav-number">1.3.2.</span> <span class="nav-text">fork()作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程相关函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">多进程相关函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信方式"><span class="nav-number">1.3.4.</span> <span class="nav-text">进程间通信方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程"><span class="nav-number">1.4.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程的实现"><span class="nav-number">1.4.1.</span> <span class="nav-text">多线程的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析"><span class="nav-number">1.4.2.</span> <span class="nav-text">优劣分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程优点"><span class="nav-number">1.4.3.</span> <span class="nav-text">多线程优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程缺点"><span class="nav-number">1.4.4.</span> <span class="nav-text">多线程缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？"><span class="nav-number">1.4.5.</span> <span class="nav-text">什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的调度策略"><span class="nav-number">1.4.6.</span> <span class="nav-text">线程的调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的状态"><span class="nav-number">1.4.7.</span> <span class="nav-text">线程的状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的相关问题"><span class="nav-number">1.5.</span> <span class="nav-text">线程的相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal是什么？有什么用？"><span class="nav-number">1.5.1.</span> <span class="nav-text">ThreadLocal是什么？有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么sleep是Thread的方法而不是Object的"><span class="nav-number">1.5.2.</span> <span class="nav-text">为什么sleep是Thread的方法而不是Object的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程B怎么知道线程A修改了变量"><span class="nav-number">1.5.3.</span> <span class="nav-text">线程B怎么知道线程A修改了变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保证线程安全怎么做？"><span class="nav-number">1.5.4.</span> <span class="nav-text">保证线程安全怎么做？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么等一个线程做完"><span class="nav-number">1.5.5.</span> <span class="nav-text">怎么等一个线程做完</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">1.6.</span> <span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程池"><span class="nav-number">1.6.1.</span> <span class="nav-text">什么是线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要线程池"><span class="nav-number">1.6.2.</span> <span class="nav-text">为什么要线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种线程池的创建："><span class="nav-number">1.6.3.</span> <span class="nav-text">四种线程池的创建：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的优点？"><span class="nav-number">1.6.4.</span> <span class="nav-text">线程池的优点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的中的线程数量能不能无限增加，为什么"><span class="nav-number">1.6.5.</span> <span class="nav-text">线程池的中的线程数量能不能无限增加，为什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-里任务提交给线程池后，那些任务是存储在哪的"><span class="nav-number">1.6.6.</span> <span class="nav-text">java 里任务提交给线程池后，那些任务是存储在哪的?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞队列怎么实现？"><span class="nav-number">1.6.7.</span> <span class="nav-text">阻塞队列怎么实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列满了，那个线程池的-submit-方法会阻塞在那里？"><span class="nav-number">1.6.8.</span> <span class="nav-text">队列满了，那个线程池的 submit 方法会阻塞在那里？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程"><span class="nav-number">1.7.</span> <span class="nav-text">协程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程和协程区别"><span class="nav-number">1.7.1.</span> <span class="nav-text">线程和协程区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协程Coroutine用法"><span class="nav-number">1.7.2.</span> <span class="nav-text">协程Coroutine用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield"><span class="nav-number">1.7.3.</span> <span class="nav-text">yield</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#锁"><span class="nav-number">2.</span> <span class="nav-text">锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见锁机制"><span class="nav-number">2.1.</span> <span class="nav-text">常见锁机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">2.2.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#独享锁-共享锁"><span class="nav-number">2.3.</span> <span class="nav-text">独享锁&#x2F;共享锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公平锁-amp-非公平锁"><span class="nav-number">2.4.</span> <span class="nav-text">公平锁 &amp; 非公平锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#乐观锁-amp-悲观锁"><span class="nav-number">2.5.</span> <span class="nav-text">乐观锁 &amp; 悲观锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现读写锁ReentrantReadWriteLock"><span class="nav-number">2.6.</span> <span class="nav-text">实现读写锁ReentrantReadWriteLock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可重入锁ReetrantLock原理"><span class="nav-number">2.7.</span> <span class="nav-text">可重入锁ReetrantLock原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized和ReentrantLock的区别"><span class="nav-number">2.8.</span> <span class="nav-text">synchronized和ReentrantLock的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？"><span class="nav-number">2.9.</span> <span class="nav-text">如果有多个变量要更新，要保证一致性，怎样加锁来保证正确性，效率又比较高？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？"><span class="nav-number">2.10.</span> <span class="nav-text">那怎么解决一个写操作修改了部分变量，读操作，读取了这个中间状态的问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized-amp-lock"><span class="nav-number">2.11.</span> <span class="nav-text">synchronized &amp; lock</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-amp-UDP"><span class="nav-number">3.</span> <span class="nav-text">TCP &amp; UDP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP和UDP有什么区别？"><span class="nav-number">3.1.</span> <span class="nav-text">TCP和UDP有什么区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP可靠性机制"><span class="nav-number">3.2.</span> <span class="nav-text">TCP可靠性机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检验和"><span class="nav-number">3.2.1.</span> <span class="nav-text">检验和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列号"><span class="nav-number">3.2.2.</span> <span class="nav-text">序列号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确认应答机制（ACK）"><span class="nav-number">3.2.3.</span> <span class="nav-text">确认应答机制（ACK）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超时重传机制"><span class="nav-number">3.2.4.</span> <span class="nav-text">超时重传机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接管理机制"><span class="nav-number">3.2.5.</span> <span class="nav-text">连接管理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三次握手："><span class="nav-number">3.2.5.1.</span> <span class="nav-text">三次握手：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四次挥手："><span class="nav-number">3.2.5.2.</span> <span class="nav-text">四次挥手：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止等待协议"><span class="nav-number">3.2.6.</span> <span class="nav-text">停止等待协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流量控制-滑动窗口（发送窗口和接收窗口）"><span class="nav-number">3.2.7.</span> <span class="nav-text">流量控制  滑动窗口（发送窗口和接收窗口）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拥塞控制"><span class="nav-number">3.2.8.</span> <span class="nav-text">拥塞控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP长连接-amp-短连接"><span class="nav-number">3.3.</span> <span class="nav-text">TCP长连接 &amp; 短连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP有拥塞控制吗？如何解决？"><span class="nav-number">3.4.</span> <span class="nav-text">UDP有拥塞控制吗？如何解决？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要有-time-wait"><span class="nav-number">3.5.</span> <span class="nav-text">为什么要有 time_wait</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http-amp-https"><span class="nav-number">4.</span> <span class="nav-text">http &amp; https</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#http与https的区别"><span class="nav-number">4.1.</span> <span class="nav-text">http与https的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器中输入网址到获得页面的全过程"><span class="nav-number">4.2.</span> <span class="nav-text">浏览器中输入网址到获得页面的全过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入-www-baidu-com，怎么变成-https-www-baidu-com-的，怎么确定用HTTP还是HTTPS？"><span class="nav-number">4.3.</span> <span class="nav-text">输入 www.baidu.com，怎么变成 https:&#x2F;&#x2F;www.baidu.com 的，怎么确定用HTTP还是HTTPS？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP可以使用UDP吗"><span class="nav-number">4.4.</span> <span class="nav-text">HTTP可以使用UDP吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议的报文格式"><span class="nav-number">4.5.</span> <span class="nav-text">HTTP协议的报文格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Http1-0-amp-HTTP1-1"><span class="nav-number">4.6.</span> <span class="nav-text">Http1.0 &amp; HTTP1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP2-0和HTTP1-X相比的新特性"><span class="nav-number">4.7.</span> <span class="nav-text">HTTP2.0和HTTP1.X相比的新特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP请求方法"><span class="nav-number">4.8.</span> <span class="nav-text">HTTP请求方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET与POST的区别"><span class="nav-number">4.9.</span> <span class="nav-text">GET与POST的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的状态码"><span class="nav-number">4.10.</span> <span class="nav-text">常见的状态码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie-amp-Session"><span class="nav-number">5.</span> <span class="nav-text">Cookie &amp; Session</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie的参数有哪些？"><span class="nav-number">5.1.</span> <span class="nav-text">Cookie的参数有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie被仿造怎么办？"><span class="nav-number">5.2.</span> <span class="nav-text">Cookie被仿造怎么办？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie和Session的区别"><span class="nav-number">5.3.</span> <span class="nav-text">Cookie和Session的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session校验服务器该如何设计"><span class="nav-number">5.4.</span> <span class="nav-text">Session校验服务器该如何设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session劫持"><span class="nav-number">5.5.</span> <span class="nav-text">Session劫持</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cache"><span class="nav-number">6.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解释下Cache的运行过程，怎么保证cache一致性"><span class="nav-number">6.1.</span> <span class="nav-text">解释下Cache的运行过程，怎么保证cache一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cache的算法"><span class="nav-number">6.2.</span> <span class="nav-text">Cache的算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FIFO算法"><span class="nav-number">6.2.1.</span> <span class="nav-text">FIFO算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LRU算法"><span class="nav-number">6.2.2.</span> <span class="nav-text">LRU算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LFU算法"><span class="nav-number">6.2.3.</span> <span class="nav-text">LFU算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机系统架构"><span class="nav-number">7.</span> <span class="nav-text">计算机系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7层模型（OSI模型）和4层模型（TCP-IP-模型），每一层有哪些常见协议？"><span class="nav-number">7.1.</span> <span class="nav-text">7层模型（OSI模型）和4层模型（TCP&#x2F;IP 模型），每一层有哪些常见协议？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由器-交换机是哪一层"><span class="nav-number">7.2.</span> <span class="nav-text">路由器&#x2F;交换机是哪一层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层用来干嘛？传输层用来干嘛？"><span class="nav-number">7.3.</span> <span class="nav-text">网络层用来干嘛？传输层用来干嘛？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么给大量url和ip去重"><span class="nav-number">7.4.</span> <span class="nav-text">怎么给大量url和ip去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当在局域网中使用ping-www-xxx-com时，用到了哪些协议？"><span class="nav-number">7.5.</span> <span class="nav-text">当在局域网中使用ping www.xxx.com时，用到了哪些协议？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#待整理问题"><span class="nav-number">8.</span> <span class="nav-text">待整理问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要并发控制？"><span class="nav-number">8.0.1.</span> <span class="nav-text">为什么要并发控制？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解索引吗？知道实现原理吗？（B-树）"><span class="nav-number">8.0.2.</span> <span class="nav-text">了解索引吗？知道实现原理吗？（B+树）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS是什么？内部如何实现？"><span class="nav-number">8.0.3.</span> <span class="nav-text">DNS是什么？内部如何实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARP是什么？ARP内部如何实现？"><span class="nav-number">8.0.4.</span> <span class="nav-text">ARP是什么？ARP内部如何实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-io模型-select-poll-epoll的区别，水平触发和边缘触发的区别"><span class="nav-number">8.0.5.</span> <span class="nav-text">Linux io模型(select, poll, epoll的区别，水平触发和边缘触发的区别)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GDB有用过哪些"><span class="nav-number">8.0.6.</span> <span class="nav-text">GDB有用过哪些</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#谈谈你对前后端交互中使用的JSON的理解"><span class="nav-number">8.0.7.</span> <span class="nav-text">谈谈你对前后端交互中使用的JSON的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换"><span class="nav-number">8.0.8.</span> <span class="nav-text">操作系统为什么有用户态和内核态，用户级线程与内核级线程如何转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数调用汇编-怎么传参数-函数a-call-b，参数放在哪个栈帧"><span class="nav-number">8.0.9.</span> <span class="nav-text">函数调用汇编 怎么传参数 函数a call b，参数放在哪个栈帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存作用？-内存分页的作用？"><span class="nav-number">8.0.10.</span> <span class="nav-text">虚拟内存作用？ 内存分页的作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺页异常的介绍"><span class="nav-number">8.0.11.</span> <span class="nav-text">缺页异常的介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OOM问题和-StackOverFlow的区别"><span class="nav-number">8.0.12.</span> <span class="nav-text">OOM问题和 StackOverFlow的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组怎么扩容？"><span class="nav-number">8.0.13.</span> <span class="nav-text">数组怎么扩容？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制的时候锁住数组，所有的操作都阻塞？"><span class="nav-number">8.0.14.</span> <span class="nav-text">复制的时候锁住数组，所有的操作都阻塞？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读写分离有什么用？"><span class="nav-number">8.0.15.</span> <span class="nav-text">读写分离有什么用？</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kelly Huang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
