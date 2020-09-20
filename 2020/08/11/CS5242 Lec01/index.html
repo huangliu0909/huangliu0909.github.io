@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NN,NUS note,NNML," />
+  <meta name="keywords" content="NN,NUS note,ML," />
 
 
 
@@ -81,20 +81,21 @@
 
 <meta name="description" content="神经网络发展历程神经网络主要依赖于特征转换(feature transformation)，通过准备数据、提取特征来构造模型。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lec-01 线性回归">
-<meta property="og:url" content="http://yoursite.com/2020/08/11/CS5242%20Lec01/index.html">
+<meta property="og:title" content="Lec-01 Linear Regression">
+<meta property="og:url" content="https://huangliu0909.github.io/2020/08/11/CS5242%20Lec01/index.html">
 <meta property="og:site_name" content="Wiwi&#39;s Blog">
 <meta property="og:description" content="神经网络发展历程神经网络主要依赖于特征转换(feature transformation)，通过准备数据、提取特征来构造模型。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/images/ML_history.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/ML_history.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/denominator_layout.png">
 <meta property="article:published_time" content="2020-08-11T13:11:04.000Z">
-<meta property="article:modified_time" content="2020-08-15T08:30:59.407Z">
-<meta property="article:author" content="Kelly Huang">
+<meta property="article:modified_time" content="2020-08-24T03:12:17.930Z">
+<meta property="article:author" content="HUANG Liu">
 <meta property="article:tag" content="NN">
 <meta property="article:tag" content="NUS note">
-<meta property="article:tag" content="NNML">
+<meta property="article:tag" content="ML">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/images/ML_history.png">
+<meta name="twitter:image" content="https://huangliu0909.github.io/images/ML_history.png">
 
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/08/11/CS5242 Lec01/"/>
+  <link rel="canonical" href="https://huangliu0909.github.io/2020/08/11/CS5242 Lec01/"/>
 
 
 
 
 
-  <title>Lec-01 线性回归 | Wiwi's Blog</title>
+  <title>Lec-01 Linear Regression | Wiwi's Blog</title>
   
 
 
@@ -151,7 +152,8 @@
 
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
-
+  <a href="https://github.com/huangliu0909" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+   
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
@@ -165,7 +167,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">Hello World~</p>
+        <p class="site-subtitle"></p>
       
   </div>
 
@@ -221,16 +223,6 @@
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
           </a>
         </li>
       
@@ -301,10 +293,10 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/11/CS5242%20Lec01/">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/08/11/CS5242%20Lec01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Kelly Huang">
+      <meta itemprop="name" content="HUANG Liu">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -318,7 +310,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lec-01 线性回归</h1>
+          <h1 class="post-title" itemprop="name headline">Lec-01 Linear Regression</h1>
         
 
         <div class="post-meta">
@@ -374,6 +366,37 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  6
+                </span>
+              
+            </div>
+          
 
           
 
@@ -392,12 +415,53 @@
       
         <h1 id="神经网络发展历程"><a href="#神经网络发展历程" class="headerlink" title="神经网络发展历程"></a>神经网络发展历程</h1><p>神经网络主要依赖于特征转换(feature transformation)，通过准备数据、提取特征来构造模型。</p>
 <p><img src="/images/ML_history.png" alt="history"><a id="more"></a><br>神经网络中需要非线性处理单元(nonlinear processing unit)用来产生非线性边界(boundary)，以处理线性不可分的数据(dataset)。<br>CV的主要任务有：图像分类，实体识别，场景识别，图像生成。<br>NLP的主要任务有：问答系统，机器翻译<br>Speech：对话识别</p>
-<h1 id="单变量线性回归"><a href="#单变量线性回归" class="headerlink" title="单变量线性回归"></a>单变量线性回归</h1><p>线性回归(linear regression)解决的是一个回归任务，即：给定若干实例$(x,y)$，需要求得一个系统，以$x_i$为输入，输出对$y_i$的预测值$\widetilde{y_i}$。<br>在单变量线性回归中，$x_i$、$y_i$、$\widetilde{y_i}$都是标量(scalar)，该系统输出的$\widetilde{y_i}$是$x_i$的线性函数：$\widetilde{y_i}=w*x_i+b$。<br>使用损失函数(loss function)来衡量$w$、$b$对模型的模拟能力。损失函数值越小，拟合效果越好。<br>数据集$S_{train}={x_i,y_i}, i = 1…m$ 在参数 $w, b$ 的条件下的常用损失函数可以表示为：</p>
+<h1 id="单变量线性回归"><a href="#单变量线性回归" class="headerlink" title="单变量线性回归"></a>单变量线性回归</h1><p>线性回归(linear regression)解决的是一个回归任务，即：给定若干实例$(x,y)$，需要求得一个系统，以$x_i$为输入，输出对$y_i$的预测值$\widetilde{y_i}$。<br>在单变量线性回归中，$x_i$、$y_i$、$\widetilde{y_i}$都是标量(<strong>scalar</strong>)，该系统输出的$\widetilde{y_i}$是$x_i$的线性函数：$\widetilde{y_i}=w*x_i+b$。<br>使用损失函数(loss function)来衡量$w$、$b$对模型的模拟能力。损失函数值越小，拟合效果越好。<br>数据集$S_{train}=\{x^{(i)}，y^{(i)}\}, i = 1…m,|S_{train}|=m$<br>在参数 $w, b$ 的条件下的常用损失函数可以表示为：</p>
 <ul>
-<li>L1：$L(x,y|w,b)=|\widetilde{y} - y|$</li>
-<li>L2：$L(x,y|w,b)=\frac{1}{2}||\widetilde{y} - y||^2=\frac{1}{2}(\widetilde{y} - y)^2$<br>选择L2因为它可微(differentiable)，更易进行优化和训练；系数$\frac{1}{2}$是为了让导数形式更简单。</li>
+<li>${\mathcal L}1：L(x,y|w,b)=|\widetilde{y} - y|$</li>
+<li>${\mathcal L}2：L(x,y|w,b)=\frac{1}{2}||\widetilde{y} - y||^2=\frac{1}{2}(\widetilde{y} - y)^2$<br>选择 ${\mathcal L}2$ 因为它可微(differentiable)，更易进行优化和训练；系数$\frac{1}{2}$是为了让导数形式更简单。</li>
 </ul>
-<p>定义training objective：$J(w,b)=\frac{1}{m}\sum_{i=1}^{m}L(x_i,y_i|w,b)$<br>累加：获得全局(overall)信息以达到全局优化<br>平均：消除数据集大小对loss值的影响</p>
+<p>定义training objective（此处使用平均误差）：$J(w,b)=\frac{1}{m}\sum_{i=1}^{m}{\mathcal L}(x_i,y_i|w,b)$<br>累加：获得全局(overall)信息以达到全局优化<br>平均：消除数据集大小对loss值的影响</p>
+<p>优化和训练过程：</p>
+<script type="math/tex; mode=display">\min_{w,b}J(w,b)</script><script type="math/tex; mode=display">\to\min_{w,b}\frac{1}{m}\sum_{i=1}^{m}{\mathcal L}(x_i,y_i|w,b)</script><script type="math/tex; mode=display">\to \min_{w,b}\frac{1}{2m}\sum_{i=1}^{m}(w*x_i+b - y_i)^2</script><p>当$w,b$不收敛（固定更新轮数or设定阈值判断收敛）时，重复以下步骤：</p>
+<ul>
+<li>固定b，学习w<script type="math/tex; mode=display">\min_{w}\frac{1}{2m}\sum_{i=1}^{m}(w*x_i+b - y_i)^2</script><script type="math/tex; mode=display">\to \min_wC_1w^2+C_2w+C_3</script>由于b被固定了，w前的系数$C_1,C_2$和后面的偏置$C_3$都是常数(constant)。此时优化函数是一个关于w的一元二次函数，很容易求解当该函数J取得最小值时$w = -\frac{C_2}{2C_1}$。<br>当优化函数复杂时可以通过梯度下降作为优化函数进行求解：$w=w-\alpha\frac{\partial J}{\partial w}$</li>
+<li>固定w，学习b<br>b的学习过程与w类似，将w看作常量，优化函数转换为关于b的一元二次函数，将这个函数通过优化函数（如梯度下降等）求解最优处的b值。</li>
+</ul>
+<h1 id="多变量线性回归"><a href="#多变量线性回归" class="headerlink" title="多变量线性回归"></a>多变量线性回归</h1><p>将一个实例$\boldsymbol{x}$的n个特征表示为一个$n\times 1$大小的列向量，其中$x_i$代表实例x的第i个特征，每个实例x对应一个目标值y。待学习的权重w是一个向量，$w_i$代表了特征$x_i$的重要程度。<br>即：单一实例$\boldsymbol{x}=\begin{pmatrix} x_1 \\ x_2 \\ … \\ x_n\\\end{pmatrix}$<br>建立线性回归模型（将输入映射到输出）：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+   \widetilde{y}=\boldsymbol{w^Tx}+b &=\sum_{i=1}^{n}w_ix_i+b\\  &=\begin{pmatrix} w_1,w_2...w_n\end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ ... \\ x_n\\\end{pmatrix} + b\\\\
+   &= \begin{pmatrix} w_1,w_2...w_n, b\end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ ... \\ x_n\\1\end{pmatrix}\\
+   \to \widetilde{y}=\bar w^T\bar x
+\end{aligned}</script><p>对于单一实例求梯度：</p>
+<script type="math/tex; mode=display">J(w)=\frac{1}{2}||\widetilde{y} - y||^2=\frac{1}{2}( \boldsymbol{w^Tx}-y)^2</script><script type="math/tex; mode=display">\frac{\partial J(\boldsymbol{w})}{\partial \boldsymbol{w}}=(\boldsymbol{w^Tx}-y)\boldsymbol{x}</script><p>我们可以选择对每个实例$x^{(i)}$，$y^{(i)}$分别求loss值并累加求平均，再对每个实例的梯度求累加，但这样对实例逐个操作的效率不如将所有实例合并视为矩阵再进行矩阵操作代表效率高。<br>将每个特征向量实例(列向量)通过转置放在矩阵的一行：</p>
+<script type="math/tex; mode=display">
+\mathbf{X} = \begin{pmatrix} {\boldsymbol{x^{(1)}}}^T \\ {\boldsymbol{x^{(2)}}}^T \\ ... \\ {\boldsymbol{x^{(m)}}}^T\end{pmatrix} \qquad
+\boldsymbol{y} = \begin{pmatrix} {y^{(1)}}^T \\ {y^{(2)}}^T \\ ... \\ {y^{(m)}}^T\end{pmatrix} 
+\qquad \boldsymbol{\widetilde{y}}=\mathbf{X}\boldsymbol{w}</script><script type="math/tex; mode=display">J(\boldsymbol{w})=\frac{1}{2m}||\widetilde{\boldsymbol{y}} - \boldsymbol{y}||^2=\frac{1}{2m}(\widetilde{\boldsymbol{y}} - \boldsymbol{y})^T(\widetilde{\boldsymbol{y}} - \boldsymbol{y})\qquad \boldsymbol{u}=\widetilde{\boldsymbol{y}} - \boldsymbol{y}</script><p>由于：</p>
+<script type="math/tex; mode=display">\frac{\partial(u(x)\cdot v(x))}{\partial x} = \frac{\partial u^Tv}{\partial x} = \frac{\partial u}{\partial x}\cdot v+\frac{\partial v}{\partial x}\cdot u</script><script type="math/tex; mode=display">\frac{\partial {\boldsymbol{u}}}{\partial {\boldsymbol{w}}} = {\mathbf{X}}^T</script><p>可以得到：</p>
+<script type="math/tex; mode=display">
+\frac{\partial J(\boldsymbol{w})}{\partial \boldsymbol{w}}=\frac{1}{2m}(\frac{\partial {\boldsymbol{u}}}{\partial {\boldsymbol{w}}}\cdot {\boldsymbol{u}} + \frac{\partial {\boldsymbol{u}}}{\partial {\boldsymbol{w}}}\cdot {\boldsymbol{u}})=\frac{1}{m}{\mathbf{X}}^T{\boldsymbol{u}}=\frac{1}{m}{\mathbf{X}}^T(\widetilde{\boldsymbol{y}} - \boldsymbol{y})</script><p>显然在当前条件下导数取0时损失函数$J(w)$值最小，此时令$\frac{\partial J(w)}{\partial w}=0$有：</p>
+<script type="math/tex; mode=display">{\mathbf{X}}^T({\mathbf{X}}{\boldsymbol{w}}-{\boldsymbol{y}})=0</script><script type="math/tex; mode=display">\to {\mathbf{X}}^T{\mathbf{X}}{\boldsymbol{w}}={\mathbf{X}}^T{\boldsymbol{y}}</script><script type="math/tex; mode=display">\to {\boldsymbol{w}}=({\mathbf{X}}^T{\mathbf{X}})^{-1}{\mathbf{X}}^T{\boldsymbol{y}}</script><p>同样也可以使用梯度下降进行训练：${\boldsymbol{w}}={\boldsymbol{w}}-\alpha\frac{\partial J({\boldsymbol{w}})}{\partial {\boldsymbol{w}}}$</p>
+<ul>
+<li><p>w.r.t.: with respect to</p>
+</li>
+<li><p>分母布局(denominator layout)：求导结果的维度以分母为主，即结果的第一维度与分母相同。分子布局和分母布局的结果是互为转置的关系。</p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Matrix_calculus#cite_note-2">https://en.wikipedia.org/wiki/Matrix_calculus#cite_note-2</a><br><img src="/images/denominator_layout.png" alt="denominator layout"></p>
+</blockquote>
+</li>
+<li><p>Pipeline of ML: Dataset, modeling, optimization, validation and inference</p>
+</li>
+<li><p>使用 $L$ 来表示单一实例上的损失值<br>使用 $J$ 来表示实例集合上的平均损失值</p>
+</li>
+<li><p>np.multiply()函数 等价于 星号（*）：每个元素对应相乘</p>
+</li>
+<li>在矢量乘矢量的內积运算中，np.matmul 与np.dot没有区别，np.matmul中禁止矩阵与标量的乘法。<blockquote>
+<p><a href="https://blog.csdn.net/guaidoukx/article/details/97659074?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param">https://blog.csdn.net/guaidoukx/article/details/97659074?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param</a></p>
+</blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -414,11 +478,11 @@
         <ul class="post-copyright">
   <li class="post-copyright-author">
     <strong>Post author:</strong>
-    Kelly Huang
+    HUANG Liu
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="http://yoursite.com/2020/08/11/CS5242%20Lec01/" title="Lec-01 线性回归">http://yoursite.com/2020/08/11/CS5242%20Lec01/</a>
+    <a href="https://huangliu0909.github.io/2020/08/11/CS5242%20Lec01/" title="Lec-01 Linear Regression">https://huangliu0909.github.io/2020/08/11/CS5242%20Lec01/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -437,7 +501,7 @@
           
             <a href="/tags/NUS-note/" rel="tag"># NUS note</a>
           
-            <a href="/tags/NNML/" rel="tag"># NNML</a>
+            <a href="/tags/ML/" rel="tag"># ML</a>
           
         </div>
       
@@ -460,8 +524,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/08/12/CS5340%20Lec01/" rel="prev" title="Lec-01 概率分析介绍">
-                Lec-01 概率分析介绍 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/08/12/CS5340%20Lec01/" rel="prev" title="Lec-01 Probability Reasoning">
+                Lec-01 Probability Reasoning <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -530,8 +594,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">Kelly Huang</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-author-name" itemprop="name">HUANG Liu</p>
+              <p class="site-description motion-element" itemprop="description">Love wins. Love always wins.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -539,9 +603,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%7C%7Carchive">
+                <a href="/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -552,7 +616,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -583,7 +647,7 @@
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="wiwillow@163.com" target="_blank" title="E-Mail">
+                    <a href="wiwillow.99@gmail.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
                   </span>
@@ -612,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络发展历程"><span class="nav-number">1.</span> <span class="nav-text">神经网络发展历程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单变量线性回归"><span class="nav-number">2.</span> <span class="nav-text">单变量线性回归</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络发展历程"><span class="nav-number">1.</span> <span class="nav-text">神经网络发展历程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单变量线性回归"><span class="nav-number">2.</span> <span class="nav-text">单变量线性回归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多变量线性回归"><span class="nav-number">3.</span> <span class="nav-text">多变量线性回归</span></a></li></ol></div>
             
 
           </div>
@@ -643,8 +707,17 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Kelly Huang</span>
+  <span class="author" itemprop="copyrightHolder">HUANG Liu</span>
 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">47.8k</span>
   
 </div>
 

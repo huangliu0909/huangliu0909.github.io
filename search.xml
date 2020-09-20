@@ -27,16 +27,57 @@
       </tags>
   </entry>
   <entry>
-    <title>Lec-01 线性回归</title>
+    <title>Lec-01 Linear Regression</title>
     <url>/2020/08/11/CS5242%20Lec01/</url>
     <content><![CDATA[<h1 id="神经网络发展历程"><a href="#神经网络发展历程" class="headerlink" title="神经网络发展历程"></a>神经网络发展历程</h1><p>神经网络主要依赖于特征转换(feature transformation)，通过准备数据、提取特征来构造模型。</p>
 <p><img src="/images/ML_history.png" alt="history"><a id="more"></a><br>神经网络中需要非线性处理单元(nonlinear processing unit)用来产生非线性边界(boundary)，以处理线性不可分的数据(dataset)。<br>CV的主要任务有：图像分类，实体识别，场景识别，图像生成。<br>NLP的主要任务有：问答系统，机器翻译<br>Speech：对话识别</p>
-<h1 id="单变量线性回归"><a href="#单变量线性回归" class="headerlink" title="单变量线性回归"></a>单变量线性回归</h1><p>线性回归(linear regression)解决的是一个回归任务，即：给定若干实例$(x,y)$，需要求得一个系统，以$x_i$为输入，输出对$y_i$的预测值$\widetilde{y_i}$。<br>在单变量线性回归中，$x_i$、$y_i$、$\widetilde{y_i}$都是标量(scalar)，该系统输出的$\widetilde{y_i}$是$x_i$的线性函数：$\widetilde{y_i}=w*x_i+b$。<br>使用损失函数(loss function)来衡量$w$、$b$对模型的模拟能力。损失函数值越小，拟合效果越好。<br>数据集$S_{train}={x_i,y_i}, i = 1…m$ 在参数 $w, b$ 的条件下的常用损失函数可以表示为：</p>
+<h1 id="单变量线性回归"><a href="#单变量线性回归" class="headerlink" title="单变量线性回归"></a>单变量线性回归</h1><p>线性回归(linear regression)解决的是一个回归任务，即：给定若干实例$(x,y)$，需要求得一个系统，以$x_i$为输入，输出对$y_i$的预测值$\widetilde{y_i}$。<br>在单变量线性回归中，$x_i$、$y_i$、$\widetilde{y_i}$都是标量(<strong>scalar</strong>)，该系统输出的$\widetilde{y_i}$是$x_i$的线性函数：$\widetilde{y_i}=w*x_i+b$。<br>使用损失函数(loss function)来衡量$w$、$b$对模型的模拟能力。损失函数值越小，拟合效果越好。<br>数据集$S_{train}=\{x^{(i)}，y^{(i)}\}, i = 1…m,|S_{train}|=m$<br>在参数 $w, b$ 的条件下的常用损失函数可以表示为：</p>
 <ul>
-<li>L1：$L(x,y|w,b)=|\widetilde{y} - y|$</li>
-<li>L2：$L(x,y|w,b)=\frac{1}{2}||\widetilde{y} - y||^2=\frac{1}{2}(\widetilde{y} - y)^2$<br>选择L2因为它可微(differentiable)，更易进行优化和训练；系数$\frac{1}{2}$是为了让导数形式更简单。</li>
+<li>${\mathcal L}1：L(x,y|w,b)=|\widetilde{y} - y|$</li>
+<li>${\mathcal L}2：L(x,y|w,b)=\frac{1}{2}||\widetilde{y} - y||^2=\frac{1}{2}(\widetilde{y} - y)^2$<br>选择 ${\mathcal L}2$ 因为它可微(differentiable)，更易进行优化和训练；系数$\frac{1}{2}$是为了让导数形式更简单。</li>
 </ul>
-<p>定义training objective：$J(w,b)=\frac{1}{m}\sum_{i=1}^{m}L(x_i,y_i|w,b)$<br>累加：获得全局(overall)信息以达到全局优化<br>平均：消除数据集大小对loss值的影响</p>
+<p>定义training objective（此处使用平均误差）：$J(w,b)=\frac{1}{m}\sum_{i=1}^{m}{\mathcal L}(x_i,y_i|w,b)$<br>累加：获得全局(overall)信息以达到全局优化<br>平均：消除数据集大小对loss值的影响</p>
+<p>优化和训练过程：</p>
+<script type="math/tex; mode=display">\min_{w,b}J(w,b)</script><script type="math/tex; mode=display">\to\min_{w,b}\frac{1}{m}\sum_{i=1}^{m}{\mathcal L}(x_i,y_i|w,b)</script><script type="math/tex; mode=display">\to \min_{w,b}\frac{1}{2m}\sum_{i=1}^{m}(w*x_i+b - y_i)^2</script><p>当$w,b$不收敛（固定更新轮数or设定阈值判断收敛）时，重复以下步骤：</p>
+<ul>
+<li>固定b，学习w<script type="math/tex; mode=display">\min_{w}\frac{1}{2m}\sum_{i=1}^{m}(w*x_i+b - y_i)^2</script><script type="math/tex; mode=display">\to \min_wC_1w^2+C_2w+C_3</script>由于b被固定了，w前的系数$C_1,C_2$和后面的偏置$C_3$都是常数(constant)。此时优化函数是一个关于w的一元二次函数，很容易求解当该函数J取得最小值时$w = -\frac{C_2}{2C_1}$。<br>当优化函数复杂时可以通过梯度下降作为优化函数进行求解：$w=w-\alpha\frac{\partial J}{\partial w}$</li>
+<li>固定w，学习b<br>b的学习过程与w类似，将w看作常量，优化函数转换为关于b的一元二次函数，将这个函数通过优化函数（如梯度下降等）求解最优处的b值。</li>
+</ul>
+<h1 id="多变量线性回归"><a href="#多变量线性回归" class="headerlink" title="多变量线性回归"></a>多变量线性回归</h1><p>将一个实例$\boldsymbol{x}$的n个特征表示为一个$n\times 1$大小的列向量，其中$x_i$代表实例x的第i个特征，每个实例x对应一个目标值y。待学习的权重w是一个向量，$w_i$代表了特征$x_i$的重要程度。<br>即：单一实例$\boldsymbol{x}=\begin{pmatrix} x_1 \\ x_2 \\ … \\ x_n\\\end{pmatrix}$<br>建立线性回归模型（将输入映射到输出）：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+   \widetilde{y}=\boldsymbol{w^Tx}+b &=\sum_{i=1}^{n}w_ix_i+b\\  &=\begin{pmatrix} w_1,w_2...w_n\end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ ... \\ x_n\\\end{pmatrix} + b\\\\
+   &= \begin{pmatrix} w_1,w_2...w_n, b\end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \\ ... \\ x_n\\1\end{pmatrix}\\
+   \to \widetilde{y}=\bar w^T\bar x
+\end{aligned}</script><p>对于单一实例求梯度：</p>
+<script type="math/tex; mode=display">J(w)=\frac{1}{2}||\widetilde{y} - y||^2=\frac{1}{2}( \boldsymbol{w^Tx}-y)^2</script><script type="math/tex; mode=display">\frac{\partial J(\boldsymbol{w})}{\partial \boldsymbol{w}}=(\boldsymbol{w^Tx}-y)\boldsymbol{x}</script><p>我们可以选择对每个实例$x^{(i)}$，$y^{(i)}$分别求loss值并累加求平均，再对每个实例的梯度求累加，但这样对实例逐个操作的效率不如将所有实例合并视为矩阵再进行矩阵操作代表效率高。<br>将每个特征向量实例(列向量)通过转置放在矩阵的一行：</p>
+<script type="math/tex; mode=display">
+\mathbf{X} = \begin{pmatrix} {\boldsymbol{x^{(1)}}}^T \\ {\boldsymbol{x^{(2)}}}^T \\ ... \\ {\boldsymbol{x^{(m)}}}^T\end{pmatrix} \qquad
+\boldsymbol{y} = \begin{pmatrix} {y^{(1)}}^T \\ {y^{(2)}}^T \\ ... \\ {y^{(m)}}^T\end{pmatrix} 
+\qquad \boldsymbol{\widetilde{y}}=\mathbf{X}\boldsymbol{w}</script><script type="math/tex; mode=display">J(\boldsymbol{w})=\frac{1}{2m}||\widetilde{\boldsymbol{y}} - \boldsymbol{y}||^2=\frac{1}{2m}(\widetilde{\boldsymbol{y}} - \boldsymbol{y})^T(\widetilde{\boldsymbol{y}} - \boldsymbol{y})\qquad \boldsymbol{u}=\widetilde{\boldsymbol{y}} - \boldsymbol{y}</script><p>由于：</p>
+<script type="math/tex; mode=display">\frac{\partial(u(x)\cdot v(x))}{\partial x} = \frac{\partial u^Tv}{\partial x} = \frac{\partial u}{\partial x}\cdot v+\frac{\partial v}{\partial x}\cdot u</script><script type="math/tex; mode=display">\frac{\partial {\boldsymbol{u}}}{\partial {\boldsymbol{w}}} = {\mathbf{X}}^T</script><p>可以得到：</p>
+<script type="math/tex; mode=display">
+\frac{\partial J(\boldsymbol{w})}{\partial \boldsymbol{w}}=\frac{1}{2m}(\frac{\partial {\boldsymbol{u}}}{\partial {\boldsymbol{w}}}\cdot {\boldsymbol{u}} + \frac{\partial {\boldsymbol{u}}}{\partial {\boldsymbol{w}}}\cdot {\boldsymbol{u}})=\frac{1}{m}{\mathbf{X}}^T{\boldsymbol{u}}=\frac{1}{m}{\mathbf{X}}^T(\widetilde{\boldsymbol{y}} - \boldsymbol{y})</script><p>显然在当前条件下导数取0时损失函数$J(w)$值最小，此时令$\frac{\partial J(w)}{\partial w}=0$有：</p>
+<script type="math/tex; mode=display">{\mathbf{X}}^T({\mathbf{X}}{\boldsymbol{w}}-{\boldsymbol{y}})=0</script><script type="math/tex; mode=display">\to {\mathbf{X}}^T{\mathbf{X}}{\boldsymbol{w}}={\mathbf{X}}^T{\boldsymbol{y}}</script><script type="math/tex; mode=display">\to {\boldsymbol{w}}=({\mathbf{X}}^T{\mathbf{X}})^{-1}{\mathbf{X}}^T{\boldsymbol{y}}</script><p>同样也可以使用梯度下降进行训练：${\boldsymbol{w}}={\boldsymbol{w}}-\alpha\frac{\partial J({\boldsymbol{w}})}{\partial {\boldsymbol{w}}}$</p>
+<ul>
+<li><p>w.r.t.: with respect to</p>
+</li>
+<li><p>分母布局(denominator layout)：求导结果的维度以分母为主，即结果的第一维度与分母相同。分子布局和分母布局的结果是互为转置的关系。</p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Matrix_calculus#cite_note-2">https://en.wikipedia.org/wiki/Matrix_calculus#cite_note-2</a><br><img src="/images/denominator_layout.png" alt="denominator layout"></p>
+</blockquote>
+</li>
+<li><p>Pipeline of ML: Dataset, modeling, optimization, validation and inference</p>
+</li>
+<li><p>使用 $L$ 来表示单一实例上的损失值<br>使用 $J$ 来表示实例集合上的平均损失值</p>
+</li>
+<li><p>np.multiply()函数 等价于 星号（*）：每个元素对应相乘</p>
+</li>
+<li>在矢量乘矢量的內积运算中，np.matmul 与np.dot没有区别，np.matmul中禁止矩阵与标量的乘法。<blockquote>
+<p><a href="https://blog.csdn.net/guaidoukx/article/details/97659074?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param">https://blog.csdn.net/guaidoukx/article/details/97659074?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param</a></p>
+</blockquote>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>CS5242 Neural Network and Machine Learning</category>
@@ -44,41 +85,814 @@
       <tags>
         <tag>NN</tag>
         <tag>NUS note</tag>
-        <tag>NNML</tag>
+        <tag>ML</tag>
       </tags>
   </entry>
   <entry>
-    <title>Lec-01 概率分析介绍</title>
-    <url>/2020/08/12/CS5340%20Lec01/</url>
-    <content><![CDATA[]]></content>
+    <title>Lec-03 From Shallow to Deep Neural Network</title>
+    <url>/2020/08/25/CS5242%20Lec03/</url>
+    <content><![CDATA[<h1 id="Multilayer-Perceptron-MLP"><a href="#Multilayer-Perceptron-MLP" class="headerlink" title="Multilayer Perceptron (MLP)"></a>Multilayer Perceptron (MLP)</h1><h2 id="The-Perception"><a href="#The-Perception" class="headerlink" title="The Perception"></a>The Perception</h2><p>input: $x_1,x_2…,x_N$<br>weight: $w_1,w_2,…,w_N$<br>output: $y={\mathcal g }(\boldsymbol{w^Tx})=\begin{cases} 1,\qquad if\quad\boldsymbol{w^Tx}&gt;0 \\ 0,\qquad else\end{cases}$<br>Linear functions are limited: Linear models cannot fit in data from XOR function:<br><a id="more"></a></p>
+<p><table>
+        <tr>
+            <th>$x_1$</th>
+            <th>$x_2$</th>
+            <th>$y$</th>
+        </tr>
+        <tr>
+            <th>0</th>
+            <th>0</th>
+            <th>0</th>
+        </tr>
+        <tr>
+            <th>0</th>
+            <th>1</th>
+            <th>1</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>0</th>
+            <th>1</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>1</th>
+            <th>0</th>
+        </tr>
+    </table></p>
+<ul>
+<li>sign function: $y={\mathcal g }(x)=\begin{cases} 1,\qquad if\quad x&gt;0 \\ 0,\qquad else\end{cases}$</li>
+</ul>
+<h2 id="Non-Linear-feature-transformations"><a href="#Non-Linear-feature-transformations" class="headerlink" title="Non-Linear feature transformations"></a>Non-Linear feature transformations</h2><p>$\boldsymbol{h}=\mathbf{W}\boldsymbol{x}+\boldsymbol{c}$, $\mathbf{W}\in R^{2\times 2}$, $\boldsymbol{c}\in R^2$<br>$\\\mathbf{W}=\begin{pmatrix}1\quad 1\\1\quad 1\end{pmatrix}\qquad \boldsymbol{c}=\begin{pmatrix}0\\ -1\end{pmatrix}$</p>
+<p><table>
+        <tr>
+            <th>$x_1$</th>
+            <th>$x_2$</th>
+            <th>$\boldsymbol{x}$</th>
+            <th>$\mathbf{W}\boldsymbol{x}+\boldsymbol{c}$</th>
+            <th>$\boldsymbol{h}$</th>
+            <th>$h_1$</th>
+            <th>$h_2$</th>
+            <th>$y$</th>
+        </tr>
+        <tr>
+            <th>0</th>
+            <th>0</th>
+            <th>$\begin{pmatrix}0\\0\end{pmatrix}$</th>
+            <th>$\begin{pmatrix}0\\ -1\end{pmatrix}$</th>
+            <th>$\begin{pmatrix}0\\0\end{pmatrix}$</th>
+            <th>0</th>
+            <th>0</th>
+            <th>0</th>
+        </tr>
+        <tr>
+            <th>0</th>
+            <th>1</th>
+            <th>$\begin{pmatrix}0\\1\end{pmatrix}$</th>
+            <th>$\begin{pmatrix}1\\0\end{pmatrix}$</th>
+            <th>$\begin{pmatrix}1\\0\end{pmatrix}$</th>
+            <th>1</th>
+            <th>0</th>
+            <th>1</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>0</th>
+            <th>$\begin{pmatrix}1\\0\end{pmatrix}$</th>
+            <th>$\begin{pmatrix}1\\0\end{pmatrix}$</th>
+            <th>$\begin{pmatrix}1\\0\end{pmatrix}$</th>
+            <th>1</th>
+            <th>0</th>
+            <th>1</th>
+        </tr>
+        <tr>
+            <th>1</th>
+            <th>1</th>
+            <th>$\begin{pmatrix}1\\1\end{pmatrix}$</th>
+            <th>$\begin{pmatrix}2\\1\end{pmatrix}$</th>
+            <th>$\begin{pmatrix}2\\1\end{pmatrix}$</th>
+            <th>2</th>
+            <th>1</th>
+            <th>0</th>
+        </tr>
+    </table><br><img src="/images/CS5242/3/non-linear.png" alt="non-linear"></p>
+<p>In this case, there exist a linear function that can fit in $h_1,h_2,y$:<br>$\widetilde{y}=\boldsymbol{h^Tw}+b,\boldsymbol{w}\in R^2,b\in R\\\boldsymbol{w}=\begin{pmatrix}1\\ -2\end{pmatrix},b=0$</p>
+<ul>
+<li><p>Rectified Linear Unit, ReLU: ${\displaystyle f(x)=\max(0,x)}$</p>
+</li>
+<li><p>$max(\begin{pmatrix}0\\0\end{pmatrix},\begin{pmatrix}1\\ -1\end{pmatrix})=\begin{pmatrix}1\\0\end{pmatrix}$</p>
+</li>
+</ul>
+<h2 id="Multilayer-Perceptron"><a href="#Multilayer-Perceptron" class="headerlink" title="Multilayer Perceptron"></a>Multilayer Perceptron</h2><p>In perceptron, there are <strong>at least one non-linear hidden layer</strong><br>$i^{th}$ layer consists of a <strong>linear/affine</strong> transformation function:</p>
+<script type="math/tex; mode=display">\boldsymbol{z}^{[i]}=a^{[i]}(\boldsymbol{h}^{[i-1]})=W^{[i]}\boldsymbol{h}^{[i-1]}+\boldsymbol{b}^{[i]}</script><script type="math/tex; mode=display">W^{[i]}\in R^{n_i\times n_{i-1}}\quad \boldsymbol{b}^{[i]}\in R^{n_i}</script><p>A linear function is always <strong>followed by a non-linear function</strong> $g()$:</p>
+<script type="math/tex; mode=display">\boldsymbol{h}^{[i]}=g^{[i]}(\boldsymbol{z}^{[i]})</script><p><img src="/images/CS5242/3/MLP.png" alt="MLP"><br>If one linear function is directly connected to another linear function, the two functions can be combined to one single linear function, i.e. <strong>succesive linear transformations together form another linear transformation</strong>.</p>
+<p><img src="/images/CS5242/3/fc.png" alt="fc"><br>number of neurons(perceptrons): 4 + 2 = 6<br>number of weights(edges): (3 * 4) + (4 * 2) = 20<br>number of parameters total: 20 + (4 + 2) = 26 (weight_num + bias_num)</p>
+<h2 id="Activate-Function-g"><a href="#Activate-Function-g" class="headerlink" title="Activate Function $g()$"></a>Activate Function $g()$</h2><p><img src="/images/CS5242/3/activate_function.png" alt="activate_function"></p>
+<h2 id="Training-MLP"><a href="#Training-MLP" class="headerlink" title="Training MLP"></a>Training MLP</h2><p>for classification: Cross-entropy loss<br>for regression: L2(Squared Euclidean distancess)<br>GD algorithm:</p>
+<ul>
+<li>compute average loss $J$</li>
+<li>computer gradient for each parameter</li>
+<li>update every parameter according to their gradients</li>
+</ul>
+<p><img src="/images/CS5242/3/GD_algorithm.png" alt="GD_algorithm"></p>
+<h1 id="Backpropagation"><a href="#Backpropagation" class="headerlink" title="Backpropagation"></a>Backpropagation</h1><p><img src="/images/CS5242/3/BP.png" alt="BP"></p>
+]]></content>
+      <categories>
+        <category>CS5242 Neural Network and Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lec-02 Classification</title>
+    <url>/2020/08/18/CS5242%20Lec02/</url>
+    <content><![CDATA[<h1 id="Regression-VS-Classification"><a href="#Regression-VS-Classification" class="headerlink" title="Regression VS Classification"></a>Regression VS Classification</h1><p>回归问题：定量(quantity)<br>分类问题：定性(label)<br>分类问题的标签一般由回归或者直接测量来得到。eg. 预测明天的天气，降水量超过一定阈值$C$为有雨，否则为不下雨。这里的降水量是个连续型随机变量，可以直接测量也可以通过回归来预测。</p>
+<script type="math/tex; mode=display">\widetilde{y}=\begin{cases} 1,\qquad\qquad if\boldsymbol{w^Tx}>c \\ 0,\qquad\qquad else\end{cases}</script><p>也可以将阈值$C$与待学习的参数$w$合并：</p>
+<script type="math/tex; mode=display">\widetilde{y}=\begin{cases} 1,\qquad\qquad if\boldsymbol{w^Tx}>0 \\ 0,\qquad\qquad else\end{cases}</script><a id="more"></a>
+<h1 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h1><p>上述函数在 $\boldsymbol{x}=\boldsymbol{0}$ 的时候不可微(differentiable)而且在每一处的导数都是0，在求Loss进行梯度下降的过程中无法学习到任何信息。因此我们引入Logistic Function(Sigmoid Function):</p>
+<script type="math/tex; mode=display">p=\sigma (\boldsymbol{w^Tx})=\frac{1}{1+e^{-\boldsymbol{w^Tx}}}</script><p>这个函数将 $\boldsymbol{w^Tx}$ 映射到概率取值 $[0,1]$，含义是将 $\boldsymbol{x}$ 标记为 $1$ 的概率。<br>如果我们使用 ${\mathcal L}2$ 损失函数：<script type="math/tex">{\mathcal L}(\boldsymbol{x},y)=\frac{1}{2}||\sigma(\boldsymbol{w^Tx})-y||^2</script><br>令 $z=\boldsymbol{w^Tx}$ 则：<script type="math/tex">{\mathcal L}=\frac{1}{2}(\sigma(z)-y)^2</script><br>此时有：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{\partial {\mathcal L}}{\partial \boldsymbol{w}}&=\frac{\partial {\mathcal L}}{\partial\sigma(z)}\frac{\partial\sigma(z)}{\partial z}\frac{\partial z}{\partial \boldsymbol{w}}\\
+&=(\sigma(z)-y)\cdot\frac{\partial\sigma(z)}{\partial z}\cdot\boldsymbol{x}
+\end{aligned}</script><p>其中：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{\partial\sigma(z)}{\partial z}&=\frac{\partial ((1+e^{-z})^{-1})^{-1}}{\partial z}\\
+&=-1\cdot(1+e^{-z})^{-2}\cdot\frac{\partial (1+e^{-z})}{\partial z}\\
+&=-(1+e^{-z})^{-2}(-e^{-z})\\
+&=(1+e^{-z})^{-2}(e^{-z})\\
+&=(\sigma(z))^2(\frac{1}{\sigma(z)}-1)\\
+&=\sigma(z)(1-\sigma(z))
+\end{aligned}</script><p>由于梯度下降的公式为：</p>
+<script type="math/tex; mode=display">{\boldsymbol{w}}={\boldsymbol{w}}-\alpha\frac{\partial {\mathcal L}}{\partial {\boldsymbol{w}}}</script><p>可以看到如果 $\sigma(z)\approx 0or1$：</p>
+<script type="math/tex; mode=display">\frac{\partial\sigma(z)}{\partial z}\approx 0\to\frac{\partial {\mathcal L}}{\partial \boldsymbol{w}}\approx 0</script><p>这种情况下会出现<strong>梯度消失(Gradient Vanishing)</strong>，参数 ${\boldsymbol{w}}$ 无法继续进行更新。</p>
+<h1 id="Binary-Cross-entropy"><a href="#Binary-Cross-entropy" class="headerlink" title="Binary Cross-entropy"></a>Binary Cross-entropy</h1><p>为了避免 ${\mathcal L}2$ 损失函数在训练过程中的梯度消失问题，我们使用以下损失函数：</p>
+<script type="math/tex; mode=display">\begin{aligned}{\mathcal L}_{ce}(x,y)&=-ylogp-(1-y)log(1-p)\\
+&=\begin{cases}\begin{aligned} -logp,\qquad\qquad &if\qquad y=1 \\ -log(1-p),\qquad&if\qquad y=0\end{aligned}\end{cases}\end{aligned}</script><p>其中： $p=\sigma(z)\quad z=\boldsymbol{w^Tx}$<br>该式解释如下：</p>
+<script type="math/tex; mode=display">\begin{aligned}p(correct|\boldsymbol{x})&=\begin{cases}P(\widetilde{y}=1|\boldsymbol{x}),\qquad if\quad y=1\\P(\widetilde{y}=0|\boldsymbol{x}),\qquad if\quad y=0\\\end{cases}\\&=P(\widetilde{y}=1|\boldsymbol{x})^yP(\widetilde{y}=0|\boldsymbol{x})^{(1-y)}\end{aligned}</script><p>要想最大化上述值，就要最小化它的log值的相反数(negative log-likelihood)：</p>
+<script type="math/tex; mode=display">\begin{aligned}min\quad-logP(correct|\boldsymbol{x})&=min\quad-P(\widetilde{y}=1|\boldsymbol{x})^yP(\widetilde{y}=0|\boldsymbol{x})^{(1-y)}\\&=min\quad-ylogp-(1-y)log(1-p)\\&=min\quad L_{ce}(\boldsymbol{x},y)\end{aligned}</script><p>Cross-entropy的梯度为：</p>
+<script type="math/tex; mode=display">\begin{aligned}\frac{\partial L_{ce}}{\partial \boldsymbol{w}}&=\frac{\partial L_{ce}}{\partial z}\frac{\partial z}{\partial \boldsymbol{w}} =\frac{\partial L_{ce}}{\partial p}\frac{\partial p}{\partial z}\frac{\partial z}{\partial \boldsymbol{w}}\\
+&=(-\frac{y}{p}+\frac{1-y}{1-p})\ast p(1-p)\ast\boldsymbol{x}\\
+&=(p-y)\boldsymbol{x}\end{aligned}</script><h1 id="Multi-class-classification"><a href="#Multi-class-classification" class="headerlink" title="Multi-class classification"></a>Multi-class classification</h1><ul>
+<li>Multi-label 一个输入可以有多个标签</li>
+<li>Single-label 一个输入只能有一个标签</li>
+</ul>
+<h2 id="Multi-label"><a href="#Multi-label" class="headerlink" title="Multi-label"></a>Multi-label</h2><p>对于一个输入可以有多个标签的情况，可以同时训练多个分类器，每个分类器对应一个类别，判断该输入是否属于该类别，这些类别之间彼此独立。<br>对第 $i$ 个类别有：<br>$z_i=\boldsymbol{W}_i\boldsymbol{x}+b_i\quad p_i=\sigma(z_i)\quad L_{ce}=-y_ilogp_i-(1-y_i)log(1-p_i)$<br>对于所有类别向量化表示为:<br>$\boldsymbol{z}=\boldsymbol{W}\boldsymbol{x}+\boldsymbol{b}\quad \boldsymbol{p}=\sigma(\boldsymbol{z})\quad L_{ce}=-\boldsymbol{y}^Tlog\boldsymbol{p}-(1-\boldsymbol{y})^Tlog(1-\boldsymbol{p})$</p>
+<h2 id="Single-label"><a href="#Single-label" class="headerlink" title="Single-label"></a>Single-label</h2><p>必须在所有标签中选择一个标签出来：维持所有标签的概率总和为1，取概率最大的标签为预测的结果。可以使用<strong>Softmax regression (multinomial logistic regression)</strong>：</p>
+<script type="math/tex; mode=display">p_i=\frac{e^{z_i}}{\sum_j e^{z_j}}=softmax(z_i)</script><p>满足：$\boldsymbol z=\boldsymbol{Wx}\quad \sum_ip_i=1\quad t= \mathop{\arg\max}\limits_ip_i\quad \widetilde{y_i}=i=t?1:0$<br>单个实例的预测值为one-hot向量 $\widetilde{\boldsymbol{y}} =(\widetilde{y_1},…,\widetilde{y_K})$，共$K$个类别。<br>Loss函数为：$L_{ce}(\boldsymbol{x},\boldsymbol{y})=\sum_i-y_ilogp_i=-\boldsymbol{y}^Tlog\boldsymbol{p}=-logp_{k_{right}}$<br>其中 $\mathbf{X}$ 的每一行是特征向量 $\boldsymbol{x}$， $\mathbf{Y}$ 的每一行是目标one-hot向量 $\boldsymbol{y}$ ：</p>
+<script type="math/tex; mode=display">
+\mathbf{X} = \begin{pmatrix} {\boldsymbol{x^{(1)}}}^T \\ {\boldsymbol{x^{(2)}}}^T \\ ... \\ {\boldsymbol{x^{(m)}}}^T\end{pmatrix} \qquad
+\mathbf{Y} = \begin{pmatrix} {\boldsymbol{y}^{(1)}}^T \\ {\boldsymbol{y}^{(2)}}^T \\ ... \\ {\boldsymbol{y}^{(m)}}^T\end{pmatrix}</script><script type="math/tex; mode=display">\frac{\partial J}{\partial \mathbf{W}}=\frac{1}{m}(\mathbf{P}-\mathbf{Y})\mathbf{X}^T\in R^{k\times n}, \mathbf{X}\in R^{(m\times n)} ,\mathbf{Y}\in R^{(m\times k)}</script><p><img src="/images/CS5242/2/Multi-gd.png" alt="history"></p>
+<ul>
+<li>Sigmoid 代表小写的希腊字母sigma (uppercase Σ, lowercase σ)</li>
+</ul>
+]]></content>
+      <categories>
+        <category>CS5242 Neural Network and Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lec-05 Convolution and Pooling</title>
+    <url>/2020/09/08/CS5242%20Lec05/</url>
+    <content><![CDATA[<h1 id="Convolution"><a href="#Convolution" class="headerlink" title="Convolution"></a>Convolution</h1><p>Convolution is a linear transformation and the output is the feature of the input.</p>
+<ul>
+<li>1D: text processing</li>
+<li>2D: image processing</li>
+<li>3D: 3D data, CT, microscopy, etc</li>
+</ul>
+<p>mD: m dimensions where the kernel is shifted<br><a id="more"></a></p>
+<h1 id="1D-convulution"><a href="#1D-convulution" class="headerlink" title="1D convulution"></a>1D convulution</h1><script type="math/tex; mode=display">\boldsymbol{y}_t=\sum_{i=0}^{k-1}\boldsymbol{w}_i\times \boldsymbol{x}_{t+i}</script><p>This operation is actually cross-correlation, but we call it convolution.<br>$\boldsymbol{w}$: kernel/filter, length: k<br>$\boldsymbol{x}$: input, length: n<br>$\boldsymbol{y_t}$: the output feature, length: o<br>The area of input data where a kernel applied is called the <strong>receptive field</strong>, each receptive field is corresponding to a single output feature $\boldsymbol{y_t}$, which means, every time the kernel is shifted, there’s a new output $\boldsymbol{y_t}$.</p>
+<p>Every cell of vector $\boldsymbol{w}$ is a parameter to be learned. In the 1D convolution below, Every output is generated from 3 input data x and these 3 cells is called a receptive field. We move the kernel along the input data until we cannot move further.<br><img src="/images/CS5242/5/1D.png" alt="1D"></p>
+<h2 id="Benefits-of-Convolution"><a href="#Benefits-of-Convolution" class="headerlink" title="Benefits of Convolution"></a>Benefits of Convolution</h2><ul>
+<li><p>Sparse connections<br>Each output is only connected to the receptive field instead of the whole input data(fully-connected) $\to$ fewer parameter and less overfitting</p>
+</li>
+<li><p>Weight sharing<br>Regularization<br>Less overfitting</p>
+</li>
+<li><p>Location invariant<br>Make the same prediction no matter where the object is in the image. (the same values of receptive field lead to the same output regradless of the place of the receptive field)</p>
+</li>
+</ul>
+<h2 id="Perceptron-MLP-and-Convolution"><a href="#Perceptron-MLP-and-Convolution" class="headerlink" title="Perceptron, MLP and Convolution"></a>Perceptron, MLP and Convolution</h2><p><img src="/images/CS5242/5/MLP.png" alt="MLP"></p>
+<h2 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h2><p>When stride = 1:</p>
+<script type="math/tex; mode=display">o=(n+p)-k+1</script><p>$o$ : output length $\quad n$ : input length $\quad k$ : kernel length $\quad p$ : padding length<br>$p = 0\to$ <strong>valid padding</strong>  $\qquad p=k-1\to$ <strong>same padding</strong> ( left: $p/2$, right: $p/2$ ).<br>$p$ can be set manually or automatically.<br>Pad with 0 for convenience.</p>
+<h2 id="Stride"><a href="#Stride" class="headerlink" title="Stride"></a>Stride</h2><p>Stride: how many steps to move towards the next receptive field.<br>Larger stride sizes skip more elements, effective receptive field size increases quickly, one output contains larger range of information of deeper lever.<br>Meanwhile increasing the stride is computationally faster, since we compute less convolution.<br><img src="/images/CS5242/5/stride.png" alt="stride"></p>
+<script type="math/tex; mode=display">o=\lfloor\frac{n+p-k}{s}\rfloor+1</script><script type="math/tex; mode=display">\to \frac{n+p-k}{s}\geq o-1</script><script type="math/tex; mode=display">\to p\geq s(o-1)+k-n</script><script type="math/tex; mode=display">\to p = max(0, s(o-1)+k-n)</script><p>When stride &gt; 1, output length cannot be equal to the input length.<br>“same” is defined as:</p>
+<script type="math/tex; mode=display">o=\lceil \frac{n}{s}\rceil</script><p><img src="/images/CS5242/5/stride1.png" alt="stride"></p>
+<h2 id="Conv1D-forward-amp-backward"><a href="#Conv1D-forward-amp-backward" class="headerlink" title="Conv1D: forward &amp; backward"></a>Conv1D: forward &amp; backward</h2><p>Convert each receptive field to a column.<br><img src="/images/CS5242/5/conv1f.png" alt="forward"><br><img src="/images/CS5242/5/conv1b.png" alt="backward"></p>
+<h1 id="2D-Convolution"><a href="#2D-Convolution" class="headerlink" title="2D Convolution"></a>2D Convolution</h1><p>Kernels move from left to right, from top to the bottom. (2 directions)<br><img src="/images/CS5242/5/2D.png" alt="2D"></p>
+<h2 id="Single-channel-single-kernel"><a href="#Single-channel-single-kernel" class="headerlink" title="Single channel, single kernel"></a>Single channel, single kernel</h2><p>Convert each receptive field to a column.<br>Input $\mathbf{X}$ : $(n_h, n_w)$<br>Kernel $\mathbf{W}$ : $(k_h, k_w)$<br>Output $\mathbf{Y}$ : $(o_h, o_w)= (\lfloor\frac{n_h+p_h-k_h}{s_h}\rfloor+1,\lfloor\frac{n_w+p_w-k_w}{s_w}\rfloor+1)$<br>Computation cost: $O(k_h\times k_w\times o_h\times o_w)$<br><img src="/images/CS5242/5/2d_single_kernel.png" alt="2d_single_kernel"></p>
+<h2 id="Single-channel-multiple-c-o-kernels"><a href="#Single-channel-multiple-c-o-kernels" class="headerlink" title="Single channel, multiple( $c_o$ ) kernels"></a>Single channel, multiple( $c_o$ ) kernels</h2><p>Applying multiple kernels (filters) $c_o$, all of the same stride and padding.<br>Convert each receptive field and each kernel to a column.<br>Parameter size: $c_o\times k_h\times k_w$<br>Output shape: $(c_0,o_h,o_w)=(c_o,\lfloor\frac{n_h+p_h-k_h}{s_h}\rfloor+1,\lfloor\frac{n_w+p_w-k_w}{s_w}\rfloor+1)$<br>Computation cost: $O((c_o\times k_h\times k_w)\times (o_h\times o_w))$<br><img src="/images/CS5242/5/2d_s_m.png" alt="2d_s_m"></p>
+<h2 id="Multiple-c-i-channels-multiple-c-o-kernels"><a href="#Multiple-c-i-channels-multiple-c-o-kernels" class="headerlink" title="Multiple( $c_i$ ) channels, multiple( $c_o$ ) kernels"></a>Multiple( $c_i$ ) channels, multiple( $c_o$ ) kernels</h2><p>Slide the window from left to right, top to bottom.<br>Receptive fields across feature maps are concatenated into to one column.<br><img src="/images/CS5242/5/2d_m_m.png" alt="2d_m_m"></p>
+<ul>
+<li>Forward<br>Convert $\mathbf{X}$ into $\mathbf{\hat{X}}$ of size $(c_ik_hk_w\times o_ho_w)$<br>Reshape $\mathbf{W}$ into $(c_0\times c_ik_hk_w)$<br>$\mathbf{Y}=\mathbf{W\hat{X}}+\boldsymbol{b}$<br>Output shape: $(c_0,o_h,o_w)=(c_o,\lfloor\frac{n_h+p_h-k_h}{s_h}\rfloor+1,\lfloor\frac{n_w+p_w-k_w}{s_w}\rfloor+1)$<br>Computational cost: $O(c_o\times c_ik_hk_w\times o_h o_w)$<br><img src="/images/CS5242/5/2d_m_m1.png" alt="2d_m_m1"></li>
+<li>Backward<br>Given $\frac{\partial L}{\partial \mathbf{Y}}$<br>Compute $\frac{\partial L}{\partial \mathbf{W}}=\frac{\partial L}{\partial \mathbf{Y}}\mathbf{\hat{X}}^T\quad \frac{\partial L}{\partial \mathbf{\hat{X}}}=\mathbf{W}^T\frac{\partial L}{\partial \mathbf{Y}}$<br>Column to receptive field transformation to get gradient w.r.t original $\mathbf{X}$</li>
+</ul>
+<h1 id="Pooling"><a href="#Pooling" class="headerlink" title="Pooling"></a>Pooling</h1><p>No parameter, applied to each channel respectively.<br>Padding and stride can be applied.<br># input channels = # output channels<br>i.e., $c_i=c_o=c$</p>
+<h2 id="Max-pooling"><a href="#Max-pooling" class="headerlink" title="Max pooling"></a>Max pooling</h2><p><img src="/images/CS5242/5/max_p.png" alt="max_p"></p>
+<h2 id="Average-pooling"><a href="#Average-pooling" class="headerlink" title="Average pooling"></a>Average pooling</h2><p><img src="/images/CS5242/5/avg_p.png" alt="avg_p"></p>
+<h2 id="Effect-of-pooling"><a href="#Effect-of-pooling" class="headerlink" title="Effect of pooling"></a>Effect of pooling</h2><p>Reduce the feature size and model size<br>Max pooling: invariant to rotation of the input image<br>Average pooling: is usually skipped, can be replaced by convolution (sum of weighted input); much cheaper(no weights)</p>
+]]></content>
+      <categories>
+        <category>CS5242 Neural Network and Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lec-04 Training Deep Networks</title>
+    <url>/2020/09/01/CS5242%20Lec04/</url>
+    <content><![CDATA[<h1 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="Stochastic Gradient Descent"></a>Stochastic Gradient Descent</h1><h2 id="Various-GD’s-problems-and-advantages"><a href="#Various-GD’s-problems-and-advantages" class="headerlink" title="Various GD’s problems and advantages"></a>Various GD’s problems and advantages</h2><ol>
+<li>Forward computer the average loss among:<ul>
+<li>all training samples (GD)</li>
+<li>randomly pick a single training sample (SGD)</li>
+<li>randomly pick b training samples (mini-batch SGD)</li>
+</ul>
+</li>
+<li>Backword compute the gradient of each parameter</li>
+<li>Update every parameter according to its gradient</li>
+</ol>
+<p>Problems of GD: </p>
+<ul>
+<li>local optimum: stop updating when every parameter is at its local optimum. (This is a rare case) </li>
+<li>saddle point: we may not even arrive at a local optimum.</li>
+<li>Efficiency: has to load all data to compute the update, with high memory cost and high computation cost per iteration.</li>
+</ul>
+<p>Advantage of SGD:</p>
+<ul>
+<li>more efficient in terms of memory cost and speed per iteration.</li>
+<li>avoid local optimum efficiently: although $\frac{\partial J^{(k)}}{\partial w}=0$ , $\frac{\partial J^{(i)}}{\partial w}$ (i != k) may not be zero.</li>
+</ul>
+<p>Problems of SGD: </p>
+<ul>
+<li>not moving in the optimal direction for every step due to the stochastic process(minimizing loss for a single example but not for the whole training dataset and may not converge at all).</li>
+</ul>
+<p>Advantages of mini-batch SGD:</p>
+<ul>
+<li>the derivation direction is more stable than SGD.</li>
+<li>Averaged on b samples, leading the faster convergence in terms of #iterations.</li>
+</ul>
+<p>Efficiency compare:</p>
+<ul>
+<li>R for convergence rate: $R_{GD}&gt;R_{mini-batch SGD}&gt;R_{SGD}$</li>
+<li>T for time per iteration: $T_{GD}\leq T_{mini-batch SGD}\leq T_{SGD}$</li>
+<li>Tc for time to converage: $Tc=$#$\times T$ (number of iterations $\times$ time per iteration), it depends case by case. By experience, mini-batch SGD is the fastest to converge.</li>
+</ul>
+<h2 id="Batch-Size"><a href="#Batch-Size" class="headerlink" title="Batch Size"></a>Batch Size</h2><ul>
+<li>larger batches are more accurate at estimating the gradient, better gradient does not equal to better performance due to the possibility of overfitting.</li>
+<li>GPU has limited memory, if all batch samples are processed in parallel, we should reduce batch size or use more GPU.</li>
+<li>Some hardware have better runtime with specific array sizes, e.g., for GPUs, powers of 2 are usually optimal.</li>
+<li>Training with small batch need small learning rate to reduce the noise and maintain stability due to the high variance in the estimated gradient, this trade-off may slow down the overall learning speed.</li>
+<li>Small batches act as regularizers with noisy approximated gradients.</li>
+<li>Using extreme small batches may cause the underutilization of multicore architectures and there is a fixed time cost below a certain batch size.</li>
+</ul>
+<h2 id="Loss-Contour"><a href="#Loss-Contour" class="headerlink" title="Loss Contour"></a>Loss Contour</h2><p>Every point in the contour is a specific assignment of parameters, points on the same circle have the same loss value, points on the innermost circle have the minimum loss.<br><img src="/images/CS5242/4/loss-contour.png" alt="loss-contour"></p>
+<h2 id="Evolution-of-mini-batch-SGD"><a href="#Evolution-of-mini-batch-SGD" class="headerlink" title="Evolution of mini-batch SGD"></a>Evolution of mini-batch SGD</h2><h3 id="mini-batch-SGD-with-momentum"><a href="#mini-batch-SGD-with-momentum" class="headerlink" title="mini-batch SGD with momentum"></a>mini-batch SGD with momentum</h3><p>Motivation：</p>
+<ul>
+<li>Gradients may dramatically change on a complex loss function.</li>
+<li>Hard to make progress on flat regions.</li>
+<li>Momentum smooths the gradients over past time, i.e., balance thes history and new gradient.</li>
+</ul>
+<p>Algorithm:</p>
+<script type="math/tex; mode=display">v=\beta v+\alpha g</script><script type="math/tex; mode=display">w=w-v</script><h3 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h3><p>Motivation：</p>
+<ul>
+<li>Different dimensions have different gradients.</li>
+<li>We want a larger lr for small gradients and small lr for large gradients.</li>
+<li>Adagrad makes learning rates adapt to each dimension.</li>
+</ul>
+<p>Algorithm:</p>
+<script type="math/tex; mode=display">s=s+g^2</script><script type="math/tex; mode=display">w=w-\frac{\alpha}{\sqrt{s+\epsilon}}g</script><h3 id="RMSprop"><a href="#RMSprop" class="headerlink" title="RMSprop"></a>RMSprop</h3><p>Motivation：</p>
+<ul>
+<li>Adagrad decays the learning rate that may lead slow progress at end.</li>
+<li>RMSprop guarantees that learning rate will not end up to 0 as time goes by.</li>
+</ul>
+<p>Algorithm:</p>
+<script type="math/tex; mode=display">s=\beta s+(1-\beta)g^2\qquad moving\quad average</script><script type="math/tex; mode=display">w=w-\frac{\alpha}{\sqrt{s+\epsilon}}g\qquad nomalize\quad the\quad gradient</script><h3 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h3><p>Motivation：</p>
+<ul>
+<li>Conbine the momentum and adapted learning rate to smooth the gradients and adapt to various dimensions.</li>
+</ul>
+<p>Algorithm:</p>
+<script type="math/tex; mode=display">v=\beta_1 v+(1-\beta_1)g\quad \hat v = \frac{v}{1-\beta_1^t}</script><script type="math/tex; mode=display">s=\beta_2 s+(1-\beta_2)g^2\quad \hat s = \frac{s}{1-\beta_2^t}</script><script type="math/tex; mode=display">w=w-\frac{\alpha}{\sqrt{s+\epsilon}} v=w-\frac{\alpha}{\sqrt{\hat s+\epsilon}}\hat v</script><p>Adam offers fast convergence.<br>Mainly for the first few iterations, when t gets large, the denominator goes to 1.</p>
+<h2 id="Convergence"><a href="#Convergence" class="headerlink" title="Convergence"></a>Convergence</h2><p>Usually, convergence is considered w.r.t the optimized variable, i.e. weights of the network.</p>
+<ul>
+<li>For learning, however, because we’re not really interested in finding the optimum but having a good model that will generalize, we are interested in convergence of the loss.</li>
+<li>Convergence then refers to the loss plateauing.</li>
+</ul>
+<h1 id="Training-tricks"><a href="#Training-tricks" class="headerlink" title="Training tricks"></a>Training tricks</h1><h2 id="Learning-Rate"><a href="#Learning-Rate" class="headerlink" title="Learning Rate"></a>Learning Rate</h2><p>Initialize lr with a large value and then decrease it gradually.<br>decay learning rate:</p>
+<ul>
+<li>step</li>
+<li>1/t</li>
+<li>exponential $\alpha e^{-kt}$</li>
+</ul>
+<p><img src="/images/CS5242/4/lr-2.png" alt="lr-2"></p>
+<h2 id="Random-parameter-initialization"><a href="#Random-parameter-initialization" class="headerlink" title="Random parameter initialization"></a>Random parameter initialization</h2><p>We want each unit to compute a different function and we do not want redundant parameters.<br><strong>Random initializations can break symmetry.</strong></p>
+<ul>
+<li>Gaussian, N(0, 0.01) </li>
+<li>Uniform, U(-0.05, 0.05) </li>
+<li>Glorot/Xavier : Gaussian  N(0, sqrt(2/(fan_in+ fan_out)) </li>
+<li>He/MSRA : Gaussian  N(0, sqrt(2/fan_in)) </li>
+</ul>
+<p>General idea: keep variance of random values within some reasonable range. We want various parameters have the same scale/range.</p>
+<ul>
+<li>Too small variance: Z vanishing  (Z = X W + b,)</li>
+<li>Too large variance: Z exploding</li>
+</ul>
+<p>For bias vector:<br><img src="/images/CS5242/4/bias.png" alt="bias"></p>
+<h2 id="Data-normalization"><a href="#Data-normalization" class="headerlink" title="Data normalization"></a>Data normalization</h2><p><img src="/images/CS5242/4/normalization.png" alt="normalization"></p>
+<h1 id="Overfitting-and-Underfitting"><a href="#Overfitting-and-Underfitting" class="headerlink" title="Overfitting and Underfitting"></a>Overfitting and Underfitting</h1><h2 id="Underfitting"><a href="#Underfitting" class="headerlink" title="Underfitting"></a>Underfitting</h2><p>Low model capacity / complexity $\to$ model too simple to fit training data<br><strong>High bias</strong></p>
+<ul>
+<li>definition of bias (error): An algorithm’s tendency to consistently learn wrong things by not taking into account sufficient information found in the data</li>
+</ul>
+<h2 id="Overfitting"><a href="#Overfitting" class="headerlink" title="Overfitting"></a>Overfitting</h2><p>High capacity/complexity $\to$ fits well to seen data, i.e. training data<br><strong>High variance</strong><br>Cannot generalize well onto new data, so performs poorly on unseen data, i.e. test</p>
+<ul>
+<li>definition of Variance (errors): Amount that the estimates (in our case the parameters w) will change if we had different of training data (but still drawn from the same source).</li>
+</ul>
+<h2 id="A-good-model"><a href="#A-good-model" class="headerlink" title="A good model"></a>A good model</h2><p>Uses the “right” capacity / complexity to model the data and can <strong>generalize to unseen data</strong>.<br>Strikes a balance between under-and over-fitting, as well as bias and variance.<br>Because bias and variance derived from the same factor(model capacity), we cannot have both low bias AND low variance.<br><img src="/images/CS5242/4/model.png" alt="model"></p>
+<h2 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a>Regularization</h2><h3 id="Add-L2-Norm"><a href="#Add-L2-Norm" class="headerlink" title="Add L2 Norm"></a>Add L2 Norm</h3><p>$\Phi$ is the flatten vector of all parameters:</p>
+<script type="math/tex; mode=display">J_{reg}=J+\frac{\lambda}{2}||\Phi||^2</script><script type="math/tex; mode=display">\frac{\partial J_{reg}}{\partial w}=\frac{\partial J}{\partial w} + \lambda w</script><h3 id="Stop-early"><a href="#Stop-early" class="headerlink" title="Stop early"></a>Stop early</h3><p><img src="/images/CS5242/4/stop.png" alt="stop"></p>
+<h2 id="Model-tuning-and-data-splitting"><a href="#Model-tuning-and-data-splitting" class="headerlink" title="Model tuning and data splitting"></a>Model tuning and data splitting</h2><p>Degree is a hyper-parameter or configuration knob.<br>Tuning the degree is called <strong>hyper-parameter tuning or model selection</strong>.<br>For complex models, there could be many such hyper-parameters, e.g. Learning rate of the gradient descent algorithm $\alpha$, Number of layers for a neural network, etc.<br><img src="/images/CS5242/4/Hyper-parameter.png" alt="Hyper-parameter"> </p>
+]]></content>
+      <categories>
+        <category>CS5242 Neural Network and Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tutorial</title>
+    <url>/2020/09/19/CS5242%20Tutorial/</url>
+    <content><![CDATA[<h1 id="Lec-01"><a href="#Lec-01" class="headerlink" title="Lec 01"></a>Lec 01</h1><p>$y=(\mathbf{A}\boldsymbol{x})^T(2\boldsymbol{x+z})$ , $\mathbf{A}$ is a square matrix, $\boldsymbol{x}$ and $\boldsymbol{z}$ are vectors, y is a scalar, what is $\frac{\partial y}{\partial \boldsymbol{x}}$ ?</p>
+<script type="math/tex; mode=display">\boldsymbol{u}=\mathbf{A}\boldsymbol{x}\quad \boldsymbol{v}=2\boldsymbol{x+z}</script><a id="more"></a>
+<script type="math/tex; mode=display">\begin{aligned}\frac{\partial y}{\partial \boldsymbol{x}}&=\frac{\partial \boldsymbol{u^Tv}}{\partial \boldsymbol{x}}=\frac{\partial \boldsymbol{u}}{\partial \boldsymbol{x}}\cdot\boldsymbol{v}+\frac{\partial \boldsymbol{v}}{\partial \boldsymbol{x}}\cdot\boldsymbol{u}\\&=\mathbf{A}^T(2\boldsymbol{x+z})+(2\boldsymbol{I})\cdot(\mathbf{A}\boldsymbol{x})\\&=2\mathbf{A}^T\boldsymbol{x}+\mathbf{A}^T\boldsymbol{z}+2\mathbf{A}\boldsymbol{x}\end{aligned}</script><p>$L=\frac{1}{2}(\boldsymbol{w^Tx}-y)^2$, $\boldsymbol{x}=(1,2)^T$, $\boldsymbol{w}=(2,1)^T$, $y=0$, compute the gradient of $\frac{\partial L}{\partial \boldsymbol{w}}$</p>
+<script type="math/tex; mode=display">\begin{aligned}\frac{\partial L}{\partial \boldsymbol{w}}&=(\boldsymbol{w^Tx}-y)\boldsymbol{x}\\&=(\begin{pmatrix}2,1\end{pmatrix}\cdot\begin{pmatrix}1\\2\end{pmatrix}-0)\cdot\begin{pmatrix}1\\2\end{pmatrix}\\&=(4-0)\cdot\begin{pmatrix}1\\2\end{pmatrix}\\&=\begin{pmatrix}4\\8\end{pmatrix}\end{aligned}</script><h1 id="Lec-02"><a href="#Lec-02" class="headerlink" title="Lec 02"></a>Lec 02</h1><p>$L=\frac{1}{2}(\sigma(\boldsymbol{w^Tx})-y)^2$</p>
+<script type="math/tex; mode=display">z=\boldsymbol{w^Tx}</script><script type="math/tex; mode=display">\begin{aligned}\frac{\partial L}{\partial \boldsymbol{w}}&=(\sigma(z)-y)\frac{\partial \sigma(z)}{\partial z}\frac{\partial z}{\boldsymbol{w}}\\&=(\sigma(z)-y)\frac{\partial (1-e^{-z})^{-1}}{\partial z}\boldsymbol{x}\\&=(\sigma(z)-y)(-1(1-e^{-z})^{-2})\frac{\partial (1-e^{-z})}{\partial z}\boldsymbol{x}\\&=(\sigma(z)-y)(-\sigma(z)^2)\frac{\partial (1-e^{-z})}{\partial z}\boldsymbol{x}\\&=(\sigma(z)-y)(-\sigma(z)^2)e^{-z}\boldsymbol{x}\\&=(\sigma(z)-y)(-\sigma(z)^2)(1-\frac{1}{\sigma(z)})\boldsymbol{x}\\&=(\sigma(z)-y)(-\sigma(z))(\sigma(z)-1)\boldsymbol{x}\\&=(\sigma(z)-y)\sigma(z)(1-\sigma(z))\boldsymbol{x}\end{aligned}</script><p>$L_{ce}=-ylogp-(1-y)log(1-p)\quad p=\sigma(z)$</p>
+<script type="math/tex; mode=display">\begin{aligned}\frac{\partial L}{\partial \boldsymbol{w}}&=\frac{\partial L}{\partial p}\frac{\partial p}{\partial z}\frac{\partial z}{\partial \boldsymbol{w}}\\&=(-\frac{y}{p}+\frac{1-y}{1-p})p(1-p)\boldsymbol{x}\\&=(-y+py+p-py)\boldsymbol{x}\\&=(p-y)\boldsymbol{x}\end{aligned}</script><p>$L_{ce}(\boldsymbol{x},\boldsymbol{y})=\sum_i-y_ilogp_i=-\boldsymbol{y^T}log\boldsymbol{p}$</p>
+<script type="math/tex; mode=display">\frac{\partial J}{\partial \mathbf{W}}=\frac{1}{m}(\mathbf{P}-\mathbf{Y})\mathbf{X}^T\in R^{k\times n}</script><script type="math/tex; mode=display">\mathbf{X}\in R^{(m\times n)} ,\mathbf{Y}\in R^{(m\times k)}</script><h1 id="Lec-03"><a href="#Lec-03" class="headerlink" title="Lec 03"></a>Lec 03</h1><ul>
+<li><p>Add bias<br>$\boldsymbol{A}\in R^{m\times n}\quad b\in R^{1\times n}$<br>Forward($\boldsymbol{A},b$): $\boldsymbol{C}=\boldsymbol{A}+b$<br>Backward($d\boldsymbol{C},\boldsymbol{A},b$): $d\boldsymbol{A}=d\boldsymbol{C}\quad db=1^Td\boldsymbol{C}$</p>
+</li>
+<li><p>Array and scalar multiplication<br>$\boldsymbol{v}$ is an array, $k$ is a scalar(usually hyperparameter)<br>Forward($\boldsymbol{v},k$): $\boldsymbol{c}=k\boldsymbol{v}$<br>Backward($d\boldsymbol{c},\boldsymbol{v},k$): $d\boldsymbol{v}=kd\boldsymbol{c}$</p>
+</li>
+<li><p>Matmul matrix multiplication operation<br>$\boldsymbol{A}\in R^{m\times k}\quad \boldsymbol{B}\in R^{k\times n}$ (including matrix with a single column or row)<br>Forward($\boldsymbol{A},\boldsymbol{B}$):$\boldsymbol{C=A\cdot B^T}\in R^{m\times n}$<br>Backward($d\boldsymbol{C},\boldsymbol{A},\boldsymbol{B}$): $d\boldsymbol{A}=d\boldsymbol{C}\cdot \boldsymbol{B^T}\quad d\boldsymbol{B}=\boldsymbol{A^T}\cdot d\boldsymbol{C}$</p>
+</li>
+<li><p>Logistic operation<br>$a$ is an array of any shape<br>Forward($a$): $b=\sigma(a)$<br>Backward($db,a$): $da=db\times b\times (1-b)$</p>
+</li>
+<li><p>Softmax-Cross-entropy operation<br>Forward($\boldsymbol{Z},\boldsymbol{P}$): $\boldsymbol{P}=softmax(\boldsymbol{Z})\quad L=\frac{1}{m}sum(-YlogP) $<br>Backward($\boldsymbol{Z},\boldsymbol{P}$): $d\boldsymbol{Z}=\frac{1}{m}(\boldsymbol{P}-\boldsymbol{Y})$</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>CS5242 Neural Network and Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Summary</title>
+    <url>/2020/09/19/CS5242%20Summary/</url>
+    <content><![CDATA[<h1 id="Lec-01"><a href="#Lec-01" class="headerlink" title="Lec 01"></a>Lec 01</h1><h2 id="Linear-regression"><a href="#Linear-regression" class="headerlink" title="Linear regression"></a>Linear regression</h2><p>Univariate: single feature $x\in R$<br>Multivariate: multiple features $\boldsymbol{x}\in R^m$<br>Linear Transformation: $\widetilde{y}=\boldsymbol{w^Tx}$<br>Loss: measures the difference between the prediction and the ground truth<br>Training: to optimize(i.e. minimize) the loss w.r.t parameters($\boldsymbol{w}$)<br><a id="more"></a></p>
+<h2 id="Gradient-descent-algorithm"><a href="#Gradient-descent-algorithm" class="headerlink" title="Gradient descent algorithm"></a>Gradient descent algorithm</h2><p>minimize the target loss iterately, for each iteration:<br>conpute the gradient of average loss</p>
+<ul>
+<li>for single feature multiple examples: <script type="math/tex; mode=display">J(w)=\frac{1}{2m}\sum_{i=1}^m(wx^{(i)}-y^{(i)})^2</script></li>
+<li>for multiple features one single instance: <script type="math/tex; mode=display">J(\boldsymbol{w})=\frac{1}{2}(\boldsymbol{w^Tx}-y)^2</script></li>
+<li>for multiple features multiple examples: <script type="math/tex; mode=display">J(\boldsymbol{w})=\frac{1}{2m}(\mathbf{X}\boldsymbol{w}-\boldsymbol{y})^T(\mathbf{X}\boldsymbol{w}-\boldsymbol{y})</script></li>
+</ul>
+<p>update parameter in the opposite of the gradient direction: $\boldsymbol{w}=\boldsymbol{w}-\alpha\frac{\partial J}{\partial \boldsymbol{w}}$</p>
+<ul>
+<li>for single feature multiple examples: <script type="math/tex; mode=display">\frac{\partial J}{\partial w}=\sum_{i=1}^m(wx^{(i)}-y^{(i)})</script></li>
+<li>for multiple features one single instance: <script type="math/tex; mode=display">\frac{\partial J}{\partial \boldsymbol{w}}=(\boldsymbol{w^Tx}-y)\boldsymbol{x}</script></li>
+<li>for multiple features multiple examples: <script type="math/tex; mode=display">\frac{\partial J}{\partial \boldsymbol{w}}=\frac{1}{m}\mathbf{X}^T(\mathbf{X}\boldsymbol{w}-\boldsymbol{y})</script></li>
+</ul>
+<p>stop until paremeters converge or reach a certain number of iterations.</p>
+<ul>
+<li>$f(x)=g(x)+h(x)\quad\to\quad f’(x)=g’(x)+h’(x)$</li>
+<li>$f(x)=g(x)h(x)\quad\to\quad f’(x)=g’(x)h(x)+g(x)h’(x)$</li>
+<li>$f(x)=\frac{g(x)}{h(x)}\quad\to\quad f’(x)=\frac{g’(x)h(x)-g(x)h’(x)}{h(x)^2}$</li>
+<li>$f(x)=g(u),g(u)=h(x)\quad\to\quad f’(x)=g’(u)h’(x)$</li>
+</ul>
+<p><img src="/images/CS5242/Summary/vecBYvec0.png" alt="history"><br><img src="/images/CS5242/Summary/vecBYvec.png" alt="history"><br><img src="/images/CS5242/Summary/scalBYvec.png" alt="history"></p>
+<h1 id="Lec-02"><a href="#Lec-02" class="headerlink" title="Lec 02"></a>Lec 02</h1><h2 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h2><p>From Linear regression to Logistic regression:<br>The function <script type="math/tex">\widetilde{y}=\begin{cases} 1,\qquad\qquad if\boldsymbol{w^Tx}>0 \\ 0,\qquad\qquad else\end{cases}</script> is not differentiable, therefore we use Logistic function as the probability: <script type="math/tex">p=\sigma (z) = \sigma(\boldsymbol{w^Tx})=\frac{1}{1+e^{-\boldsymbol{w^Tx}}}</script><br>$L2$ loss function: <script type="math/tex">L=\frac{1}{2}||p-y||^2=\frac{1}{2}||\sigma(z)-y||^2</script><br>thus the gradient is: <script type="math/tex">\frac{\partial L}{\partial \boldsymbol{w}}=(\sigma(z)-y)\sigma(z)(1-\sigma(z))\boldsymbol{x}</script><br>There exists gradient vanishing. In order to solve this problem, we use the <strong>binary cross entropy</strong> to compute the loss: <script type="math/tex">L=-ylogp-(1-y)log(1-p)</script><br>The gradient now is : <script type="math/tex">\frac{\partial L}{\partial \boldsymbol{w}}=(p-y)\boldsymbol{x}</script></p>
+<script type="math/tex; mode=display">z=\boldsymbol{w^Tx},\boldsymbol{x}\in R^{n\times 1}, \boldsymbol{w}\in R^{n\times 1}</script><script type="math/tex; mode=display">p=\sigma (z)=\frac{1}{1+e^{-z}}</script><script type="math/tex; mode=display">L(p, y)=-ylogp-(1-y)log(1-p)</script><script type="math/tex; mode=display">\frac{\partial L}{\partial \boldsymbol{w}}=(p-y)\boldsymbol{x}</script><h2 id="Multi-label-classification"><a href="#Multi-label-classification" class="headerlink" title="Multi-label classification"></a>Multi-label classification</h2><p>对第 $i$ 个类别有：<br>$z_i=\boldsymbol{W}_i\boldsymbol{x}+b_i\quad p_i=\sigma(z_i)\quad L_{ce}=-y_ilogp_i-(1-y_i)log(1-p_i)$<br>对于所有类别向量化表示为:<br>$\boldsymbol{z}=\boldsymbol{W}\boldsymbol{x}+\boldsymbol{b}\quad \boldsymbol{p}=\sigma(\boldsymbol{z})\quad L_{ce}=-\boldsymbol{y}^Tlog\boldsymbol{p}-(1-\boldsymbol{y})^Tlog(1-\boldsymbol{p})$</p>
+<h2 id="Softmax-multinomial-classification"><a href="#Softmax-multinomial-classification" class="headerlink" title="Softmax/multinomial classification"></a>Softmax/multinomial classification</h2><p>Multi-class single-label: classes are not independent, they are exclusive. </p>
+<ul>
+<li><strong>Softmax function</strong> <script type="math/tex; mode=display">p_i=\frac{e^{z_i}}{\sum_j e^{z_j}}=softmax(z_i)</script></li>
+<li><strong>Cross-entropy loss</strong><script type="math/tex; mode=display">L_{ce}(\boldsymbol{x},\boldsymbol{y})=\sum_i-y_ilogp_i=-\boldsymbol{y}^Tlog\boldsymbol{p}</script><script type="math/tex; mode=display">\frac{\partial J}{\partial \mathbf{W}}=\frac{1}{m}(\mathbf{P}-\mathbf{Y})\mathbf{X}^T\in R^{k\times n}, \mathbf{X}\in R^{(m\times n)} ,\mathbf{Y}\in R^{(m\times k)}</script></li>
+</ul>
+<h1 id="Lec-03"><a href="#Lec-03" class="headerlink" title="Lec 03"></a>Lec 03</h1><h2 id="MLP"><a href="#MLP" class="headerlink" title="MLP"></a>MLP</h2><p>A net with multiple layers that transform input features into hidden features and then make predictions .</p>
+<ul>
+<li>At least one non-linear hidden layer</li>
+<li>A linear function is always followed by a non-linear function</li>
+</ul>
+<script type="math/tex; mode=display">\boldsymbol{z}^{[i]}=a^{[i]}(\boldsymbol{h}^{[i-1]})=W^{[i]}\boldsymbol{h}^{[i-1]}+\boldsymbol{b}^{[i]}</script><script type="math/tex; mode=display">W^{[i]}\in R^{n_i\times n_{i-1}}\quad \boldsymbol{b}^{[i]}\in R^{n_i}</script><p><img src="/images/CS5242/3/MLP.png" alt="MLP"></p>
+<h2 id="Chain-Rule"><a href="#Chain-Rule" class="headerlink" title="Chain Rule"></a>Chain Rule</h2><p><img src="/images/CS5242/Summary/chain-rule.png" alt="chain-rule"></p>
+<h2 id="Backpropagation"><a href="#Backpropagation" class="headerlink" title="Backpropagation"></a>Backpropagation</h2><p><img src="/images/CS5242/Summary/Backpropagation.png" alt="Backpropagation"></p>
+<h1 id="Lec-04"><a href="#Lec-04" class="headerlink" title="Lec 04"></a>Lec 04</h1><h2 id="Mini-batch-stochastic-gradient-descent-SGD"><a href="#Mini-batch-stochastic-gradient-descent-SGD" class="headerlink" title="Mini-batch stochastic gradient descent (SGD)"></a>Mini-batch stochastic gradient descent (SGD)</h2><p>• Reduces the chance of local optimal points and saddle points from GD<br>• More stable and smooth than standard SGD<br>• Extensions: Momentum, RMSProp, Adam</p>
+<ul>
+<li>Smooth the gradients by preserving historical gradients</li>
+<li>Adaptive learning rate per parameter</li>
+</ul>
+<p>Momentum:</p>
+<script type="math/tex; mode=display">v=\beta v+\alpha g</script><script type="math/tex; mode=display">w=w-v</script><p>RMSprop:</p>
+<script type="math/tex; mode=display">s=\beta s+(1-\beta)g^2\qquad moving\quad average</script><script type="math/tex; mode=display">w=w-\frac{\alpha}{\sqrt{s+\epsilon}}g\qquad nomalize\quad the\quad gradient</script><p>Adam:</p>
+<script type="math/tex; mode=display">v=\beta_1 v+(1-\beta_1)g\quad \hat v = \frac{v}{1-\beta_1^t}</script><script type="math/tex; mode=display">s=\beta_2 s+(1-\beta_2)g^2\quad \hat s = \frac{s}{1-\beta_2^t}</script><script type="math/tex; mode=display">w=w-\frac{\alpha}{\sqrt{s+\epsilon}} v=w-\frac{\alpha}{\sqrt{\hat s+\epsilon}}\hat v</script><h2 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h2><ul>
+<li>Learning rate decay: start large and decrease gradually</li>
+<li>Randomly initialize parameters: break symmetry<br>and avoid gradient vanishing / exploding</li>
+<li>Data normalization</li>
+</ul>
+<h2 id="Overfitting-and-underfitting"><a href="#Overfitting-and-underfitting" class="headerlink" title="Overfitting and underfitting"></a>Overfitting and underfitting</h2><ul>
+<li>Underfitting means high bias, Overfitting means high variance.</li>
+<li>Regularization: Early stop and L2 Norm.</li>
+<li>Model capacity: the ability for the model to fit different functions or datasets; with more unconstrained parameters, the model can fit more functions and datasets.</li>
+<li>Hyper-parameter tuning:<ul>
+<li>Tune parameters using training data.</li>
+<li>Tune hyper-parameters using validation data.</li>
+<li>Report model performance using test data.</li>
+</ul>
+</li>
+</ul>
+<h1 id="Lec-05"><a href="#Lec-05" class="headerlink" title="Lec 05"></a>Lec 05</h1><h2 id="2D-Convolution"><a href="#2D-Convolution" class="headerlink" title="2D Convolution"></a>2D Convolution</h2><p>Convolution is an affine transformation.<br>Each receptive field generates aone output value: sparse connection<br># kernels = # output feature maps<br>Output size: $(c_0,o_h,o_w)=(c_o,\lfloor\frac{n_h+p_h-k_h}{s_h}\rfloor+1,\lfloor\frac{n_w+p_w-k_w}{s_w}\rfloor+1)$</p>
+<p>Share the same parameters across different locations: reduce parameter, location invariant, </p>
+<p>Implementation: Receptive fields across feature maps are concatenated into to one column.<br><img src="/images/CS5242/Summary/conv2D.png" alt="conv2D"></p>
+<h2 id="3D-Convolution"><a href="#3D-Convolution" class="headerlink" title="3D Convolution"></a>3D Convolution</h2><p><img src="/images/CS5242/Summary/conv3D.png" alt="conv3D"></p>
+<h2 id="Average-amp-max-pooling"><a href="#Average-amp-max-pooling" class="headerlink" title="Average &amp; max pooling"></a>Average &amp; max pooling</h2><ul>
+<li>Aggregate the information from each receptive field.</li>
+<li>The output is invariant to some variations of the input. eg. rotation.</li>
+<li>Stride is usually &gt; 1 to reduce dimensionality </li>
+<li>Pooling is applied to each channel / feature map separately</li>
+</ul>
+<p><img src="/images/CS5242/Summary/pooling.png" alt="pooling"></p>
+<ul>
+<li>Information will be lost from pooling but local “useful” information remains.</li>
+<li>We don’t need to keep as many features as possible because we want to derive higher levels of abstraction. e.g. from simple edges to parts of objects</li>
+</ul>
+]]></content>
+      <categories>
+        <category>CS5242 Neural Network and Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lec-02 Bayesian Networks (Directed Graphical Models)</title>
+    <url>/2020/08/19/CS5340%20Lec02/</url>
+    <content><![CDATA[<h1 id="条件独立-conditional-independence"><a href="#条件独立-conditional-independence" class="headerlink" title="条件独立 conditional independence"></a>条件独立 conditional independence</h1><p>完全独立不足以对现实的随机变量建模，而完全相关会导致计算量过大。<br>随机变量 $X_A$ 和 $X_C$ 关于 $X_B$ 条件独立：$p(x_A,x_C|x_B)=p(x_A|x_B) p(x_C|x_B)$<br>等价于：$p(x_A|x_B,x_C)=p(x_A|x_B) \qquad \forall X_B:x_B&gt;0$<br>也可以写作：$X_A \perp X_C | X_B$<br><a id="more"></a></p>
+<p>例如：一个人的基因与父母之外的非后代的基因在给定其父母基因的条件下相互独立：</p>
+<script type="math/tex; mode=display">X_{child}\perp (X_{non-descendants}\backslash X_{parent}) | X_{parent}</script><p><strong>Markov假设：任意节点在局部仅仅依赖于它的直接父节点</strong></p>
+<h1 id="贝叶斯网络-Bayes-Network"><a href="#贝叶斯网络-Bayes-Network" class="headerlink" title="贝叶斯网络 Bayes Network"></a>贝叶斯网络 Bayes Network</h1><h2 id="定义-Definition"><a href="#定义-Definition" class="headerlink" title="定义 Definition"></a>定义 Definition</h2><p>使用有向无环图(DAG: directed acyclic graph)$\mathcal G(\mathcal V,\mathcal E)$来表示条件独立，其中 $\mathcal V$ 是顶点集合，$\mathcal E$ 是有向边集合。每个顶点代表一个随机变量，有向边代表随机变量之间的依赖关系。</p>
+<p>Ancestors：前序结点<br>Descendants：后续结点</p>
+<p>$X_{\pi_i}$是随机变量 $X_i$ 的parent<br>如果$X_i$入度为0，则parent为空集</p>
+<ul>
+<li>必须是无环图，即：图中必须存在拓扑排序(“There exists an ordering of the nodes such that there are no links that go from any node to any lower numbered node. “)</li>
+<li>For practical applications of probabilistic models, it will typically be the highernumbered variables corresponding to terminal nodes of the graph that represent the observations, with lower-numbered nodes corresponding to latent variables. </li>
+<li>The hidden variables in a probabilistic model need not, however, have any explicit physical interpretation but may be introduced simply to allow a more complex joint distribution to be constructed from simpler components. </li>
+</ul>
+<h2 id="Markov-Assumption"><a href="#Markov-Assumption" class="headerlink" title="Markov Assumption"></a>Markov Assumption</h2><script type="math/tex; mode=display">X_i\perp (X_{nonDesc(X_i)})\backslash X_{\pi_i})|X_{\pi_i}</script><p>这种parent-child模型代表了条件独立：$p(x_i|X_{\pi_i})$</p>
+<h2 id="联合概率-Joint-Probability"><a href="#联合概率-Joint-Probability" class="headerlink" title="联合概率 Joint Probability"></a>联合概率 Joint Probability</h2><p>“ The joint distribution deﬁned by a graph is given by the product, over all of the nodes of the graph, of a conditional distribution for each node conditioned on the variables corresponding to the parents of that node in the graph”<br>随机变量的联合概率可以从图中表示为所有局部条件独立的乘积：（假设$x_1,…x_N$是拓扑排序）</p>
+<script type="math/tex; mode=display">p(x_1,...x_N)=\prod_{i=1}^Np(x_i|x_{\pi_i})</script><p>This key equation expresses the factorization properties of the joint distribution for a directed graphical model.<br><img src="/images/Markov_Assumption.png" alt="Markov_Assumption"><br>要证明 $X_1$ 和 $X_3$ 在给定 $X_2$ 的情况下与 $X_4$ 独立，即证：$p(x_4|x_1,x_2,x_3)=p(x_4|x_2)$，可以分别求出 $p(x_1,x_2,x_3,x_4)$ 和 $p(x_1,x_2,x_3)$，两者相除得到 $p(x_4|x_1,x_2,x_3)$</p>
+<h2 id="Parameter-Reduction"><a href="#Parameter-Reduction" class="headerlink" title="Parameter Reduction"></a>Parameter Reduction</h2><p>$m_i$ 是点 $X_i$ 的直接parent结点的个数，$K$ 是每个点可取值的个数。<br>$X_i$ 的条件概率可以用 $K^{(m_i+1)}$ 个参数来表示。<br>参数个数从 $K^N$ 减少到了 $K^{(m_i+1)}$，其中 $m_i &lt;&lt; N$。<br><img src="/images/parameter_reduction.png" alt="history"></p>
+<h2 id="其它条件独立"><a href="#其它条件独立" class="headerlink" title="其它条件独立"></a>其它条件独立</h2><p>除了parent-child产生的条件独立，图中也有其它的条件独立。如：$X_1\perp X_6| \{X_2,X_3\}$<br>直观解释：图中 $X_2,X_3$ 这两个点阻隔了(block)所有从 $X_1$ 到 $X_6$ 的路径<br>这暗示了图的分隔可以导向相对独立的产生。</p>
+<h3 id="Three-Canonical-3-Node-Graphs"><a href="#Three-Canonical-3-Node-Graphs" class="headerlink" title="Three Canonical 3-Node Graphs"></a>Three Canonical 3-Node Graphs</h3><p>顶点 $C$ 被称作 “head-to-tail” w.r.t $A$ 到 $B$ 的路径，这个顶点隔开了 $A$ 和 $B$ 并且成为了他们相互独立的条件。即：<strong>给定当前状态的情况下过去状态和未来状态相互独立。</strong><br><img src="/images/3-Node-Graph-1.png" alt="history"></p>
+<p>顶点 $C$ 被称作 “tail-to-tail” w.r.t $A$ 到 $B$ 的路径，这个顶点隔开了 $A$ 和 $B$ 并且成为了他们相互独立的条件。即：<strong>$C$ 解释了 $A$ 和 $B$ 之间所有的关联性。</strong><br><img src="/images/3-Node-Graph-2.png" alt="3-Node-Graph"></p>
+<p>顶点 $C$ 被称作 “head-to-head” w.r.t $A$ 到 $B$ 的路径，也称作”V-structure”。当 $C$ 不存在时，$A$ 和 $B$ 之间路径被阻隔，$A$ 和 $B$ 相互独立。而将 $C$ 当作条件时，连通了这条路径，导致存在了关联性(explaining-away effect)。<br><img src="/images/3-Node-Graph-3.png" alt="3-Node-Graph"><br>$C$ 的每个子节点也都提供了这种连通性。<br><img src="/images/3-Node-Graph-4.png" alt="3-Node-Graph"><br>In summary, a tail-to-tail node or a head-to-tail node leaves a path unblocked unless it is observed in which case it blocks the path. By contrast, a head-to-head node blocks a path if it is unobserved, but once the node, and/or at least one of its descendants, is observed the path becomes unblocked. </p>
+<h3 id="Graph-Separation-directional-seperated"><a href="#Graph-Separation-directional-seperated" class="headerlink" title="Graph Separation (directional-seperated)"></a>Graph Separation (directional-seperated)</h3><p>如果所有从点集$A$到点集$B$的路径都在点集$C$被观察到时被阻隔了(blocked)，那么 $A\perp B|C$。<br><strong>$A$ is d-separated from $B$ by $C$.</strong><br> Any such path is said to be blocked if it includes a node such that either </p>
+<ul>
+<li>the arrows on the path meet either head-to-tail or tail-to-tail at the node, and the node is in the set C, or </li>
+<li>the arrows meet head-to-head at the node, and neither the node, nor any of its descendants, is in the set C.</li>
+</ul>
+<h3 id="Bayes-Ball-Algorithm"><a href="#Bayes-Ball-Algorithm" class="headerlink" title="Bayes Ball Algorithm"></a>Bayes Ball Algorithm</h3><p>是一个可达性算法，可以用BFS完成。<br>将点集$A$中的每个点上放置一个球，沿着路径进行滚动，如果被$C$阻隔则停住。<br>如果$A$中每个球都最终无法到达$B$中的点，则说明 $A\perp B|C$ ，否则$A$和$B$在给定$C$时不满足条件独立。</p>
+<h3 id="Markov-Blanket"><a href="#Markov-Blanket" class="headerlink" title="Markov Blanket"></a>Markov Blanket</h3><p>一个顶点 $X_i$ 仅依赖于自己的直接父节点(parent) $X_{\pi_i}$、直接子节点(child)和子节点的其它父节点(co-parent)。<br>$p(x_m|x_{\pi_m}:x_i\in x_{\pi_m})$ ：代表了顶点 $X_i$ 的直接子节点与它的直接父节点( $X_i$ 和它的co-parent)之间的依赖关系。<br><img src="/images/Markov_Blanket.png" alt="history"></p>
+]]></content>
       <categories>
         <category>CS5340 Uncertainty Modelling in AI</category>
       </categories>
       <tags>
         <tag>NUS note</tag>
+        <tag>ML</tag>
         <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lec-01 Probability Reasoning</title>
+    <url>/2020/08/12/CS5340%20Lec01/</url>
+    <content><![CDATA[<h1 id="概率空间-Probability-Space"><a href="#概率空间-Probability-Space" class="headerlink" title="概率空间 Probability Space"></a>概率空间 Probability Space</h1><p>概率空间 $(\Omega,E,P)$包含了三个部分，用来描述概率现象。<br>样本空间(Outcome/Sample Space) $\Omega$<br>事件空间(Event Space) E<br>概率分布(Probability Distribution) $P:E\to R$<br><a id="more"></a></p>
+<h2 id="样本空间-Outcome-Sample-Space"><a href="#样本空间-Outcome-Sample-Space" class="headerlink" title="样本空间 Outcome/Sample Space"></a>样本空间 Outcome/Sample Space</h2><p>对于一个随机现象，所有可能的输出的集合被称作样本空间，记作 $\Omega$。<br>可以通过Tree Diagram，List(样本空间小时直接枚举)，Table来找到一个概率现象的样本空间。<br>eg. 单次掷色子的样本空间为 $\Omega=\{1,2,3,4,5,6\}$</p>
+<h2 id="事件空间-Event-Space"><a href="#事件空间-Event-Space" class="headerlink" title="事件空间 Event Space"></a>事件空间 Event Space</h2><p>样本空间的任意一个子集被称作一个事件，事件本身是可以度量概率的。<br>事件e发生等价于实验的输出结果被包含在事件e中。<br>事件空间(Event Space) $E\subset 2^\Omega$ 是事件的集合，满足以下条件：</p>
+<ol>
+<li>必须包含空事件 $\emptyset$ 和整个样本空间本身(trivial event) $\Omega$ ;</li>
+<li>对可数的并操作封闭 $if:\alpha_i\in E,i=1,2…,then:\cup_{i=1}^{\infty}\alpha_i\in E$ ;</li>
+<li>对补操作封闭 $if:\alpha\in E,then:\Omega -\alpha\in E$ .</li>
+</ol>
+<h2 id="概率分布-Probability-Distribution"><a href="#概率分布-Probability-Distribution" class="headerlink" title="概率分布 Probability Distribution"></a>概率分布 Probability Distribution</h2><p>概率分布P是事件到真实值的一个映射 $(P:E\to\mathbb{R})$ ，满足以下条件(axioms of probability)：</p>
+<ol>
+<li>非负性：$P(\alpha)&gt;=0,\forall\alpha\in E$ ;</li>
+<li>所有可能的结果的概率总和为1：$P(\Omega)=1$ ;</li>
+<li>对于互不相交的集合 $\alpha,\beta \in E$ 且 $\alpha\cap\beta=\emptyset$，满足 $P(\alpha\cup\beta)=P(\alpha)+P(\beta)$ .</li>
+</ol>
+<h3 id="随机变量-Random-Variables"><a href="#随机变量-Random-Variables" class="headerlink" title="随机变量 Random Variables"></a>随机变量 Random Variables</h3><p>随机变量是概率空间的一个可测量函数(measurable function) $X:\Omega\to S$ ，即：将实验结果映射到一个可测量空间(measurable space) $S$ ，$S\in \mathbb{R}$ ，$S$ 可写作 $Val(X)$ ，含义是随机变量 $X$ 的可取值范围。使用 $x_i$ 代表 $X$ 的一个特定取值。<br>$P(x)$ 是 $P(X=x)$ 的简写，其中 $x$ : realization/generic value of a random variable $X$ .<br>随机变量的取值空间 $Val(X)$ 可以是连续的(continuous)，也可以是离散的(discrete)。</p>
+<h3 id="离散型概率分布"><a href="#离散型概率分布" class="headerlink" title="离散型概率分布"></a>离散型概率分布</h3><p>Probability mass function(PMF)    $P(x)$：<br>精确的给出每个离散随机变量对应的概率值</p>
+<script type="math/tex; mode=display">\displaystyle \sum_{i=1}^k P(X=x_i)=1\\
+0\leq P(X=x_i)\leq 1</script><h3 id="连续型概率分布"><a href="#连续型概率分布" class="headerlink" title="连续型概率分布"></a>连续型概率分布</h3><p>Probability Density Function(PDF)    $p(x)$：<br>描述这个随机变量的输出值，在某个确定的取值点附近的可能性</p>
+<script type="math/tex; mode=display">\int _{Val(x)}p(x)\,dx=1\\
+0\leq P(a\leq X\leq b)=\int _{a}^{b}p(x)\,dx\leq 1</script><p>连续随机变量采用任何特定值的绝对可能性为0： $P(X=x_i)=\int _{x_i}^{x_i}p(x)\,dx=0$</p>
+<h1 id="Probabilistic-Reasoning"><a href="#Probabilistic-Reasoning" class="headerlink" title="Probabilistic Reasoning"></a>Probabilistic Reasoning</h1><h2 id="联合概率-Joint-Probability"><a href="#联合概率-Joint-Probability" class="headerlink" title="联合概率 Joint Probability"></a>联合概率 Joint Probability</h2><p>事件A、B同时发生的概率。这两个事件的概率分布可以全是连续性，可以全是离散型，也可以一个连续一个离散。<br>eg. 双离散的情况：</p>
+<script type="math/tex; mode=display">\sum _{x\in Val(X)}\sum _{y\in Val(Y)}p(x,y)=1</script><h2 id="边缘分布-Marginalization"><a href="#边缘分布-Marginalization" class="headerlink" title="边缘分布 Marginalization"></a>边缘分布 Marginalization</h2><p>边缘概率分布是指仅考虑一个变量的分布而不考虑所有其它变量的分布。<br>假设已经得到了关于随机变量 $X$ 和 $Y$ 的联合分布函数 $p(x,y)$，可以通过<strong>“sum rule”</strong>将 $Y$ 的所有概率累加从而将 $Y$ 边缘化，进而得到 $X$ 的边缘分布。<br>双离散型：</p>
+<script type="math/tex; mode=display">
+{\displaystyle p_{X}(x_{i})=\sum _{j}p(x_{i},y_{j})}\\
+{\displaystyle p_{Y}(y_{j})=\sum _{i}p(x_{i},y_{j})}</script><p>双连续型：</p>
+<script type="math/tex; mode=display">
+{\displaystyle p_{X}(x)=\int p(x,y)\,dy}\\
+{\displaystyle p_{Y}(y)=\int p(x,y)\,dx}</script><p>对高维同样适用：(随机变量 $W$ 是离散的，$Z$ 是连续的，已知 $W,X,Y,Z$ 的联合分布)：</p>
+<script type="math/tex; mode=display">{\displaystyle p(x,y)=\sum _m\int p(w,x,y,z)\,dz}</script><h2 id="条件概率-Conditional-Probability"><a href="#条件概率-Conditional-Probability" class="headerlink" title="条件概率 Conditional Probability"></a>条件概率 Conditional Probability</h2><p>$p(X|Y=y^*)$ ：给定 $Y=y^*$ 时 $X$ 的概率分布，也称作概率的<strong>“chain rule”或”product rule”</strong>，其中 $X$ 是隐随机变量， $Y$ 是观察值(observation/evidence).</p>
+<script type="math/tex; mode=display">
+P(x|Y=y^{*})=\frac{p(x,Y=y^*)}{\int p(x,Y=y^*)\,dx}=\frac{p(x,Y=y^*)}{p(Y=y^*)}</script><p>可以简写为：</p>
+<script type="math/tex; mode=display">
+p(x|y)=\frac{p(x,y)}{p(y)}\\\\
+p(x,y)=p(x|y)p(y)=p(y|x)p(x)</script><h2 id="贝叶斯法则-Bayes’-Rule"><a href="#贝叶斯法则-Bayes’-Rule" class="headerlink" title="贝叶斯法则 Bayes’ Rule"></a>贝叶斯法则 Bayes’ Rule</h2><script type="math/tex; mode=display">
+p(y|x)=\frac{p(x|y)p(y)}{p(x)}=\frac{p(x|y)p(y)}{\int p(x,y)\,dy}=\frac{p(x|y)p(y)}{\int p(x|y)p(y)\,dy}</script><p>$p(x|y)$ 是似然函数(likelihood function)，代表给定 $Y$ 时观察到特定 $X$ 值的倾向性(propensity)<br>$p(y)$ 是先验(Prior)概率，代表在观测到 $X$ 之前掌握的 $Y$ 的信息<br>$p(y|x)$ 是后验(posterior)概率，代表在观测到 $X$ 之后掌握的 $Y$ 的信息<br>$p(x)$ 是观测到的信息(evidence)，是常数，用来将分子正则化以保证左侧是一个有效的概率分布</p>
+<h2 id="独立性-independence"><a href="#独立性-independence" class="headerlink" title="独立性 independence"></a>独立性 independence</h2><p>随机变量 $X$ 和 $Y$ 独立意味着每个条件分布都相同：</p>
+<script type="math/tex; mode=display">
+p(x|y)=p(x)\\\\
+p(y|x)=p(y)</script><p>此时 $X$ 和 $Y$ 的联合概率等于边缘概率的乘积：</p>
+<script type="math/tex; mode=display">p(x,y)=p(x|y)p(y)=p(x)p(y)</script><h2 id="期望-Expectation"><a href="#期望-Expectation" class="headerlink" title="期望 Expectation"></a>期望 Expectation</h2><p>函数 $f(x)$ 根据 $X$ 的分布取得的平均值被称作期望：</p>
+<script type="math/tex; mode=display">E[f(x)]=\sum_x f(x)p(x)\\E[f(x)]=\int f(x)p(x)\,dx</script><p>Rules of Expectation:</p>
+<ol>
+<li>常数的期望还是常数：<script type="math/tex; mode=display">E[k]=k</script></li>
+<li>常数倍的函数的期望等于函数的期望的常数倍：<script type="math/tex; mode=display">E[kf(x)]=kE[f(x)]</script></li>
+<li>函数和的期望等于函数期望的和：<script type="math/tex; mode=display">E[f(x)+g(x)]=E[f(x)]+E[g(x)]</script></li>
+<li>相互独立的随机变量的函数乘积的期望等于函数期望的乘积：<script type="math/tex; mode=display">E[f(x)g(y)]=E[f(x)]E[g(y)]</script>if $X$, $Y$ are independent.</li>
+</ol>
+<h1 id="常见的分布"><a href="#常见的分布" class="headerlink" title="常见的分布"></a>常见的分布</h1><h2 id="伯努利分布-Bernoulli-Distribution"><a href="#伯努利分布-Bernoulli-Distribution" class="headerlink" title="伯努利分布 Bernoulli Distribution"></a>伯努利分布 Bernoulli Distribution</h2><p>随机变量 $X$ 是一个二元随机变量，$x\in\{0,1\}$</p>
+<script type="math/tex; mode=display">{\displaystyle p(X=0|\lambda)=1-\lambda\\p(X=1|\lambda)=\lambda}</script><p>Or</p>
+<script type="math/tex; mode=display">{\displaystyle p(x)=\lambda^x(1-\lambda)^{1-x}\\p(x)=Bern_x[\lambda]}</script><h2 id="Categorical-Distribution"><a href="#Categorical-Distribution" class="headerlink" title="Categorical Distribution"></a>Categorical Distribution</h2><p>随机变量 $X$ 是一个非连续型随机变量，有1-k个彼此互斥的取值。<br>随机变量 $X$ 的取值 $x$ 被表示为一个 $K$ 维向量 $e_k$ 其中 $x_k=1$ 且 $\sum_{k=1}^Kx_k=1$<br>$K$ 维参数 $\lambda=[\lambda_1,…,\lambda_K]^T$，其中 $\lambda&gt;= 0$，$\sum_k\lambda_k=1$</p>
+<script type="math/tex; mode=display">p(X=e_k|\lambda)=\lambda_k</script><p>Or</p>
+<script type="math/tex; mode=display">{\displaystyle p(x)=\prod_{k=1}^K\lambda_k^{x_k}=\lambda_k\\p(x)=Cat_x[\lambda]}</script><h2 id="单元高斯分布-Univariate-Normal-Distribution"><a href="#单元高斯分布-Univariate-Normal-Distribution" class="headerlink" title="单元高斯分布 Univariate Normal Distribution"></a>单元高斯分布 Univariate Normal Distribution</h2><p>随机变量 $X\in \mathbb{R}$ , $\mu\in\mathbb{R}$ (mean) , $\sigma^2&gt;0$ (variance)</p>
+<script type="math/tex; mode=display">{\displaystyle p(x)={\frac {1}{\sqrt {2\pi\sigma^2}}}exp{-{\frac {(x-\mu)^2}{2\sigma^2}}}\\p(x)=Norm_x[\mu,\sigma^2]}</script><h2 id="多元高斯分布-Multivariate-Normal-Distribution"><a href="#多元高斯分布-Multivariate-Normal-Distribution" class="headerlink" title="多元高斯分布 Multivariate Normal Distribution"></a>多元高斯分布 Multivariate Normal Distribution</h2><p>随机变量 $X$ 是一个 $k$ 维向量：$\mathbf{x}\in\mathbb{R}^k$ , $\mathbf{x}=x_{1},\ldots ,x_{k}$<br>均值mean: $\boldsymbol{\mu}\in\mathbb{R}^k$<br>协方差矩阵covariance matrix: $\boldsymbol{\Sigma}\in\mathbb{R}_{+}^{k\times k}$</p>
+<script type="math/tex; mode=display">
+{\displaystyle p(\mathbf{x})={\frac {\exp \{-{\frac {1}{2}}({\mathbf {x} }-{\boldsymbol {\mu }})^{\mathrm {T} }{\boldsymbol {\Sigma }}^{-1}({\mathbf {x} }-{\boldsymbol {\mu }})\}}{\sqrt {(2\pi )^{k}|{\boldsymbol {\Sigma }}|}}}\\
+p(\mathbf{x})=Norm_{\mathbf{x}}[\boldsymbol {\mu },\boldsymbol {\Sigma }]}</script><h1 id="共轭分布-Conjugate-Distribution"><a href="#共轭分布-Conjugate-Distribution" class="headerlink" title="共轭分布 Conjugate Distribution"></a>共轭分布 Conjugate Distribution</h1><blockquote>
+<p>if the posterior distributions $p(\theta|x)$ are in the same probability distribution family as the prior probability distribution $p(\theta)$, the prior and posterior are then called conjugate distributions, and the prior is called a conjugate prior for the likelihood function $p(x | \theta)$.   —- wikipedia</p>
+</blockquote>
+<p>即：在贝叶斯公式(后验=似然*先验/常数)中，如果后验和先验是同族函数，即 $p_{post}=k\times p_{prior}$ ，则这个先验分布是似然函数的共轭分布，每个似然函数 $p(x | \theta)$ 都有唯一共轭分布与之对应。</p>
+<p><img src="/images/conjugate_distribution.png" alt="history"></p>
+<h2 id="用法一：学习一个概率分布的参数-theta"><a href="#用法一：学习一个概率分布的参数-theta" class="headerlink" title="用法一：学习一个概率分布的参数 $\theta$"></a>用法一：学习一个概率分布的参数 $\theta$</h2><ol>
+<li>找到与似然函数(likelihood)对应的共轭先验分布</li>
+<li>后验 $p(\theta|x)$ 必须与共轭先验分布有相同形式</li>
+<li>说明 $p(x)$ (evidence)必须是一个常数</li>
+</ol>
+<h2 id="用法二：边缘化参数"><a href="#用法二：边缘化参数" class="headerlink" title="用法二：边缘化参数"></a>用法二：边缘化参数</h2><script type="math/tex; mode=display">p(x^*|\boldsymbol{x})=\int p(x^*|\theta)p(\theta|\boldsymbol{x})\,d\theta</script><ol>
+<li>选择另一项 $p(x^*|\theta)$ 的共轭 $p(\theta|\boldsymbol{x})$</li>
+<li>乘积简化成了一个分布与常数的乘积</li>
+</ol>
+<ul>
+<li>i.e. : that is</li>
+<li>a.k.a : Also Known As</li>
+</ul>
+]]></content>
+      <categories>
+        <category>CS5340 Uncertainty Modelling in AI</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PPT for &quot;The Case For Learned Index Structures&quot;</title>
+    <url>/2020/09/11/CS6203%20PPT_01/</url>
+    <content><![CDATA[<p>原文： <a href="https://www.arxiv-vanity.com/papers/1712.01208/">https://www.arxiv-vanity.com/papers/1712.01208/</a><br><a id="more"></a></p>
+<object data="/pdf/nus/CS6203/Learned_Index.pdf" type="application/pdf" width="100%" height="877px"></object>]]></content>
+      <categories>
+        <category>CS6203 Advanced Database System</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>DB</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lec-03 Markov Random Fields (Undirected Graphical Models)</title>
+    <url>/2020/08/26/CS5340%20Lec03/</url>
+    <content><![CDATA[<h1 id="为什么需要无向图模型"><a href="#为什么需要无向图模型" class="headerlink" title="为什么需要无向图模型"></a>为什么需要无向图模型</h1><p>使用无向图模型(UGM: Undirected Graphical Models) $\mathcal G(\mathcal V,\mathcal E)$来表示<strong>Markov Random Field(Markov network)</strong>。<br>$\mathcal V$ : 顶点集合，每个顶点与一个随机变量 $X_i$ 一一对应。<br>$\mathcal E$ : 无向边集合。<br>边没有方向性，这对于一些图像处理或空间分析问题更加自然。<br>For MRF, conditional independence is determined by simple graph separation, not the defination of “blocked”.<br><a id="more"></a></p>
+<h1 id="Conditional-independence-properties"><a href="#Conditional-independence-properties" class="headerlink" title="Conditional independence properties"></a>Conditional independence properties</h1><h2 id="Global-Markov-Property"><a href="#Global-Markov-Property" class="headerlink" title="Global Markov Property"></a>Global Markov Property</h2><p>对于点集A、B、C：$X_A\perp X_B|X_C$ 当且仅当：在图 $\mathcal G$ 中 集合C的点将A和B中的点隔离开，即：当移除所有C中点后，不存在A中点到B中点的路径。<br><img src="/images/CS5340/3/global-markov-eg.png" alt="global-markov"></p>
+<h2 id="Local-Markov-Property"><a href="#Local-Markov-Property" class="headerlink" title="Local Markov Property"></a>Local Markov Property</h2><p><img src="/images/CS5340/3/local-markov-eg.png" alt="local-markov"></p>
+<h2 id="Pairwise-Markov-Property"><a href="#Pairwise-Markov-Property" class="headerlink" title="Pairwise Markov Property"></a>Pairwise Markov Property</h2><p><img src="/images/CS5340/3/pairwise-markov-eg.png" alt="pairwise-markov"></p>
+<h2 id="彼此等价"><a href="#彼此等价" class="headerlink" title="彼此等价"></a>彼此等价</h2><p>Global Markov implies local Markov which implies pairwise Markov.<br>Assuming p(x) &gt; 0 for all x, pairwise Markov implies global Markov. </p>
+<h3 id="Independence-Map"><a href="#Independence-Map" class="headerlink" title="Independence-Map"></a>Independence-Map</h3><p> The I-Map of a joint distribution $p(𝑥1,…,𝑥𝑁)$, often written as $𝐼(𝑝)$ represents all independencies in $p(𝑥1,…,𝑥𝑁)$.<br> Similarly, the I-Map of a directed/undirected graph $𝒢$, i.e. $\mathcal I(\mathcal G)$ represents all independencies encoded in $𝒢\mathcal G$.</p>
+<h3 id="Intersection-Lemma"><a href="#Intersection-Lemma" class="headerlink" title="Intersection Lemma"></a>Intersection Lemma</h3><p><img src="/images/CS5340/3/Intersection.png" alt="Intersection"><br><img src="/images/CS5340/3/p-g.png" alt="pairwise-global"></p>
+<h1 id="Comparative-Semantics"><a href="#Comparative-Semantics" class="headerlink" title="Comparative Semantics"></a>Comparative Semantics</h1><p>Convert the DGM to a UGM by dropping the orientation of the edges is not always correct!</p>
+<h1 id="Parameterization-of-MRFs"><a href="#Parameterization-of-MRFs" class="headerlink" title="Parameterization of MRFs"></a>Parameterization of MRFs</h1><p>For DGMs, we only need to focus on the local conditional probabilities of a node and its parents ( $p(x_i|x_{\pi_i})$ ), and the joint probability is <strong>a product of local conditional probabiities</strong> as a result of the chain rule:</p>
+<script type="math/tex; mode=display">p(x_1,...,x_N)=\prod_{i=1}^Np(x_i|x_{\pi_i})</script><p>Local parameterization is difficult for UGMs as there is no topological ordering associated with UGMs.</p>
+<p>So we use functions to represent the local parameterization instead of the conditional distribution.</p>
+<p>Recall two nodes $X_i$ and $X_j$ that are not linked directly, they are conditionally independent given all the other nodes. So we can place $X_i$ and $X_j$ in defferent dactors when obtaining a factorization of the joint probability.<br>This implies that we cannot have a local function that depends on both $X_i$ and $X_j$ in the parameterization.</p>
+<h2 id="Maximal-Clique"><a href="#Maximal-Clique" class="headerlink" title="Maximal Clique"></a>Maximal Clique</h2><p>If two nodes are linked, they must appeal in the same factor. So, all the nodes $X_C$ that belong to a maximal clique $C$ in the UGM appear together in a local function $\psi(x_C)$ . Conditional independence is impossible for any two nodes in maximal clique!</p>
+<p>Hammersley-Clifford theorem:</p>
+<script type="math/tex; mode=display">p(y|\theta)=\frac{1}{Z(\theta)}\prod_{c\in \mathcal C}\psi_c(y_c|\theta_c)</script><p>$\mathcal C$ : the set of all the maximal cliques of $\mathcal G$<br>$\psi_c(.)$: the factor or potential function of clique c<br>$\theta$; the parameter of the factor $\psi_c(.)$ for $c\in\mathcal C$<br>$\psi_c(c|\theta_c)$ is not a conditional distribution but just an arbitrary chosen positive function:</p>
+<script type="math/tex; mode=display">Z(\theta)=\sum_y\prod_{c\in\mathcal C}\psi_c(y_c|\theta_c)</script><p>$Z(\theta)$: partition funtion, to ensure the overall distribution sums to 1</p>
+<p><strong>Parameterization of MRFs is not unique.</strong></p>
+<h2 id="Canonical-Parameterization"><a href="#Canonical-Parameterization" class="headerlink" title="Canonical Parameterization"></a>Canonical Parameterization</h2><p>Each node is viewed as a clique. In canonical parameterization we include all the possible cliques.<br><img src="/images/CS5340/3/Canonical.png" alt="Canonical"></p>
+<h2 id="Gibbs-Distribution"><a href="#Gibbs-Distribution" class="headerlink" title="Gibbs Distribution"></a>Gibbs Distribution</h2><script type="math/tex; mode=display">p(y|\theta)=\frac{1}{Z(\theta)}exp(-\sum_cE(y_c|\theta_c))</script><p>$E(y_c)&gt;0$: energy associated with the variables in clique c as the potential function, using in particals’ random moving in air or liquid.<br>Convert Gibbs distibution to a UGM: (Energy based models)</p>
+<script type="math/tex; mode=display">\psi_c(y_c|\theta_c)=exp(-E(y_c|\theta_c))</script><p>High probability states correspond to low energy configurations.</p>
+<h2 id="Log-linear-potential-Functions"><a href="#Log-linear-potential-Functions" class="headerlink" title="Log-linear potential Functions"></a>Log-linear potential Functions</h2><p>Define the log potentials as a linear function of the parameters $\theta_c\in\mathbb{R}^M$:</p>
+<script type="math/tex; mode=display">log\psi_c(y_c)=\phi_c(y_c)^T\theta_c</script><p>$\phi_c$: feature vector derived from values of variables $y_c$</p>
+<script type="math/tex; mode=display">logp(y|\theta)=\sum_c\phi_c(y_c)^T\theta_c-logZ(\theta)</script><p>also known as a maximum entropy or a log-linear model.<br>If $M=|C|=3$, we only need 3 parameter $\theta_c=[\theta_{c1},\theta_{c2},\theta_{c3}]$ instead of $2^3$ parameters.</p>
+<h1 id="Combine-UGM-and-DGM"><a href="#Combine-UGM-and-DGM" class="headerlink" title="Combine UGM and DGM"></a>Combine UGM and DGM</h1><p>A DGM can be converted into a UGM by joining all the links among parents for a head-to-head node, i.e. <strong>moralization</strong><br>This process preserves the joint distribution but conditional independence is lost.</p>
+<h1 id="Discriminative-vs-Generative-Models"><a href="#Discriminative-vs-Generative-Models" class="headerlink" title="Discriminative vs Generative Models"></a>Discriminative vs Generative Models</h1><p>Discriminative models: model the posterior directly $p(\mathcal C_k|x)$<br>eg. logistic regression model</p>
+<p>Generative models: sampling from the distribution is possible to generate synthetic data points in the input space.<br>Likelihood: $p(x|\mathcal C_kx)$</p>
+<h1 id="Conditional-Random-Field-CRF"><a href="#Conditional-Random-Field-CRF" class="headerlink" title="Conditional Random Field(CRF)"></a>Conditional Random Field(CRF)</h1><p>A CRF or discriminative random field is a version of an MRF where all clique potentials are conditioned on input x:</p>
+<script type="math/tex; mode=display">p(y|x,w)=\frac{1}{Z(x,w)}\prod_c\psi_c(y_c|x,w)</script><p>log-linear representation:</p>
+<script type="math/tex; mode=display">\psi_c(y_c|x,w)=exp(w_c^T\phi(x,y_c))</script><p>CRF make use of input data and the predictions can be data-dependent, but require labeled training data and learning is slower.</p>
+]]></content>
+      <categories>
+        <category>CS5340 Uncertainty Modelling in AI</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lec-06 ConvNet Architecture 1</title>
+    <url>/2020/09/15/CS5242%20Lec06/</url>
+    <content><![CDATA[<h1 id="Historical-Notes"><a href="#Historical-Notes" class="headerlink" title="Historical Notes"></a>Historical Notes</h1><h2 id="Fukushima’s-Neocognitron"><a href="#Fukushima’s-Neocognitron" class="headerlink" title="Fukushima’s Neocognitron"></a>Fukushima’s Neocognitron</h2><ul>
+<li>Hierarchical feature extraction</li>
+<li>Local connectivity field</li>
+<li>Hand crafted weight (before BP was developed)<a id="more"></a>
+</li>
+</ul>
+<p><img src="/images/CS5242/6/Fukushima.png" alt="Fukushima"></p>
+<h2 id="LeNet"><a href="#LeNet" class="headerlink" title="LeNet"></a>LeNet</h2><ul>
+<li>Convolution</li>
+<li>Subsampling = pooling</li>
+</ul>
+<p><img src="/images/CS5242/6/LeNet.png" alt="LeNet"></p>
+<h1 id="Modern-CNNs"><a href="#Modern-CNNs" class="headerlink" title="Modern CNNs"></a>Modern CNNs</h1><h2 id="General-Architecture-and-Design-Guide"><a href="#General-Architecture-and-Design-Guide" class="headerlink" title="General Architecture and Design Guide"></a>General Architecture and Design Guide</h2><p>ConvBlock(module): convolution, activation, batch normalization, pooling<br>Classification: Linear + Activation + Softmax<br>Regression: Linear<br>Accuracy: large representation capacity $\to$ overfitting</p>
+<h2 id="AlexNet-2012"><a href="#AlexNet-2012" class="headerlink" title="AlexNet 2012"></a>AlexNet 2012</h2><p>GPUs instead of CPUs<br>Emsemble modelling<br>ReLU: reduce the chance of gradient vanishing<br>Dropout: avoid overfitting<br>Image Augmentation<br><img src="/images/CS5242/6/AlexNet.png" alt="AlexNet"></p>
+<h3 id="Dropout"><a href="#Dropout" class="headerlink" title="Dropout"></a>Dropout</h3><ul>
+<li><p>Training<br>Randomly set some neurons to 0 with probability p<br>Different layers may have different dropout rate</p>
+</li>
+<li><p>Inference<br><strong>Do Nothing !</strong> Stay deterministic during prediction</p>
+</li>
+</ul>
+<p><img src="/images/CS5242/6/Dropout.png" alt="Dropout"></p>
+<h3 id="Image-Augmentation"><a href="#Image-Augmentation" class="headerlink" title="Image Augmentation"></a>Image Augmentation</h3><p>Increase the training data to cover more types of (test) data.<br><img src="/images/CS5242/6/image_augment.png" alt="image_augment"></p>
+<ul>
+<li><p>Training<br>Random augmentation operations</p>
+</li>
+<li><p>Test<br><strong>No random operations</strong>, otherwise model may generate different predictions for the same input run twice.<br>Make predictions by <strong>aggregating the results from all augmented images</strong>.</p>
+</li>
+</ul>
+<h2 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h2><p><strong>Unified kernel size</strong><br>Deeper structure(16, 19 convolution layers)<br>More parameters(138M).<br>More non-linear tranformation; Larger capacity.<br>Consecutive convolution.<br><img src="/images/CS5242/6/VGG.png" alt="VGG"></p>
+<h2 id="Inception-V1"><a href="#Inception-V1" class="headerlink" title="Inception V1"></a>Inception V1</h2><p><strong>Inception Block</strong> : $1\times 1$ convolution (reduce channel number); ensemble multiple paths with different kernel sizes.<br>Achieve fusion of feature maps in a single level using concatenation of output from kernels with various size.<br><img src="/images/CS5242/6/InceptionNet.png" alt="InceptionNet"><br><img src="/images/CS5242/6/concat.png" alt="concat"></p>
+]]></content>
+      <categories>
+        <category>CS5242 Neural Network and Machine Learning</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
         <tag>ML</tag>
       </tags>
   </entry>
   <entry>
-    <title>比较排序 - 1：选择 插入 冒泡 鸡尾酒 希尔</title>
-    <url>/2020/08/02/Comparison%20Sorts-1/</url>
-    <content><![CDATA[<h1 id="Comparison-sort"><a href="#Comparison-sort" class="headerlink" title="Comparison sort"></a>Comparison sort</h1><blockquote>
-<p>“A comparison sort is a type of sorting algorithm that only reads the list elements through a single abstract comparison operation (often a “less than or equal to” operator or a three-way comparison) that determines which of two elements should occur first in the final sorted list. The only requirement is that the operator forms a total preorder over the data, with:<br>    if a ≤ b and b ≤ c then a ≤ c (transitivity)<br>    for all a and b, a ≤ b or b ≤ a (connexity).”<br>    From Wikipedia</p>
-</blockquote>
-<p><strong>完整排序算法代码：<a href="https://github.com/huangliu0909/Sort-Algorithms">https://github.com/huangliu0909/Sort-Algorithms</a></strong><br><a id="more"></a><br>比较排序的核心方法是进行两个数字的比较并进行位置的交换(swap)。</p>
-<h1 id="冒泡排序-Bubble-sort"><a href="#冒泡排序-Bubble-sort" class="headerlink" title="冒泡排序 Bubble sort"></a>冒泡排序 Bubble sort</h1><p>对每个元素逐个与后面的元素进行比较，如果顺序不正确则交换。类似于水中冒泡，较大的数沉下去，较小的数慢慢冒起来。i = 0时会把最大的数移动到数组的最后一位，i = k时会把第k+1大的数放在length-k-1处。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubble_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length - <span class="number">1</span>; i++) </span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; array.length - i - <span class="number">1</span>; j++) </span><br><span class="line">               <span class="keyword">if</span> (array[j] &gt; array[j+<span class="number">1</span>]) swap(array, j, j + <span class="number">1</span>);</span><br><span class="line">               </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="选择排序-Selection-sort"><a href="#选择排序-Selection-sort" class="headerlink" title="选择排序 Selection sort"></a>选择排序 Selection sort</h1><p>重复寻找剩余数组的最小值，与当前位置的值进行交换。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selection_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i ++) &#123;</span><br><span class="line">		<span class="keyword">int</span> min = array[i];</span><br><span class="line">		<span class="keyword">int</span> index = i;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; array.length; j ++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(array[j] &lt; min) &#123;</span><br><span class="line">				min = array[j];</span><br><span class="line">				index = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(i != index) swap(array, i, index);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="插入排序-Insertion-sort"><a href="#插入排序-Insertion-sort" class="headerlink" title="插入排序 Insertion sort"></a>插入排序 Insertion sort</h1><p>遍历数组，将第i个数插入到前i-1个数的合适位置上。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertion_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; i ++) &#123;</span><br><span class="line">		<span class="keyword">int</span> index = array[i]; </span><br><span class="line">           <span class="keyword">int</span> j = i - <span class="number">1</span>; </span><br><span class="line">           <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; array[j] &gt; index) &#123; </span><br><span class="line">           	array[j + <span class="number">1</span>] = array[j]; </span><br><span class="line">               j = j - <span class="number">1</span>; </span><br><span class="line">           &#125; </span><br><span class="line">           array[j + <span class="number">1</span>] = index; </span><br><span class="line">	&#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="鸡尾酒排序-Cocktail-shaker-sort"><a href="#鸡尾酒排序-Cocktail-shaker-sort" class="headerlink" title="鸡尾酒排序 Cocktail shaker sort"></a>鸡尾酒排序 Cocktail shaker sort</h1><p>冒泡排序的变种。冒泡排序将最大的逐个放到最后，鸡尾酒排序是双向的冒泡。<br>第i轮时遍历范围索引是i到length-i-1，正向遍历一次，判断有无swap，无则返回，否则再进行一次逆向遍历，判断有无swap，循环直至没有swap。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">cocktail_shaker_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">boolean</span> swapped = <span class="keyword">true</span>; </span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(swapped == <span class="keyword">true</span>) &#123;</span><br><span class="line">		swapped = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; array.length - i - <span class="number">1</span>; j++) </span><br><span class="line">               <span class="keyword">if</span> (array[j] &gt; array[j+<span class="number">1</span>]) &#123;</span><br><span class="line">               	 swap(array, j, j + <span class="number">1</span>);</span><br><span class="line">               	 swapped = <span class="keyword">true</span>;</span><br><span class="line">               &#125;</span><br><span class="line">		<span class="keyword">if</span>(swapped == <span class="keyword">false</span>) <span class="keyword">return</span>;</span><br><span class="line">		swapped = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = array.length - i - <span class="number">2</span>; j &gt;= i; j --) &#123;</span><br><span class="line">			<span class="keyword">if</span> (array[j] &gt; array[j+<span class="number">1</span>]) &#123;</span><br><span class="line">              	 swap(array, j, j + <span class="number">1</span>);</span><br><span class="line">              	 swapped = <span class="keyword">true</span>;</span><br><span class="line">              &#125;</span><br><span class="line">		&#125;</span><br><span class="line">		i ++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="希尔排序-Shellsort"><a href="#希尔排序-Shellsort" class="headerlink" title="希尔排序 Shellsort"></a>希尔排序 Shellsort</h1><p>插入排序的变种，首先对比间隔(gap)较远的元素而不是相邻(gap=1)元素，逐轮reduce到gap=1，这样可以有效减少最坏情况下元素的交换操作的数量。常见的gap选择为：gap=length/2，reduce过程gap=gap/2。最外层循环0~gap-1，对这其中的每个数不断+gap得到的间隔较远的元素进行插入排序。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shell_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> gap = array.length/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">while</span>(gap != <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; gap; i ++) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j = i + gap; j &lt; array.length; j += gap) &#123;</span><br><span class="line">					<span class="keyword">int</span> index = array[j]; </span><br><span class="line">		            <span class="keyword">int</span> k = j - gap; </span><br><span class="line">		            <span class="keyword">while</span> (k &gt;= i &amp;&amp; array[k] &gt; index) &#123; </span><br><span class="line">		            	array[k + gap] = array[k]; </span><br><span class="line">		                k = k - gap; </span><br><span class="line">		            &#125; </span><br><span class="line">		            array[k + gap] = index; </span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			gap /= <span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>完整排序算法代码：<a href="https://github.com/huangliu0909/Sort-Algorithms">https://github.com/huangliu0909/Sort-Algorithms</a></p>
-]]></content>
+    <title>Lec-04 Variable Elimination and Belief Propagation</title>
+    <url>/2020/09/02/CS5340%20Lec04/</url>
+    <content><![CDATA[<h1 id="Variable-Elimination-Algorithm"><a href="#Variable-Elimination-Algorithm" class="headerlink" title="Variable Elimination Algorithm"></a>Variable Elimination Algorithm</h1><h1 id="Constituted-Graph"><a href="#Constituted-Graph" class="headerlink" title="Constituted Graph"></a>Constituted Graph</h1><h1 id="Sum-Product-Algorithm"><a href="#Sum-Product-Algorithm" class="headerlink" title="Sum-Product Algorithm"></a>Sum-Product Algorithm</h1>]]></content>
       <categories>
-        <category>学习笔记：算法</category>
+        <category>CS5340 Uncertainty Modelling in AI</category>
       </categories>
       <tags>
-        <tag>Algorithm</tag>
-        <tag>Sort</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Lec-05 Factor Graph and the Junction Tree Algorithm</title>
+    <url>/2020/09/09/CS5340%20Lec05/</url>
+    <content><![CDATA[<h1 id="Factor-Graph"><a href="#Factor-Graph" class="headerlink" title="Factor Graph"></a>Factor Graph</h1><h2 id="VS-DGM-amp-UGM"><a href="#VS-DGM-amp-UGM" class="headerlink" title="VS DGM &amp; UGM"></a>VS DGM &amp; UGM</h2><p>DGM and UGM: allow a global function of several variables to be expressed as <strong>a product of factors</strong> over subsets of those variables, designed for conditional independence or potentials.<br>Factor graphs: make this decomposition explicit by <strong>introducing additional nodes</strong> for the factors in addition to the nodes representing the variables, designed for more explicit details of the factorization.<br><a id="more"></a></p>
+<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p><img src="/images/CS5340/5/FG.png" alt="FG"></p>
+<h1 id="Max-product-Algorithm"><a href="#Max-product-Algorithm" class="headerlink" title="Max-product Algorithm"></a>Max-product Algorithm</h1><h1 id="Junction-Tree"><a href="#Junction-Tree" class="headerlink" title="Junction Tree"></a>Junction Tree</h1>]]></content>
+      <categories>
+        <category>CS5340 Uncertainty Modelling in AI</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Note for &quot;The Case For Learned Index Structures&quot;</title>
+    <url>/2020/09/11/CS6203%20Note_01/</url>
+    <content><![CDATA[<p>原文： <a href="https://www.arxiv-vanity.com/papers/1712.01208/">https://www.arxiv-vanity.com/papers/1712.01208/</a> </p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>There exists various data access patterns, and correspondingly various choices of index structure.<br>B-tree: range request  (from sorted array)<br>HashMap: single key look-ups (from unsorted array)<br>Bloom filters: check for record existence<br><a id="more"></a></p>
+<p>If data is from 1 to 1000, we don’t actually need a tree structure, we just need to use a direct look-up for the key. This example shows that <strong>One size does not fit all</strong>.<br>Traditional data structures make no assumptions about data, they only rely on the size of data.<br>While using ML, we try to learn the distribution of data,  We use data complexity instead of data size to construct a suitable index. In this way, we can achieve huge performance improvement.</p>
+<p>There are also many other data structures and algorithms in database system, we can apply the idea of using ML to change the design of them.</p>
+<p>Basically, we want to use ML techniques to enhance traditional index structures or even replace them to get a better performance.</p>
+<h1 id="Range-Index-B-tree"><a href="#Range-Index-B-tree" class="headerlink" title="Range Index (B-tree)"></a>Range Index (B-tree)</h1><h2 id="Range-Index-Models-are-CDF-Models"><a href="#Range-Index-Models-are-CDF-Models" class="headerlink" title="Range Index Models are CDF Models"></a>Range Index Models are CDF Models</h2><p>B-tree can be viewed as a model which takes the feature’s key as input and predict the position of the feature. Usually a B-tree maps a key to a page, and then searches within this page. Which means B-tree outputs a position, and searches within $[pos, pos+page_ size]$. i.e., by normal B-trees, the error is defined by the pagesize.</p>
+<p>model:f(key)-&gt;pos, searches from $[pos-err_{min},pos+err_{max}]$<br>we can search in this range to find the exact right record.<br><img src="/images/CS6203/index-1.png" alt="history"></p>
+<p><strong>We don’t care about generalization, we only care about the data we have.</strong></p>
+<p>So B-tree is actually building a model of Cumulative Distribution Function:<br>$p=P(x\leq key)*nums_of_Keys$<br>p is the predict position from key.<br><img src="/images/CS6203/index-2.png" alt="history"><br>For example, if your data is a Gaussian Distribution, most of your data is around the middle, and the learned index can allocate more trees in that area because of this information.</p>
+<p>Potantial Advantages of learned b-tree models:<br>smaller index: less main-memory storage<br>faster lookup<br>more parallelism: sequential if-statement is exchanged for multiplications</p>
+<p>assume read-only</p>
+<h2 id="A-First-Naive-Learned-Index"><a href="#A-First-Naive-Learned-Index" class="headerlink" title="A First Naive Learned Index"></a>A First Naive Learned Index</h2><p>200 M records of timestamps (sorted)<br>two-layer fully-connected neural network<br>32 neurons per layer<br>ReLu activation functions<br>train this model to predict the position of the timestamp<br>measure the look-up time for a randomly selected key (averaged over several runs)</p>
+<p>look-up with B-tree: 300ns<br>look-up with binary search: 900ns<br>look-up with Model: 80000ns (1250 predictions per second)</p>
+<p>This model is a naive version and doesn’t work well and we find this model is limited in the following ways:</p>
+<ol>
+<li>Tensorflow is designed for large models, not small models like this.</li>
+<li>B-tree can easily overfit the training data and can predict the position precisely. For database system, overfitting is not that bad, you get a database, you know the data you’re trying to search, and there are no other data outside to generalize,<br>While learned index can easily narrow the space from 100M to 10k but have trouble in narrowing the space from 100M to hundreds, which is “the last mile of learned index”, in other words, learned index has problems being accurate at the individual data instance level.</li>
+<li>B-trees are cache efficient, they keep the top nodes always in cache and they access other pages if needed. In contrast NN need to load the all parameters into memory to compute a prediction and have a high cost in the number of multiplications.</li>
+<li>For classic machine learning problems, the ultimate goal is the desired average average error, but we look for the index, hoping to get the best prediction, and finally hoping to find the true position of the key. Search does not make advantage of this prediction, the question is what is the right search style given an approximate answer</li>
+</ol>
+<h1 id="RM-Index-B-tree"><a href="#RM-Index-B-tree" class="headerlink" title="RM-Index (B-tree)"></a>RM-Index (B-tree)</h1><h2 id="The-Learning-Index-Framework-LIF"><a href="#The-Learning-Index-Framework-LIF" class="headerlink" title="The Learning Index Framework (LIF)"></a>The Learning Index Framework (LIF)</h2><p>LIF is an index optimization system. Given a set of index data, LIF automatically generates multiple sets of hyperparameters, and automatically optimizes and tests to find the optimal set of configurations.<br>When applied in a real database, LIF will generate an efficient index structure based on C++. LIF focuses on small models, so many unnecessary costs for managing large models must be reduced(Use a specific model structure to reduce runtime overhead, such as pruning, removing redundant if-else, direct memory access, etc.), now we can optimize the model prediction to within 30ns.<br><em>LIF is still an experimental framework and is instumentalized to quickly evaluate different index configurations.</em></p>
+<h2 id="Recursive-Model-Index"><a href="#Recursive-Model-Index" class="headerlink" title="Recursive Model Index"></a>Recursive Model Index</h2><p>The real data distribution function is often between the two: in general, it satisfies a change trend, but the part is a piecewise function (the piecewise function of daily data may be different)<br><img src="/images/CS6203/index-2.png" alt="history"></p>
+<p>In that case we use the idea of Mixture-of-Experts and propose Recursive Model Index to solve the problem of “the last mile of learned index”</p>
+<p>We use a hierarchical experts, i.e. a hierarchy of models.<br>At each stage, take the key as input and based on it to pick another model, until final stage predicts the position.</p>
+<p>Every model is like an expert for a certain range and may has a better prediction.</p>
+<ul>
+<li>Such a multi-layer model structure is not a search tree, and multiple stage 2 models may point to the same stage 3 model. In addition, at the lowest level, in order to ensure that the smallest and largest deviations can be controlled, we can also use B-Tree to complete the final index.</li>
+<li>Each model does not need to cover the same amount of records like B-trees do.</li>
+<li>predictions between stages don’t need to be the estimate of position, but can be considered as picking an expert which has a better knowledge about certain keys.</li>
+</ul>
+<p><img src="/images/CS6203/index-3.png" alt="history"><br>RMI has several benefits:</p>
+<ol>
+<li>It separates model size and complexity from execution cost</li>
+<li>It is easy to learn the overall data distribution</li>
+<li>Divide the entire space into smaller subranges. Each subranges is similar to a B-tree or decision tree, making it easier to solve the last-mile accuracy problem.</li>
+<li>No search process is required in-between stages. For example, the output y of model 1.1 is an offset, which can be directly used to select the model of the next stage.</li>
+</ol>
+<h2 id="Hybrid-Indexes"><a href="#Hybrid-Indexes" class="headerlink" title="Hybrid Indexes"></a>Hybrid Indexes</h2><p>Another advantage of the recursive model index is that we are able to build mixtures of models.<br>top-layer: a small ReLU neural net —- they can learn a wide range of  complex data<br>bottom: simple models like linear regression(inexpensive in space and execution), or B-trees if the data is particularly hard to learn(worst case)</p>
+<p>Such a recursive model has several advantages: </p>
+<ol>
+<li>It can learn the shape of the output data well. </li>
+<li>Through stratification, you can basically use B-Tree or decision tree to obtain very high search efficiency. </li>
+<li>Different stages can use penetration to initialize the model instead of searching, which makes it easier to refactor and optimize the programming language.</li>
+</ol>
+<h2 id="Search-Strategy"><a href="#Search-Strategy" class="headerlink" title="Search Strategy"></a>Search Strategy</h2><ol>
+<li>Model Biased Search：the default search strategy, based on binary search, the new intermediate point is based on the standard deviation $\sigma$ of the last layer of model settings</li>
+<li>Biased Quaternary Search：search three points at the same time, $pos-\sigma, pos, pos+\sigma$ . Requires CPU to obtain multiple data addresses in parallel from main memory</li>
+</ol>
+<ul>
+<li>how to deal with large address spaces</li>
+<li>how do we deal with not able to assume that the end location is ordered<br>if pages are in disks or other seperate devices they may not be in order<br>it’s an engineering issue</li>
+</ul>
+<h2 id="Indexing-Strings"><a href="#Indexing-Strings" class="headerlink" title="Indexing Strings"></a>Indexing Strings</h2><h2 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h2><h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><p>trade-off between memory and latency</p>
+<p>Map data: relatively linear<br>Web data: (timestamp) complex, a worst case<br>Log Normal Data: non-linear integers, heavy tail<br>2nd stage: linear models have the best performance.<br>For the last mile we don’t need to execute complex models.</p>
+<p><img src="/images/CS6203/index-4.png" alt="history"></p>
+<ul>
+<li>Histogram: B-Trees approximate the CDF of the underlying data distribution. When we use  histograms as a CDF,this histogram must be a low error approximation of the CDF. However,  this requires a large number of buckets, which makes it expensive to search the histogram itself. And almost every bucket has data insides, only few buckets are empty or too full. The solution to this case is B-Trees, so we’ll not discuss Histogram individually.</li>
+<li>Lookup-Table: Lookup-table is another simple alternative to B-trees. A lookup table is an array that replaces runtime computation with a simpler array indexing operation(Wikipedia).<blockquote>
+<p>Performance comparison: linear search vs binary search.<br><a href="https://dirtyhandscoding.wordpress.com/2017/08/25/performance-comparison-linear-search-vs-binary-search/">https://dirtyhandscoding.wordpress.com/2017/08/25/performance-comparison-linear-search-vs-binary-search/</a></p>
+</blockquote>
+</li>
+<li>FAST: a highly SIMD optimized data structure, allocate memory in the power of 2, leading to significantly larger indexes</li>
+<li>Fixed-size B-Tree &amp; interpolation search</li>
+<li>Learned indexes without overhead: a multivariate linear regression model at the top and simple linear models at bottom<br><img src="/images/CS6203/index-5.png" alt="history"></li>
+</ul>
+<p>Because the binary search of string will be more time-consuming, the search strategy proposed above(learned QS with quaternary search) can improve efficiency more significantly<br><img src="/images/CS6203/index-6.png" alt="history"></p>
+<h1 id="Point-Index-hash"><a href="#Point-Index-hash" class="headerlink" title="Point Index (hash)"></a>Point Index (hash)</h1><p>Point Index, as the name suggests, is to search for the position corresponding to the key, which is Hashmap. Hashmap is naturally a model, the input is the key and the output is the position. For Hashmap, in order to reduce conflicts, it is often necessary to use a much larger number of slots than the number of keys (the paper mentions that a hashmap usually has 78% extra slots in Google). For conflicts, although there are linked-list or secondary probing methods to deal with, their overhead is not small. Even using sparse-hashmap to optimize memory usage, the performance is 3-7 times slower than hashmap. </p>
+<p>Therefore,  the learned model can reduce the additional memory overhead on the one hand, and reduce the overhead of some conflicts on the other hand (Hashmap can avoid conflicts by using more slots. If there are few conflicts, it will be difficult to optimize the index Time Because Hashmap is inherently constant complexity, the goal here is to reduce the memory overhead of Hashmap while ensuring indexing time). As shown in the figure below, the Learned Hashmap can not only reduce conflicts, but also make better use of memory space under the same number of slots.</p>
+<p>The point index does not need to ensure that the records are continuous (maxerr and minerr do not need to be considered), so the trained model F fit CDF is easier to meet<br><img src="/images/CS6203/index-7.png" alt="history"><br>After the hash function is replaced with the model, the index time is not shortened, but the key space is indeed effectively reduced, which improves the space utilization<br><img src="/images/CS6203/index-8.png" alt="history"></p>
+<h1 id="Existence-Index-Bloom-Filters"><a href="#Existence-Index-Bloom-Filters" class="headerlink" title="Existence Index (Bloom-Filters)"></a>Existence Index (Bloom-Filters)</h1><p>Although Bloom filters allow false positives,<br>for many applications the space savings outweigh this drawback</p>
+<p>Considering the usage scenario of the existence index is usually to first determine whether the record exists in the cold storage, and then access the data through disk or network. So the latency can be relatively high, so that we can use more complex RNN or CNN models as classifiers.</p>
+<h1 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h1><h2 id="B-Tree-and-Variants"><a href="#B-Tree-and-Variants" class="headerlink" title="B-Tree and Variants"></a>B-Tree and Variants</h2><p>Over the last few years, a variety of different index structures have been proposed, such as B+-trees, red-black trees, all aiming at improving the performance of original main-memory trees. However, none of the structures have learned from the data distribution.</p>
+<p>While using our hybrid model, we can combine the existing index structures with the learned index for further performance gains.</p>
+<h2 id="Perfect-hashing"><a href="#Perfect-hashing" class="headerlink" title="Perfect hashing"></a>Perfect hashing</h2><p>Perfect hashing tried to avoid conflicts without learning techniques.<br>The size of perfect hash function relies on data size.<br>In contrast, Learned hash function can be indenpendent of data size.<br>What’s more, perfect hash is not suitable for B-trees and Bloom filters.</p>
+<h2 id="Bloom-filters"><a href="#Bloom-filters" class="headerlink" title="Bloom filters"></a>Bloom filters</h2><p>Our existence indexes directly make use of the current bloom filters by adding a ML model before the simple bloom filter and creating a classification model.<br>And in addition we can also use our learning model as a special hash function to seperate the keys and non-keys.</p>
+<h2 id="Modeling-CDFs"><a href="#Modeling-CDFs" class="headerlink" title="Modeling CDFs"></a>Modeling CDFs</h2><p>Our models for both range and point indexes are closely tied to models of CDF.<br>How to mostly model CDF remanins an open question.</p>
+<h2 id="Mixture-of-Experts"><a href="#Mixture-of-Experts" class="headerlink" title="Mixture of Experts"></a>Mixture of Experts</h2><p>Our RMI architecture builds experts for subsets of the data and in this way we can make our model size indepentent on model computation.<br>So we can create models that are complex but still cheap to execute.</p>
+<h1 id="Conclusion-and-future-work"><a href="#Conclusion-and-future-work" class="headerlink" title="Conclusion and future work"></a>Conclusion and future work</h1><h2 id="Other-ML-Models"><a href="#Other-ML-Models" class="headerlink" title="Other ML Models"></a>Other ML Models</h2><p>We combine some simple neural networks with the existing data structures, and there are definitely more ways to do the combination which are worth exploring.</p>
+<h2 id="Multi-Dimensional-Indexes"><a href="#Multi-Dimensional-Indexes" class="headerlink" title="Multi-Dimensional Indexes"></a>Multi-Dimensional Indexes</h2><p>Models like NN are extremely good at handling multi-dimensional data, and the learned model could be used to estimate the position given various attributes.</p>
+<h2 id="Learned-Algorithms-beyond-indexing"><a href="#Learned-Algorithms-beyond-indexing" class="headerlink" title="Learned Algorithms beyond indexing"></a>Learned Algorithms beyond indexing</h2><p>Learned Algorithms can also be applied to other data structures and CDF models are beneficial to join and sorting operations as well.</p>
+<h2 id="GPU-TPU"><a href="#GPU-TPU" class="headerlink" title="GPU/TPU"></a>GPU/TPU</h2><p>All we have been doing is to learn data pattern and use it in data structure design.<br>We are now having TPU/GPU which are vector processors and vector multiplies become very cheap.<br>We can make use of this property and construct new data structure along with ML techniques to speed up the look-up time and get better performance.</p>
+<p><strong>In summary, we have demonstrated that machine learned models have the potential to provide significant benefits over state-of-the-art indexes, and we believe this is a fruitful direction for future research.</strong></p>
+<blockquote>
+<p>B-tree indexes and CPU caches<br><a href="https://www.researchgate.net/search.Search.html?type=publication&amp;query=%20B-tree%20indexes%20and%20CPU%20caches">https://www.researchgate.net/search.Search.html?type=publication&amp;query=%20B-tree%20indexes%20and%20CPU%20caches</a><br>Making B+-Trees Cache Conscious in Main Memory<br><a href="http://www.cse.iitb.ac.in/infolab/Data/Courses/CS632/2006/Papers/cache-b-tree.pdf">http://www.cse.iitb.ac.in/infolab/Data/Courses/CS632/2006/Papers/cache-b-tree.pdf</a><br>Adaptive Range Filters for Cold Data: Avoiding Trips to Siberia<br><a href="http://www.vldb.org/pvldb/vol6/p1714-kossmann.pdf">http://www.vldb.org/pvldb/vol6/p1714-kossmann.pdf</a><br>Cuckoo Filter: Practically Better Than Bloom<br><a href="https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf">https://www.cs.cmu.edu/~dga/papers/cuckoo-conext2014.pdf</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>CS6203 Advanced Database System</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>DB</tag>
       </tags>
   </entry>
   <entry>
@@ -127,6 +941,27 @@
       </tags>
   </entry>
   <entry>
+    <title>比较排序 - 1：选择 插入 冒泡 鸡尾酒 希尔</title>
+    <url>/2020/08/02/Comparison%20Sorts-1/</url>
+    <content><![CDATA[<h1 id="Comparison-sort"><a href="#Comparison-sort" class="headerlink" title="Comparison sort"></a>Comparison sort</h1><blockquote>
+<p>“A comparison sort is a type of sorting algorithm that only reads the list elements through a single abstract comparison operation (often a “less than or equal to” operator or a three-way comparison) that determines which of two elements should occur first in the final sorted list. The only requirement is that the operator forms a total preorder over the data, with:<br>    if a ≤ b and b ≤ c then a ≤ c (transitivity)<br>    for all a and b, a ≤ b or b ≤ a (connexity).”<br>    From Wikipedia</p>
+</blockquote>
+<p><strong>完整排序算法代码：<a href="https://github.com/huangliu0909/Sort-Algorithms">https://github.com/huangliu0909/Sort-Algorithms</a></strong><br><a id="more"></a><br>比较排序的核心方法是进行两个数字的比较并进行位置的交换(swap)。</p>
+<h1 id="冒泡排序-Bubble-sort"><a href="#冒泡排序-Bubble-sort" class="headerlink" title="冒泡排序 Bubble sort"></a>冒泡排序 Bubble sort</h1><p>对每个元素逐个与后面的元素进行比较，如果顺序不正确则交换。类似于水中冒泡，较大的数沉下去，较小的数慢慢冒起来。i = 0时会把最大的数移动到数组的最后一位，i = k时会把第k+1大的数放在length-k-1处。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubble_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length - <span class="number">1</span>; i++) </span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; array.length - i - <span class="number">1</span>; j++) </span><br><span class="line">               <span class="keyword">if</span> (array[j] &gt; array[j+<span class="number">1</span>]) swap(array, j, j + <span class="number">1</span>);</span><br><span class="line">               </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="选择排序-Selection-sort"><a href="#选择排序-Selection-sort" class="headerlink" title="选择排序 Selection sort"></a>选择排序 Selection sort</h1><p>重复寻找剩余数组的最小值，与当前位置的值进行交换。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selection_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i ++) &#123;</span><br><span class="line">		<span class="keyword">int</span> min = array[i];</span><br><span class="line">		<span class="keyword">int</span> index = i;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt; array.length; j ++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(array[j] &lt; min) &#123;</span><br><span class="line">				min = array[j];</span><br><span class="line">				index = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(i != index) swap(array, i, index);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="插入排序-Insertion-sort"><a href="#插入排序-Insertion-sort" class="headerlink" title="插入排序 Insertion sort"></a>插入排序 Insertion sort</h1><p>遍历数组，将第i个数插入到前i-1个数的合适位置上。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertion_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; i ++) &#123;</span><br><span class="line">		<span class="keyword">int</span> index = array[i]; </span><br><span class="line">           <span class="keyword">int</span> j = i - <span class="number">1</span>; </span><br><span class="line">           <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; array[j] &gt; index) &#123; </span><br><span class="line">           	array[j + <span class="number">1</span>] = array[j]; </span><br><span class="line">               j = j - <span class="number">1</span>; </span><br><span class="line">           &#125; </span><br><span class="line">           array[j + <span class="number">1</span>] = index; </span><br><span class="line">	&#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="鸡尾酒排序-Cocktail-shaker-sort"><a href="#鸡尾酒排序-Cocktail-shaker-sort" class="headerlink" title="鸡尾酒排序 Cocktail shaker sort"></a>鸡尾酒排序 Cocktail shaker sort</h1><p>冒泡排序的变种。冒泡排序将最大的逐个放到最后，鸡尾酒排序是双向的冒泡。<br>第i轮时遍历范围索引是i到length-i-1，正向遍历一次，判断有无swap，无则返回，否则再进行一次逆向遍历，判断有无swap，循环直至没有swap。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">cocktail_shaker_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">boolean</span> swapped = <span class="keyword">true</span>; </span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(swapped == <span class="keyword">true</span>) &#123;</span><br><span class="line">		swapped = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; array.length - i - <span class="number">1</span>; j++) </span><br><span class="line">               <span class="keyword">if</span> (array[j] &gt; array[j+<span class="number">1</span>]) &#123;</span><br><span class="line">               	 swap(array, j, j + <span class="number">1</span>);</span><br><span class="line">               	 swapped = <span class="keyword">true</span>;</span><br><span class="line">               &#125;</span><br><span class="line">		<span class="keyword">if</span>(swapped == <span class="keyword">false</span>) <span class="keyword">return</span>;</span><br><span class="line">		swapped = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = array.length - i - <span class="number">2</span>; j &gt;= i; j --) &#123;</span><br><span class="line">			<span class="keyword">if</span> (array[j] &gt; array[j+<span class="number">1</span>]) &#123;</span><br><span class="line">              	 swap(array, j, j + <span class="number">1</span>);</span><br><span class="line">              	 swapped = <span class="keyword">true</span>;</span><br><span class="line">              &#125;</span><br><span class="line">		&#125;</span><br><span class="line">		i ++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="希尔排序-Shellsort"><a href="#希尔排序-Shellsort" class="headerlink" title="希尔排序 Shellsort"></a>希尔排序 Shellsort</h1><p>插入排序的变种，首先对比间隔(gap)较远的元素而不是相邻(gap=1)元素，逐轮reduce到gap=1，这样可以有效减少最坏情况下元素的交换操作的数量。常见的gap选择为：gap=length/2，reduce过程gap=gap/2。最外层循环0~gap-1，对这其中的每个数不断+gap得到的间隔较远的元素进行插入排序。<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shell_sort</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> gap = array.length/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">while</span>(gap != <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; gap; i ++) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j = i + gap; j &lt; array.length; j += gap) &#123;</span><br><span class="line">					<span class="keyword">int</span> index = array[j]; </span><br><span class="line">		            <span class="keyword">int</span> k = j - gap; </span><br><span class="line">		            <span class="keyword">while</span> (k &gt;= i &amp;&amp; array[k] &gt; index) &#123; </span><br><span class="line">		            	array[k + gap] = array[k]; </span><br><span class="line">		                k = k - gap; </span><br><span class="line">		            &#125; </span><br><span class="line">		            array[k + gap] = index; </span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			gap /= <span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>完整排序算法代码：<a href="https://github.com/huangliu0909/Sort-Algorithms">https://github.com/huangliu0909/Sort-Algorithms</a></p>
+]]></content>
+      <categories>
+        <category>学习笔记：算法</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Sort</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计数排序 &amp; 基数排序</title>
     <url>/2020/08/01/Counting%20Sorts/</url>
     <content><![CDATA[<h1 id="计数排序-Counting-sort"><a href="#计数排序-Counting-sort" class="headerlink" title="计数排序 Counting sort"></a>计数排序 Counting sort</h1><blockquote>
@@ -161,6 +996,48 @@
       </categories>
       <tags>
         <tag>Disjoint Set</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分治 动态规划 贪心</title>
+    <url>/2020/07/18/Dynamic%20Programming/</url>
+    <content><![CDATA[<h2 id="分治-Divide-and-Conquer"><a href="#分治-Divide-and-Conquer" class="headerlink" title="分治 Divide and Conquer"></a>分治 Divide and Conquer</h2><p>将问题划分为互不相交的子问题。递归地求解子问题的解，再将这些解组合起来，得到原问题的最优解。（eg. 归并排序算法 $T(n)$）</p>
+<ol>
+<li><strong>分解</strong>原问题为若干子问题，这些子问题是原问题的规模较小的实例。<br>eg. 分解带排序的n个元素的序列成各具n/2个元素的两个子序列。 - - -$D(n)=\theta (1)$</li>
+<li><strong>解决</strong>这些子问题。<br>如果子问题规模足够小（<strong>基本情况</strong>），就直接求解，否则（<strong>递归情况</strong>）使用递归进行求解。<br>eg. 使用归并排序递归地排序两个子序列。 - - -$2T(n/2)$</li>
+<li><strong>合并</strong>这些子问题的解获得原问题的解。<br>eg. 合并两个已排序的子序列以产生已排序的答案。 - - -$C(n)=\theta (n)$<a id="more"></a>
+</li>
+</ol>
+<p>将原问题划分为a个问题，每个问题的大小是n/b：$T(n)=aT(n/b)+D(n)+C(n)$。<br>递归式：一个等式或不等式，通过更小的输入上的函数值来描述一个函数。（用自身定义自身）<br>求解递归式的方法：</p>
+<ol>
+<li><strong>代入法 Substitution</strong> 猜测解的形式，减少不确定范围，用数学归纳法求出解中常熟并证明这个界是正确的。<br>$T(n)=2T(n/2)+n\to T(n)=O(nlgn)$<br>$T(n)=T(n-1)+n\to T(n)=O(n^2)$<br>$T(n)=T(n/2)+1\to T(n)=O(lgn)$</li>
+<li><strong>递归树法 Iteration</strong> 将递归式转换为一棵树，其结点表示不同层次的递归调用产生的代价。然后采用边界和技术来求解递归式。</li>
+<li><strong>主方法 Master</strong>  对于递归式 $T(n)=aT(n/b)+f(n)$：<br>a. 若对于某个常数 $\epsilon &gt;0$ 有 $f(n)=O(n^{log_ba-\epsilon })$，则 $T(n)=\theta (n^{log_ba})$。<br>b. 若 $f(n)=\theta (n^{log_ba})$，则 $T(n)=\theta (n^{log_ba}lgn)$。（适用于分治的递归式）<br>c. 若对某个常数$\epsilon &gt;0$ 有$f(n)=\Omega (n^{log_ba+\epsilon })$，且对某个常数$c&lt;1$和所有足够大的n有$af(n/b)\le cf(n)$，则 $T(n)=\theta (f(n))$。</li>
+</ol>
+<h2 id="动态规划-Dynamic-Programming"><a href="#动态规划-Dynamic-Programming" class="headerlink" title="动态规划 Dynamic Programming"></a>动态规划 Dynamic Programming</h2><p><strong>优化子结构</strong>：一个问题包含其子问题的最优解<br><strong>重叠子问题</strong>：利用递归算法反复求解相同的子问题<br><strong>动态规划算法无后效性，总是能够得到全局最优解。</strong><br>动态规划算法对每个子问题只求解一次并将其解记录在表格中。任何子问题都会等到它依赖的子问题已经求解结束才会进行求解。动态规划算法运行时间相当于每个子问题的求解时间之和。</p>
+<ol>
+<li>寻找最优解的特征结构<br>证明问题含有<strong>优化子结构</strong><br>eg. 最短路径问题具有优化子结构，而最长简单路径问题（不允许成环）不具有优化子结构。根本原因在于求解最长路径子问题时用到的某些资源（顶点），导致这些资源在求解其它子问题时不可用（若两个最长路径子问题旋律共同的顶点则会成环）。<br>a. 证明问题的最优解的第一个组成部分是做出一个选择。例如选择钢条的第一次切割位置、选择矩阵链的划分位置。做出这次选择会产生一个或者多个子问题。<br>b. 对于一个给定问题，在其可能的第一步选择中，假定已经知道哪种选择才会得到最优解。<br>c. 给定可获得最优解的选择之后，确定这个选择会产生哪些子问题，以及如何最好地刻画子问题空间。<br>d. 证明：<u>作为构成原问题最优解的组成部分，每个子问题的解就是它本身的最优解。（反证）</u></li>
+<li>递归地定义最优解的值<br>找到问题规模为n的最优解与规模小于n的子问题的最优解之间的数量关系。</li>
+<li>计算最优解的值，通常采用<strong>自底向上</strong>的方法<br>自底向上方法使得任何子问题的求解只依赖于规模更小的问题的求解，也可以用过自顶向下加入备忘机制来实现。<br>计算最优解的过程中可以重构解来记录最优解的获取方式。</li>
+<li>利用计算出的信息构造一个最优解</li>
+</ol>
+<p>eg. 最长公共子序列、钢条切割、最优二叉搜索树</p>
+<h2 id="贪心-Greedy"><a href="#贪心-Greedy" class="headerlink" title="贪心 Greedy"></a>贪心 Greedy</h2><p><strong>优化子结构</strong>：问题的优化解包含了子问题的最优解。<br><strong>贪心选择性(greedy-choice property)</strong>：全局优化解可以通过局部优化选择得到。即：进行选择时可以直接做出在当前问题中看来最优的选择而不必考虑子问题的解。即：存在一个最优解是以贪心选择开始的。<br>证明贪心选择性：先考察一个全局最优解，如果全局最优解可以转换成以贪心选择开始，则已得证，如果不能，则将这个全局最优解的开始替换成贪心选择，从而可以得到一个更优的解。因此全局最优解应该选择这个贪心选择做为第一次选择，从而得到一个规模更小的子问题，<u>通过数学归纳法可证每次都对子问题进行贪心选择可以得到原问题的最优解。</u><br><strong>贪心算法并不能保证得到全局最优解。</strong><br>通过贪心选择性的证明，我们说明了存在一个全局最优解是以贪心选择开始的，<u>但我们没有证明所有贪心选择开始的解都是全局最优解，</u>因此在某些问题上使用贪心算法可能无法得到全局最优解。<br>贪心算法与动态规划最大的不同在于，贪心并不是首先寻找子问题的最优解然后在其中进行选择（这种选择通常依赖于子问题的解），而是直接做出一次贪心选择（局部最优解）然后求解剩下的唯一子问题，不必求解所有可能相关的子问题。即：贪心算法总是做出局部最优的选择，希望这样的选择可以最终达到全局最优，这种选择可能依赖于之前做出的选择，但不会依赖于任何将来的选择或者子问题的解。<br>贪心算法通常采用<strong>自顶向下</strong>的设计：做出一个选择，然后求解剩下那个子问题。而不是自底向上求解出很多子问题再做出选择。<em>每个贪心算法下，几乎总有一个更繁琐的动态规划算法。</em></p>
+<ol>
+<li>将最优化问题转化为这样的形式：对其做出一次选择之后，只剩下一个子问题需要求解。</li>
+<li>证明做出贪心选择后，原问题总是存在最优解，<strong>即贪心总是安全的</strong>。<br>进行贪心选择时，可以通过数据预处理（排序）或者使用合适的数据结构（优先队列）来使得贪心选择更快速高效。</li>
+<li>证明做出贪心选择后，剩余的子问题的最优解与该贪心选择组合即可得到原问题的最优解，这样就得到了<strong>最优子结构</strong>。</li>
+</ol>
+<p>eg. 最小生成树、Dijkstra算法、赫夫曼编码、任务调度问题、部分背包问题</p>
+<blockquote>
+<p>参考：《算法导论》机械工业出版社 第2、4、15、16章</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>学习笔记：算法</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -229,6 +1106,30 @@
       </tags>
   </entry>
   <entry>
+    <title>散列表 Hash Table</title>
+    <url>/2020/07/19/Hashing/</url>
+    <content><![CDATA[<p>散列表是实现字典操作的一种有效数据结构，最坏情况的查找时间是$\theta (n)$，平均查找时间为$O(1)$。<br>散列表是普通数组概念的推广，数组可以直接寻址。<br>当实际存储的关键字数目比全部可能的关键字总数要小时，可以使用散列表来替代直接数组寻址。<br><a id="more"></a></p>
+<h2 id="直接寻址表-Direct-address-table"><a href="#直接寻址表-Direct-address-table" class="headerlink" title="直接寻址表 Direct-address table"></a>直接寻址表 Direct-address table</h2><p>关键字的全域U较小，没有两个元素具有相同的关键字。<br>使用数组，即直接寻址表，其中每个位置成为槽(slot)，实际关键字集合K对应的槽指向对应的元素（关键字为k的元素存放在槽k中），其它槽为NIL，也可以使用其他关键字说明该槽为空。<br>缺点：如果全域U很大，计算机可能无法完整存储这张表；如果实际存储的关键字集合K相对于U来说很小，则T的大部分空间被浪费。</p>
+<h2 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h2><p>散列表需要的存储空间比直接寻址表少很多，关键字为k的元素存放在槽$h(k)$中。即：利用散列函数（hash function）h来计算出关键字为k的元素的槽的位置。散列函数将全域U映射到大小为m的散列表上，其中$m&lt;&lt;|U|$。<br>两个关键字可能被映射到同一个槽中，成为冲突(collision)。<br><strong>通过链接法解决冲突</strong>：把映射到同一个槽中的关键字连成链表。<br>最坏情况：所有n个关键字都散列到同一个槽中，性能相当于普通链表。<br>平均情况：依赖于散列函数把n个关键字映射到m个槽位的平均程度。定义表T的装载因子$\alpha =n/m$。<br>在简单均匀散列(simple uniform hash)的情况下，一次查找的平均时间为$\theta(1+\alpha)$，说明总元素个数应该与表中元素个数成正比，则$\alpha=n/m=O(m)/m=O(1)$，此时查找操作平均需要常数时间。<br>当链表使用双向链表时，插入和删除的最坏情况也是$O(1)$，此时字典的全部操作都可以在常数时间完成。</p>
+<h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><p>好的散列函数应该尽量满足简单均匀，尽量将相近的字符散列到不同的槽。</p>
+<h3 id="除法散列法"><a href="#除法散列法" class="headerlink" title="除法散列法"></a>除法散列法</h3><p>散列函数：$k(h) = k\% m$<br>注意：m不应该为2的幂。如果$m=2^p$，则$h(k)$就是k的二进制表示的p个最低位数字。设计散列函数时最好考虑所有位，因为无法保证各种最低p位的排列形式为等可能。<em>m最好是一个不太接近2的幂的素数。</em></p>
+<h3 id="乘法散列法"><a href="#乘法散列法" class="headerlink" title="乘法散列法"></a>乘法散列法</h3><p>散列函数：$\lfloor m(kA\%1)\rfloor$<br>其中常数A满足$0 &lt; A &lt; 1$。即：对kA的小数部分乘以m再向下取整。<br>优点：对于m的取值不是很关键。一般选择$A\approx (\sqrt5-1)/2=0.618…$</p>
+<h3 id="全域散列法-universal-hashing"><a href="#全域散列法-universal-hashing" class="headerlink" title="全域散列法 universal hashing"></a>全域散列法 universal hashing</h3><p>在一个函数组中随机地选择散列函数，使之独立于要存储的关键字，从而避免了将全部关键字散列到同一个槽中的最坏情况，选定后不再更改。</p>
+<h2 id="开放寻址法-open-addressing"><a href="#开放寻址法-open-addressing" class="headerlink" title="开放寻址法 open addressing"></a>开放寻址法 open addressing</h2><p>所有的元素都存放在散列表里，每个表项要么是u元素要么是NIL。散列表可能会填满，以至于无法再插入新的元素。该方法导致的一个结果是装载因子$\alpha$绝对不会超过1。槽中同样可以存放链表。<br>使用开放寻址法插入元素时，需要连续地检查散列表，或称为探查(probe)，直到找到一个空槽来放置待插入的元素。<br>线性探查，二次探查，双重探查</p>
+<h2 id="完全散列"><a href="#完全散列" class="headerlink" title="完全散列"></a>完全散列</h2><p>主要针对静态(static)的关键字集合，即：一旦各关键字存入表中，关键字集合就不再变化了。<br>采用两级的散列方法来设计完全散列方案，每级上都使用全域散列。<br>为了保证不冲突，每个二级哈希表的数量是第一级映射到这个槽中元素个数的平方（在第 1 级，如果有$N_i$个元素映射到第i个槽，那么第$N_i$个槽对应的2级哈希表采用全域哈希。表的长度取$M_i = N_i^2$），这样可以保证整个哈希表非常的稀疏。<br>属性：将n个键映射到$n^2$个槽，如果从全域哈希H中随机选择h，那么期望的冲突次数小于1/2，不发生冲突的概率大于1/2。</p>
+<blockquote>
+<p> <a href="https://blog.csdn.net/lzq20115395/article/details/80517225">https://blog.csdn.net/lzq20115395/article/details/80517225</a></p>
+</blockquote>
+<p><img src="/images/perfect-hash.png" alt="hash"></p>
+<h2 id="java中HashTable和HashMap的源代码"><a href="#java中HashTable和HashMap的源代码" class="headerlink" title="java中HashTable和HashMap的源代码"></a>java中HashTable和HashMap的源代码</h2>]]></content>
+      <categories>
+        <category>学习笔记：数据结构</category>
+      </categories>
+      <tags>
+        <tag>hash</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>正则化方法</title>
     <url>/2020/07/13/Normalization%20Methods/</url>
     <content><![CDATA[<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p>点估计point estimator：<br>偏差bias：预测值和真实值之间的差异<br>方差variance：描述预测值作为随机变量的离散程度<br>泛化generalization：在先前未观察的输入上表现良好的能力<a id="more"></a><br>准确率accuracy：<br>错误率errorrate：该模型输出错误结果的样本比率，是0-1损失的期望<br>泛化误差：即测试误差<br>模型的容量capacity：拟合各种函数的能力<br>奥卡姆剃刀原则Occam‘s razor：在同样能够解释已有观测现象的假设中，我们应该选择最“简单”的那个。<br>过拟合overfitting：训练误差和测试误差之间差距较大<br>欠拟合underfitting：模型不能再训练集上获得足够低的误差<br>验证集：用来训练超参数<br>k-fold validation：<br>鲁棒性Robust：算法对数据变化的容忍度<br>正则化：对学习算法的修改，旨在减少泛化误差而不是训练误差。</p>
@@ -290,6 +1191,34 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Python</title>
+    <url>/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9APython/</url>
+    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="Python可变参数args，-kwargs"><a href="#Python可变参数args，-kwargs" class="headerlink" title="Python可变参数args，*kwargs"></a>Python可变参数<em>args，*</em>kwargs</h3><h3 id="Python内置容器及其容器及其使用场景"><a href="#Python内置容器及其容器及其使用场景" class="headerlink" title="Python内置容器及其容器及其使用场景 "></a>Python内置容器及其容器及其使用场景 <a id="more"></a></h3><h3 id="python多线程"><a href="#python多线程" class="headerlink" title="python多线程"></a>python多线程</h3><h3 id="对Python了解吗？说说它底层的实现原理。"><a href="#对Python了解吗？说说它底层的实现原理。" class="headerlink" title="对Python了解吗？说说它底层的实现原理。"></a>对Python了解吗？说说它底层的实现原理。</h3><h3 id="什么是Python生成器，迭代器；"><a href="#什么是Python生成器，迭代器；" class="headerlink" title="什么是Python生成器，迭代器；"></a>什么是Python生成器，迭代器；</h3><h3 id="Python中的dict底层怎么实现的"><a href="#Python中的dict底层怎么实现的" class="headerlink" title="Python中的dict底层怎么实现的"></a>Python中的dict底层怎么实现的</h3><h3 id="Python多线程用了几个CPU"><a href="#Python多线程用了几个CPU" class="headerlink" title="Python多线程用了几个CPU"></a>Python多线程用了几个CPU</h3><h3 id="修饰器"><a href="#修饰器" class="headerlink" title="修饰器"></a>修饰器</h3><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="C-中const与-define的区别与优势"><a href="#C-中const与-define的区别与优势" class="headerlink" title="C++中const与#define的区别与优势"></a>C++中const与#define的区别与优势</h3><h3 id="C-11新特性auto的用法"><a href="#C-11新特性auto的用法" class="headerlink" title="C++11新特性auto的用法"></a>C++11新特性auto的用法</h3><h3 id="C-虚函数，读程序写结果"><a href="#C-虚函数，读程序写结果" class="headerlink" title="C++虚函数，读程序写结果"></a>C++虚函数，读程序写结果</h3><h3 id="C-关键字static、extern"><a href="#C-关键字static、extern" class="headerlink" title="C++关键字static、extern"></a>C++关键字static、extern</h3><h3 id="C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景"><a href="#C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景" class="headerlink" title="C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景"></a>C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景</h3><h3 id="C-中new和delete语句的底层实现"><a href="#C-中new和delete语句的底层实现" class="headerlink" title="C++中new和delete语句的底层实现"></a>C++中new和delete语句的底层实现</h3><h2 id="编程语言之间的对比"><a href="#编程语言之间的对比" class="headerlink" title="编程语言之间的对比"></a>编程语言之间的对比</h2><h3 id="Java和C-相比有什么特点？"><a href="#Java和C-相比有什么特点？" class="headerlink" title="Java和C++相比有什么特点？"></a>Java和C++相比有什么特点？</h3><h3 id="C-为什么比Java运行得快？"><a href="#C-为什么比Java运行得快？" class="headerlink" title="C++为什么比Java运行得快？"></a>C++为什么比Java运行得快？</h3><h3 id="java和python的异同？"><a href="#java和python的异同？" class="headerlink" title="java和python的异同？"></a>java和python的异同？</h3><h2 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h2><h3 id="了解Linux么？用过哪些命令？"><a href="#了解Linux么？用过哪些命令？" class="headerlink" title="了解Linux么？用过哪些命令？"></a>了解Linux么？用过哪些命令？</h3><h3 id="SSO了解吗？"><a href="#SSO了解吗？" class="headerlink" title="SSO了解吗？"></a>SSO了解吗？</h3><h3 id="负载均衡了解吗？"><a href="#负载均衡了解吗？" class="headerlink" title="负载均衡了解吗？"></a>负载均衡了解吗？</h3><h3 id="MD5加密可逆吗？会被破解吗-如何破解？"><a href="#MD5加密可逆吗？会被破解吗-如何破解？" class="headerlink" title="MD5加密可逆吗？会被破解吗?如何破解？"></a>MD5加密可逆吗？会被破解吗?如何破解？</h3><h3 id="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"><a href="#DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）" class="headerlink" title="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"></a>DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）</h3><h3 id="并发用什么"><a href="#并发用什么" class="headerlink" title="并发用什么"></a>并发用什么</h3><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="哈希表如何扩容？具体的操作是什么？"><a href="#哈希表如何扩容？具体的操作是什么？" class="headerlink" title="哈希表如何扩容？具体的操作是什么？"></a>哈希表如何扩容？具体的操作是什么？</h3><h3 id="解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程"><a href="#解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程" class="headerlink" title="解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程"></a>解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程</h3><h3 id="设计一个线程池"><a href="#设计一个线程池" class="headerlink" title="设计一个线程池"></a>设计一个线程池</h3><h3 id="解释下内存中堆和栈，写一个stack-overflow的代码"><a href="#解释下内存中堆和栈，写一个stack-overflow的代码" class="headerlink" title="解释下内存中堆和栈，写一个stack overflow的代码"></a>解释下内存中堆和栈，写一个stack overflow的代码</h3><h3 id="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"><a href="#什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？" class="headerlink" title="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"></a>什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？</h3><h3 id="元组和list的区别；"><a href="#元组和list的区别；" class="headerlink" title="元组和list的区别；"></a>元组和list的区别；</h3><h3 id="list的底层怎么实现的；"><a href="#list的底层怎么实现的；" class="headerlink" title="list的底层怎么实现的；"></a>list的底层怎么实现的；</h3><h3 id="双等于和is有什么区别"><a href="#双等于和is有什么区别" class="headerlink" title="双等于和is有什么区别"></a>双等于和is有什么区别</h3><h3 id="栈的默认大小（1M）"><a href="#栈的默认大小（1M）" class="headerlink" title="栈的默认大小（1M）"></a>栈的默认大小（1M）</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="说一说各种排序算法原理，及其时间复杂度。"><a href="#说一说各种排序算法原理，及其时间复杂度。" class="headerlink" title="说一说各种排序算法原理，及其时间复杂度。"></a>说一说各种排序算法原理，及其时间复杂度。</h3><h3 id="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"><a href="#一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和" class="headerlink" title="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"></a>一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和</h3><h3 id="栈，队列是什么？区别是什么？"><a href="#栈，队列是什么？区别是什么？" class="headerlink" title="栈，队列是什么？区别是什么？"></a>栈，队列是什么？区别是什么？</h3><h3 id="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"><a href="#设计一个可以满足高效率获取第k大和前k个大的元素的数据结构" class="headerlink" title="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"></a>设计一个可以满足高效率获取第k大和前k个大的元素的数据结构</h3><h3 id="手写求两个链表第一个交叉节点"><a href="#手写求两个链表第一个交叉节点" class="headerlink" title="手写求两个链表第一个交叉节点"></a>手写求两个链表第一个交叉节点</h3><h3 id="求x的y次方，想出比直接for循环更好的方案"><a href="#求x的y次方，想出比直接for循环更好的方案" class="headerlink" title="求x的y次方，想出比直接for循环更好的方案"></a>求x的y次方，想出比直接for循环更好的方案</h3><h3 id="求绝对众数"><a href="#求绝对众数" class="headerlink" title="求绝对众数"></a>求绝对众数</h3><h3 id="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"><a href="#二叉树，输出所有和为n的路径（可以从中间结点到中间结点）" class="headerlink" title="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"></a>二叉树，输出所有和为n的路径（可以从中间结点到中间结点）</h3><h3 id="如何用两个栈实现一个队列。"><a href="#如何用两个栈实现一个队列。" class="headerlink" title="如何用两个栈实现一个队列。"></a>如何用两个栈实现一个队列。</h3><h3 id="如何开启一个进程。"><a href="#如何开启一个进程。" class="headerlink" title="如何开启一个进程。"></a>如何开启一个进程。</h3><h3 id="实现一个-hashtable"><a href="#实现一个-hashtable" class="headerlink" title="实现一个 hashtable"></a>实现一个 hashtable</h3><h3 id="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"><a href="#写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。" class="headerlink" title="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"></a>写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。</h3><h3 id="最长公共连续子串"><a href="#最长公共连续子串" class="headerlink" title="最长公共连续子串"></a>最长公共连续子串</h3><h3 id="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；"><a href="#几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；" class="headerlink" title="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；"></a>几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；</h3><h3 id="判断平衡二叉树。"><a href="#判断平衡二叉树。" class="headerlink" title="判断平衡二叉树。"></a>判断平衡二叉树。</h3><h3 id="1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL"><a href="#1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL" class="headerlink" title="1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL"></a>1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL</h3><h3 id="有序数组转二叉搜索树"><a href="#有序数组转二叉搜索树" class="headerlink" title="有序数组转二叉搜索树"></a>有序数组转二叉搜索树</h3><h3 id="设计阻塞队列（不能用JDK的api"><a href="#设计阻塞队列（不能用JDK的api" class="headerlink" title="设计阻塞队列（不能用JDK的api"></a>设计阻塞队列（不能用JDK的api</h3><h3 id="了解哪些设计模式？手写一个工厂方法模式"><a href="#了解哪些设计模式？手写一个工厂方法模式" class="headerlink" title="了解哪些设计模式？手写一个工厂方法模式"></a>了解哪些设计模式？手写一个工厂方法模式</h3><h3 id="手撕sql"><a href="#手撕sql" class="headerlink" title="手撕sql"></a>手撕sql</h3><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2>]]></content>
+      <categories>
+        <category>面试准备</category>
+      </categories>
+      <tags>
+        <tag>programming language</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据库</title>
+    <url>/2020/07/29/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<h3 id="expoll了解吗"><a href="#expoll了解吗" class="headerlink" title="expoll了解吗"></a>expoll了解吗</h3><h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><h3 id="数据库事务隔离级别"><a href="#数据库事务隔离级别" class="headerlink" title="数据库事务隔离级别"></a>数据库事务隔离级别</h3><h3 id="多人同时使用数据库的注意事项"><a href="#多人同时使用数据库的注意事项" class="headerlink" title="多人同时使用数据库的注意事项"></a>多人同时使用数据库的注意事项</h3><h3 id="MySQL与其他主流数据库相比有什么特点？"><a href="#MySQL与其他主流数据库相比有什么特点？" class="headerlink" title="MySQL与其他主流数据库相比有什么特点？"></a>MySQL与其他主流数据库相比有什么特点？</h3><h3 id="事务的四大特性"><a href="#事务的四大特性" class="headerlink" title="事务的四大特性"></a>事务的四大特性</h3><h3 id="四种隔离级别"><a href="#四种隔离级别" class="headerlink" title="四种隔离级别"></a>四种隔离级别</h3><h3 id="什么是幻读"><a href="#什么是幻读" class="headerlink" title="什么是幻读"></a>什么是幻读</h3><h3 id="InnoDB-怎么防止幻读"><a href="#InnoDB-怎么防止幻读" class="headerlink" title="InnoDB 怎么防止幻读"></a>InnoDB 怎么防止幻读</h3><h3 id="B-树原理，为什么使用B-而不是二叉平衡树"><a href="#B-树原理，为什么使用B-而不是二叉平衡树" class="headerlink" title="B+树原理，为什么使用B+而不是二叉平衡树"></a>B+树原理，为什么使用B+而不是二叉平衡树</h3><h3 id="为什么要分用户态和内核态"><a href="#为什么要分用户态和内核态" class="headerlink" title="为什么要分用户态和内核态"></a>为什么要分用户态和内核态</h3><h3 id="用户态和内核态的区别"><a href="#用户态和内核态的区别" class="headerlink" title="用户态和内核态的区别"></a>用户态和内核态的区别</h3><h3 id="Git-切换分支，提交，具体如何合并分支"><a href="#Git-切换分支，提交，具体如何合并分支" class="headerlink" title="Git 切换分支，提交，具体如何合并分支"></a>Git 切换分支，提交，具体如何合并分支</h3><h3 id="数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）"><a href="#数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）" class="headerlink" title="数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）"></a>数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）</h3><h3 id="MySQL的索引-B-和B树的区别，为啥用B-；"><a href="#MySQL的索引-B-和B树的区别，为啥用B-；" class="headerlink" title="MySQL的索引(B+和B树的区别，为啥用B+)；"></a>MySQL的索引(B+和B树的区别，为啥用B+)；</h3><h3 id="让你设计数据库会注意什么；"><a href="#让你设计数据库会注意什么；" class="headerlink" title="让你设计数据库会注意什么；"></a>让你设计数据库会注意什么；</h3><h3 id="【高频】MyISAM-和-InnoDB的区别"><a href="#【高频】MyISAM-和-InnoDB的区别" class="headerlink" title="【高频】MyISAM 和 InnoDB的区别"></a>【高频】MyISAM 和 InnoDB的区别</h3><p>{是否支持行锁 、 是否支持十五 、 是否支持 MVCC 、 底层索引结构不同 }</p>
+<h3 id="update时什么锁-next-key-lock，但唯一性索引时降级为行锁，"><a href="#update时什么锁-next-key-lock，但唯一性索引时降级为行锁，" class="headerlink" title="update时什么锁 (next-key lock，但唯一性索引时降级为行锁，"></a>update时什么锁 (next-key lock，但唯一性索引时降级为行锁，</h3><h3 id="Mysql-比较熟悉是吧？说一下底层数据存储原理？"><a href="#Mysql-比较熟悉是吧？说一下底层数据存储原理？" class="headerlink" title="Mysql 比较熟悉是吧？说一下底层数据存储原理？"></a>Mysql 比较熟悉是吧？说一下底层数据存储原理？</h3><p>如果直接线性存储的话，每次查找数据都要整个遍历一遍，那么复杂度就是log(n)，于是可以用二叉树来存储，把复杂度降低到约log(n)，但是二叉树有个特点就是，它有可能因为插入顺序的问题，变得不平衡，最坏情况就是都在节点一边，又变成了log(n)，所有就通过改进插入和删除等操作，保证每次操作完后树都是平衡的，就有了B树……</p>
+<h3 id="说一下建表时，建索引有哪些要注意的。"><a href="#说一下建表时，建索引有哪些要注意的。" class="headerlink" title="说一下建表时，建索引有哪些要注意的。"></a>说一下建表时，建索引有哪些要注意的。</h3><p>选区分度比较大的，选数据类型比较小的比如整数而不要选长字符串，选where子句中出现的，覆盖索引 balabala……</p>
+<h3 id="事务特性ACID"><a href="#事务特性ACID" class="headerlink" title="事务特性ACID"></a>事务特性ACID</h3><p>深入一些 ： 为什么要有一致性 ？ AID不是已经保证了一致性了吗 ？</p>
+<h3 id="并发事务带来的问题"><a href="#并发事务带来的问题" class="headerlink" title="并发事务带来的问题"></a>并发事务带来的问题</h3><p>{    脏读 、 修改丢失 、 不可重复读 、 幻影读    }</p>
+<h3 id="【高频】事务的隔离级别"><a href="#【高频】事务的隔离级别" class="headerlink" title="【高频】事务的隔离级别"></a>【高频】事务的隔离级别</h3><h3 id="【高频】-MVCC机制"><a href="#【高频】-MVCC机制" class="headerlink" title="【高频】 MVCC机制"></a>【高频】 MVCC机制</h3><h3 id="【高频】索引"><a href="#【高频】索引" class="headerlink" title="【高频】索引"></a>【高频】索引</h3><h3 id="为什么索引使用B-树结构，而不是B树"><a href="#为什么索引使用B-树结构，而不是B树" class="headerlink" title="为什么索引使用B+树结构，而不是B树"></a>为什么索引使用B+树结构，而不是B树</h3><h3 id="为什么索引使用B-树结构，而不是红黑树-："><a href="#为什么索引使用B-树结构，而不是红黑树-：" class="headerlink" title="为什么索引使用B+树结构，而不是红黑树 ："></a>为什么索引使用B+树结构，而不是红黑树 ：</h3><p>{  磁盘预读取 、红黑树高度 }</p>
+<h3 id="聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？"><a href="#聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？" class="headerlink" title="聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？"></a>聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？</h3><h3 id="为什么不对每个列创建索引呢？"><a href="#为什么不对每个列创建索引呢？" class="headerlink" title="为什么不对每个列创建索引呢？"></a>为什么不对每个列创建索引呢？</h3><h3 id="【高频】SQL语句优化-，SQL题目（字节要求撸代码）"><a href="#【高频】SQL语句优化-，SQL题目（字节要求撸代码）" class="headerlink" title="【高频】SQL语句优化 ，SQL题目（字节要求撸代码）"></a>【高频】SQL语句优化 ，SQL题目（字节要求撸代码）</h3><h3 id="explain中-rows-type-key-extra字段的含义？"><a href="#explain中-rows-type-key-extra字段的含义？" class="headerlink" title="explain中 rows type key extra字段的含义？"></a>explain中 rows type key extra字段的含义？</h3><h3 id="count-1-count-count-列值-的区别"><a href="#count-1-count-count-列值-的区别" class="headerlink" title="count(1) count(*) count(列值)的区别"></a>count(1) count(*) count(列值)的区别</h3><h3 id="数据库的关系有哪些？"><a href="#数据库的关系有哪些？" class="headerlink" title="数据库的关系有哪些？"></a>数据库的关系有哪些？</h3><h3 id="一对多怎么实现？多对多怎么实现？"><a href="#一对多怎么实现？多对多怎么实现？" class="headerlink" title="一对多怎么实现？多对多怎么实现？"></a>一对多怎么实现？多对多怎么实现？</h3><h3 id="MySQL数据库有哪些类型？这些类型有什么区别？"><a href="#MySQL数据库有哪些类型？这些类型有什么区别？" class="headerlink" title="MySQL数据库有哪些类型？这些类型有什么区别？"></a>MySQL数据库有哪些类型？这些类型有什么区别？</h3>]]></content>
+      <categories>
+        <category>面试准备</category>
+      </categories>
+      <tags>
+        <tag>Database</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JAVA</title>
     <url>/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9AJAVA/</url>
     <content><![CDATA[<h2 id="面向对象有哪些特征？解释一下"><a href="#面向对象有哪些特征？解释一下" class="headerlink" title="面向对象有哪些特征？解释一下"></a>面向对象有哪些特征？解释一下</h2><p>面向对象主要有四大特性：<em>抽象、封装、继承和多态</em>。<br>OO开发范式大致为：<strong>划分对象→抽象类→将类组织成为层次化结构(继承和合成) →用类与实例进行设计和实现几个阶段。</strong><a id="more"></a></p>
@@ -347,17 +1276,6 @@
 <h3 id="深入一些"><a href="#深入一些" class="headerlink" title="深入一些"></a>深入一些</h3><p>单例模式为什么采用双检测机制 ？ 单例为什么用Volatile修饰？ 装饰模式和代理模式区别？</p>
 <h3 id="B树怎么保证每次操作完都平衡的？"><a href="#B树怎么保证每次操作完都平衡的？" class="headerlink" title="B树怎么保证每次操作完都平衡的？"></a>B树怎么保证每次操作完都平衡的？</h3><p>跟红黑树还是差不太多</p>
 ]]></content>
-      <categories>
-        <category>面试准备</category>
-      </categories>
-      <tags>
-        <tag>programming language</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python</title>
-    <url>/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9APython/</url>
-    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="Python可变参数args，-kwargs"><a href="#Python可变参数args，-kwargs" class="headerlink" title="Python可变参数args，*kwargs"></a>Python可变参数<em>args，*</em>kwargs</h3><h3 id="Python内置容器及其容器及其使用场景"><a href="#Python内置容器及其容器及其使用场景" class="headerlink" title="Python内置容器及其容器及其使用场景 "></a>Python内置容器及其容器及其使用场景 <a id="more"></a></h3><h3 id="python多线程"><a href="#python多线程" class="headerlink" title="python多线程"></a>python多线程</h3><h3 id="对Python了解吗？说说它底层的实现原理。"><a href="#对Python了解吗？说说它底层的实现原理。" class="headerlink" title="对Python了解吗？说说它底层的实现原理。"></a>对Python了解吗？说说它底层的实现原理。</h3><h3 id="什么是Python生成器，迭代器；"><a href="#什么是Python生成器，迭代器；" class="headerlink" title="什么是Python生成器，迭代器；"></a>什么是Python生成器，迭代器；</h3><h3 id="Python中的dict底层怎么实现的"><a href="#Python中的dict底层怎么实现的" class="headerlink" title="Python中的dict底层怎么实现的"></a>Python中的dict底层怎么实现的</h3><h3 id="Python多线程用了几个CPU"><a href="#Python多线程用了几个CPU" class="headerlink" title="Python多线程用了几个CPU"></a>Python多线程用了几个CPU</h3><h3 id="修饰器"><a href="#修饰器" class="headerlink" title="修饰器"></a>修饰器</h3><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="C-中const与-define的区别与优势"><a href="#C-中const与-define的区别与优势" class="headerlink" title="C++中const与#define的区别与优势"></a>C++中const与#define的区别与优势</h3><h3 id="C-11新特性auto的用法"><a href="#C-11新特性auto的用法" class="headerlink" title="C++11新特性auto的用法"></a>C++11新特性auto的用法</h3><h3 id="C-虚函数，读程序写结果"><a href="#C-虚函数，读程序写结果" class="headerlink" title="C++虚函数，读程序写结果"></a>C++虚函数，读程序写结果</h3><h3 id="C-关键字static、extern"><a href="#C-关键字static、extern" class="headerlink" title="C++关键字static、extern"></a>C++关键字static、extern</h3><h3 id="C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景"><a href="#C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景" class="headerlink" title="C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景"></a>C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景</h3><h3 id="C-中new和delete语句的底层实现"><a href="#C-中new和delete语句的底层实现" class="headerlink" title="C++中new和delete语句的底层实现"></a>C++中new和delete语句的底层实现</h3><h2 id="编程语言之间的对比"><a href="#编程语言之间的对比" class="headerlink" title="编程语言之间的对比"></a>编程语言之间的对比</h2><h3 id="Java和C-相比有什么特点？"><a href="#Java和C-相比有什么特点？" class="headerlink" title="Java和C++相比有什么特点？"></a>Java和C++相比有什么特点？</h3><h3 id="C-为什么比Java运行得快？"><a href="#C-为什么比Java运行得快？" class="headerlink" title="C++为什么比Java运行得快？"></a>C++为什么比Java运行得快？</h3><h3 id="java和python的异同？"><a href="#java和python的异同？" class="headerlink" title="java和python的异同？"></a>java和python的异同？</h3><h2 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h2><h3 id="了解Linux么？用过哪些命令？"><a href="#了解Linux么？用过哪些命令？" class="headerlink" title="了解Linux么？用过哪些命令？"></a>了解Linux么？用过哪些命令？</h3><h3 id="SSO了解吗？"><a href="#SSO了解吗？" class="headerlink" title="SSO了解吗？"></a>SSO了解吗？</h3><h3 id="负载均衡了解吗？"><a href="#负载均衡了解吗？" class="headerlink" title="负载均衡了解吗？"></a>负载均衡了解吗？</h3><h3 id="MD5加密可逆吗？会被破解吗-如何破解？"><a href="#MD5加密可逆吗？会被破解吗-如何破解？" class="headerlink" title="MD5加密可逆吗？会被破解吗?如何破解？"></a>MD5加密可逆吗？会被破解吗?如何破解？</h3><h3 id="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"><a href="#DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）" class="headerlink" title="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"></a>DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）</h3><h3 id="并发用什么"><a href="#并发用什么" class="headerlink" title="并发用什么"></a>并发用什么</h3><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="哈希表如何扩容？具体的操作是什么？"><a href="#哈希表如何扩容？具体的操作是什么？" class="headerlink" title="哈希表如何扩容？具体的操作是什么？"></a>哈希表如何扩容？具体的操作是什么？</h3><h3 id="解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程"><a href="#解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程" class="headerlink" title="解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程"></a>解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程</h3><h3 id="设计一个线程池"><a href="#设计一个线程池" class="headerlink" title="设计一个线程池"></a>设计一个线程池</h3><h3 id="解释下内存中堆和栈，写一个stack-overflow的代码"><a href="#解释下内存中堆和栈，写一个stack-overflow的代码" class="headerlink" title="解释下内存中堆和栈，写一个stack overflow的代码"></a>解释下内存中堆和栈，写一个stack overflow的代码</h3><h3 id="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"><a href="#什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？" class="headerlink" title="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"></a>什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？</h3><h3 id="元组和list的区别；"><a href="#元组和list的区别；" class="headerlink" title="元组和list的区别；"></a>元组和list的区别；</h3><h3 id="list的底层怎么实现的；"><a href="#list的底层怎么实现的；" class="headerlink" title="list的底层怎么实现的；"></a>list的底层怎么实现的；</h3><h3 id="双等于和is有什么区别"><a href="#双等于和is有什么区别" class="headerlink" title="双等于和is有什么区别"></a>双等于和is有什么区别</h3><h3 id="栈的默认大小（1M）"><a href="#栈的默认大小（1M）" class="headerlink" title="栈的默认大小（1M）"></a>栈的默认大小（1M）</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="说一说各种排序算法原理，及其时间复杂度。"><a href="#说一说各种排序算法原理，及其时间复杂度。" class="headerlink" title="说一说各种排序算法原理，及其时间复杂度。"></a>说一说各种排序算法原理，及其时间复杂度。</h3><h3 id="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"><a href="#一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和" class="headerlink" title="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"></a>一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和</h3><h3 id="栈，队列是什么？区别是什么？"><a href="#栈，队列是什么？区别是什么？" class="headerlink" title="栈，队列是什么？区别是什么？"></a>栈，队列是什么？区别是什么？</h3><h3 id="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"><a href="#设计一个可以满足高效率获取第k大和前k个大的元素的数据结构" class="headerlink" title="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"></a>设计一个可以满足高效率获取第k大和前k个大的元素的数据结构</h3><h3 id="手写求两个链表第一个交叉节点"><a href="#手写求两个链表第一个交叉节点" class="headerlink" title="手写求两个链表第一个交叉节点"></a>手写求两个链表第一个交叉节点</h3><h3 id="求x的y次方，想出比直接for循环更好的方案"><a href="#求x的y次方，想出比直接for循环更好的方案" class="headerlink" title="求x的y次方，想出比直接for循环更好的方案"></a>求x的y次方，想出比直接for循环更好的方案</h3><h3 id="求绝对众数"><a href="#求绝对众数" class="headerlink" title="求绝对众数"></a>求绝对众数</h3><h3 id="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"><a href="#二叉树，输出所有和为n的路径（可以从中间结点到中间结点）" class="headerlink" title="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"></a>二叉树，输出所有和为n的路径（可以从中间结点到中间结点）</h3><h3 id="如何用两个栈实现一个队列。"><a href="#如何用两个栈实现一个队列。" class="headerlink" title="如何用两个栈实现一个队列。"></a>如何用两个栈实现一个队列。</h3><h3 id="如何开启一个进程。"><a href="#如何开启一个进程。" class="headerlink" title="如何开启一个进程。"></a>如何开启一个进程。</h3><h3 id="实现一个-hashtable"><a href="#实现一个-hashtable" class="headerlink" title="实现一个 hashtable"></a>实现一个 hashtable</h3><h3 id="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"><a href="#写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。" class="headerlink" title="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"></a>写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。</h3><h3 id="最长公共连续子串"><a href="#最长公共连续子串" class="headerlink" title="最长公共连续子串"></a>最长公共连续子串</h3><h3 id="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；"><a href="#几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；" class="headerlink" title="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；"></a>几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；</h3><h3 id="判断平衡二叉树。"><a href="#判断平衡二叉树。" class="headerlink" title="判断平衡二叉树。"></a>判断平衡二叉树。</h3><h3 id="1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL"><a href="#1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL" class="headerlink" title="1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL"></a>1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL</h3><h3 id="有序数组转二叉搜索树"><a href="#有序数组转二叉搜索树" class="headerlink" title="有序数组转二叉搜索树"></a>有序数组转二叉搜索树</h3><h3 id="设计阻塞队列（不能用JDK的api"><a href="#设计阻塞队列（不能用JDK的api" class="headerlink" title="设计阻塞队列（不能用JDK的api"></a>设计阻塞队列（不能用JDK的api</h3><h3 id="了解哪些设计模式？手写一个工厂方法模式"><a href="#了解哪些设计模式？手写一个工厂方法模式" class="headerlink" title="了解哪些设计模式？手写一个工厂方法模式"></a>了解哪些设计模式？手写一个工厂方法模式</h3><h3 id="手撕sql"><a href="#手撕sql" class="headerlink" title="手撕sql"></a>手撕sql</h3><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2>]]></content>
       <categories>
         <category>面试准备</category>
       </categories>
@@ -684,89 +1602,6 @@
       </categories>
       <tags>
         <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>分治 动态规划 贪心</title>
-    <url>/2020/07/18/Dynamic%20Programming/</url>
-    <content><![CDATA[<h2 id="分治-Divide-and-Conquer"><a href="#分治-Divide-and-Conquer" class="headerlink" title="分治 Divide and Conquer"></a>分治 Divide and Conquer</h2><p>将问题划分为互不相交的子问题。递归地求解子问题的解，再将这些解组合起来，得到原问题的最优解。（eg. 归并排序算法 $T(n)$）</p>
-<ol>
-<li><strong>分解</strong>原问题为若干子问题，这些子问题是原问题的规模较小的实例。<br>eg. 分解带排序的n个元素的序列成各具n/2个元素的两个子序列。 - - -$D(n)=\theta (1)$</li>
-<li><strong>解决</strong>这些子问题。<br>如果子问题规模足够小（<strong>基本情况</strong>），就直接求解，否则（<strong>递归情况</strong>）使用递归进行求解。<br>eg. 使用归并排序递归地排序两个子序列。 - - -$2T(n/2)$</li>
-<li><strong>合并</strong>这些子问题的解获得原问题的解。<br>eg. 合并两个已排序的子序列以产生已排序的答案。 - - -$C(n)=\theta (n)$<a id="more"></a>
-</li>
-</ol>
-<p>将原问题划分为a个问题，每个问题的大小是n/b：$T(n)=aT(n/b)+D(n)+C(n)$。<br>递归式：一个等式或不等式，通过更小的输入上的函数值来描述一个函数。（用自身定义自身）<br>求解递归式的方法：</p>
-<ol>
-<li><strong>代入法 Substitution</strong> 猜测解的形式，减少不确定范围，用数学归纳法求出解中常熟并证明这个界是正确的。<br>$T(n)=2T(n/2)+n\to T(n)=O(nlgn)$<br>$T(n)=T(n-1)+n\to T(n)=O(n^2)$<br>$T(n)=T(n/2)+1\to T(n)=O(lgn)$</li>
-<li><strong>递归树法 Iteration</strong> 将递归式转换为一棵树，其结点表示不同层次的递归调用产生的代价。然后采用边界和技术来求解递归式。</li>
-<li><strong>主方法 Master</strong>  对于递归式 $T(n)=aT(n/b)+f(n)$：<br>a. 若对于某个常数 $\epsilon &gt;0$ 有 $f(n)=O(n^{log_ba-\epsilon })$，则 $T(n)=\theta (n^{log_ba})$。<br>b. 若 $f(n)=\theta (n^{log_ba})$，则 $T(n)=\theta (n^{log_ba}lgn)$。（适用于分治的递归式）<br>c. 若对某个常数$\epsilon &gt;0$ 有$f(n)=\Omega (n^{log_ba+\epsilon })$，且对某个常数$c&lt;1$和所有足够大的n有$af(n/b)\le cf(n)$，则 $T(n)=\theta (f(n))$。</li>
-</ol>
-<h2 id="动态规划-Dynamic-Programming"><a href="#动态规划-Dynamic-Programming" class="headerlink" title="动态规划 Dynamic Programming"></a>动态规划 Dynamic Programming</h2><p><strong>优化子结构</strong>：一个问题包含其子问题的最优解<br><strong>重叠子问题</strong>：利用递归算法反复求解相同的子问题<br><strong>动态规划算法无后效性，总是能够得到全局最优解。</strong><br>动态规划算法对每个子问题只求解一次并将其解记录在表格中。任何子问题都会等到它依赖的子问题已经求解结束才会进行求解。动态规划算法运行时间相当于每个子问题的求解时间之和。</p>
-<ol>
-<li>寻找最优解的特征结构<br>证明问题含有<strong>优化子结构</strong><br>eg. 最短路径问题具有优化子结构，而最长简单路径问题（不允许成环）不具有优化子结构。根本原因在于求解最长路径子问题时用到的某些资源（顶点），导致这些资源在求解其它子问题时不可用（若两个最长路径子问题旋律共同的顶点则会成环）。<br>a. 证明问题的最优解的第一个组成部分是做出一个选择。例如选择钢条的第一次切割位置、选择矩阵链的划分位置。做出这次选择会产生一个或者多个子问题。<br>b. 对于一个给定问题，在其可能的第一步选择中，假定已经知道哪种选择才会得到最优解。<br>c. 给定可获得最优解的选择之后，确定这个选择会产生哪些子问题，以及如何最好地刻画子问题空间。<br>d. 证明：<u>作为构成原问题最优解的组成部分，每个子问题的解就是它本身的最优解。（反证）</u></li>
-<li>递归地定义最优解的值<br>找到问题规模为n的最优解与规模小于n的子问题的最优解之间的数量关系。</li>
-<li>计算最优解的值，通常采用<strong>自底向上</strong>的方法<br>自底向上方法使得任何子问题的求解只依赖于规模更小的问题的求解，也可以用过自顶向下加入备忘机制来实现。<br>计算最优解的过程中可以重构解来记录最优解的获取方式。</li>
-<li>利用计算出的信息构造一个最优解</li>
-</ol>
-<p>eg. 最长公共子序列、钢条切割、最优二叉搜索树</p>
-<h2 id="贪心-Greedy"><a href="#贪心-Greedy" class="headerlink" title="贪心 Greedy"></a>贪心 Greedy</h2><p><strong>优化子结构</strong>：问题的优化解包含了子问题的最优解。<br><strong>贪心选择性(greedy-choice property)</strong>：全局优化解可以通过局部优化选择得到。即：进行选择时可以直接做出在当前问题中看来最优的选择而不必考虑子问题的解。即：存在一个最优解是以贪心选择开始的。<br>证明贪心选择性：先考察一个全局最优解，如果全局最优解可以转换成以贪心选择开始，则已得证，如果不能，则将这个全局最优解的开始替换成贪心选择，从而可以得到一个更优的解。因此全局最优解应该选择这个贪心选择做为第一次选择，从而得到一个规模更小的子问题，<u>通过数学归纳法可证每次都对子问题进行贪心选择可以得到原问题的最优解。</u><br><strong>贪心算法并不能保证得到全局最优解。</strong><br>通过贪心选择性的证明，我们说明了存在一个全局最优解是以贪心选择开始的，<u>但我们没有证明所有贪心选择开始的解都是全局最优解，</u>因此在某些问题上使用贪心算法可能无法得到全局最优解。<br>贪心算法与动态规划最大的不同在于，贪心并不是首先寻找子问题的最优解然后在其中进行选择（这种选择通常依赖于子问题的解），而是直接做出一次贪心选择（局部最优解）然后求解剩下的唯一子问题，不必求解所有可能相关的子问题。即：贪心算法总是做出局部最优的选择，希望这样的选择可以最终达到全局最优，这种选择可能依赖于之前做出的选择，但不会依赖于任何将来的选择或者子问题的解。<br>贪心算法通常采用<strong>自顶向下</strong>的设计：做出一个选择，然后求解剩下那个子问题。而不是自底向上求解出很多子问题再做出选择。<em>每个贪心算法下，几乎总有一个更繁琐的动态规划算法。</em></p>
-<ol>
-<li>将最优化问题转化为这样的形式：对其做出一次选择之后，只剩下一个子问题需要求解。</li>
-<li>证明做出贪心选择后，原问题总是存在最优解，<strong>即贪心总是安全的</strong>。<br>进行贪心选择时，可以通过数据预处理（排序）或者使用合适的数据结构（优先队列）来使得贪心选择更快速高效。</li>
-<li>证明做出贪心选择后，剩余的子问题的最优解与该贪心选择组合即可得到原问题的最优解，这样就得到了<strong>最优子结构</strong>。</li>
-</ol>
-<p>eg. 最小生成树、Dijkstra算法、赫夫曼编码、任务调度问题、部分背包问题</p>
-<blockquote>
-<p>参考：《算法导论》机械工业出版社 第2、4、15、16章</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>学习笔记：算法</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据库</title>
-    <url>/2020/07/29/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-    <content><![CDATA[<h3 id="expoll了解吗"><a href="#expoll了解吗" class="headerlink" title="expoll了解吗"></a>expoll了解吗</h3><h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><h3 id="数据库事务隔离级别"><a href="#数据库事务隔离级别" class="headerlink" title="数据库事务隔离级别"></a>数据库事务隔离级别</h3><h3 id="多人同时使用数据库的注意事项"><a href="#多人同时使用数据库的注意事项" class="headerlink" title="多人同时使用数据库的注意事项"></a>多人同时使用数据库的注意事项</h3><h3 id="MySQL与其他主流数据库相比有什么特点？"><a href="#MySQL与其他主流数据库相比有什么特点？" class="headerlink" title="MySQL与其他主流数据库相比有什么特点？"></a>MySQL与其他主流数据库相比有什么特点？</h3><h3 id="事务的四大特性"><a href="#事务的四大特性" class="headerlink" title="事务的四大特性"></a>事务的四大特性</h3><h3 id="四种隔离级别"><a href="#四种隔离级别" class="headerlink" title="四种隔离级别"></a>四种隔离级别</h3><h3 id="什么是幻读"><a href="#什么是幻读" class="headerlink" title="什么是幻读"></a>什么是幻读</h3><h3 id="InnoDB-怎么防止幻读"><a href="#InnoDB-怎么防止幻读" class="headerlink" title="InnoDB 怎么防止幻读"></a>InnoDB 怎么防止幻读</h3><h3 id="B-树原理，为什么使用B-而不是二叉平衡树"><a href="#B-树原理，为什么使用B-而不是二叉平衡树" class="headerlink" title="B+树原理，为什么使用B+而不是二叉平衡树"></a>B+树原理，为什么使用B+而不是二叉平衡树</h3><h3 id="为什么要分用户态和内核态"><a href="#为什么要分用户态和内核态" class="headerlink" title="为什么要分用户态和内核态"></a>为什么要分用户态和内核态</h3><h3 id="用户态和内核态的区别"><a href="#用户态和内核态的区别" class="headerlink" title="用户态和内核态的区别"></a>用户态和内核态的区别</h3><h3 id="Git-切换分支，提交，具体如何合并分支"><a href="#Git-切换分支，提交，具体如何合并分支" class="headerlink" title="Git 切换分支，提交，具体如何合并分支"></a>Git 切换分支，提交，具体如何合并分支</h3><h3 id="数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）"><a href="#数据库部分知识，手写一个-SQL-（子查询-感觉主要看-group-by-和-having）" class="headerlink" title="数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）"></a>数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）</h3><h3 id="MySQL的索引-B-和B树的区别，为啥用B-；"><a href="#MySQL的索引-B-和B树的区别，为啥用B-；" class="headerlink" title="MySQL的索引(B+和B树的区别，为啥用B+)；"></a>MySQL的索引(B+和B树的区别，为啥用B+)；</h3><h3 id="让你设计数据库会注意什么；"><a href="#让你设计数据库会注意什么；" class="headerlink" title="让你设计数据库会注意什么；"></a>让你设计数据库会注意什么；</h3><h3 id="【高频】MyISAM-和-InnoDB的区别"><a href="#【高频】MyISAM-和-InnoDB的区别" class="headerlink" title="【高频】MyISAM 和 InnoDB的区别"></a>【高频】MyISAM 和 InnoDB的区别</h3><p>{是否支持行锁 、 是否支持十五 、 是否支持 MVCC 、 底层索引结构不同 }</p>
-<h3 id="update时什么锁-next-key-lock，但唯一性索引时降级为行锁，"><a href="#update时什么锁-next-key-lock，但唯一性索引时降级为行锁，" class="headerlink" title="update时什么锁 (next-key lock，但唯一性索引时降级为行锁，"></a>update时什么锁 (next-key lock，但唯一性索引时降级为行锁，</h3><h3 id="Mysql-比较熟悉是吧？说一下底层数据存储原理？"><a href="#Mysql-比较熟悉是吧？说一下底层数据存储原理？" class="headerlink" title="Mysql 比较熟悉是吧？说一下底层数据存储原理？"></a>Mysql 比较熟悉是吧？说一下底层数据存储原理？</h3><p>如果直接线性存储的话，每次查找数据都要整个遍历一遍，那么复杂度就是log(n)，于是可以用二叉树来存储，把复杂度降低到约log(n)，但是二叉树有个特点就是，它有可能因为插入顺序的问题，变得不平衡，最坏情况就是都在节点一边，又变成了log(n)，所有就通过改进插入和删除等操作，保证每次操作完后树都是平衡的，就有了B树……</p>
-<h3 id="说一下建表时，建索引有哪些要注意的。"><a href="#说一下建表时，建索引有哪些要注意的。" class="headerlink" title="说一下建表时，建索引有哪些要注意的。"></a>说一下建表时，建索引有哪些要注意的。</h3><p>选区分度比较大的，选数据类型比较小的比如整数而不要选长字符串，选where子句中出现的，覆盖索引 balabala……</p>
-<h3 id="事务特性ACID"><a href="#事务特性ACID" class="headerlink" title="事务特性ACID"></a>事务特性ACID</h3><p>深入一些 ： 为什么要有一致性 ？ AID不是已经保证了一致性了吗 ？</p>
-<h3 id="并发事务带来的问题"><a href="#并发事务带来的问题" class="headerlink" title="并发事务带来的问题"></a>并发事务带来的问题</h3><p>{    脏读 、 修改丢失 、 不可重复读 、 幻影读    }</p>
-<h3 id="【高频】事务的隔离级别"><a href="#【高频】事务的隔离级别" class="headerlink" title="【高频】事务的隔离级别"></a>【高频】事务的隔离级别</h3><h3 id="【高频】-MVCC机制"><a href="#【高频】-MVCC机制" class="headerlink" title="【高频】 MVCC机制"></a>【高频】 MVCC机制</h3><h3 id="【高频】索引"><a href="#【高频】索引" class="headerlink" title="【高频】索引"></a>【高频】索引</h3><h3 id="为什么索引使用B-树结构，而不是B树"><a href="#为什么索引使用B-树结构，而不是B树" class="headerlink" title="为什么索引使用B+树结构，而不是B树"></a>为什么索引使用B+树结构，而不是B树</h3><h3 id="为什么索引使用B-树结构，而不是红黑树-："><a href="#为什么索引使用B-树结构，而不是红黑树-：" class="headerlink" title="为什么索引使用B+树结构，而不是红黑树 ："></a>为什么索引使用B+树结构，而不是红黑树 ：</h3><p>{  磁盘预读取 、红黑树高度 }</p>
-<h3 id="聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？"><a href="#聚簇索引和非聚簇索引区别？-主键索引和二级索引了解吗？" class="headerlink" title="聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？"></a>聚簇索引和非聚簇索引区别？ 主键索引和二级索引了解吗？</h3><h3 id="为什么不对每个列创建索引呢？"><a href="#为什么不对每个列创建索引呢？" class="headerlink" title="为什么不对每个列创建索引呢？"></a>为什么不对每个列创建索引呢？</h3><h3 id="【高频】SQL语句优化-，SQL题目（字节要求撸代码）"><a href="#【高频】SQL语句优化-，SQL题目（字节要求撸代码）" class="headerlink" title="【高频】SQL语句优化 ，SQL题目（字节要求撸代码）"></a>【高频】SQL语句优化 ，SQL题目（字节要求撸代码）</h3><h3 id="explain中-rows-type-key-extra字段的含义？"><a href="#explain中-rows-type-key-extra字段的含义？" class="headerlink" title="explain中 rows type key extra字段的含义？"></a>explain中 rows type key extra字段的含义？</h3><h3 id="count-1-count-count-列值-的区别"><a href="#count-1-count-count-列值-的区别" class="headerlink" title="count(1) count(*) count(列值)的区别"></a>count(1) count(*) count(列值)的区别</h3><h3 id="数据库的关系有哪些？"><a href="#数据库的关系有哪些？" class="headerlink" title="数据库的关系有哪些？"></a>数据库的关系有哪些？</h3><h3 id="一对多怎么实现？多对多怎么实现？"><a href="#一对多怎么实现？多对多怎么实现？" class="headerlink" title="一对多怎么实现？多对多怎么实现？"></a>一对多怎么实现？多对多怎么实现？</h3><h3 id="MySQL数据库有哪些类型？这些类型有什么区别？"><a href="#MySQL数据库有哪些类型？这些类型有什么区别？" class="headerlink" title="MySQL数据库有哪些类型？这些类型有什么区别？"></a>MySQL数据库有哪些类型？这些类型有什么区别？</h3>]]></content>
-      <categories>
-        <category>面试准备</category>
-      </categories>
-      <tags>
-        <tag>Database</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>散列表 Hash Table</title>
-    <url>/2020/07/19/Hashing/</url>
-    <content><![CDATA[<p>散列表是实现字典操作的一种有效数据结构，最坏情况的查找时间是$\theta (n)$，平均查找时间为$O(1)$。<br>散列表是普通数组概念的推广，数组可以直接寻址。<br>当实际存储的关键字数目比全部可能的关键字总数要小时，可以使用散列表来替代直接数组寻址。<br><a id="more"></a></p>
-<h2 id="直接寻址表-Direct-address-table"><a href="#直接寻址表-Direct-address-table" class="headerlink" title="直接寻址表 Direct-address table"></a>直接寻址表 Direct-address table</h2><p>关键字的全域U较小，没有两个元素具有相同的关键字。<br>使用数组，即直接寻址表，其中每个位置成为槽(slot)，实际关键字集合K对应的槽指向对应的元素（关键字为k的元素存放在槽k中），其它槽为NIL，也可以使用其他关键字说明该槽为空。<br>缺点：如果全域U很大，计算机可能无法完整存储这张表；如果实际存储的关键字集合K相对于U来说很小，则T的大部分空间被浪费。</p>
-<h2 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h2><p>散列表需要的存储空间比直接寻址表少很多，关键字为k的元素存放在槽$h(k)$中。即：利用散列函数（hash function）h来计算出关键字为k的元素的槽的位置。散列函数将全域U映射到大小为m的散列表上，其中$m&lt;&lt;|U|$。<br>两个关键字可能被映射到同一个槽中，成为冲突(collision)。<br><strong>通过链接法解决冲突</strong>：把映射到同一个槽中的关键字连成链表。<br>最坏情况：所有n个关键字都散列到同一个槽中，性能相当于普通链表。<br>平均情况：依赖于散列函数把n个关键字映射到m个槽位的平均程度。定义表T的装载因子$\alpha =n/m$。<br>在简单均匀散列(simple uniform hash)的情况下，一次查找的平均时间为$\theta(1+\alpha)$，说明总元素个数应该与表中元素个数成正比，则$\alpha=n/m=O(m)/m=O(1)$，此时查找操作平均需要常数时间。<br>当链表使用双向链表时，插入和删除的最坏情况也是$O(1)$，此时字典的全部操作都可以在常数时间完成。</p>
-<h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><p>好的散列函数应该尽量满足简单均匀，尽量将相近的字符散列到不同的槽。</p>
-<h3 id="除法散列法"><a href="#除法散列法" class="headerlink" title="除法散列法"></a>除法散列法</h3><p>散列函数：$k(h) = k\% m$<br>注意：m不应该为2的幂。如果$m=2^p$，则$h(k)$就是k的二进制表示的p个最低位数字。设计散列函数时最好考虑所有位，因为无法保证各种最低p位的排列形式为等可能。<em>m最好是一个不太接近2的幂的素数。</em></p>
-<h3 id="乘法散列法"><a href="#乘法散列法" class="headerlink" title="乘法散列法"></a>乘法散列法</h3><p>散列函数：$\lfloor m(kA\%1)\rfloor$<br>其中常数A满足$0 &lt; A &lt; 1$。即：对kA的小数部分乘以m再向下取整。<br>优点：对于m的取值不是很关键。一般选择$A\approx (\sqrt5-1)/2=0.618…$</p>
-<h3 id="全域散列法-universal-hashing"><a href="#全域散列法-universal-hashing" class="headerlink" title="全域散列法 universal hashing"></a>全域散列法 universal hashing</h3><p>在一个函数组中随机地选择散列函数，使之独立于要存储的关键字，从而避免了将全部关键字散列到同一个槽中的最坏情况，选定后不再更改。</p>
-<h2 id="开放寻址法-open-addressing"><a href="#开放寻址法-open-addressing" class="headerlink" title="开放寻址法 open addressing"></a>开放寻址法 open addressing</h2><p>所有的元素都存放在散列表里，每个表项要么是u元素要么是NIL。散列表可能会填满，以至于无法再插入新的元素。该方法导致的一个结果是装载因子$\alpha$绝对不会超过1。槽中同样可以存放链表。<br>使用开放寻址法插入元素时，需要连续地检查散列表，或称为探查(probe)，直到找到一个空槽来放置待插入的元素。<br>线性探查，二次探查，双重探查</p>
-<h2 id="完全散列"><a href="#完全散列" class="headerlink" title="完全散列"></a>完全散列</h2><p>主要针对静态(static)的关键字集合，即：一旦各关键字存入表中，关键字集合就不再变化了。<br>采用两级的散列方法来设计完全散列方案，每级上都使用全域散列。<br>为了保证不冲突，每个二级哈希表的数量是第一级映射到这个槽中元素个数的平方（在第 1 级，如果有$N_i$个元素映射到第i个槽，那么第$N_i$个槽对应的2级哈希表采用全域哈希。表的长度取$M_i = N_i^2$），这样可以保证整个哈希表非常的稀疏。<br>属性：将n个键映射到$n^2$个槽，如果从全域哈希H中随机选择h，那么期望的冲突次数小于1/2，不发生冲突的概率大于1/2。</p>
-<blockquote>
-<p> <a href="https://blog.csdn.net/lzq20115395/article/details/80517225">https://blog.csdn.net/lzq20115395/article/details/80517225</a></p>
-</blockquote>
-<p><img src="/images/perfect-hash.png" alt="hash"></p>
-<h2 id="java中HashTable和HashMap的源代码"><a href="#java中HashTable和HashMap的源代码" class="headerlink" title="java中HashTable和HashMap的源代码"></a>java中HashTable和HashMap的源代码</h2>]]></content>
-      <categories>
-        <category>学习笔记：数据结构</category>
-      </categories>
-      <tags>
-        <tag>hash</tag>
       </tags>
   </entry>
 </search>
