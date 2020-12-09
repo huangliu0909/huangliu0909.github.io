@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NUS note,ML,AI," />
+  <meta name="keywords" content="NUS note,AI,ML,PGM," />
 
 
 
@@ -79,20 +79,26 @@
 
 
 
-<meta name="description" content="Variable Elimination AlgorithmConstituted GraphSum-Product Algorithm">
+<meta name="description" content="Variable Elimination AlgorithmGeneral probabilistic problem: calculate $p(X_F|X_E)$ for arbitrary disjoint subsets $E$ and $F$: ( $X_F$ are query nodes, $X_E$ are evidence nodes) p(X_F|X_E)&#x3D;\frac{p(X_">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lec-04 Variable Elimination and Belief Propagation">
+<meta property="og:title" content="Variable Elimination and Belief Propagation">
 <meta property="og:url" content="https://huangliu0909.github.io/2020/09/02/CS5340%20Lec04/index.html">
 <meta property="og:site_name" content="Wiwi&#39;s Blog">
-<meta property="og:description" content="Variable Elimination AlgorithmConstituted GraphSum-Product Algorithm">
+<meta property="og:description" content="Variable Elimination AlgorithmGeneral probabilistic problem: calculate $p(X_F|X_E)$ for arbitrary disjoint subsets $E$ and $F$: ( $X_F$ are query nodes, $X_E$ are evidence nodes) p(X_F|X_E)&#x3D;\frac{p(X_">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5340/4/k%5Er.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5340/4/eg.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5340/4/elimination.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5340/4/sum-product.png">
 <meta property="article:published_time" content="2020-09-02T13:11:04.000Z">
-<meta property="article:modified_time" content="2020-09-11T12:27:05.459Z">
+<meta property="article:modified_time" content="2020-10-04T12:02:45.514Z">
 <meta property="article:author" content="HUANG Liu">
 <meta property="article:tag" content="NUS note">
-<meta property="article:tag" content="ML">
 <meta property="article:tag" content="AI">
+<meta property="article:tag" content="ML">
+<meta property="article:tag" content="PGM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huangliu0909.github.io/images/CS5340/4/k%5Er.png">
 
 
 
@@ -128,7 +134,7 @@
 
 
 
-  <title>Lec-04 Variable Elimination and Belief Propagation | Wiwi's Blog</title>
+  <title>Variable Elimination and Belief Propagation | Wiwi's Blog</title>
   
 
 
@@ -307,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lec-04 Variable Elimination and Belief Propagation</h1>
+          <h1 class="post-title" itemprop="name headline">Variable Elimination and Belief Propagation</h1>
         
 
         <div class="post-meta">
@@ -342,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS5340-Uncertainty-Modelling-in-AI/" itemprop="url" rel="index">
-                    <span itemprop="name">CS5340 Uncertainty Modelling in AI</span>
+                  <a href="/categories/Uncertainty-Modelling-in-AI/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncertainty Modelling in AI</span>
                   </a>
                 </span>
 
@@ -373,7 +379,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  6
+                  560
                 </span>
               
 
@@ -389,7 +395,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  1
+                  3
                 </span>
               
             </div>
@@ -410,7 +416,37 @@
       
 
       
-        <h1 id="Variable-Elimination-Algorithm"><a href="#Variable-Elimination-Algorithm" class="headerlink" title="Variable Elimination Algorithm"></a>Variable Elimination Algorithm</h1><h1 id="Constituted-Graph"><a href="#Constituted-Graph" class="headerlink" title="Constituted Graph"></a>Constituted Graph</h1><h1 id="Sum-Product-Algorithm"><a href="#Sum-Product-Algorithm" class="headerlink" title="Sum-Product Algorithm"></a>Sum-Product Algorithm</h1>
+        <h1 id="Variable-Elimination-Algorithm"><a href="#Variable-Elimination-Algorithm" class="headerlink" title="Variable Elimination Algorithm"></a>Variable Elimination Algorithm</h1><p>General probabilistic problem: calculate $p(X_F|X_E)$ for arbitrary disjoint subsets $E$ and $F$: ( $X_F$ are query nodes, $X_E$ are evidence nodes)</p>
+<script type="math/tex; mode=display">p(X_F|X_E)=\frac{p(X_F,X_E)}{p(X_E)}=\frac{\sum_{X_R}p(X_E,X_F,X_R)}{\sum_{X_F}p(X_F,X_E)}</script><p>$X_R$ are nodes that must be marginalized out of joint probability.</p>
+<p>Joint probability table size of $n$ variabels that takes $k$ states:<br>a naive summation: $O(k^n)$.<br>a factored form: $O(k^r)$ where $r\ll n$<br><a id="more"></a><br><img src="/images/CS5340/4/k^r.png" alt="k^r"></p>
+<p>$p(X_6|X_2,X_5)$: 3d table<br>$p(\bar{X_6}=1|X_2,X_5)$: a 2d slice of the 3d table</p>
+<p>Evidence potential:</p>
+<script type="math/tex; mode=display">\delta(x_i,\bar{x_i})\begin{cases} 1,\qquad if\quad x_i = \bar{x_i} \\ 0,\qquad else\end{cases}</script><p>Turn evaluation into sum:</p>
+<script type="math/tex; mode=display">g(\bar{x_i})=\sum_{x_i}\delta(x,\bar{x_i})=g(x_i=\bar{x_i})</script><p>Which means setting lines of table $p(x_i)$ where $x_i \neq \bar{x_i}$ to 0.<br>Evidence potential is a trick to simplify the description. In practice we take slices instead of doing summation.<br><img src="/images/CS5340/4/eg.png" alt="eg"></p>
+<p>Eliminate(G,E,F):</p>
+<ul>
+<li>Initialize: choose elimination ordering, query nodes appear at the last.</li>
+<li>Evidence: place evidence</li>
+<li>Update: marginalization.<br>Loop: 1. $\phi_i = $ product of …, which is the unnormalized conditional probability. 2. $m_i(x_{S_i})=\sum_{x_i}\phi_i$, which is the narmalization factor.</li>
+<li>Normalize(F)<script type="math/tex; mode=display">p(x_F|\bar{x_E})=\frac{\phi_F(x_F)}{\sum_F\phi_F(x_F)}=\frac{\phi_F(x_F)}{m_F(x_{S_F})}</script>For conditional probability, normalization factor Z cancels.<br>For a marginal probability, Z cannot be canceled.</li>
+</ul>
+<p><img src="/images/CS5340/4/elimination.png" alt="elimination"></p>
+<h1 id="Constituted-Graph"><a href="#Constituted-Graph" class="headerlink" title="Constituted Graph"></a>Constituted Graph</h1><p>Eliminate: removing the node from graph and connecting the remaining neighbors, thus creating “elimination cliques”.<br><strong>Reconstitute</strong>: add additional edges during the elimination process to the original graph. (Complexity depends on the choice of elimination order)<br><strong>Treewidth</strong>: one less than the smallest achievable cardinality of the largest elimination clique over all possible elimination ordering.</p>
+<p><em>Computaional Complexity of DGM can be convert to UGM by moralization.</em></p>
+<p>Limitation: re-run elimination algorithm for every new query nodes, since different query nodes require different eliminate order.</p>
+<h1 id="Sum-Product-Algorithm-Belief-Propagation-Algorithm"><a href="#Sum-Product-Algorithm-Belief-Propagation-Algorithm" class="headerlink" title="Sum-Product Algorithm (Belief Propagation Algorithm)"></a>Sum-Product Algorithm (Belief Propagation Algorithm)</h1><p>$ \checkmark$ All single-node marginals<br>$ \checkmark$ Tree like graphs (undirected tree without loop or can be moralized to such tree)<br>$ \checkmark$ Using one single run<br>$ \checkmark$ Cliques are single or pairs of nodes</p>
+<h2 id="Convert-a-directed-tree-to-an-undirected-one"><a href="#Convert-a-directed-tree-to-an-undirected-one" class="headerlink" title="Convert a directed tree to an undirected one"></a>Convert a directed tree to an undirected one</h2><p>Define: $\psi(x_r) = p(x_r)$, $\psi(x_i.x_j)=p(x_j|x_i)$, $\psi(x_i)=1\quad\forall i\neq r$, Partition function $Z=1$.</p>
+<h2 id="Define-local-potetials"><a href="#Define-local-potetials" class="headerlink" title="Define local potetials"></a>Define local potetials</h2><script type="math/tex; mode=display">
+\psi_i^E(x_i)=\begin{cases}\psi_i(x_i)\delta(x_i,\bar{x_i})\quad i\in E
+\\\psi_i(x_i)\qquad\qquad otherwise
+\end{cases}</script><script type="math/tex; mode=display">
+p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i,x_j))</script><h2 id="Construct-tree-structure"><a href="#Construct-tree-structure" class="headerlink" title="Construct tree structure"></a>Construct tree structure</h2><p>Order: Depth-Fist Traversal.<br>Take query node $X_f$ as root.<br>Directing all edges pointing away from $X_f$.<br>Elimination proceeds inward from leaves with tree width equals to one.</p>
+<h2 id="Inward"><a href="#Inward" class="headerlink" title="Inward"></a>Inward</h2><p>Send message $(j,i)$: </p>
+<script type="math/tex; mode=display">m_{ji}=\sum_{x_j}(\psi^E(x_j)\psi(x_i,x_j)\prod_{k\in N(j)- i}m_{kj})</script><p>This message can be re-used.<br>Compute Marginal:</p>
+<script type="math/tex; mode=display">p(x_f|\bar{x_E})\propto\psi^E(x_f)\prod_{e\in N(f)}m_{ef}</script><p>which is the unnormalized conditional probability.</p>
+<p>Message Passing Protocol: a node can send a message to a neihboring node if and only if it has received messages from all its other neighbors.</p>
+<p><strong>Two phase approval: inward &amp; outward.</strong><br><img src="/images/CS5340/4/sum-product.png" alt="sum-product"></p>
+
       
     </div>
     
@@ -430,7 +466,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://huangliu0909.github.io/2020/09/02/CS5340%20Lec04/" title="Lec-04 Variable Elimination and Belief Propagation">https://huangliu0909.github.io/2020/09/02/CS5340%20Lec04/</a>
+    <a href="https://huangliu0909.github.io/2020/09/02/CS5340%20Lec04/" title="Variable Elimination and Belief Propagation">https://huangliu0909.github.io/2020/09/02/CS5340%20Lec04/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -447,9 +483,11 @@
           
             <a href="/tags/NUS-note/" rel="tag"># NUS note</a>
           
+            <a href="/tags/AI/" rel="tag"># AI</a>
+          
             <a href="/tags/ML/" rel="tag"># ML</a>
           
-            <a href="/tags/AI/" rel="tag"># AI</a>
+            <a href="/tags/PGM/" rel="tag"># PGM</a>
           
         </div>
       
@@ -462,8 +500,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/09/01/CS5242%20Lec04/" rel="next" title="Lec-04 Training Deep Networks">
-                <i class="fa fa-chevron-left"></i> Lec-04 Training Deep Networks
+              <a href="/2020/09/01/ML_Training_Deep_Networks/" rel="next" title="Training Deep Networks">
+                <i class="fa fa-chevron-left"></i> Training Deep Networks
               </a>
             
           </div>
@@ -472,8 +510,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/09/08/CS5242%20Lec05/" rel="prev" title="Lec-05 Convolution and Pooling">
-                Lec-05 Convolution and Pooling <i class="fa fa-chevron-right"></i>
+              <a href="/2020/09/08/ML_Convolution_and_Pooling/" rel="prev" title="Convolution and Pooling">
+                Convolution and Pooling <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -543,7 +581,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">HUANG Liu</p>
-              <p class="site-description motion-element" itemprop="description">Love wins. Love always wins.</p>
+              <p class="site-description motion-element" itemprop="description">Love always wins.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -553,7 +591,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -575,7 +613,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -624,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Variable-Elimination-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Variable Elimination Algorithm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Constituted-Graph"><span class="nav-number">2.</span> <span class="nav-text">Constituted Graph</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sum-Product-Algorithm"><span class="nav-number">3.</span> <span class="nav-text">Sum-Product Algorithm</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Variable-Elimination-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Variable Elimination Algorithm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Constituted-Graph"><span class="nav-number">2.</span> <span class="nav-text">Constituted Graph</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sum-Product-Algorithm-Belief-Propagation-Algorithm"><span class="nav-number">3.</span> <span class="nav-text">Sum-Product Algorithm (Belief Propagation Algorithm)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Convert-a-directed-tree-to-an-undirected-one"><span class="nav-number">3.1.</span> <span class="nav-text">Convert a directed tree to an undirected one</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Define-local-potetials"><span class="nav-number">3.2.</span> <span class="nav-text">Define local potetials</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Construct-tree-structure"><span class="nav-number">3.3.</span> <span class="nav-text">Construct tree structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inward"><span class="nav-number">3.4.</span> <span class="nav-text">Inward</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -665,12 +703,21 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">47.8k</span>
+    <span title="Site words total count">52.4k</span>
   
 </div>
 
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
 
 
 

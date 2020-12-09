@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NUS note,ML,AI," />
+  <meta name="keywords" content="NUS note,AI,ML,PGM," />
 
 
 
@@ -81,7 +81,7 @@
 
 <meta name="description" content="为什么需要无向图模型使用无向图模型(UGM: Undirected Graphical Models) $\mathcal G(\mathcal V,\mathcal E)$来表示Markov Random Field(Markov network)。$\mathcal V$ : 顶点集合，每个顶点与一个随机变量 $X_i$ 一一对应。$\mathcal E$ : 无向边集合。边没有方向性，这对于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lec-03 Markov Random Fields (Undirected Graphical Models)">
+<meta property="og:title" content="Markov Random Fields (Undirected Graphical Models)">
 <meta property="og:url" content="https://huangliu0909.github.io/2020/08/26/CS5340%20Lec03/index.html">
 <meta property="og:site_name" content="Wiwi&#39;s Blog">
 <meta property="og:description" content="为什么需要无向图模型使用无向图模型(UGM: Undirected Graphical Models) $\mathcal G(\mathcal V,\mathcal E)$来表示Markov Random Field(Markov network)。$\mathcal V$ : 顶点集合，每个顶点与一个随机变量 $X_i$ 一一对应。$\mathcal E$ : 无向边集合。边没有方向性，这对于">
@@ -93,11 +93,12 @@
 <meta property="og:image" content="https://huangliu0909.github.io/images/CS5340/3/p-g.png">
 <meta property="og:image" content="https://huangliu0909.github.io/images/CS5340/3/Canonical.png">
 <meta property="article:published_time" content="2020-08-26T13:11:04.000Z">
-<meta property="article:modified_time" content="2020-09-05T23:03:56.168Z">
+<meta property="article:modified_time" content="2020-10-02T02:11:25.216Z">
 <meta property="article:author" content="HUANG Liu">
 <meta property="article:tag" content="NUS note">
-<meta property="article:tag" content="ML">
 <meta property="article:tag" content="AI">
+<meta property="article:tag" content="ML">
+<meta property="article:tag" content="PGM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://huangliu0909.github.io/images/CS5340/3/global-markov-eg.png">
 
@@ -135,7 +136,7 @@
 
 
 
-  <title>Lec-03 Markov Random Fields (Undirected Graphical Models) | Wiwi's Blog</title>
+  <title>Markov Random Fields (Undirected Graphical Models) | Wiwi's Blog</title>
   
 
 
@@ -314,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lec-03 Markov Random Fields (Undirected Graphical Models)</h1>
+          <h1 class="post-title" itemprop="name headline">Markov Random Fields (Undirected Graphical Models)</h1>
         
 
         <div class="post-meta">
@@ -349,8 +350,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS5340-Uncertainty-Modelling-in-AI/" itemprop="url" rel="index">
-                    <span itemprop="name">CS5340 Uncertainty Modelling in AI</span>
+                  <a href="/categories/Uncertainty-Modelling-in-AI/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncertainty Modelling in AI</span>
                   </a>
                 </span>
 
@@ -380,7 +381,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  843
+                  878
                 </span>
               
 
@@ -396,7 +397,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  4
+                  5
                 </span>
               
             </div>
@@ -429,21 +430,26 @@
 <script type="math/tex; mode=display">p(x_1,...,x_N)=\prod_{i=1}^Np(x_i|x_{\pi_i})</script><p>Local parameterization is difficult for UGMs as there is no topological ordering associated with UGMs.</p>
 <p>So we use functions to represent the local parameterization instead of the conditional distribution.</p>
 <p>Recall two nodes $X_i$ and $X_j$ that are not linked directly, they are conditionally independent given all the other nodes. So we can place $X_i$ and $X_j$ in defferent dactors when obtaining a factorization of the joint probability.<br>This implies that we cannot have a local function that depends on both $X_i$ and $X_j$ in the parameterization.</p>
-<h2 id="Maximal-Clique"><a href="#Maximal-Clique" class="headerlink" title="Maximal Clique"></a>Maximal Clique</h2><p>If two nodes are linked, they must appeal in the same factor. So, all the nodes $X_C$ that belong to a maximal clique $C$ in the UGM appear together in a local function $\psi(x_C)$ . Conditional independence is impossible for any two nodes in maximal clique!</p>
+<h2 id="Maximal-Clique"><a href="#Maximal-Clique" class="headerlink" title="Maximal Clique"></a>Maximal Clique</h2><p>If two nodes are linked, they must appeal in the same factor. So, all the nodes $X_C$ that belong to a maximal clique $C$ in the UGM appear together in a local function $\psi(x_C)$ . <strong>Conditional independence is impossible for any two nodes in maximal clique!</strong></p>
 <p>Hammersley-Clifford theorem:</p>
 <script type="math/tex; mode=display">p(y|\theta)=\frac{1}{Z(\theta)}\prod_{c\in \mathcal C}\psi_c(y_c|\theta_c)</script><p>$\mathcal C$ : the set of all the maximal cliques of $\mathcal G$<br>$\psi_c(.)$: the factor or potential function of clique c<br>$\theta$; the parameter of the factor $\psi_c(.)$ for $c\in\mathcal C$<br>$\psi_c(c|\theta_c)$ is not a conditional distribution but just an arbitrary chosen positive function:</p>
 <script type="math/tex; mode=display">Z(\theta)=\sum_y\prod_{c\in\mathcal C}\psi_c(y_c|\theta_c)</script><p>$Z(\theta)$: partition funtion, to ensure the overall distribution sums to 1</p>
 <p><strong>Parameterization of MRFs is not unique.</strong></p>
-<h2 id="Canonical-Parameterization"><a href="#Canonical-Parameterization" class="headerlink" title="Canonical Parameterization"></a>Canonical Parameterization</h2><p>Each node is viewed as a clique. In canonical parameterization we include all the possible cliques.<br><img src="/images/CS5340/3/Canonical.png" alt="Canonical"></p>
+<ul>
+<li>define over  maximal cliques</li>
+<li>pairwise parameterization</li>
+<li>define over all cliques, i.e., cannonical parameterization </li>
+</ul>
+<h2 id="Canonical-Parameterization"><a href="#Canonical-Parameterization" class="headerlink" title="Canonical Parameterization"></a>Canonical Parameterization</h2><p>Each node is viewed as a clique. In canonical parameterization we include all the possible cliques.<br>Uniform prior can be assumed on any potential function, i.e., set all potential function of edges to 1 (optional)<br><img src="/images/CS5340/3/Canonical.png" alt="Canonical"></p>
 <h2 id="Gibbs-Distribution"><a href="#Gibbs-Distribution" class="headerlink" title="Gibbs Distribution"></a>Gibbs Distribution</h2><script type="math/tex; mode=display">p(y|\theta)=\frac{1}{Z(\theta)}exp(-\sum_cE(y_c|\theta_c))</script><p>$E(y_c)&gt;0$: energy associated with the variables in clique c as the potential function, using in particals’ random moving in air or liquid.<br>Convert Gibbs distibution to a UGM: (Energy based models)</p>
 <script type="math/tex; mode=display">\psi_c(y_c|\theta_c)=exp(-E(y_c|\theta_c))</script><p>High probability states correspond to low energy configurations.</p>
-<h2 id="Log-linear-potential-Functions"><a href="#Log-linear-potential-Functions" class="headerlink" title="Log-linear potential Functions"></a>Log-linear potential Functions</h2><p>Define the log potentials as a linear function of the parameters $\theta_c\in\mathbb{R}^M$:</p>
+<h2 id="Log-linear-potential-Functions"><a href="#Log-linear-potential-Functions" class="headerlink" title="Log-linear potential Functions"></a>Log-linear potential Functions</h2><p><strong>Define the log potentials as a linear function of the parameters</strong> $\theta_c\in\mathbb{R}^M$:</p>
 <script type="math/tex; mode=display">log\psi_c(y_c)=\phi_c(y_c)^T\theta_c</script><p>$\phi_c$: feature vector derived from values of variables $y_c$</p>
-<script type="math/tex; mode=display">logp(y|\theta)=\sum_c\phi_c(y_c)^T\theta_c-logZ(\theta)</script><p>also known as a maximum entropy or a log-linear model.<br>If $M=|C|=3$, we only need 3 parameter $\theta_c=[\theta_{c1},\theta_{c2},\theta_{c3}]$ instead of $2^3$ parameters.</p>
+<script type="math/tex; mode=display">logp(y|\theta)=\sum_c\phi_c(y_c)^T\theta_c-logZ(\theta)</script><p>also known as a <strong>maximum entropy</strong> or a <strong>log-linear</strong> model.<br>If $M=|C|=3$, we only need 3 parameter $\theta_c=[\theta_{c1},\theta_{c2},\theta_{c3}]$ instead of $2^3$ parameters.</p>
 <h1 id="Combine-UGM-and-DGM"><a href="#Combine-UGM-and-DGM" class="headerlink" title="Combine UGM and DGM"></a>Combine UGM and DGM</h1><p>A DGM can be converted into a UGM by joining all the links among parents for a head-to-head node, i.e. <strong>moralization</strong><br>This process preserves the joint distribution but conditional independence is lost.</p>
 <h1 id="Discriminative-vs-Generative-Models"><a href="#Discriminative-vs-Generative-Models" class="headerlink" title="Discriminative vs Generative Models"></a>Discriminative vs Generative Models</h1><p>Discriminative models: model the posterior directly $p(\mathcal C_k|x)$<br>eg. logistic regression model</p>
 <p>Generative models: sampling from the distribution is possible to generate synthetic data points in the input space.<br>Likelihood: $p(x|\mathcal C_kx)$</p>
-<h1 id="Conditional-Random-Field-CRF"><a href="#Conditional-Random-Field-CRF" class="headerlink" title="Conditional Random Field(CRF)"></a>Conditional Random Field(CRF)</h1><p>A CRF or discriminative random field is a version of an MRF where all clique potentials are conditioned on input x:</p>
+<h1 id="Conditional-Random-Field-CRF"><a href="#Conditional-Random-Field-CRF" class="headerlink" title="Conditional Random Field(CRF)"></a>Conditional Random Field(CRF)</h1><p>A CRF or discriminative random field is a version of an MRF where all clique potentials are conditioned on <strong>global</strong> input x:</p>
 <script type="math/tex; mode=display">p(y|x,w)=\frac{1}{Z(x,w)}\prod_c\psi_c(y_c|x,w)</script><p>log-linear representation:</p>
 <script type="math/tex; mode=display">\psi_c(y_c|x,w)=exp(w_c^T\phi(x,y_c))</script><p>CRF make use of input data and the predictions can be data-dependent, but require labeled training data and learning is slower.</p>
 
@@ -466,7 +472,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://huangliu0909.github.io/2020/08/26/CS5340%20Lec03/" title="Lec-03 Markov Random Fields (Undirected Graphical Models)">https://huangliu0909.github.io/2020/08/26/CS5340%20Lec03/</a>
+    <a href="https://huangliu0909.github.io/2020/08/26/CS5340%20Lec03/" title="Markov Random Fields (Undirected Graphical Models)">https://huangliu0909.github.io/2020/08/26/CS5340%20Lec03/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -483,9 +489,11 @@
           
             <a href="/tags/NUS-note/" rel="tag"># NUS note</a>
           
+            <a href="/tags/AI/" rel="tag"># AI</a>
+          
             <a href="/tags/ML/" rel="tag"># ML</a>
           
-            <a href="/tags/AI/" rel="tag"># AI</a>
+            <a href="/tags/PGM/" rel="tag"># PGM</a>
           
         </div>
       
@@ -498,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/08/25/CS5242%20Lec03/" rel="next" title="Lec-03 From Shallow to Deep Neural Network">
-                <i class="fa fa-chevron-left"></i> Lec-03 From Shallow to Deep Neural Network
+              <a href="/2020/08/25/ML_Deep_Neural_Network/" rel="next" title="From Shallow to Deep Neural Network">
+                <i class="fa fa-chevron-left"></i> From Shallow to Deep Neural Network
               </a>
             
           </div>
@@ -508,8 +516,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/09/01/CS5242%20Lec04/" rel="prev" title="Lec-04 Training Deep Networks">
-                Lec-04 Training Deep Networks <i class="fa fa-chevron-right"></i>
+              <a href="/2020/09/01/ML_Training_Deep_Networks/" rel="prev" title="Training Deep Networks">
+                Training Deep Networks <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -579,7 +587,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">HUANG Liu</p>
-              <p class="site-description motion-element" itemprop="description">Love wins. Love always wins.</p>
+              <p class="site-description motion-element" itemprop="description">Love always wins.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -589,7 +597,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -611,7 +619,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -701,12 +709,21 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">47.8k</span>
+    <span title="Site words total count">52.4k</span>
   
 </div>
 
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
 
 
 

@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NN,NUS note,ML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Linear RegressionLinear regressionUnivariate: single feature $x\in R$Multivariate: multiple features $\boldsymbol{x}\in R^m$Linear Transformation: $\widetilde{y}&#x3D;\boldsymbol{w^Tx}$Loss: measures the d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NNDL Summary">
+<meta property="og:url" content="https://huangliu0909.github.io/2020/10/05/ML_Summary/index.html">
+<meta property="og:site_name" content="Wiwi&#39;s Blog">
+<meta property="og:description" content="Linear RegressionLinear regressionUnivariate: single feature $x\in R$Multivariate: multiple features $\boldsymbol{x}\in R^m$Linear Transformation: $\widetilde{y}&#x3D;\boldsymbol{w^Tx}$Loss: measures the d">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/Summary/vecBYvec0.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/Summary/vecBYvec.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/Summary/scalBYvec.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/3/MLP.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/Summary/chain-rule.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/Summary/Backpropagation.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/Summary/conv2D.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/Summary/conv3D.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/Summary/pooling.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/7/model-compression.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/CS5242/7/transfer-learning.png">
+<meta property="article:published_time" content="2020-10-05T02:11:04.000Z">
+<meta property="article:modified_time" content="2020-12-01T09:51:25.961Z">
+<meta property="article:author" content="HUANG Liu">
+<meta property="article:tag" content="NN">
+<meta property="article:tag" content="NUS note">
+<meta property="article:tag" content="ML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huangliu0909.github.io/images/CS5242/Summary/vecBYvec0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://huangliu0909.github.io/2020/10/05/ML_Summary/"/>
+
+
+
+
+
+  <title>NNDL Summary | Wiwi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+  <a href="https://github.com/huangliu0909" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+   
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiwi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/10/05/ML_Summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NNDL Summary</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-05T10:11:04+08:00">
+                2020-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Neural-Network-and-Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Neural Network and Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linear-Regression"><a href="#Linear-Regression" class="headerlink" title="Linear Regression"></a>Linear Regression</h1><h2 id="Linear-regression"><a href="#Linear-regression" class="headerlink" title="Linear regression"></a>Linear regression</h2><p>Univariate: single feature $x\in R$<br>Multivariate: multiple features $\boldsymbol{x}\in R^m$<br>Linear Transformation: $\widetilde{y}=\boldsymbol{w^Tx}$<br>Loss: measures the difference between the prediction and the ground truth<br>Training: to optimize(i.e. minimize) the loss w.r.t parameters($\boldsymbol{w}$)<br><a id="more"></a></p>
+<h2 id="Gradient-descent-algorithm"><a href="#Gradient-descent-algorithm" class="headerlink" title="Gradient descent algorithm"></a>Gradient descent algorithm</h2><p>minimize the target loss iterately, for each iteration:<br>conpute the gradient of average loss</p>
+<ul>
+<li>for single feature multiple examples: <script type="math/tex; mode=display">J(w)=\frac{1}{2m}\sum_{i=1}^m(wx^{(i)}-y^{(i)})^2</script></li>
+<li>for multiple features one single instance: <script type="math/tex; mode=display">J(\boldsymbol{w})=\frac{1}{2}(\boldsymbol{w^Tx}-y)^2</script></li>
+<li>for multiple features multiple examples: <script type="math/tex; mode=display">J(\boldsymbol{w})=\frac{1}{2m}(\mathbf{X}\boldsymbol{w}-\boldsymbol{y})^T(\mathbf{X}\boldsymbol{w}-\boldsymbol{y})</script></li>
+</ul>
+<p>update parameter in the opposite of the gradient direction: $\boldsymbol{w}=\boldsymbol{w}-\alpha\frac{\partial J}{\partial \boldsymbol{w}}$</p>
+<ul>
+<li>for single feature multiple examples: <script type="math/tex; mode=display">\frac{\partial J}{\partial w}=\sum_{i=1}^m(wx^{(i)}-y^{(i)})</script></li>
+<li>for multiple features one single instance: <script type="math/tex; mode=display">\frac{\partial J}{\partial \boldsymbol{w}}=(\boldsymbol{w^Tx}-y)\boldsymbol{x}</script></li>
+<li>for multiple features multiple examples: <script type="math/tex; mode=display">\frac{\partial J}{\partial \boldsymbol{w}}=\frac{1}{m}\mathbf{X}^T(\mathbf{X}\boldsymbol{w}-\boldsymbol{y})</script></li>
+</ul>
+<p>stop until paremeters converge or reach a certain number of iterations.</p>
+<ul>
+<li>$f(x)=g(x)+h(x)\quad\to\quad f’(x)=g’(x)+h’(x)$</li>
+<li>$f(x)=g(x)h(x)\quad\to\quad f’(x)=g’(x)h(x)+g(x)h’(x)$</li>
+<li>$f(x)=\frac{g(x)}{h(x)}\quad\to\quad f’(x)=\frac{g’(x)h(x)-g(x)h’(x)}{h(x)^2}$</li>
+<li>$f(x)=g(u),g(u)=h(x)\quad\to\quad f’(x)=g’(u)h’(x)$</li>
+</ul>
+<p><img src="/images/CS5242/Summary/vecBYvec0.png" alt="vecBYvec0"><br><img src="/images/CS5242/Summary/vecBYvec.png" alt="vecBYvec"><br><img src="/images/CS5242/Summary/scalBYvec.png" alt="scalBYvec"></p>
+<p><strong>Example:</strong><br>$y=(\mathbf{A}\boldsymbol{x})^T(2\boldsymbol{x+z})$ , $\mathbf{A}$ is a square matrix, $\boldsymbol{x}$ and $\boldsymbol{z}$ are vectors, y is a scalar, what is $\frac{\partial y}{\partial \boldsymbol{x}}$ ?</p>
+<script type="math/tex; mode=display">\boldsymbol{u}=\mathbf{A}\boldsymbol{x}\quad \boldsymbol{v}=2\boldsymbol{x+z}</script><script type="math/tex; mode=display">\begin{aligned}\frac{\partial y}{\partial \boldsymbol{x}}&=\frac{\partial \boldsymbol{u^Tv}}{\partial \boldsymbol{x}}=\frac{\partial \boldsymbol{u}}{\partial \boldsymbol{x}}\cdot\boldsymbol{v}+\frac{\partial \boldsymbol{v}}{\partial \boldsymbol{x}}\cdot\boldsymbol{u}\\&=\mathbf{A}^T(2\boldsymbol{x+z})+(2\boldsymbol{I})\cdot(\mathbf{A}\boldsymbol{x})\\&=2\mathbf{A}^T\boldsymbol{x}+\mathbf{A}^T\boldsymbol{z}+2\mathbf{A}\boldsymbol{x}\end{aligned}</script><p>$L=\frac{1}{2}(\boldsymbol{w^Tx}-y)^2$, $\boldsymbol{x}=(1,2)^T$, $\boldsymbol{w}=(2,1)^T$, $y=0$, compute the gradient of $\frac{\partial L}{\partial \boldsymbol{w}}$</p>
+<script type="math/tex; mode=display">\begin{aligned}\frac{\partial L}{\partial \boldsymbol{w}}&=(\boldsymbol{w^Tx}-y)\boldsymbol{x}\\&=(\begin{pmatrix}2,1\end{pmatrix}\cdot\begin{pmatrix}1\\2\end{pmatrix}-0)\cdot\begin{pmatrix}1\\2\end{pmatrix}\\&=(4-0)\cdot\begin{pmatrix}1\\2\end{pmatrix}\\&=\begin{pmatrix}4\\8\end{pmatrix}\end{aligned}</script><h1 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h1><h2 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h2><p>From Linear regression to Logistic regression:<br>The function <script type="math/tex">\widetilde{y}=\begin{cases} 1,\qquad\qquad if\boldsymbol{w^Tx}>0 \\ 0,\qquad\qquad else\end{cases}</script> is not differentiable, therefore we use Logistic function as the probability: <script type="math/tex">p=\sigma (z) = \sigma(\boldsymbol{w^Tx})=\frac{1}{1+e^{-\boldsymbol{w^Tx}}}</script><br>$L2$ loss function: <script type="math/tex">L=\frac{1}{2}||p-y||^2=\frac{1}{2}||\sigma(z)-y||^2</script><br>thus the gradient is: <script type="math/tex">\frac{\partial L}{\partial \boldsymbol{w}}=(\sigma(z)-y)\sigma(z)(1-\sigma(z))\boldsymbol{x}</script><br>There exists gradient vanishing. In order to solve this problem, we use the <strong>binary cross entropy</strong> to compute the loss: <script type="math/tex">L=-ylogp-(1-y)log(1-p)</script><br>The gradient now is : <script type="math/tex">\frac{\partial L}{\partial \boldsymbol{w}}=(p-y)\boldsymbol{x}</script></p>
+<script type="math/tex; mode=display">z=\boldsymbol{w^Tx},\boldsymbol{x}\in R^{n\times 1}, \boldsymbol{w}\in R^{n\times 1}</script><script type="math/tex; mode=display">p=\sigma (z)=\frac{1}{1+e^{-z}}</script><script type="math/tex; mode=display">L(p, y)=-ylogp-(1-y)log(1-p)</script><script type="math/tex; mode=display">\frac{\partial L}{\partial \boldsymbol{w}}=(p-y)\boldsymbol{x}</script><h2 id="Multi-label-classification"><a href="#Multi-label-classification" class="headerlink" title="Multi-label classification"></a>Multi-label classification</h2><p>对第 $i$ 个类别有：<br>$z_i=\boldsymbol{W}_i\boldsymbol{x}+b_i\quad p_i=\sigma(z_i)\quad L_{ce}=-y_ilogp_i-(1-y_i)log(1-p_i)$<br>对于所有类别向量化表示为:<br>$\boldsymbol{z}=\boldsymbol{W}\boldsymbol{x}+\boldsymbol{b}\quad \boldsymbol{p}=\sigma(\boldsymbol{z})\quad L_{ce}=-\boldsymbol{y}^Tlog\boldsymbol{p}-(1-\boldsymbol{y})^Tlog(1-\boldsymbol{p})$</p>
+<h2 id="Softmax-multinomial-classification"><a href="#Softmax-multinomial-classification" class="headerlink" title="Softmax/multinomial classification"></a>Softmax/multinomial classification</h2><p>Multi-class single-label: classes are not independent, they are exclusive. </p>
+<ul>
+<li><strong>Softmax function</strong> <script type="math/tex; mode=display">p_i=\frac{e^{z_i}}{\sum_j e^{z_j}}=softmax(z_i)</script></li>
+<li><strong>Cross-entropy loss</strong><script type="math/tex; mode=display">L_{ce}(\boldsymbol{x},\boldsymbol{y})=\sum_i-y_ilogp_i=-\boldsymbol{y}^Tlog\boldsymbol{p}</script><script type="math/tex; mode=display">\frac{\partial J}{\partial \mathbf{W}}=\frac{1}{m}(\mathbf{P}-\mathbf{Y})\mathbf{X}^T\in R^{k\times n}, \mathbf{X}\in R^{(m\times n)} ,\mathbf{Y}\in R^{(m\times k)}</script></li>
+</ul>
+<p><strong>Detail:</strong><br>$L=\frac{1}{2}(\sigma(\boldsymbol{w^Tx})-y)^2$</p>
+<script type="math/tex; mode=display">z=\boldsymbol{w^Tx}</script><script type="math/tex; mode=display">\begin{aligned}\frac{\partial L}{\partial \boldsymbol{w}}&=(\sigma(z)-y)\frac{\partial \sigma(z)}{\partial z}\frac{\partial z}{\boldsymbol{w}}\\&=(\sigma(z)-y)\frac{\partial (1-e^{-z})^{-1}}{\partial z}\boldsymbol{x}\\&=(\sigma(z)-y)(-1(1-e^{-z})^{-2})\frac{\partial (1-e^{-z})}{\partial z}\boldsymbol{x}\\&=(\sigma(z)-y)(-\sigma(z)^2)\frac{\partial (1-e^{-z})}{\partial z}\boldsymbol{x}\\&=(\sigma(z)-y)(-\sigma(z)^2)e^{-z}\boldsymbol{x}\\&=(\sigma(z)-y)(-\sigma(z)^2)(1-\frac{1}{\sigma(z)})\boldsymbol{x}\\&=(\sigma(z)-y)(-\sigma(z))(\sigma(z)-1)\boldsymbol{x}\\&=(\sigma(z)-y)\sigma(z)(1-\sigma(z))\boldsymbol{x}\end{aligned}</script><p>$L_{ce}=-ylogp-(1-y)log(1-p)\quad p=\sigma(z)$</p>
+<script type="math/tex; mode=display">\begin{aligned}\frac{\partial L}{\partial \boldsymbol{w}}&=\frac{\partial L}{\partial p}\frac{\partial p}{\partial z}\frac{\partial z}{\partial \boldsymbol{w}}\\&=(-\frac{y}{p}+\frac{1-y}{1-p})p(1-p)\boldsymbol{x}\\&=(-y+py+p-py)\boldsymbol{x}\\&=(p-y)\boldsymbol{x}\end{aligned}</script><p>$L_{ce}(\boldsymbol{x},\boldsymbol{y})=\sum_i-y_ilogp_i=-\boldsymbol{y^T}log\boldsymbol{p}$</p>
+<script type="math/tex; mode=display">\frac{\partial J}{\partial \mathbf{W}}=\frac{1}{m}(\mathbf{P}-\mathbf{Y})\mathbf{X}^T\in R^{k\times n}</script><script type="math/tex; mode=display">\mathbf{X}\in R^{(m\times n)} ,\mathbf{Y}\in R^{(m\times k)}</script><h1 id="From-Shallow-to-Deep-Neural-Network"><a href="#From-Shallow-to-Deep-Neural-Network" class="headerlink" title="From Shallow to Deep Neural Network"></a>From Shallow to Deep Neural Network</h1><h2 id="MLP"><a href="#MLP" class="headerlink" title="MLP"></a>MLP</h2><p>A net with multiple layers that transform input features into hidden features and then make predictions .</p>
+<ul>
+<li>At least one non-linear hidden layer</li>
+<li>A linear function is always followed by a non-linear function</li>
+</ul>
+<script type="math/tex; mode=display">\boldsymbol{z}^{[i]}=a^{[i]}(\boldsymbol{h}^{[i-1]})=W^{[i]}\boldsymbol{h}^{[i-1]}+\boldsymbol{b}^{[i]}</script><script type="math/tex; mode=display">W^{[i]}\in R^{n_i\times n_{i-1}}\quad \boldsymbol{b}^{[i]}\in R^{n_i}</script><p><img src="/images/CS5242/3/MLP.png" alt="MLP"></p>
+<h2 id="Chain-Rule"><a href="#Chain-Rule" class="headerlink" title="Chain Rule"></a>Chain Rule</h2><p><img src="/images/CS5242/Summary/chain-rule.png" alt="chain-rule"></p>
+<h2 id="Backpropagation"><a href="#Backpropagation" class="headerlink" title="Backpropagation"></a>Backpropagation</h2><p><img src="/images/CS5242/Summary/Backpropagation.png" alt="Backpropagation"></p>
+<ul>
+<li><p>Add bias<br>$\boldsymbol{A}\in R^{m\times n}\quad b\in R^{1\times n}$<br>Forward($\boldsymbol{A},b$): $\boldsymbol{C}=\boldsymbol{A}+b$<br>Backward($d\boldsymbol{C},\boldsymbol{A},b$): $d\boldsymbol{A}=d\boldsymbol{C}\quad db=1^Td\boldsymbol{C}$</p>
+</li>
+<li><p>Array and scalar multiplication<br>$\boldsymbol{v}$ is an array, $k$ is a scalar(usually hyperparameter)<br>Forward($\boldsymbol{v},k$): $\boldsymbol{c}=k\boldsymbol{v}$<br>Backward($d\boldsymbol{c},\boldsymbol{v},k$): $d\boldsymbol{v}=kd\boldsymbol{c}$</p>
+</li>
+<li><p>Matmul matrix multiplication operation<br>$\boldsymbol{A}\in R^{m\times k}\quad \boldsymbol{B}\in R^{k\times n}$ (including matrix with a single column or row)<br>Forward($\boldsymbol{A},\boldsymbol{B}$):$\boldsymbol{C=A\cdot B^T}\in R^{m\times n}$<br>Backward($d\boldsymbol{C},\boldsymbol{A},\boldsymbol{B}$): $d\boldsymbol{A}=d\boldsymbol{C}\cdot \boldsymbol{B^T}\quad d\boldsymbol{B}=\boldsymbol{A^T}\cdot d\boldsymbol{C}$</p>
+</li>
+<li><p>Logistic operation<br>$a$ is an array of any shape<br>Forward($a$): $b=\sigma(a)$<br>Backward($db,a$): $da=db\times b\times (1-b)$</p>
+</li>
+<li><p>Softmax-Cross-entropy operation<br>Forward($\boldsymbol{Z},\boldsymbol{P}$): $\boldsymbol{P}=softmax(\boldsymbol{Z})\quad L=\frac{1}{m}sum(-YlogP) $<br>Backward($\boldsymbol{Z},\boldsymbol{P}$): $d\boldsymbol{Z}=\frac{1}{m}(\boldsymbol{P}-\boldsymbol{Y})$</p>
+</li>
+</ul>
+<h1 id="Training-Deep-Networks"><a href="#Training-Deep-Networks" class="headerlink" title="Training Deep Networks"></a>Training Deep Networks</h1><h2 id="Mini-batch-stochastic-gradient-descent-SGD"><a href="#Mini-batch-stochastic-gradient-descent-SGD" class="headerlink" title="Mini-batch stochastic gradient descent (SGD)"></a>Mini-batch stochastic gradient descent (SGD)</h2><p>• Reduces the chance of local optimal points and saddle points from GD<br>• More stable and smooth than standard SGD<br>• Extensions: Momentum, RMSProp, Adam</p>
+<ul>
+<li>Smooth the gradients by preserving historical gradients</li>
+<li>Adaptive learning rate per parameter</li>
+</ul>
+<p>Momentum:</p>
+<script type="math/tex; mode=display">v=\beta v+\alpha g</script><script type="math/tex; mode=display">w=w-v</script><p>RMSprop:</p>
+<script type="math/tex; mode=display">s=\beta s+(1-\beta)g^2\qquad moving\quad average</script><script type="math/tex; mode=display">w=w-\frac{\alpha}{\sqrt{s+\epsilon}}g\qquad nomalize\quad the\quad gradient</script><p>Adam:</p>
+<script type="math/tex; mode=display">v=\beta_1 v+(1-\beta_1)g\quad \hat v = \frac{v}{1-\beta_1^t}</script><script type="math/tex; mode=display">s=\beta_2 s+(1-\beta_2)g^2\quad \hat s = \frac{s}{1-\beta_2^t}</script><script type="math/tex; mode=display">w=w-\frac{\alpha}{\sqrt{s+\epsilon}} v=w-\frac{\alpha}{\sqrt{\hat s+\epsilon}}\hat v</script><h2 id="Tricks"><a href="#Tricks" class="headerlink" title="Tricks"></a>Tricks</h2><ul>
+<li>Learning rate decay: start large and decrease gradually</li>
+<li>Randomly initialize parameters: break symmetry<br>and avoid gradient vanishing / exploding</li>
+<li>Data normalization</li>
+</ul>
+<h2 id="Overfitting-and-underfitting"><a href="#Overfitting-and-underfitting" class="headerlink" title="Overfitting and underfitting"></a>Overfitting and underfitting</h2><ul>
+<li>Underfitting means high bias, Overfitting means high variance.</li>
+<li>Regularization: Early stop and L2 Norm.</li>
+<li>Model capacity: the ability for the model to fit different functions or datasets; with more unconstrained parameters, the model can fit more functions and datasets.</li>
+<li>Hyper-parameter tuning:<ul>
+<li>Tune parameters using training data.</li>
+<li>Tune hyper-parameters using validation data.</li>
+<li>Report model performance using test data.</li>
+</ul>
+</li>
+</ul>
+<h1 id="Convolution-and-Pooling"><a href="#Convolution-and-Pooling" class="headerlink" title="Convolution and Pooling"></a>Convolution and Pooling</h1><h2 id="2D-Convolution"><a href="#2D-Convolution" class="headerlink" title="2D Convolution"></a>2D Convolution</h2><p>Convolution is an affine transformation.<br>Each receptive field generates aone output value: sparse connection<br># kernels = # output feature maps<br>Output size: $(c_0,o_h,o_w)=(c_o,\lfloor\frac{n_h+p_h-k_h}{s_h}\rfloor+1,\lfloor\frac{n_w+p_w-k_w}{s_w}\rfloor+1)$</p>
+<p>Share the same parameters across different locations: reduce parameter, location invariant, </p>
+<p>Implementation: Receptive fields across feature maps are concatenated into to one column.<br><img src="/images/CS5242/Summary/conv2D.png" alt="conv2D"></p>
+<h2 id="3D-Convolution"><a href="#3D-Convolution" class="headerlink" title="3D Convolution"></a>3D Convolution</h2><p><img src="/images/CS5242/Summary/conv3D.png" alt="conv3D"></p>
+<h2 id="Average-amp-max-pooling"><a href="#Average-amp-max-pooling" class="headerlink" title="Average &amp; max pooling"></a>Average &amp; max pooling</h2><ul>
+<li>Aggregate the information from each receptive field.</li>
+<li>The output is invariant to some variations of the input. eg. rotation.</li>
+<li>Stride is usually &gt; 1 to reduce dimensionality </li>
+<li>Pooling is applied to each channel / feature map separately</li>
+</ul>
+<p><img src="/images/CS5242/Summary/pooling.png" alt="pooling"></p>
+<ul>
+<li>Information will be lost from pooling but local “useful” information remains.</li>
+<li>We don’t need to keep as many features as possible because we want to derive higher levels of abstraction. e.g. from simple edges to parts of objects</li>
+</ul>
+<h1 id="ConvNet-Architecture"><a href="#ConvNet-Architecture" class="headerlink" title="ConvNet Architecture"></a>ConvNet Architecture</h1><h2 id="Neocognitron"><a href="#Neocognitron" class="headerlink" title="Neocognitron"></a>Neocognitron</h2><ul>
+<li><strong>Hierarchical Feature Extraction + Multi-Layer + Hand-crafted weights.</strong></li>
+</ul>
+<h2 id="LeNet-1-5"><a href="#LeNet-1-5" class="headerlink" title="LeNet 1-5"></a>LeNet 1-5</h2><ul>
+<li><strong>Small CNN with convolution + pooling (subsampling)</strong></li>
+</ul>
+<h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><ul>
+<li><strong>GPUs</strong> (instead of CPUS): Fast training </li>
+<li><strong>Ensemble modelling</strong></li>
+<li><strong>ReLU</strong>: Reduce the chance of gradient vanishing</li>
+<li><strong>Dropout</strong>: Multiple the outputs (h) with scale 1/(1-p); Regularization (Similar to L2 norm) </li>
+<li><strong>Image augmentation</strong>: Done on-the-fly during training, so no need to store entire (augmented) dataset and occupy memory. Random operation for training; No random operations during test,  Make predictions by aggregating the results from all augmented images.(Voting)</li>
+</ul>
+<h2 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a>VGG</h2><ul>
+<li><strong>Uniform kernel size</strong></li>
+<li><strong>Consecutive convolution layers</strong></li>
+</ul>
+<h2 id="InceptionNetV1"><a href="#InceptionNetV1" class="headerlink" title="InceptionNetV1"></a>InceptionNetV1</h2><ul>
+<li><strong>Parallel paths</strong>: inception block (1x1 convolution),  insert the 1x1 convolution layer with a small number of kernels to <em>fuse the channels</em> from the input tensor and <em>reduce the computational cost</em> for the next convolution</li>
+<li><strong>Complexity optimization</strong></li>
+<li><strong>Average pooling</strong>: Reduce model size (less overfitting); Reduce time complexity </li>
+<li><strong>New image augmentation methods</strong></li>
+</ul>
+<h2 id="InceptionNetV2"><a href="#InceptionNetV2" class="headerlink" title="InceptionNetV2"></a>InceptionNetV2</h2><ul>
+<li><strong>Batch Normalization</strong><br>Computes the mean and variance over <em>mini-batch samples’s features</em>.<br>Normalize every neuron of each sample.<br>Applied after linear transformations and before activation.<br>(z = relu(BN(conv/ fc(x))) or z = BN(relu(conv/ fc)))<br>Accumulates the mean and variance from every batch during training, and then apply them during test</li>
+</ul>
+<h2 id="InceptionNetV3"><a href="#InceptionNetV3" class="headerlink" title="InceptionNetV3"></a>InceptionNetV3</h2><ul>
+<li><strong>Spatially separable convolutions</strong>(Factorization of the kernel): Reduce computation cost $\to$ train faster ( 7x7 == 1x7 and 7x1 (receptive field))</li>
+<li><strong>Label smoothing</strong>: prevents network from becoming over-confident and optimizing towards values that cannot be achieved</li>
+</ul>
+<h2 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h2><ul>
+<li><strong>Skip/Residual-connection</strong>: Reduct gradient vanishing. </li>
+</ul>
+<h2 id="XceptionNet"><a href="#XceptionNet" class="headerlink" title="XceptionNet"></a>XceptionNet</h2><ul>
+<li><strong>Depth-wise spatial convolution</strong>: 2D Convolution applied to each channel independently; Number of input channels = number of kernels = number of output channels: $c_i=c_o$, Each kernel has a single channel </li>
+<li><strong>Pointwise convolution</strong>: Normal 2D convolution with kernel height and width: 1x1</li>
+</ul>
+<h2 id="Neural-Architecture-Search-NAS"><a href="#Neural-Architecture-Search-NAS" class="headerlink" title="Neural Architecture Search (NAS)"></a>Neural Architecture Search (NAS)</h2><ul>
+<li><strong>Model Compression</strong>: Prune layers, Low-precision representation<br><img src="/images/CS5242/7/model-compression.png" alt="model-compression"></li>
+</ul>
+<h2 id="Transfer-Learning-with-DCNN"><a href="#Transfer-Learning-with-DCNN" class="headerlink" title="Transfer Learning with DCNN"></a>Transfer Learning with DCNN</h2><ol>
+<li>Train model (or use someone else’s model) on ImageNet 2012 training set </li>
+<li>Re-train classifier on new dataset //Just the top layer (softmax or SVM) </li>
+<li>Classify test set of new dataset<br><img src="/images/CS5242/7/transfer-learning.png" alt="transfer-learning"></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    HUANG Liu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://huangliu0909.github.io/2020/10/05/ML_Summary/" title="NNDL Summary">https://huangliu0909.github.io/2020/10/05/ML_Summary/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NN/" rel="tag"># NN</a>
+          
+            <a href="/tags/NUS-note/" rel="tag"># NUS note</a>
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/30/CS5340%20Lec07/" rel="next" title="Mixture Models and EM Algorithms">
+                <i class="fa fa-chevron-left"></i> Mixture Models and EM Algorithms
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/10/11/CS5340%20Lab3%20report/" rel="prev" title="CS5340 Lab3 report">
+                CS5340 Lab3 report <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">HUANG Liu</p>
+              <p class="site-description motion-element" itemprop="description">Love always wins.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/huangliu0909" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="wiwillow.99@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linear-Regression"><span class="nav-number">1.</span> <span class="nav-text">Linear Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linear-regression"><span class="nav-number">1.1.</span> <span class="nav-text">Linear regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-descent-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">Gradient descent algorithm</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Classification"><span class="nav-number">2.</span> <span class="nav-text">Classification</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Logistic-regression"><span class="nav-number">2.1.</span> <span class="nav-text">Logistic regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-label-classification"><span class="nav-number">2.2.</span> <span class="nav-text">Multi-label classification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Softmax-multinomial-classification"><span class="nav-number">2.3.</span> <span class="nav-text">Softmax&#x2F;multinomial classification</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#From-Shallow-to-Deep-Neural-Network"><span class="nav-number">3.</span> <span class="nav-text">From Shallow to Deep Neural Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MLP"><span class="nav-number">3.1.</span> <span class="nav-text">MLP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chain-Rule"><span class="nav-number">3.2.</span> <span class="nav-text">Chain Rule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Backpropagation"><span class="nav-number">3.3.</span> <span class="nav-text">Backpropagation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Training-Deep-Networks"><span class="nav-number">4.</span> <span class="nav-text">Training Deep Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mini-batch-stochastic-gradient-descent-SGD"><span class="nav-number">4.1.</span> <span class="nav-text">Mini-batch stochastic gradient descent (SGD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tricks"><span class="nav-number">4.2.</span> <span class="nav-text">Tricks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overfitting-and-underfitting"><span class="nav-number">4.3.</span> <span class="nav-text">Overfitting and underfitting</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Convolution-and-Pooling"><span class="nav-number">5.</span> <span class="nav-text">Convolution and Pooling</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2D-Convolution"><span class="nav-number">5.1.</span> <span class="nav-text">2D Convolution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3D-Convolution"><span class="nav-number">5.2.</span> <span class="nav-text">3D Convolution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Average-amp-max-pooling"><span class="nav-number">5.3.</span> <span class="nav-text">Average &amp; max pooling</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ConvNet-Architecture"><span class="nav-number">6.</span> <span class="nav-text">ConvNet Architecture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Neocognitron"><span class="nav-number">6.1.</span> <span class="nav-text">Neocognitron</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeNet-1-5"><span class="nav-number">6.2.</span> <span class="nav-text">LeNet 1-5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet"><span class="nav-number">6.3.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VGG"><span class="nav-number">6.4.</span> <span class="nav-text">VGG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InceptionNetV1"><span class="nav-number">6.5.</span> <span class="nav-text">InceptionNetV1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InceptionNetV2"><span class="nav-number">6.6.</span> <span class="nav-text">InceptionNetV2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InceptionNetV3"><span class="nav-number">6.7.</span> <span class="nav-text">InceptionNetV3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ResNet"><span class="nav-number">6.8.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XceptionNet"><span class="nav-number">6.9.</span> <span class="nav-text">XceptionNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Neural-Architecture-Search-NAS"><span class="nav-number">6.10.</span> <span class="nav-text">Neural Architecture Search (NAS)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Transfer-Learning-with-DCNN"><span class="nav-number">6.11.</span> <span class="nav-text">Transfer Learning with DCNN</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HUANG Liu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">52.4k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

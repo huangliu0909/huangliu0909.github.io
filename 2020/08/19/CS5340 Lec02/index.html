@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NUS note,ML,AI," />
+  <meta name="keywords" content="NUS note,AI,ML,PGM," />
 
 
 
@@ -81,7 +81,7 @@
 
 <meta name="description" content="条件独立 conditional independence完全独立不足以对现实的随机变量建模，而完全相关会导致计算量过大。随机变量 $X_A$ 和 $X_C$ 关于 $X_B$ 条件独立：$p(x_A,x_C|x_B)&#x3D;p(x_A|x_B) p(x_C|x_B)$等价于：$p(x_A|x_B,x_C)&#x3D;p(x_A|x_B) \qquad \forall X_B:x_B&gt;0$也可以写作：$X_">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lec-02 Bayesian Networks (Directed Graphical Models)">
+<meta property="og:title" content="Bayesian Networks (Directed Graphical Models)">
 <meta property="og:url" content="https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/index.html">
 <meta property="og:site_name" content="Wiwi&#39;s Blog">
 <meta property="og:description" content="条件独立 conditional independence完全独立不足以对现实的随机变量建模，而完全相关会导致计算量过大。随机变量 $X_A$ 和 $X_C$ 关于 $X_B$ 条件独立：$p(x_A,x_C|x_B)&#x3D;p(x_A|x_B) p(x_C|x_B)$等价于：$p(x_A|x_B,x_C)&#x3D;p(x_A|x_B) \qquad \forall X_B:x_B&gt;0$也可以写作：$X_">
@@ -94,11 +94,12 @@
 <meta property="og:image" content="https://huangliu0909.github.io/images/3-Node-Graph-4.png">
 <meta property="og:image" content="https://huangliu0909.github.io/images/Markov_Blanket.png">
 <meta property="article:published_time" content="2020-08-19T13:11:04.000Z">
-<meta property="article:modified_time" content="2020-08-30T13:57:47.787Z">
+<meta property="article:modified_time" content="2020-10-02T02:11:21.205Z">
 <meta property="article:author" content="HUANG Liu">
 <meta property="article:tag" content="NUS note">
-<meta property="article:tag" content="ML">
 <meta property="article:tag" content="AI">
+<meta property="article:tag" content="ML">
+<meta property="article:tag" content="PGM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://huangliu0909.github.io/images/Markov_Assumption.png">
 
@@ -136,7 +137,7 @@
 
 
 
-  <title>Lec-02 Bayesian Networks (Directed Graphical Models) | Wiwi's Blog</title>
+  <title>Bayesian Networks (Directed Graphical Models) | Wiwi's Blog</title>
   
 
 
@@ -315,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Lec-02 Bayesian Networks (Directed Graphical Models)</h1>
+          <h1 class="post-title" itemprop="name headline">Bayesian Networks (Directed Graphical Models)</h1>
         
 
         <div class="post-meta">
@@ -350,8 +351,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CS5340-Uncertainty-Modelling-in-AI/" itemprop="url" rel="index">
-                    <span itemprop="name">CS5340 Uncertainty Modelling in AI</span>
+                  <a href="/categories/Uncertainty-Modelling-in-AI/" itemprop="url" rel="index">
+                    <span itemprop="name">Uncertainty Modelling in AI</span>
                   </a>
                 </span>
 
@@ -464,7 +465,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/" title="Lec-02 Bayesian Networks (Directed Graphical Models)">https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/</a>
+    <a href="https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/" title="Bayesian Networks (Directed Graphical Models)">https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -481,9 +482,11 @@
           
             <a href="/tags/NUS-note/" rel="tag"># NUS note</a>
           
+            <a href="/tags/AI/" rel="tag"># AI</a>
+          
             <a href="/tags/ML/" rel="tag"># ML</a>
           
-            <a href="/tags/AI/" rel="tag"># AI</a>
+            <a href="/tags/PGM/" rel="tag"># PGM</a>
           
         </div>
       
@@ -496,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/08/18/CS5242%20Lec02/" rel="next" title="Lec-02 Classification">
-                <i class="fa fa-chevron-left"></i> Lec-02 Classification
+              <a href="/2020/08/18/ML_Classification/" rel="next" title="Classification">
+                <i class="fa fa-chevron-left"></i> Classification
               </a>
             
           </div>
@@ -506,8 +509,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/08/25/CS5242%20Lec03/" rel="prev" title="Lec-03 From Shallow to Deep Neural Network">
-                Lec-03 From Shallow to Deep Neural Network <i class="fa fa-chevron-right"></i>
+              <a href="/2020/08/25/ML_Deep_Neural_Network/" rel="prev" title="From Shallow to Deep Neural Network">
+                From Shallow to Deep Neural Network <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -577,7 +580,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">HUANG Liu</p>
-              <p class="site-description motion-element" itemprop="description">Love wins. Love always wins.</p>
+              <p class="site-description motion-element" itemprop="description">Love always wins.</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -587,7 +590,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -609,7 +612,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -699,12 +702,21 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">47.8k</span>
+    <span title="Site words total count">52.4k</span>
   
 </div>
 
 
   <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
 
 
 
