@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="hash," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="java里hashmap是如何实现的？JDK1.7：数组+链表JDK1.8：数组+链表+红黑树 HashMap 为什么线程不安全？为什么ConcurrHashMap线程安全？jdk 1.7使用的是头插法，在多线程环境下，使用HashMap的put操作会引起死循环，原因是多线程会导致HashMap的Entry链表形成环形数据结构，导致Entry的next节点永远不为空，就会产生死循环获取Entry。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap">
+<meta property="og:url" content="https://huangliu0909.github.io/2020/12/23/HashMap/index.html">
+<meta property="og:site_name" content="Wiwi&#39;s Blog">
+<meta property="og:description" content="java里hashmap是如何实现的？JDK1.7：数组+链表JDK1.8：数组+链表+红黑树 HashMap 为什么线程不安全？为什么ConcurrHashMap线程安全？jdk 1.7使用的是头插法，在多线程环境下，使用HashMap的put操作会引起死循环，原因是多线程会导致HashMap的Entry链表形成环形数据结构，导致Entry的next节点永远不为空，就会产生死循环获取Entry。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-23T03:23:04.000Z">
+<meta property="article:modified_time" content="2021-01-22T11:56:23.151Z">
+<meta property="article:author" content="HUANG Liu">
+<meta property="article:tag" content="hash">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://huangliu0909.github.io/2020/12/23/HashMap/"/>
+
+
+
+
+
+  <title>HashMap | Wiwi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+  <a href="https://github.com/huangliu0909" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+   
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiwi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/12/23/HashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HashMap</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-23T11:23:04+08:00">
+                2020-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
+                    <span itemprop="name">面试准备</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="java里hashmap是如何实现的？"><a href="#java里hashmap是如何实现的？" class="headerlink" title="java里hashmap是如何实现的？"></a>java里hashmap是如何实现的？</h2><p>JDK1.7：数组+链表<br>JDK1.8：数组+链表+红黑树</p>
+<h2 id="HashMap-为什么线程不安全？为什么ConcurrHashMap线程安全？"><a href="#HashMap-为什么线程不安全？为什么ConcurrHashMap线程安全？" class="headerlink" title="HashMap 为什么线程不安全？为什么ConcurrHashMap线程安全？"></a>HashMap 为什么线程不安全？为什么ConcurrHashMap线程安全？</h2><p>jdk 1.7使用的是头插法，在多线程环境下，使用HashMap的put操作会引起死循环，原因是多线程会导致HashMap的Entry链表形成环形数据结构，导致Entry的next节点永远不为空，就会产生死循环获取Entry。<br>ConcurrentHashMap 采用分段锁的方式，即每一段数据配一把锁，当一个线程占用其中一段时，其它段的数据仍然可以put或get。<br><a id="more"></a></p>
+<h2 id="ConcurrentHashMap的具体实现"><a href="#ConcurrentHashMap的具体实现" class="headerlink" title="ConcurrentHashMap的具体实现"></a>ConcurrentHashMap的具体实现</h2><p>底层分段数组+链表，线程安全。把Map分为N个Segment，提供相同的线程安全，允许多个修改并发，可以段内扩容。<br>ConcurrentHashMap由Segment数组结构和HashEntry数组结构组成；<br>Segment是一种可重入锁（ReentrantLock），HashEntry用于存储键值对数据；<br>一个ConcurrentHashMap包含一个由若干个Segment对象组成的数组，每个Segment对象守护整个散列映射表的若干个桶，每个桶是由若干个HashEntry对象链接起来的链表，table是一个由HashEntry对象组成的数组，table数组的每一个数组成员就是散列映射表的一个桶。<br>把“碰撞”的HashEntry对象链接成一个链表。由于HashEntry的next域为final型，所以新节点只能在链表的表头处插入。（头插法）</p>
+<h2 id="hashArray和list有什么区别？"><a href="#hashArray和list有什么区别？" class="headerlink" title="hashArray和list有什么区别？"></a>hashArray和list有什么区别？</h2><h2 id="ConcurrentHashMap的扩容过程"><a href="#ConcurrentHashMap的扩容过程" class="headerlink" title="ConcurrentHashMap的扩容过程"></a>ConcurrentHashMap的扩容过程</h2><h2 id="ConcurrentHashMap多线程rehash的整体流程"><a href="#ConcurrentHashMap多线程rehash的整体流程" class="headerlink" title="ConcurrentHashMap多线程rehash的整体流程"></a>ConcurrentHashMap多线程rehash的整体流程</h2><h2 id="ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化"><a href="#ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化" class="headerlink" title="ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化"></a>ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化</h2><p>链表超过了八个结点但是数组大小没有超过64时会进行扩容而不是树化</p>
+<h2 id="HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？"><a href="#HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？" class="headerlink" title="HashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？"></a>HashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？</h2><p>1.8加入了红黑树。只要用的还是链表，就一直有可能出现链表长度过于长的问题。链表插入效率高查询效率低，红黑树的插入和查询效率都不错。为什么不用别的树，是基于综合考虑：不仅要保证put的效率也要保证get的效率，红黑树的插入和查询效率相同，是一个折衷的考虑。<br>1.8加入了treeify树化的阈值（默认为8），含义是某个index上链表元素大于等于8时需要将链表改成红黑树，8个元素了此时查询效率较低。当一个红黑树结点不足6个就untreeify改成链表。这两个阈值不等的原因是为了防止在临界值进行插入or删除导致的频繁的数据结构转变。<br>1.8中初始化和扩容都在resize()函数中。<br>1.7中元素直接是Entry，1.8的元素称为Node，其中的属性都是一样的，红黑树中结点是TreeNode，TreeNode既是一个树节点又是一个双向链表结点（包含属性prev和next）<br>1.8中如果到达了树化阈值也不一定会树化，如果数组长度小于最小树化容量(MIN_TREEIFY_CAPACITY默认为64)，则会进行扩容而不是继续树化。因为这种情况下通过扩容，大概率也可以缩短这个链表而不需要树化。如果数组大小已经超过64了，那么处于节省内存空间的考虑，会选择树化而不是扩容。<br><strong>因此在1.8中只有当插入之前链表元素大于等于8且数组大小超过64的情况下会转换成红黑树</strong><br>1.8在扩容时应用了扩容的规律，即如果新的有效最高位是1则index是原index+原数组大小。<br>1.8中没有rehash，即1，8在扩容过程中不会重新计算hashcode<br>1.8中链表转红黑树首先把链表上每个结点改为TreeNode，在头结点上开始遍历，更改每个结点关于红黑树的属性即可（红黑树的根节点一定是黑色的）。比较过程先比较hash值再比较key的大小，若仍然相同则比较key的class再比较内部hash值（identityHashCode即jdk自带的hash值）</p>
+<h2 id="ConcurrentHashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？"><a href="#ConcurrentHashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？" class="headerlink" title="ConcurrentHashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？"></a>ConcurrentHashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？</h2><h2 id="为什么-HashMap的size为2的幂次方-？"><a href="#为什么-HashMap的size为2的幂次方-？" class="headerlink" title="为什么 HashMap的size为2的幂次方 ？"></a>为什么 HashMap的size为2的幂次方 ？</h2><p>方便减一做与运算计算index。</p>
+<h2 id="HashMap-resize-过程能否介绍-？"><a href="#HashMap-resize-过程能否介绍-？" class="headerlink" title="HashMap resize()过程能否介绍 ？"></a>HashMap resize()过程能否介绍 ？</h2><p>resize()即扩容过程。如果没有扩容机制，即数组大小固定，那么如果元素很多，一定会出现链表太长的情况，get()方法效率降低。扩容会新建一个大小翻倍的Entry数组，再使用transfer()方法将已有元素转移到新的数组上：根据元素已包含的hash值(hashcode)来计算在新数组中的index。原本index相同的两个元素可能位置仍然相同也可能相差原始数组的大小，因为只可能是新的最高有效位有区别，低k位一定相同(因为原来在同一位置)。<br>JDK 7中循环数组遍历链表，如果key为null则hash值为0，否则就是这个key的hash值。在新的数组容量下重新计算index，用头插法插入这个元素。<strong>key为null是一定存放在index = 0的位置。</strong>transfer过程中会判断是否需要重新计算hashcode，默认不会重新计算(rehash = false)。<br>JDK 8中计算e.hash &amp; oldCapacity，假设oldCapacity是2的k次幂则它的二进制表示中只有k+1位是1，这个与运算是在判断e.hash的第k+1位是否为0，如果是0，则index不变（低位lo），如果是1，则index += oldCapacity（高位hi）。对原始数组某一位置上的链表，逐个做与运算，根据结果分成两条链（尾插法形成链），直接放到新数组的lo和hi位。对于原始数组某一位置上的红黑树，分成两棵树，如果子树的元素总数小于untreeify的阈值（6）则转换成链表，否则转换成红黑树（如果没有分裂，则等价于将原始红黑树转移），分裂出新的树的时候需要对树进行调整并将新的root挪到链表的起点。</p>
+<h2 id="HashMap效率受什么影响？"><a href="#HashMap效率受什么影响？" class="headerlink" title="HashMap效率受什么影响？"></a>HashMap效率受什么影响？</h2><p> (负载因子、hash数组size)</p>
+<h2 id="HashMap中扰动函数的作用-？"><a href="#HashMap中扰动函数的作用-？" class="headerlink" title="HashMap中扰动函数的作用 ？"></a>HashMap中扰动函数的作用 ？</h2><h2 id="HashMap中put如何实现（向hashmap插入-key-value-）"><a href="#HashMap中put如何实现（向hashmap插入-key-value-）" class="headerlink" title="HashMap中put如何实现（向hashmap插入(key, value)）"></a>HashMap中put如何实现（向hashmap插入(key, value)）</h2><p>原理：</p>
+<ol>
+<li><p>（JDK1.7实现）判断是否为空table，如果为空，则初始化一个数组。要么使用默认容量16，要么使用传入的容量。在初始化过程中找到不小于这个容量的最小的2的幂(roundUpToPowerOf2(tosize))。比如传入initialCapacity为10，则初始化数组大小为16。最大容量是2^30(1&lt;<30)。重算扩容的阈值（min(capacity * loadfactor, max_capacity + 1)）。hashmap的参数：initialcapacity, loadfactor （初始容量默认16和加载因子默认0.75）entry<k, v>包含四个属性：key，value，next(Entry)，hash值(int)。hash值用于两个Entry对象的比较。</30)。重算扩容的阈值（min(capacity></p>
+</li>
+<li><p>计算hashcode<br>调用hash方法：调用key.hashCode()方法并与hash seed做异或运算，再对这个值进行右移或者异或运算。右移相当于高位移动到了低位，低位省略了，异或从而使得高位也可以参与index的计算，使index更平均（异或^：相同为0，不同为1）。hashCode方法可以重写。将计算好的hashCode存入Entry的hash属性。<br>1.8中仍然时右移和异或，只是没有1.7那么复杂，key为null时hashcode为0。</p>
+</li>
+<li><p>计算index<br>即：根据hashCode值计算数组下标。<br>计算key.hashCode() &amp; (table.length - 1) （二进制位运算速度快。table.length是2的k次幂，table.length - 1的低k位全1高位全0，该与操作相当于只保留了key的hashcode的后k位作为index，index的取值范围正好是0到table.length - 1）作为该entry存放在数组中的index。hashmap放入一个键值对时，将该键值对视作一个entry，把这个entry的引用放入数组的某个位置or这个位置连接的链表上，这个位置即index，需要通过key的值来计算。如果取余，很容易冲突（不同key放在数组的同一位置），且取余操作比位操作慢。</p>
+</li>
+<li><p>(JDK1.7中先扩容再添加，JDK1.8是先添加再扩容)扩容：1.7中，如果元素个数超过阈值且当前要放入的index处不为null则开始扩容。1.8中只判断了元素个数超过阈值就扩容。扩容方法：resize()<br>1.7在数组的每次扩容时会判断是否需要扩容，需要扩容时会改变hashseed，使得计算出的hashcode更加分散。</p>
+</li>
+<li><p>如果当前数组的当前index处为空，则新建一个Entry对象，包含key，value，hash和null（next为空）直接放入index处。否则在JDK 1.7中使用头插法：(key, value, hash, header)，其中header是链表头部，即table[index]，再把这个Entry放入table[index]，添加之后size++；而在1.8中使用尾插法，因为本来就需要遍历整个链表来判断元素个数是否达到treeify的阈值，同时在遍历链表时可以判断是否已经存在整个key，如果存在则直接覆盖，如果当前元素的key不相等，则判断当前元素的结点是否instanceof TreeNode，如果已经是一个树的则直接进行红黑树TreeNode结点的插入，否则当前index一定是链表，循环并累计链表上结点个数，对每个结点判断是都需要覆盖，如果下一个是空则说明已经到了尾部，插入这个结点，判断是否需要树化。</p>
+</li>
+</ol>
+<p>如果是覆盖已有的key，则会用新的value覆盖旧的value并返回旧的value。在遍历寻找是否存在这个key的过程中先判断hash值是否相等，如果相等，再进一步比较key是否equals，这里的equals方法可能被重写得较为复杂，因此先对hash进行判断可以减少equals的执行从而提高代码运行效率。先寻找有无相同key，若无再添加这个Entry并返回null。</p>
+<blockquote>
+<p>hashmap.put(“1”, “2”)<br>String value = hashmap.put(“1”, “3”) // value = 2<br>String value = hashmap.put(“2”, “3”) // value = null, no overlap</p>
+</blockquote>
+<h2 id="为什么不直接用key做hash值而是与高16位做异或运算"><a href="#为什么不直接用key做hash值而是与高16位做异或运算" class="headerlink" title="为什么不直接用key做hash值而是与高16位做异或运算"></a>为什么不直接用key做hash值而是与高16位做异或运算</h2><p>异或可以使得高位也可以参与index的计算，使index更平均。</p>
+<h2 id="Hashtable-和-HashMap的区别"><a href="#Hashtable-和-HashMap的区别" class="headerlink" title="Hashtable 和 HashMap的区别"></a>Hashtable 和 HashMap的区别</h2><p>底层数据结构 (JDK1.8后不同)、父类不同  、扩容方法不同 、 线程上锁范围不同（重点）<br>hashtable：底层数组+链表实现，无论是key还是value都不能为null。线程安全，在修改时synchronize锁住了整个hashTable，效率低。<br>HashMap：底层数组+链表实现，可以存储null作为key或value，线程不安全。加载因子：为了降低哈希冲突，键值对达到数组内存75%的时候进行扩容，直接*2。<br>ConcurrentHashMap不支持key为null<br>HashTable容器使用sychronized来保证线程安全，采取锁住整个表结构来达到同步目的，在线程竞争激烈的情况下，当一个线程访问HashTable的同步方法，其他线程也访问同步方法时，会进入阻塞或轮询状态；如线程1使用put方法时，其他线程既不能使用put方法，也不能使用get方法，效率非常低下。</p>
+<h2 id="hashtable的理想的查找效率是多少？"><a href="#hashtable的理想的查找效率是多少？" class="headerlink" title="hashtable的理想的查找效率是多少？"></a>hashtable的理想的查找效率是多少？</h2><h2 id="哈希碰撞（在同一位置存放多个元素）怎么解决？"><a href="#哈希碰撞（在同一位置存放多个元素）怎么解决？" class="headerlink" title="哈希碰撞（在同一位置存放多个元素）怎么解决？"></a>哈希碰撞（在同一位置存放多个元素）怎么解决？</h2><p>链表法：在数组中的entry的引用上加上一个next指针指向下一个元素。对于单链表来说，插入头部的速度时最快的。但是在查找过程中，单链表从数组中存放的entry开始只能向下查找，无法向上回溯，因此可能无法有效获取头插法插入的元素。解决方法：头插之后将链表向下移动，将插入的头元素作为链表放在数组中的那个元素。由于移动头节点相当于移动整个链表，只需将头节点放入数组：table[index] = new Entry(key, value, table[index])<br>探查法，双重散列（发生冲突之后以当前地址为基础找下一个地址直到没有冲突），双重哈希</p>
+<blockquote>
+<p>参考：<a href="https://juejin.cn/post/6844904057128091655">https://juejin.cn/post/6844904057128091655</a><br>     <a href="https://www.cnblogs.com/sulishihupan/p/13418915.html">https://www.cnblogs.com/sulishihupan/p/13418915.html</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    HUANG Liu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://huangliu0909.github.io/2020/12/23/HashMap/" title="HashMap">https://huangliu0909.github.io/2020/12/23/HashMap/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hash/" rel="tag"># hash</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/12/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/" rel="next" title="进程 线程 协程">
+                <i class="fa fa-chevron-left"></i> 进程 线程 协程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/01/12/DL_Adversarial%20Machine%20Learning/" rel="prev" title="Adversarial Machine Learning">
+                Adversarial Machine Learning <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">HUANG Liu</p>
+              <p class="site-description motion-element" itemprop="description">Love always wins.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/huangliu0909" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="wiwillow.99@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#java里hashmap是如何实现的？"><span class="nav-number">1.</span> <span class="nav-text">java里hashmap是如何实现的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap-为什么线程不安全？为什么ConcurrHashMap线程安全？"><span class="nav-number">2.</span> <span class="nav-text">HashMap 为什么线程不安全？为什么ConcurrHashMap线程安全？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap的具体实现"><span class="nav-number">3.</span> <span class="nav-text">ConcurrentHashMap的具体实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hashArray和list有什么区别？"><span class="nav-number">4.</span> <span class="nav-text">hashArray和list有什么区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap的扩容过程"><span class="nav-number">5.</span> <span class="nav-text">ConcurrentHashMap的扩容过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap多线程rehash的整体流程"><span class="nav-number">6.</span> <span class="nav-text">ConcurrentHashMap多线程rehash的整体流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化"><span class="nav-number">7.</span> <span class="nav-text">ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？"><span class="nav-number">8.</span> <span class="nav-text">HashMap 1.7 &#x2F; 1.8 的区别，在JDK1.8中有哪些改进？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？"><span class="nav-number">9.</span> <span class="nav-text">ConcurrentHashMap 1.7 &#x2F; 1.8 的区别，在JDK1.8中有哪些改进？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么-HashMap的size为2的幂次方-？"><span class="nav-number">10.</span> <span class="nav-text">为什么 HashMap的size为2的幂次方 ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap-resize-过程能否介绍-？"><span class="nav-number">11.</span> <span class="nav-text">HashMap resize()过程能否介绍 ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap效率受什么影响？"><span class="nav-number">12.</span> <span class="nav-text">HashMap效率受什么影响？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap中扰动函数的作用-？"><span class="nav-number">13.</span> <span class="nav-text">HashMap中扰动函数的作用 ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap中put如何实现（向hashmap插入-key-value-）"><span class="nav-number">14.</span> <span class="nav-text">HashMap中put如何实现（向hashmap插入(key, value)）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么不直接用key做hash值而是与高16位做异或运算"><span class="nav-number">15.</span> <span class="nav-text">为什么不直接用key做hash值而是与高16位做异或运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hashtable-和-HashMap的区别"><span class="nav-number">16.</span> <span class="nav-text">Hashtable 和 HashMap的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hashtable的理想的查找效率是多少？"><span class="nav-number">17.</span> <span class="nav-text">hashtable的理想的查找效率是多少？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希碰撞（在同一位置存放多个元素）怎么解决？"><span class="nav-number">18.</span> <span class="nav-text">哈希碰撞（在同一位置存放多个元素）怎么解决？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HUANG Liu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">56.3k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -308,15 +308,6 @@ p(\mathbf{x})=Norm_{\mathbf{x}}[\boldsymbol {\mu },\boldsymbol {\Sigma }]}</scri
       </tags>
   </entry>
   <entry>
-    <title>CS6203 Proj_1</title>
-    <url>/2020/10/25/CS6203%20Proj_1/</url>
-    <content><![CDATA[<h3 id="local-dataset-size"><a href="#local-dataset-size" class="headerlink" title="local dataset size"></a>local dataset size</h3><h3 id="DPSGD-VS-SGD"><a href="#DPSGD-VS-SGD" class="headerlink" title="DPSGD VS SGD"></a>DPSGD VS SGD</h3><h2 id="Mask"><a href="#Mask" class="headerlink" title="Mask"></a>Mask</h2><h2 id="local-ML-VS-FL"><a href="#local-ML-VS-FL" class="headerlink" title="local ML VS FL"></a>local ML VS FL</h2><p>local: 800 train + 200 valid  loop until converge<br>best accuracy within 35 epoch</p>
-<p>id0: best accuracy: 93.500000%</p>
-<p>id1: best accuracy: 96.500000%</p>
-<p>id2: best accuracy: 92.500000%</p>
-<h2 id="batch-size"><a href="#batch-size" class="headerlink" title="batch size"></a>batch size</h2>]]></content>
-  </entry>
-  <entry>
     <title>比较排序 - 1：选择 插入 冒泡 鸡尾酒 希尔</title>
     <url>/2020/08/02/Comparison%20Sorts-1/</url>
     <content><![CDATA[<h1 id="Comparison-sort"><a href="#Comparison-sort" class="headerlink" title="Comparison sort"></a>Comparison sort</h1><blockquote>
@@ -1494,7 +1485,9 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
   <entry>
     <title>Python</title>
     <url>/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9APython/</url>
-    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="Python可变参数args，-kwargs"><a href="#Python可变参数args，-kwargs" class="headerlink" title="Python可变参数args，*kwargs"></a>Python可变参数<em>args，*</em>kwargs</h3><h3 id="Python内置容器及其容器及其使用场景"><a href="#Python内置容器及其容器及其使用场景" class="headerlink" title="Python内置容器及其容器及其使用场景 "></a>Python内置容器及其容器及其使用场景 <a id="more"></a></h3><h3 id="python多线程"><a href="#python多线程" class="headerlink" title="python多线程"></a>python多线程</h3><h3 id="对Python了解吗？说说它底层的实现原理。"><a href="#对Python了解吗？说说它底层的实现原理。" class="headerlink" title="对Python了解吗？说说它底层的实现原理。"></a>对Python了解吗？说说它底层的实现原理。</h3><h3 id="什么是Python生成器，迭代器；"><a href="#什么是Python生成器，迭代器；" class="headerlink" title="什么是Python生成器，迭代器；"></a>什么是Python生成器，迭代器；</h3><h3 id="Python中的dict底层怎么实现的"><a href="#Python中的dict底层怎么实现的" class="headerlink" title="Python中的dict底层怎么实现的"></a>Python中的dict底层怎么实现的</h3><h3 id="Python多线程用了几个CPU"><a href="#Python多线程用了几个CPU" class="headerlink" title="Python多线程用了几个CPU"></a>Python多线程用了几个CPU</h3><h3 id="修饰器"><a href="#修饰器" class="headerlink" title="修饰器"></a>修饰器</h3><h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="C-中const与-define的区别与优势"><a href="#C-中const与-define的区别与优势" class="headerlink" title="C++中const与#define的区别与优势"></a>C++中const与#define的区别与优势</h3><h3 id="C-11新特性auto的用法"><a href="#C-11新特性auto的用法" class="headerlink" title="C++11新特性auto的用法"></a>C++11新特性auto的用法</h3><h3 id="C-虚函数，读程序写结果"><a href="#C-虚函数，读程序写结果" class="headerlink" title="C++虚函数，读程序写结果"></a>C++虚函数，读程序写结果</h3><h3 id="C-关键字static、extern"><a href="#C-关键字static、extern" class="headerlink" title="C++关键字static、extern"></a>C++关键字static、extern</h3><h3 id="C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景"><a href="#C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景" class="headerlink" title="C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景"></a>C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景</h3><h3 id="C-中new和delete语句的底层实现"><a href="#C-中new和delete语句的底层实现" class="headerlink" title="C++中new和delete语句的底层实现"></a>C++中new和delete语句的底层实现</h3><h2 id="编程语言之间的对比"><a href="#编程语言之间的对比" class="headerlink" title="编程语言之间的对比"></a>编程语言之间的对比</h2><h3 id="Java和C-相比有什么特点？"><a href="#Java和C-相比有什么特点？" class="headerlink" title="Java和C++相比有什么特点？"></a>Java和C++相比有什么特点？</h3><h3 id="C-为什么比Java运行得快？"><a href="#C-为什么比Java运行得快？" class="headerlink" title="C++为什么比Java运行得快？"></a>C++为什么比Java运行得快？</h3><h3 id="java和python的异同？"><a href="#java和python的异同？" class="headerlink" title="java和python的异同？"></a>java和python的异同？</h3><h2 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h2><h3 id="了解Linux么？用过哪些命令？"><a href="#了解Linux么？用过哪些命令？" class="headerlink" title="了解Linux么？用过哪些命令？"></a>了解Linux么？用过哪些命令？</h3><h3 id="SSO了解吗？"><a href="#SSO了解吗？" class="headerlink" title="SSO了解吗？"></a>SSO了解吗？</h3><h3 id="负载均衡了解吗？"><a href="#负载均衡了解吗？" class="headerlink" title="负载均衡了解吗？"></a>负载均衡了解吗？</h3><h3 id="MD5加密可逆吗？会被破解吗-如何破解？"><a href="#MD5加密可逆吗？会被破解吗-如何破解？" class="headerlink" title="MD5加密可逆吗？会被破解吗?如何破解？"></a>MD5加密可逆吗？会被破解吗?如何破解？</h3><h3 id="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"><a href="#DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）" class="headerlink" title="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"></a>DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）</h3><h3 id="并发用什么"><a href="#并发用什么" class="headerlink" title="并发用什么"></a>并发用什么</h3><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="哈希表如何扩容？具体的操作是什么？"><a href="#哈希表如何扩容？具体的操作是什么？" class="headerlink" title="哈希表如何扩容？具体的操作是什么？"></a>哈希表如何扩容？具体的操作是什么？</h3><h3 id="解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程"><a href="#解释下哈希表的设计-以及哈希冲突的解决等，-rehash的具体过程" class="headerlink" title="解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程"></a>解释下哈希表的设计 以及哈希冲突的解决等， rehash的具体过程</h3><h3 id="设计一个线程池"><a href="#设计一个线程池" class="headerlink" title="设计一个线程池"></a>设计一个线程池</h3><h3 id="解释下内存中堆和栈，写一个stack-overflow的代码"><a href="#解释下内存中堆和栈，写一个stack-overflow的代码" class="headerlink" title="解释下内存中堆和栈，写一个stack overflow的代码"></a>解释下内存中堆和栈，写一个stack overflow的代码</h3><h3 id="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"><a href="#什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？" class="headerlink" title="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"></a>什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？</h3><h3 id="元组和list的区别；"><a href="#元组和list的区别；" class="headerlink" title="元组和list的区别；"></a>元组和list的区别；</h3><h3 id="list的底层怎么实现的；"><a href="#list的底层怎么实现的；" class="headerlink" title="list的底层怎么实现的；"></a>list的底层怎么实现的；</h3><h3 id="双等于和is有什么区别"><a href="#双等于和is有什么区别" class="headerlink" title="双等于和is有什么区别"></a>双等于和is有什么区别</h3><h3 id="栈的默认大小（1M）"><a href="#栈的默认大小（1M）" class="headerlink" title="栈的默认大小（1M）"></a>栈的默认大小（1M）</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="说一说各种排序算法原理，及其时间复杂度。"><a href="#说一说各种排序算法原理，及其时间复杂度。" class="headerlink" title="说一说各种排序算法原理，及其时间复杂度。"></a>说一说各种排序算法原理，及其时间复杂度。</h3><h3 id="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"><a href="#一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和" class="headerlink" title="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"></a>一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和</h3><h3 id="栈，队列是什么？区别是什么？"><a href="#栈，队列是什么？区别是什么？" class="headerlink" title="栈，队列是什么？区别是什么？"></a>栈，队列是什么？区别是什么？</h3><h3 id="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"><a href="#设计一个可以满足高效率获取第k大和前k个大的元素的数据结构" class="headerlink" title="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"></a>设计一个可以满足高效率获取第k大和前k个大的元素的数据结构</h3><h3 id="手写求两个链表第一个交叉节点"><a href="#手写求两个链表第一个交叉节点" class="headerlink" title="手写求两个链表第一个交叉节点"></a>手写求两个链表第一个交叉节点</h3><h3 id="求x的y次方，想出比直接for循环更好的方案"><a href="#求x的y次方，想出比直接for循环更好的方案" class="headerlink" title="求x的y次方，想出比直接for循环更好的方案"></a>求x的y次方，想出比直接for循环更好的方案</h3><h3 id="求绝对众数"><a href="#求绝对众数" class="headerlink" title="求绝对众数"></a>求绝对众数</h3><h3 id="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"><a href="#二叉树，输出所有和为n的路径（可以从中间结点到中间结点）" class="headerlink" title="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"></a>二叉树，输出所有和为n的路径（可以从中间结点到中间结点）</h3><h3 id="如何用两个栈实现一个队列。"><a href="#如何用两个栈实现一个队列。" class="headerlink" title="如何用两个栈实现一个队列。"></a>如何用两个栈实现一个队列。</h3><h3 id="如何开启一个进程。"><a href="#如何开启一个进程。" class="headerlink" title="如何开启一个进程。"></a>如何开启一个进程。</h3><h3 id="实现一个-hashtable"><a href="#实现一个-hashtable" class="headerlink" title="实现一个 hashtable"></a>实现一个 hashtable</h3><h3 id="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"><a href="#写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。" class="headerlink" title="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"></a>写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。</h3><h3 id="最长公共连续子串"><a href="#最长公共连续子串" class="headerlink" title="最长公共连续子串"></a>最长公共连续子串</h3><h3 id="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；"><a href="#几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；" class="headerlink" title="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；"></a>几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；</h3><h3 id="判断平衡二叉树。"><a href="#判断平衡二叉树。" class="headerlink" title="判断平衡二叉树。"></a>判断平衡二叉树。</h3><h3 id="1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL"><a href="#1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL" class="headerlink" title="1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL"></a>1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL</h3><h3 id="有序数组转二叉搜索树"><a href="#有序数组转二叉搜索树" class="headerlink" title="有序数组转二叉搜索树"></a>有序数组转二叉搜索树</h3><h3 id="设计阻塞队列（不能用JDK的api"><a href="#设计阻塞队列（不能用JDK的api" class="headerlink" title="设计阻塞队列（不能用JDK的api"></a>设计阻塞队列（不能用JDK的api</h3><h3 id="了解哪些设计模式？手写一个工厂方法模式"><a href="#了解哪些设计模式？手写一个工厂方法模式" class="headerlink" title="了解哪些设计模式？手写一个工厂方法模式"></a>了解哪些设计模式？手写一个工厂方法模式</h3><h3 id="手撕sql"><a href="#手撕sql" class="headerlink" title="手撕sql"></a>手撕sql</h3><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2>]]></content>
+    <content><![CDATA[<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="Python可变参数args，-kwargs"><a href="#Python可变参数args，-kwargs" class="headerlink" title="Python可变参数args，*kwargs"></a>Python可变参数<em>args，*</em>kwargs</h3><p>当函数的参数前面有一个星号的时候表示这是一个可变的位置参数<br>两个星号表示这个是一个可变的关键词参数。<br>星号<em>把序列或者集合解包（unpack）成位置参数，两个星号*</em>把字典解包成关键词参数。</p>
+<h3 id="Python内置容器及其容器及其使用场景"><a href="#Python内置容器及其容器及其使用场景" class="headerlink" title="Python内置容器及其容器及其使用场景 "></a>Python内置容器及其容器及其使用场景 <a id="more"></a></h3><h3 id="python多线程"><a href="#python多线程" class="headerlink" title="python多线程"></a>python多线程</h3><h3 id="对Python了解吗？说说它底层的实现原理。"><a href="#对Python了解吗？说说它底层的实现原理。" class="headerlink" title="对Python了解吗？说说它底层的实现原理。"></a>对Python了解吗？说说它底层的实现原理。</h3><h3 id="什么是Python生成器，迭代器；"><a href="#什么是Python生成器，迭代器；" class="headerlink" title="什么是Python生成器，迭代器；"></a>什么是Python生成器，迭代器；</h3><h3 id="Python中的dict底层怎么实现的"><a href="#Python中的dict底层怎么实现的" class="headerlink" title="Python中的dict底层怎么实现的"></a>Python中的dict底层怎么实现的</h3><h3 id="Python多线程用了几个CPU"><a href="#Python多线程用了几个CPU" class="headerlink" title="Python多线程用了几个CPU"></a>Python多线程用了几个CPU</h3><h3 id="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"><a href="#什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？" class="headerlink" title="什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？"></a>什么是装饰器；讲一讲装饰器，能手写实现一个装饰器么？</h3><p>本质上，decorator就是一个返回函数的高阶函数。<br>@符号用做函数的修饰符，可以在模块或者类的定义层内对函数进行修饰，出现在函数定义的前一行，不允许和函数定义在同一行。一个修饰符就是一个函数，它将被修饰的函数作为参数，并返回修饰后的同名函数或其他可调用的东西（如果返回不是一个可调用的对象那么会报错）。每一层调用装饰都传递的是函数对象，每一层Wrap返回对象也是一个可调用的对象（如上例中的decorator）</p>
+<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><h3 id="C-中const与-define的区别与优势"><a href="#C-中const与-define的区别与优势" class="headerlink" title="C++中const与#define的区别与优势"></a>C++中const与#define的区别与优势</h3><h3 id="C-11新特性auto的用法"><a href="#C-11新特性auto的用法" class="headerlink" title="C++11新特性auto的用法"></a>C++11新特性auto的用法</h3><h3 id="C-虚函数，读程序写结果"><a href="#C-虚函数，读程序写结果" class="headerlink" title="C++虚函数，读程序写结果"></a>C++虚函数，读程序写结果</h3><h3 id="C-关键字static、extern"><a href="#C-关键字static、extern" class="headerlink" title="C++关键字static、extern"></a>C++关键字static、extern</h3><h3 id="C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景"><a href="#C-关键字this，C-类的实例方法中能否写delete-this，这种情况的使用场景" class="headerlink" title="C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景"></a>C++关键字this，C++类的实例方法中能否写delete this，这种情况的使用场景</h3><h3 id="C-中new和delete语句的底层实现"><a href="#C-中new和delete语句的底层实现" class="headerlink" title="C++中new和delete语句的底层实现"></a>C++中new和delete语句的底层实现</h3><h2 id="编程语言之间的对比"><a href="#编程语言之间的对比" class="headerlink" title="编程语言之间的对比"></a>编程语言之间的对比</h2><h3 id="Java和C-相比有什么特点？"><a href="#Java和C-相比有什么特点？" class="headerlink" title="Java和C++相比有什么特点？"></a>Java和C++相比有什么特点？</h3><h3 id="C-为什么比Java运行得快？"><a href="#C-为什么比Java运行得快？" class="headerlink" title="C++为什么比Java运行得快？"></a>C++为什么比Java运行得快？</h3><h3 id="java和python的异同？"><a href="#java和python的异同？" class="headerlink" title="java和python的异同？"></a>java和python的异同？</h3><h2 id="计算机系统"><a href="#计算机系统" class="headerlink" title="计算机系统"></a>计算机系统</h2><h3 id="了解Linux么？用过哪些命令？"><a href="#了解Linux么？用过哪些命令？" class="headerlink" title="了解Linux么？用过哪些命令？"></a>了解Linux么？用过哪些命令？</h3><h3 id="SSO了解吗？"><a href="#SSO了解吗？" class="headerlink" title="SSO了解吗？"></a>SSO了解吗？</h3><h3 id="负载均衡了解吗？"><a href="#负载均衡了解吗？" class="headerlink" title="负载均衡了解吗？"></a>负载均衡了解吗？</h3><h3 id="MD5加密可逆吗？会被破解吗-如何破解？"><a href="#MD5加密可逆吗？会被破解吗-如何破解？" class="headerlink" title="MD5加密可逆吗？会被破解吗?如何破解？"></a>MD5加密可逆吗？会被破解吗?如何破解？</h3><h3 id="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"><a href="#DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）" class="headerlink" title="DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）"></a>DDOS攻击（我答了SYN攻击，深入问了如何解决，关键点是什么）</h3><h3 id="并发用什么"><a href="#并发用什么" class="headerlink" title="并发用什么"></a>并发用什么</h3><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="设计一个线程池"><a href="#设计一个线程池" class="headerlink" title="设计一个线程池"></a>设计一个线程池</h3><h3 id="解释下内存中堆和栈，写一个stack-overflow的代码"><a href="#解释下内存中堆和栈，写一个stack-overflow的代码" class="headerlink" title="解释下内存中堆和栈，写一个stack overflow的代码"></a>解释下内存中堆和栈，写一个stack overflow的代码</h3><h3 id="元组和list的区别；"><a href="#元组和list的区别；" class="headerlink" title="元组和list的区别；"></a>元组和list的区别；</h3><h3 id="list的底层怎么实现的；"><a href="#list的底层怎么实现的；" class="headerlink" title="list的底层怎么实现的；"></a>list的底层怎么实现的；</h3><h3 id="双等于和is有什么区别"><a href="#双等于和is有什么区别" class="headerlink" title="双等于和is有什么区别"></a>双等于和is有什么区别</h3><h3 id="栈的默认大小（1M）"><a href="#栈的默认大小（1M）" class="headerlink" title="栈的默认大小（1M）"></a>栈的默认大小（1M）</h3><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="说一说各种排序算法原理，及其时间复杂度。"><a href="#说一说各种排序算法原理，及其时间复杂度。" class="headerlink" title="说一说各种排序算法原理，及其时间复杂度。"></a>说一说各种排序算法原理，及其时间复杂度。</h3><h3 id="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"><a href="#一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和" class="headerlink" title="一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和"></a>一道二叉树的算法题：给出一棵二叉树，求出所有左叶子结点的值的和</h3><h3 id="栈，队列是什么？区别是什么？"><a href="#栈，队列是什么？区别是什么？" class="headerlink" title="栈，队列是什么？区别是什么？"></a>栈，队列是什么？区别是什么？</h3><h3 id="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"><a href="#设计一个可以满足高效率获取第k大和前k个大的元素的数据结构" class="headerlink" title="设计一个可以满足高效率获取第k大和前k个大的元素的数据结构"></a>设计一个可以满足高效率获取第k大和前k个大的元素的数据结构</h3><h3 id="手写求两个链表第一个交叉节点"><a href="#手写求两个链表第一个交叉节点" class="headerlink" title="手写求两个链表第一个交叉节点"></a>手写求两个链表第一个交叉节点</h3><h3 id="求x的y次方，想出比直接for循环更好的方案"><a href="#求x的y次方，想出比直接for循环更好的方案" class="headerlink" title="求x的y次方，想出比直接for循环更好的方案"></a>求x的y次方，想出比直接for循环更好的方案</h3><h3 id="求绝对众数"><a href="#求绝对众数" class="headerlink" title="求绝对众数"></a>求绝对众数</h3><h3 id="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"><a href="#二叉树，输出所有和为n的路径（可以从中间结点到中间结点）" class="headerlink" title="二叉树，输出所有和为n的路径（可以从中间结点到中间结点）"></a>二叉树，输出所有和为n的路径（可以从中间结点到中间结点）</h3><h3 id="如何用两个栈实现一个队列。"><a href="#如何用两个栈实现一个队列。" class="headerlink" title="如何用两个栈实现一个队列。"></a>如何用两个栈实现一个队列。</h3><h3 id="如何开启一个进程。"><a href="#如何开启一个进程。" class="headerlink" title="如何开启一个进程。"></a>如何开启一个进程。</h3><h3 id="实现一个-hashtable"><a href="#实现一个-hashtable" class="headerlink" title="实现一个 hashtable"></a>实现一个 hashtable</h3><h3 id="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"><a href="#写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。" class="headerlink" title="写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。"></a>写代码：一个二叉树，每个节点除了有左右子节点外，还有指向父节点的引用。给出一个节点，返回它在二叉树中中序遍历的下一个节点。</h3><h3 id="最长公共连续子串"><a href="#最长公共连续子串" class="headerlink" title="最长公共连续子串"></a>最长公共连续子串</h3><h3 id="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；"><a href="#几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top-10；" class="headerlink" title="几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；"></a>几十G的数据都是URL，内存空间只有1G，磁盘空间无限，统计频率最高的Top 10；</h3><h3 id="判断平衡二叉树。"><a href="#判断平衡二叉树。" class="headerlink" title="判断平衡二叉树。"></a>判断平衡二叉树。</h3><h3 id="1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL"><a href="#1亿数据取top10-，-1亿数据取出现频率top10，1亿URL取出重复URL" class="headerlink" title="1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL"></a>1亿数据取top10 ， 1亿数据取出现频率top10，1亿URL取出重复URL</h3><h3 id="有序数组转二叉搜索树"><a href="#有序数组转二叉搜索树" class="headerlink" title="有序数组转二叉搜索树"></a>有序数组转二叉搜索树</h3><h3 id="设计阻塞队列（不能用JDK的api"><a href="#设计阻塞队列（不能用JDK的api" class="headerlink" title="设计阻塞队列（不能用JDK的api"></a>设计阻塞队列（不能用JDK的api</h3><h3 id="了解哪些设计模式？手写一个工厂方法模式"><a href="#了解哪些设计模式？手写一个工厂方法模式" class="headerlink" title="了解哪些设计模式？手写一个工厂方法模式"></a>了解哪些设计模式？手写一个工厂方法模式</h3><h3 id="手撕sql"><a href="#手撕sql" class="headerlink" title="手撕sql"></a>手撕sql</h3><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2>]]></content>
       <categories>
         <category>面试准备</category>
       </categories>
@@ -1535,17 +1528,13 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
 </ol>
 <h3 id="【高频】-类加载过程"><a href="#【高频】-类加载过程" class="headerlink" title="【高频】 类加载过程"></a>【高频】 类加载过程</h3><p> 加载，连接，初始化 </p>
 <h3 id="有哪些类加载器，能否自定义-Java-Object-String-的类加载器-？"><a href="#有哪些类加载器，能否自定义-Java-Object-String-的类加载器-？" class="headerlink" title="有哪些类加载器，能否自定义 Java.Object.String 的类加载器 ？"></a>有哪些类加载器，能否自定义 Java.Object.String 的类加载器 ？</h3><h3 id="双亲委派机制介绍-amp-作用"><a href="#双亲委派机制介绍-amp-作用" class="headerlink" title="双亲委派机制介绍 &amp; 作用"></a>双亲委派机制介绍 &amp; 作用</h3><p>类加载器加载类时先委派给父类加载，只有父类无法加载时，自己才尝试加载。<br>保证java类库中的类不受用户类影响，防止用户自定义一个类库中的同名类，引起问题。</p>
-<h2 id="源码-amp-原理-amp-对比：arraylist、linkedlist、vector"><a href="#源码-amp-原理-amp-对比：arraylist、linkedlist、vector" class="headerlink" title="源码&amp;原理&amp;对比：arraylist、linkedlist、vector"></a>源码&amp;原理&amp;对比：arraylist、linkedlist、vector</h2><h2 id="Hash的相关问题"><a href="#Hash的相关问题" class="headerlink" title="Hash的相关问题"></a>Hash的相关问题</h2><h3 id="java里hashmap是如何实现的？hashArray和list有什么区别？"><a href="#java里hashmap是如何实现的？hashArray和list有什么区别？" class="headerlink" title="java里hashmap是如何实现的？hashArray和list有什么区别？"></a>java里hashmap是如何实现的？hashArray和list有什么区别？</h3><h3 id="HashMap-amp-ConcurrentHashMap-的比较"><a href="#HashMap-amp-ConcurrentHashMap-的比较" class="headerlink" title="HashMap &amp; ConcurrentHashMap 的比较"></a>HashMap &amp; ConcurrentHashMap 的比较</h3><p>线程安全问题等等</p>
-<h3 id="HashMap-为什么线程不安全？-能否举例"><a href="#HashMap-为什么线程不安全？-能否举例" class="headerlink" title="HashMap 为什么线程不安全？ 能否举例"></a>HashMap 为什么线程不安全？ 能否举例</h3><p> { 并发resize()触发闭环结构 ，覆盖put操作 }</p>
-<h3 id="ConcurrentHashMap的具体实现"><a href="#ConcurrentHashMap的具体实现" class="headerlink" title="ConcurrentHashMap的具体实现"></a>ConcurrentHashMap的具体实现</h3><p>底层分段数组+链表，线程安全。把Map分为N个Segment，提供相同的线程安全，允许多个修改并发，可以段内扩容。</p>
-<h3 id="HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？"><a href="#HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？" class="headerlink" title="HashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？"></a>HashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？</h3><h3 id="hash值的计算，为什么这样优化"><a href="#hash值的计算，为什么这样优化" class="headerlink" title="hash值的计算，为什么这样优化"></a>hash值的计算，为什么这样优化</h3><h3 id="为什么-HashMap的size为2的幂次方-？"><a href="#为什么-HashMap的size为2的幂次方-？" class="headerlink" title="为什么 HashMap的size为2的幂次方 ？"></a>为什么 HashMap的size为2的幂次方 ？</h3><h3 id="HashMap-resize-过程能否介绍-？"><a href="#HashMap-resize-过程能否介绍-？" class="headerlink" title="HashMap resize()过程能否介绍 ？"></a>HashMap resize()过程能否介绍 ？</h3><h3 id="HashMap效率受什么影响-负载因子、hash数组size-？"><a href="#HashMap效率受什么影响-负载因子、hash数组size-？" class="headerlink" title="HashMap效率受什么影响 (负载因子、hash数组size)？"></a>HashMap效率受什么影响 (负载因子、hash数组size)？</h3><h3 id="HashMap中扰动函数的作用-？"><a href="#HashMap中扰动函数的作用-？" class="headerlink" title="HashMap中扰动函数的作用 ？"></a>HashMap中扰动函数的作用 ？</h3><h3 id="HashMap原理，为什么用红黑树，红黑树的特点？"><a href="#HashMap原理，为什么用红黑树，红黑树的特点？" class="headerlink" title="HashMap原理，为什么用红黑树，红黑树的特点？"></a>HashMap原理，为什么用红黑树，红黑树的特点？</h3><h3 id="Hashtable-和-HashMap的区别"><a href="#Hashtable-和-HashMap的区别" class="headerlink" title="Hashtable 和 HashMap的区别"></a>Hashtable 和 HashMap的区别</h3><p>底层数据结构 (JDK1.8后不同)、父类不同  、扩容方法不同 、 线程上锁范围不同（重点）<br>hashtable：底层数组+链表实现，无论是key还是value都不能为null。线程安全，在修改时synchronize锁住了整个hashTable，效率低。<br>HashMap：底层数组+链表实现，可以存储null作为key或value，线程不安全。加载因子：为了降低哈希冲突，键值对达到数组内存75%的时候进行扩容，直接*2。</p>
-<h3 id="hashtable的理想的查找效率是多少？"><a href="#hashtable的理想的查找效率是多少？" class="headerlink" title="hashtable的理想的查找效率是多少？"></a>hashtable的理想的查找效率是多少？</h3><h3 id="哈希碰撞怎么解决？"><a href="#哈希碰撞怎么解决？" class="headerlink" title="哈希碰撞怎么解决？"></a>哈希碰撞怎么解决？</h3><p>链表法，探查法，双重散列</p>
-<h2 id="JVM相关问题"><a href="#JVM相关问题" class="headerlink" title="JVM相关问题"></a>JVM相关问题</h2><h3 id="JOOM-如何定位"><a href="#JOOM-如何定位" class="headerlink" title="JOOM 如何定位"></a>JOOM 如何定位</h3><h3 id="说几个虚拟机指令以及虚拟机栈可能会发生什么错误"><a href="#说几个虚拟机指令以及虚拟机栈可能会发生什么错误" class="headerlink" title="说几个虚拟机指令以及虚拟机栈可能会发生什么错误"></a>说几个虚拟机指令以及虚拟机栈可能会发生什么错误</h3><h3 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h3><h3 id="jvm-的局部变量表是做什么的？"><a href="#jvm-的局部变量表是做什么的？" class="headerlink" title="jvm 的局部变量表是做什么的？"></a>jvm 的局部变量表是做什么的？</h3><p>存储局部变量、函数调用时传递参数，很多字节码指令都是对局部变量表和操作数栈进行操作的。</p>
+<h2 id="源码-amp-原理-amp-对比：arraylist、linkedlist、vector"><a href="#源码-amp-原理-amp-对比：arraylist、linkedlist、vector" class="headerlink" title="源码&amp;原理&amp;对比：arraylist、linkedlist、vector"></a>源码&amp;原理&amp;对比：arraylist、linkedlist、vector</h2><h2 id="JVM相关问题"><a href="#JVM相关问题" class="headerlink" title="JVM相关问题"></a>JVM相关问题</h2><h3 id="JOOM-如何定位"><a href="#JOOM-如何定位" class="headerlink" title="JOOM 如何定位"></a>JOOM 如何定位</h3><h3 id="说几个虚拟机指令以及虚拟机栈可能会发生什么错误"><a href="#说几个虚拟机指令以及虚拟机栈可能会发生什么错误" class="headerlink" title="说几个虚拟机指令以及虚拟机栈可能会发生什么错误"></a>说几个虚拟机指令以及虚拟机栈可能会发生什么错误</h3><h3 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h3><h3 id="jvm-的局部变量表是做什么的？"><a href="#jvm-的局部变量表是做什么的？" class="headerlink" title="jvm 的局部变量表是做什么的？"></a>jvm 的局部变量表是做什么的？</h3><p>存储局部变量、函数调用时传递参数，很多字节码指令都是对局部变量表和操作数栈进行操作的。</p>
 <h2 id="static变量什么作用，放在哪里"><a href="#static变量什么作用，放在哪里" class="headerlink" title="static变量什么作用，放在哪里"></a>static变量什么作用，放在哪里</h2><h2 id="线程池的执行过程、核心参数以及常用的几个线程池"><a href="#线程池的执行过程、核心参数以及常用的几个线程池" class="headerlink" title="线程池的执行过程、核心参数以及常用的几个线程池"></a>线程池的执行过程、核心参数以及常用的几个线程池</h2><h2 id="Java内存区域-："><a href="#Java内存区域-：" class="headerlink" title="Java内存区域   ："></a>Java内存区域   ：</h2><p>程序计数器 ， 虚拟机栈 ，本地方法栈 ， 堆 ，方法区 ，元空间 </p>
 <h3 id="讲一下-volatile-。"><a href="#讲一下-volatile-。" class="headerlink" title="讲一下 volatile 。"></a>讲一下 volatile 。</h3><p>内存可见性、指令重排、32位jvm对64数据的原子操作什么的</p>
 <h3 id="volatile-可以保证并发计数正确性？"><a href="#volatile-可以保证并发计数正确性？" class="headerlink" title="volatile 可以保证并发计数正确性？"></a>volatile 可以保证并发计数正确性？</h3><p>不能</p>
 <h3 id="如果需要保证并发计数正确怎么办，只能加锁吗？"><a href="#如果需要保证并发计数正确怎么办，只能加锁吗？" class="headerlink" title="如果需要保证并发计数正确怎么办，只能加锁吗？"></a>如果需要保证并发计数正确怎么办，只能加锁吗？</h3><p>计数是个轻量级的操作，java 有原子变量，于是说 AtomicInteger。</p>
-<h3 id="为什么原子变量能保证高效正确计数？"><a href="#为什么原子变量能保证高效正确计数？" class="headerlink" title="为什么原子变量能保证高效正确计数？"></a>为什么原子变量能保证高效正确计数？</h3><h2 id="垃圾回收：JVM-GC的一整套-算法、分区、判断方法、GC器"><a href="#垃圾回收：JVM-GC的一整套-算法、分区、判断方法、GC器" class="headerlink" title="垃圾回收：JVM GC的一整套(算法、分区、判断方法、GC器)"></a>垃圾回收：JVM GC的一整套(算法、分区、判断方法、GC器)</h2><h3 id="【高频】-判断对象死亡的方法-：-引用计数法-，可达分析算法"><a href="#【高频】-判断对象死亡的方法-：-引用计数法-，可达分析算法" class="headerlink" title="【高频】 判断对象死亡的方法 ： { 引用计数法 ，可达分析算法 }"></a>【高频】 判断对象死亡的方法 ： { 引用计数法 ，可达分析算法 }</h3><h3 id="垃圾收集算法-："><a href="#垃圾收集算法-：" class="headerlink" title="垃圾收集算法  ："></a>垃圾收集算法  ：</h3><p> { 标记清除算法 、标记整理算法 、 复制算法、 分代收集算法 }<br>深入一些： 各个算法的优点和适用场景</p>
+<h3 id="为什么原子变量能保证高效正确计数？"><a href="#为什么原子变量能保证高效正确计数？" class="headerlink" title="为什么原子变量能保证高效正确计数？"></a>为什么原子变量能保证高效正确计数？</h3><h2 id="垃圾回收：JVM-GC的一整套-算法、分区、判断方法、GC器"><a href="#垃圾回收：JVM-GC的一整套-算法、分区、判断方法、GC器" class="headerlink" title="垃圾回收：JVM GC的一整套(算法、分区、判断方法、GC器)"></a>垃圾回收：JVM GC的一整套(算法、分区、判断方法、GC器)</h2><p>为新生成的对象分配内存,识别那些垃圾对象，并且从垃圾对象那回收内存</p>
+<h3 id="【高频】-判断对象死亡的方法-：-引用计数法-，可达分析算法"><a href="#【高频】-判断对象死亡的方法-：-引用计数法-，可达分析算法" class="headerlink" title="【高频】 判断对象死亡的方法 ： { 引用计数法 ，可达分析算法 }"></a>【高频】 判断对象死亡的方法 ： { 引用计数法 ，可达分析算法 }</h3><h3 id="垃圾收集算法-："><a href="#垃圾收集算法-：" class="headerlink" title="垃圾收集算法  ："></a>垃圾收集算法  ：</h3><p> { 标记清除算法 、标记整理算法 、 复制算法、 分代收集算法 }<br>深入一些： 各个算法的优点和适用场景</p>
 <h3 id="垃圾收集器-："><a href="#垃圾收集器-：" class="headerlink" title="垃圾收集器 ："></a>垃圾收集器 ：</h3><p> { serial  、 parallel 、 CMS 、 G1  }</p>
 <h3 id="垃圾回收怎么判断哪些对象应该回收？"><a href="#垃圾回收怎么判断哪些对象应该回收？" class="headerlink" title="垃圾回收怎么判断哪些对象应该回收？"></a>垃圾回收怎么判断哪些对象应该回收？</h3><p>可达性分析，从 GCRoot 开始遍历，不能遍历到的对象就可以认为已经死了，可以回收。</p>
 <h3 id="什么可以作为GCRoot？"><a href="#什么可以作为GCRoot？" class="headerlink" title="什么可以作为GCRoot？"></a>什么可以作为GCRoot？</h3><p>方法区的数据引用、当前代码处的局部变量，基本就是用户能通过代码引用到的。</p>
@@ -1587,148 +1576,8 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
   <entry>
     <title>计算机网络</title>
     <url>/2020/07/27/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h2><p>进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。<br>线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部变量。线程由CPU独立调度执行，在多CPU环境下就允许多个线程同时运行。同样多线程也可以实现并发操作，每个请求分配一个线程来处理。<br><a id="more"></a></p>
-<ol>
-<li>进程是资源分配的最小单位，线程是程序执行的最小单位。</li>
-<li>进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵。而线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多。</li>
-<li>线程之间的通信更方便，同一进程下的线程共享全局变量、静态变量等数据，而进程之间的通信需要以通信的方式（IPC)进行。不过如何处理好同步与互斥是编写多线程程序的难点。</li>
-<li>多进程程序更健壮，多线程程序只要有一个线程死掉，整个进程也死掉了，而一个进程死掉并不会对另外一个进程造成影响，因为进程有自己独立的地址空间。</li>
-</ol>
-<h2 id="同一进程中的线程"><a href="#同一进程中的线程" class="headerlink" title="同一进程中的线程"></a>同一进程中的线程</h2><p>线程共享的环境包括：进程代码段、进程的公有数据(利用这些共享的数据，线程很容易的实现相互之间的通讯)、进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户ID与进程组ID。<br><strong>在一个进程的线程共享堆区，而进程中的线程各自维持自己堆栈。</strong><br>堆：是大家共有的空间，分全局堆和局部堆。全局堆就是所有没有分配的空间，局部堆就是用户分配的空间。堆在操作系统对进程初始化的时候分配，运行过程中也可以向系统要额外的堆，但是记得用完了要还给操作系统，要不然就是内存泄漏。<br>栈：是个线程独有的，保存其运行状态和局部自动变量的。栈在线程开始的时候初始化，每个线程的栈互相独立，因此，栈是　thread safe的。操作系统在切换线程的时候会自动的切换栈，就是切换　ＳＳ／ＥＳＰ寄存器。栈空间不需要在高级语言里面显式的分配和释放。</p>
-<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><h3 id="怎么创建新进程，内核做了啥？"><a href="#怎么创建新进程，内核做了啥？" class="headerlink" title="怎么创建新进程，内核做了啥？"></a>怎么创建新进程，内核做了啥？</h3><p>fork, vfork，然后具体do_fork过程，copy on write等<br>进程 : 代码 + 数据 + 堆栈 + PCB<br>PCB （进程控制块）：pid 进程标识符 + pwd 进程标识 + ppid 父进程进程号</p>
-<ol>
-<li>分配一个 PID 从小到大找一个未被使用的进程号<br>0号进程是内核进程，它创建1号进程、还将物理内存搬到磁盘和磁盘搬到物理内存</li>
-<li>分配PCB，拷贝父进程的 PCB的绝大部分数据</li>
-<li>给子进程分配资源</li>
-<li>复制父进程地址空间 </li>
-<li>将子进程置成就绪状态，放入就绪队列</li>
-</ol>
-<p>在unix中系统调用的是：fork，fork会创建一个与父进程一摸一样的副本<br>在windows中该系统调用是：cresteprocess，既负责处理进程的创建，也负责把正确的程序装入新进程<br>无论是unix还是windows，进程只有一个父进程，不同的是：<br>在unix中所有的进程，都是以init进程为根，组成树形结构。父子进程共同组成一个进程组<br>在windows中，没有进程层次的概念，所有的进程地位都相同</p>
-<h3 id="fork-作用"><a href="#fork-作用" class="headerlink" title="fork()作用"></a>fork()作用</h3><p>Linux系统函数fork()可以<strong>在父进程中创建一个子进程</strong>，这样的话，在一个进程接到来自客户端新的请求时就可以复制出一个子进程让其来处理，父进程只需负责监控请求的到来，然后创建子进程让其去处理，这样就能做到并发处理。<strong>fork函数会返回两次结果</strong>，因为操作系统会把当前进程的数据复制一遍，然后程序就分两个进程继续运行后面的代码，fork分别在父进程和子进程中返回，在子进程返回的值pid永远是0，在父进程返回的是子进程的进程id。打印的顺序与系统的进程调度有关。</p>
-<ul>
-<li>父子进程交替进行</li>
-<li>父进程死亡，子进程将变成孤儿进程，由 1号 进程领养</li>
-<li>子进程死亡，成为僵尸进程</li>
-</ul>
-<h3 id="多进程相关函数"><a href="#多进程相关函数" class="headerlink" title="多进程相关函数"></a>多进程相关函数</h3><p>multiprocessing模块就是跨平台版本的多进程模块。创建子进程时，只需要传入一个执行函数和函数的参数，创建一个Process实例，用start()方法启动，这样创建进程比fork()还要简单。<br>join()方法可以等待子进程结束后再继续往下运行，通常用于进程间的同步。<br>如果要启动大量的子进程，可以用进程池的方式批量创建子进程：对Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前必须先调用close()，调用close()之后就不能继续添加新的Process了。<br>subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。<br>小结：</p>
-<ul>
-<li>在Unix/Linux下，可以使用fork()调用实现多进程。</li>
-<li>要实现跨平台的多进程，可以使用multiprocessing模块。</li>
-<li>进程间通信是通过Queue、Pipes等实现的。</li>
-</ul>
-<h3 id="进程间通信方式"><a href="#进程间通信方式" class="headerlink" title="进程间通信方式"></a>进程间通信方式</h3><ol>
-<li>管道pipe：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
-<li>命名管道FIFO：有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。<br>消息队列MessageQueue：消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
-<li>共享存储SharedMemory：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。</li>
-<li>信号量Semaphore：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，<strong>主要作为进程间以及同一进程内不同线程之间的同步手段</strong>。</li>
-<li><strong>套接字Socket</strong>：套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</li>
-<li>信号signal： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</li>
-</ol>
-<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="多线程的实现"><a href="#多线程的实现" class="headerlink" title="多线程的实现"></a>多线程的实现</h3><ol>
-<li>继承Thread类，重写run方法</li>
-<li>创建MyRunnable类实现runnable接口，重写run方法，创建MyRunnable类的对象，创建Thread类的对象，并把MyRunnable类对象作为参数传递</li>
-<li>使用ExecutorService、Callable、Future实现有返回结果的多线程</li>
-<li>通过线程池创建</li>
-</ol>
-<h3 id="优劣分析"><a href="#优劣分析" class="headerlink" title="优劣分析"></a>优劣分析</h3><ul>
-<li>继承Thread<br>优势：编写简单，如果需要访问当前线程，则无需使用Thread.currentThread()方法，直接使用this即可获得当前线程。<br>劣势是：线程类已经继承了Thread类，所以不能再继承其他父类。</li>
-<li>使用runnable或者callable<br>优势是：线程类只是实现了Runnable接口或Callable接口，还可以继承其他类。<br>在这种方式下，多个线程可以共享同一个target对象，所以非常适合多个相同线程来处理同一份资源的情况，从而可以将CPU、代码和数据分开，形成清晰的模型，较好地体现了面向对象的思想。<br>劣势是：编程稍微复杂，如果要访问当前线程，则必须使用Thread.currentThread()方法。</li>
-<li>runnable和callable区别<br>Callable规定（重写）的方法是call()，Runnable规定（重写）的方法是run()。<br>Callable的任务执行后可返回值，而Runnable的任务是不能返回值的。<br>Call方法可以抛出异常，run方法不可以。<br>运行Callable任务可以拿到一个Future对象，表示异步计算的结果。它提供了检查计算是否完成的方法，以等待计算的完成，并检索计算的结果。通过Future对象可以了解任务执行情况，可取消任务的执行，还可获取执行结果。</li>
-</ul>
-<h3 id="多线程优点"><a href="#多线程优点" class="headerlink" title="多线程优点"></a>多线程优点</h3><ul>
-<li>在一个程序中，有很多的操作是非常耗时的，如数据库读写操作，IO操作等，如果使用单线程，那么程序就必须等待这些操作执行完成之后才能执行其他操作。使用多线程，可以在将耗时任务放在后台继续执行的同时，同时执行其他操作。</li>
-<li>可以提高程序的效率。</li>
-<li>在一些等待的任务上，如用户输入，文件读取等，多线程就非常有用了。</li>
-</ul>
-<h3 id="多线程缺点"><a href="#多线程缺点" class="headerlink" title="多线程缺点"></a>多线程缺点</h3><ul>
-<li>使用太多线程，是很耗系统资源，因为线程需要开辟内存。更多线程需要更多内存。</li>
-<li>影响系统性能，因为操作系统需要在线程之间来回切换。</li>
-<li>需要考虑线程操作对程序的影响，如线程挂起，中止等操作对程序的影响。</li>
-<li>线程使用不当会发生很多问题。</li>
-</ul>
-<h3 id="什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？"><a href="#什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？" class="headerlink" title="什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？"></a>什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？</h3><p>线程调度器是一个操作系统服务，它负责为Runnable状态的线程分配CPU时间。一旦我们创建一个线程并启动它，它的执行便依赖于线程调度器的实现。时间分片是指将可用的CPU时间分配给可用的Runnable线程的过程。分配CPU时间可以基于线程优先级或者线程等待的时间。线程调度并不受到Java虚拟机控制，所以由应用程序来控制它是更好的选择（也就是说不要让你的程序依赖于线程的优先级）。</p>
-<h3 id="线程的调度策略"><a href="#线程的调度策略" class="headerlink" title="线程的调度策略"></a>线程的调度策略</h3><p>线程调度器选择优先级最高的线程运行，但是，如果发生以下情况，就会终止线程的运行：</p>
-<ul>
-<li>线程体中调用了yield方法让出了对cpu的占用权利</li>
-<li>线程体中调用了sleep方法使线程进入睡眠状态</li>
-<li>线程由于IO操作受到阻塞</li>
-<li>另外一个更高优先级线程出现</li>
-<li>在支持时间片的系统中，该线程的时间片用完</li>
-</ul>
-<h3 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h3><ol>
-<li>新建状态（New）：新建一个线程对象。</li>
-<li>就绪/可运行状态（Runnable）：线程对象创建后，其他线程调用了该对象的start方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。</li>
-<li>运行状态（Running）：就绪状态的线程获得CPU并执行程序代码。</li>
-<li>阻塞状态（Blocked）：阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种：<br> <strong>等待阻塞</strong>：运行的线程执行wait方法，JVM会把该线程放入等待池中。(wait会释放持有的锁)<br> <strong>同步阻塞</strong>：运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。<br> <strong>其他阻塞</strong>：运行的线程执行sleep或join方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep的状态超时、join等待线程终止或者超时、以及I/O处理完毕时，线程重新转入就绪状态。</li>
-<li>死亡状态（Dead）：线程执行完成或者因异常退出run方法，该线程结束生命周期。</li>
-</ol>
-<h2 id="线程的相关问题"><a href="#线程的相关问题" class="headerlink" title="线程的相关问题"></a>线程的相关问题</h2><h3 id="ThreadLocal是什么？有什么用？"><a href="#ThreadLocal是什么？有什么用？" class="headerlink" title="ThreadLocal是什么？有什么用？"></a>ThreadLocal是什么？有什么用？</h3><p>ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线程和该线程存放的副本对象做一个映射，各个线程之间的变量互不干扰，在高并发场景下，可以实现无状态的调用，特别适用于各个线程依赖不通的变量值完成操作的场景。<br>简单说ThreadLocal就是一种以空间换时间的做法，在每个Thread里面维护了一个以开地址法实现的ThreadLocal.ThreadLocalMap，把数据进行隔离，数据不共享，自然就没有线程安全方面的问题了。</p>
-<h3 id="为什么sleep是Thread的方法而不是Object的"><a href="#为什么sleep是Thread的方法而不是Object的" class="headerlink" title="为什么sleep是Thread的方法而不是Object的"></a>为什么sleep是Thread的方法而不是Object的</h3><ul>
-<li>在java的内置锁机制中，每个对象都可以成为锁，也就是说每个对象都可以去调用wait，notify方法，而Object类是所有类的一个父类，把这些方法放在Object中，则java中的所有对象都可以去调用这些方法了。</li>
-<li>一个线程可以拥有多个对象锁，wait，notify，notifyAll跟对象锁之间是有一个绑定关系的，比如你用对象锁aObject调用的wait()方法，那么你只能通过aObject.notify()或者aObject.notifyAll()来唤醒这个线程，这样jvm很容易就知道应该从哪个对象锁的等待池中去唤醒线程，假如用Thread.wait()，Thread.notify()，Thread.notifyAll()来调用，虚拟机根本就不知道需要操作的对象锁是哪一个。</li>
-<li>sleep()是让某个线程暂停运行一段时间,其控制范围是由当前线程决定,也就是说,在线程里面决定.sleep()可以将一个线程睡眠，参数可以指定一个时间。</li>
-<li>wait(),是由某个确定的对象来调用的，wait()可以将一个线程挂起，直到超时或者该线程被唤。</li>
-<li>wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用。</li>
-</ul>
-<h3 id="线程B怎么知道线程A修改了变量"><a href="#线程B怎么知道线程A修改了变量" class="headerlink" title="线程B怎么知道线程A修改了变量"></a>线程B怎么知道线程A修改了变量</h3><ul>
-<li>volatile修饰变量<br>Volatile实现内存可见性是通过store和load指令完成的；也就是对volatile变量执行写操作时，会在写操作后加入一条store指令，即强迫线程/进程将最新的值刷新到主内存中；而在读操作时，会加入一条load指令，即强迫从主内存中读入变量的值。每次读取volatile的变量时，都要从它的内存地址中读取，并没有说每次修改完volatile的变量后，都要立刻将它的值写回内存。volatile只提供了内存可见性，而没有提供原子性。<br><em>可见性：当多个线程同时访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</em><br><em>原子性：一个操作或多个操作要么全部执行完成且执行过程不被中断，要么就不执行。</em><br><em>有序性：程序执行的顺序按照代码的先后顺序执行。</em></li>
-<li>synchronized修饰修改变量的方法</li>
-<li>wait/notify<br>wait()：使调用该方法的线程释放共享资源锁，然后从运行状态退出，进入等待队列，直到被再次唤醒。<br>wait(long)：超时等待一段时间，这里的参数时间是毫秒，也就是等待长达n毫秒，如果没有通知就超时返回。<br>wait(long，int)：对于超时时间更细力度的控制，单位为纳秒。<br>notify()：随机唤醒等待队列中等待同一共享资源的一个线程，并使该线程退出等待队列，进入可运行状态，也就是notify()方法仅通知一个线程。<br>notifyAll()：使所有正在等待队列中等待同一共享资源的全部线程退出等待队列，进入可运行状态。此时，优先级最高的那个线程最先执行，但也有可能是随机执行，这取决于JVM虚拟机的实现。</li>
-<li>while轮询</li>
-</ul>
-<h3 id="保证线程安全怎么做？"><a href="#保证线程安全怎么做？" class="headerlink" title="保证线程安全怎么做？"></a>保证线程安全怎么做？</h3><p>当多个线程访问某个方法时，不管你通过怎样的调用方式、或者说这些线程如何交替地执行，我们在主程序中不需要去做任何的同步，这个类的结果行为都是我们设想的正确行为，那么我们就可以说这个类是线程安全的。<br>最常见的一种不安全的情况，就是我们A线程在进入方法后，拿到了count的值，刚把这个值读取出来，还没有改变count的值的时候，结果线程B也进来的，那么导致线程A和线程B拿到的count值是一样的。</p>
-<ol>
-<li>synchronized关键字<br>用来控制线程同步的，保证我们的线程在多线程环境下，不被多个线程同时执行，确保我们数据的完整性，使用方法一般是加在方法上。当synchronized锁住一个对象之后，别的线程如果想要获取锁对象，那么就必须等这个线程执行完释放锁对象之后才可以，否则一直处于等待状态。</li>
-<li>Lock<br>Lock是在Java1.6被引入进来的，Lock的引入让锁有了可操作性。从使用上说Lock明显没有synchronized使用起来方便快捷。进入方法我们首先要获取到锁，然后去执行我们业务代码，这里跟synchronized不同的是，Lock获取的所对象需要我们亲自去进行释放，为了防止我们代码出现异常，所以我们的释放锁操作放在finally中，因为finally中的代码无论如何都是会执行的。<br>Lock在获取锁的时候，如果拿不到锁，就一直处于等待状态，直到拿到锁。<br>tryLock有一个Boolean的返回值，如果没有拿到锁，直接返回false，停止等待。</li>
-</ol>
-<h3 id="怎么等一个线程做完"><a href="#怎么等一个线程做完" class="headerlink" title="怎么等一个线程做完"></a>怎么等一个线程做完</h3><p>join ：主线程等待p终止（强调：是主线程处于等的状态，而p是处于运行的状态）<br>p.join只能join住start开启的进程，而不能join住run开启的进程 （即task）</p>
-<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><h3 id="什么是线程池"><a href="#什么是线程池" class="headerlink" title="什么是线程池"></a>什么是线程池</h3><p>线程池就是提前创建若干个线程，如果有任务需要处理，线程池里的线程就会处理任务，处理完之后线程并不会被销毁，而是等待下一个任务。</p>
-<h3 id="为什么要线程池"><a href="#为什么要线程池" class="headerlink" title="为什么要线程池"></a>为什么要线程池</h3><p>由于创建和销毁线程都是消耗系统资源的，所以当需要频繁的创建和销毁线程的时候就可以考虑使用线程池来提升系统的性能。</p>
-<h3 id="四种线程池的创建："><a href="#四种线程池的创建：" class="headerlink" title="四种线程池的创建："></a>四种线程池的创建：</h3><ol>
-<li>newCachedThreadPool创建一个可缓存线程池</li>
-<li>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数。</li>
-<li>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。</li>
-<li>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务。</li>
-</ol>
-<h3 id="线程池的优点？"><a href="#线程池的优点？" class="headerlink" title="线程池的优点？"></a>线程池的优点？</h3><ol>
-<li>重用存在的线程，减少对象创建销毁的开销。</li>
-<li>可有效的控制最大并发线程数，提高系统资源的使用率，同时避免过多资源竞争，避免堵塞。</li>
-<li>提供定时执行、定期执行、单线程、并发数控制等功能。</li>
-</ol>
-<h3 id="线程池的中的线程数量能不能无限增加，为什么"><a href="#线程池的中的线程数量能不能无限增加，为什么" class="headerlink" title="线程池的中的线程数量能不能无限增加，为什么?"></a>线程池的中的线程数量能不能无限增加，为什么?</h3><p>不能，线程需要一定开销，太多线程会耗尽计算机资源，（而且过多线程也无法发挥多线程的优势，毕竟cpu核就那么多）</p>
-<h3 id="java-里任务提交给线程池后，那些任务是存储在哪的"><a href="#java-里任务提交给线程池后，那些任务是存储在哪的" class="headerlink" title="java 里任务提交给线程池后，那些任务是存储在哪的?"></a>java 里任务提交给线程池后，那些任务是存储在哪的?</h3><p>把任务用 Runable（其实也可以是Callable） 表示，放在一个阻塞队列里。</p>
-<h3 id="阻塞队列怎么实现？"><a href="#阻塞队列怎么实现？" class="headerlink" title="阻塞队列怎么实现？"></a>阻塞队列怎么实现？</h3><p>创建一个数组或者链表，每次取元素或者放元素就对数组操作。没有元素而要取元素时，阻塞，满了而要放元素时，阻塞。</p>
-<h3 id="队列满了，那个线程池的-submit-方法会阻塞在那里？"><a href="#队列满了，那个线程池的-submit-方法会阻塞在那里？" class="headerlink" title="队列满了，那个线程池的 submit 方法会阻塞在那里？"></a>队列满了，那个线程池的 submit 方法会阻塞在那里？</h3><ol>
-<li>如果使用的是无界队列 LinkedBlockingQueue，也就是无界队列的话，可以继续添加任务到阻塞队列中等待执行，因为 LinkedBlockingQueue 可以近乎认为是一个无穷大的队列，可以无限存放任务</li>
-<li>如果使用的是有界队列比如 ArrayBlockingQueue，任务首先会被添加到ArrayBlockingQueue 中，ArrayBlockingQueue满了，会根据maximumPoolSize 的值增加线程数量，如果增加了线程数量还是处理不过来，ArrayBlockingQueue 继续满，那么则会使用拒绝策略RejectedExecutionHandler处理满了的任务，默认是AbortPolicy。</li>
-</ol>
-<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><h3 id="线程和协程区别"><a href="#线程和协程区别" class="headerlink" title="线程和协程区别"></a>线程和协程区别</h3><p>协程（Coroutines）是一种比线程更加轻量级的存在，<strong>一个线程可以拥有多个协程。协程不是被操作系统内核所管理的，而是完全由程序所控制，也就是在用户态执行。</strong>这样带来的好处是性能大幅度的提升，因为不会像线程切换那样消耗资源。<br>协程不是进程也不是线程，而是一个特殊的函数，这个函数可以在某个地方挂起，并且可以重新在挂起处外继续运行。所以说，协程与进程、线程相比并不是一个维度的概念。</p>
-<ul>
-<li>进程的切换者是操作系统，切换时机是根据操作系统自己的切换策略，用户是无感知的。进程的切换内容包括页全局目录、内核栈、硬件上下文，切换内容保存在内存中。进程切换过程是由“用户态到内核态到用户态”的方式，切换效率低。</li>
-<li>线程的切换者是操作系统，切换时机是根据操作系统自己的切换策略，用户无感知。线程的切换内容包括内核栈和硬件上下文。线程切换内容保存在内核栈中。线程切换过程是由“用户态到内核态到用户态”， 切换效率中等。</li>
-<li>协程的切换者是用户（编程者或应用程序），切换时机是用户自己的程序所决定的。协程的切换内容是硬件上下文，切换内存保存在用户自己的变量（用户栈或堆）中。协程的切换过程只有用户态，即没有陷入内核态，因此切换效率高。</li>
-</ul>
-<h3 id="协程Coroutine用法"><a href="#协程Coroutine用法" class="headerlink" title="协程Coroutine用法"></a>协程Coroutine用法</h3><ul>
-<li>将复杂操作分帧计算。</li>
-<li>异步下载。</li>
-<li>使用yield return coroutine等待协程，将多个异步逻辑串联。如先进行异步下载，完成下载任务后再接着运算。</li>
-<li>创建互斥区。如某个下载函数同一时刻只能有一个协程进入。</li>
-</ul>
-<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><p>协程的完成主要靠yield关键字，带有yield关键字的函数自动变成生成器，根据yield函数的记录标签位置继续执行协程函数的后面部分代码。</p>
-<ul>
-<li>yield return new WaitForSeconds(3.0f); // 等待3秒，然后继续从此处开始，常用于做定时器</li>
-<li>yield return null; // 这一帧到此暂停，下一帧再从暂停处继续，常用于循环中</li>
-<li>yield return new WaitForEndOfFrame(); // 等到这一帧的cameras和GUI渲染结束后再从此处继续，即等到这帧的末尾再往下运行。这行之后的代码还是在当前帧运行，是在下一帧开始前执行，跟return null很相似</li>
-<li>yield return new WaitForFixedUpdate(); // 在下一次执行FixedUpdate的时候继续执行这段代码，即等一次物理引擎的更新</li>
-<li>yield return www; // 等待直至异步下载完成</li>
-<li>yield break; // 直接跳出协程，对某些判定失败必须跳出的时候，比如加载AssetBundle的时候，WWW失败了，后边加载bundle没有必要了，这时候可以yield break跳出。</li>
-<li>yield return StartCoroutine(methodName); // 等待另一个协程执行完。这是把协程串联起来的关键，常用于让多个协程按顺序逐个运行</li>
-</ul>
-<blockquote>
-<p>  <a href="https://www.cnblogs.com/zhehan54/p/6130030.html">https://www.cnblogs.com/zhehan54/p/6130030.html</a><br>    <a href="https://blog.csdn.net/zhaohong_bo/java/article/details/89552188">https://blog.csdn.net/zhaohong_bo/java/article/details/89552188</a><br>    <a href="https://blog.csdn.net/shuilan0066/article/details/7683315">https://blog.csdn.net/shuilan0066/article/details/7683315</a><br>    <a href="https://www.cnblogs.com/YeLing0119/p/9754090.html">https://www.cnblogs.com/YeLing0119/p/9754090.html</a><br>    <a href="https://blog.csdn.net/boteman123/article/details/81000631">https://blog.csdn.net/boteman123/article/details/81000631</a><br>    <a href="https://blog.csdn.net/beidaol/article/details/89135277">https://blog.csdn.net/beidaol/article/details/89135277</a><br>    <a href="https://blog.csdn.net/tanmomo/article/details/99671622">https://blog.csdn.net/tanmomo/article/details/99671622</a><br>    <a href="https://www.jianshu.com/p/bb07a4d047eb">https://www.jianshu.com/p/bb07a4d047eb</a><br>    <a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017628290184064">https://www.liaoxuefeng.com/wiki/1016959663602400/1017628290184064</a><br>    <a href="https://www.cnblogs.com/linuxAndMcu/p/11064916.html">https://www.cnblogs.com/linuxAndMcu/p/11064916.html</a><br>    <a href="https://www.cnblogs.com/CharlesGrant/p/8125841.html">https://www.cnblogs.com/CharlesGrant/p/8125841.html</a><br>    <a href="https://blog.csdn.net/y277an/java/article/details/98697454">https://blog.csdn.net/y277an/java/article/details/98697454</a><br>    <a href="https://www.jianshu.com/p/6dde7f92951e">https://www.jianshu.com/p/6dde7f92951e</a><br>    <a href="https://blog.csdn.net/qq_18995513/article/details/51944602?utm_source=itdadao&amp;utm_medium=referral">https://blog.csdn.net/qq_18995513/article/details/51944602?utm_source=itdadao&amp;utm_medium=referral</a></p>
-</blockquote>
-<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><p>锁(lock)或互斥(mutex)是一种同步机制，用于在有许多执行线程的环境中强制对资源的访问限制。锁旨在强制实施互斥排他、并发控制策略。</p>
-<h2 id="常见锁机制"><a href="#常见锁机制" class="headerlink" title="常见锁机制"></a>常见锁机制</h2><p>读写锁、可重入锁、乐观锁、悲观锁、公平锁、非公平锁</p>
+    <content><![CDATA[<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><p>锁(lock)或互斥(mutex)是一种同步机制，用于在有许多执行线程的环境中强制对资源的访问限制。锁旨在强制实施互斥排他、并发控制策略。</p>
+<h2 id="常见锁机制"><a href="#常见锁机制" class="headerlink" title="常见锁机制"></a>常见锁机制</h2><p>读写锁、可重入锁、乐观锁、悲观锁、公平锁、非公平锁<br><a id="more"></a></p>
 <h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>Java中的死锁是一种编程情况，其中两个或多个线程被永久阻塞，Java死锁情况出现至少两个线程和两个或更多资源。<br>Java发生死锁的根本原因是：在申请锁时发生了交叉闭环申请。</p>
 <ul>
 <li>是多个线程涉及到多个锁，这些锁存在着交叉，所以可能会导致了一个锁依赖的闭环。<br>例如：线程在获得了锁A并且没有释放的情况下去申请锁B，这时，另一个线程已经获得了锁B，在释放锁B之前又要先获得锁A，因此闭环发生，陷入死锁循环。</li>
@@ -1903,6 +1752,361 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
       </categories>
       <tags>
         <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>进程 线程 协程</title>
+    <url>/2020/12/12/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h2><p>进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。<br>线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部变量。线程由CPU独立调度执行，在多CPU环境下就允许多个线程同时运行。同样多线程也可以实现并发操作，每个请求分配一个线程来处理。<br><a id="more"></a></p>
+<ol>
+<li>进程是资源分配的最小单位，线程是程序执行的最小单位。</li>
+<li>进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵。而线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多。</li>
+<li>线程之间的通信更方便，同一进程下的线程共享全局变量、静态变量等数据，而进程之间的通信需要以通信的方式（IPC)进行。不过如何处理好同步与互斥是编写多线程程序的难点。</li>
+<li>多进程程序更健壮，多线程程序只要有一个线程死掉，整个进程也死掉了，而一个进程死掉并不会对另外一个进程造成影响，因为进程有自己独立的地址空间。</li>
+</ol>
+<h2 id="同一进程中的线程"><a href="#同一进程中的线程" class="headerlink" title="同一进程中的线程"></a>同一进程中的线程</h2><p>线程共享的环境包括：进程代码段、进程的公有数据(利用这些共享的数据，线程很容易的实现相互之间的通讯)、进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户ID与进程组ID。<br><strong>在一个进程的线程共享堆区，而进程中的线程各自维持自己堆栈。</strong><br>堆：是大家共有的空间，分全局堆和局部堆。全局堆就是所有没有分配的空间，局部堆就是用户分配的空间。堆在操作系统对进程初始化的时候分配，运行过程中也可以向系统要额外的堆，但是记得用完了要还给操作系统，要不然就是内存泄漏。<br>栈：是个线程独有的，保存其运行状态和局部自动变量的。栈在线程开始的时候初始化，每个线程的栈互相独立，因此，栈是　thread safe的。操作系统在切换线程的时候会自动的切换栈，就是切换　ＳＳ／ＥＳＰ寄存器。栈空间不需要在高级语言里面显式的分配和释放。</p>
+<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><h3 id="怎么创建新进程，内核做了啥？"><a href="#怎么创建新进程，内核做了啥？" class="headerlink" title="怎么创建新进程，内核做了啥？"></a>怎么创建新进程，内核做了啥？</h3><p>fork, vfork，然后具体do_fork过程，copy on write等<br>进程 : 代码 + 数据 + 堆栈 + PCB<br>PCB （进程控制块）：pid 进程标识符 + pwd 进程标识 + ppid 父进程进程号</p>
+<ol>
+<li>分配一个 PID 从小到大找一个未被使用的进程号<br>0号进程是内核进程，它创建1号进程、还将物理内存搬到磁盘和磁盘搬到物理内存</li>
+<li>分配PCB，拷贝父进程的 PCB的绝大部分数据</li>
+<li>给子进程分配资源</li>
+<li>复制父进程地址空间 </li>
+<li>将子进程置成就绪状态，放入就绪队列</li>
+</ol>
+<p>在unix中系统调用的是：fork，fork会创建一个与父进程一摸一样的副本<br>在windows中该系统调用是：cresteprocess，既负责处理进程的创建，也负责把正确的程序装入新进程<br>无论是unix还是windows，进程只有一个父进程，不同的是：<br>在unix中所有的进程，都是以init进程为根，组成树形结构。父子进程共同组成一个进程组<br>在windows中，没有进程层次的概念，所有的进程地位都相同</p>
+<h3 id="fork-作用"><a href="#fork-作用" class="headerlink" title="fork()作用"></a>fork()作用</h3><p>Linux系统函数fork()可以<strong>在父进程中创建一个子进程</strong>，这样的话，在一个进程接到来自客户端新的请求时就可以复制出一个子进程让其来处理，父进程只需负责监控请求的到来，然后创建子进程让其去处理，这样就能做到并发处理。<strong>fork函数会返回两次结果</strong>，因为操作系统会把当前进程的数据复制一遍，然后程序就分两个进程继续运行后面的代码，fork分别在父进程和子进程中返回，在子进程返回的值pid永远是0，在父进程返回的是子进程的进程id。打印的顺序与系统的进程调度有关。</p>
+<ul>
+<li>父子进程交替进行</li>
+<li>父进程死亡，子进程将变成孤儿进程，由 1号 进程领养</li>
+<li>子进程死亡，成为僵尸进程</li>
+</ul>
+<h3 id="多进程相关函数"><a href="#多进程相关函数" class="headerlink" title="多进程相关函数"></a>多进程相关函数</h3><p>multiprocessing模块就是跨平台版本的多进程模块。创建子进程时，只需要传入一个执行函数和函数的参数，创建一个Process实例，用start()方法启动，这样创建进程比fork()还要简单。<br>join()方法可以等待子进程结束后再继续往下运行，通常用于进程间的同步。<br>如果要启动大量的子进程，可以用进程池的方式批量创建子进程：对Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前必须先调用close()，调用close()之后就不能继续添加新的Process了。<br>subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。<br>小结：</p>
+<ul>
+<li>在Unix/Linux下，可以使用fork()调用实现多进程。</li>
+<li>要实现跨平台的多进程，可以使用multiprocessing模块。</li>
+<li>进程间通信是通过Queue、Pipes等实现的。</li>
+</ul>
+<h3 id="进程间通信方式"><a href="#进程间通信方式" class="headerlink" title="进程间通信方式"></a>进程间通信方式</h3><ol>
+<li>管道pipe：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
+<li>命名管道FIFO：有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。<br>消息队列MessageQueue：消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
+<li>共享存储SharedMemory：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。</li>
+<li>信号量Semaphore：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，<strong>主要作为进程间以及同一进程内不同线程之间的同步手段</strong>。</li>
+<li><strong>套接字Socket</strong>：套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</li>
+<li>信号signal： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</li>
+</ol>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="多线程的实现"><a href="#多线程的实现" class="headerlink" title="多线程的实现"></a>多线程的实现</h3><ol>
+<li>继承Thread类，重写run方法</li>
+<li>创建MyRunnable类实现runnable接口，重写run方法，创建MyRunnable类的对象，创建Thread类的对象，并把MyRunnable类对象作为参数传递</li>
+<li>使用ExecutorService、Callable、Future实现有返回结果的多线程</li>
+<li>通过线程池创建</li>
+</ol>
+<h3 id="优劣分析"><a href="#优劣分析" class="headerlink" title="优劣分析"></a>优劣分析</h3><ul>
+<li>继承Thread<br>优势：编写简单，如果需要访问当前线程，则无需使用Thread.currentThread()方法，直接使用this即可获得当前线程。<br>劣势是：线程类已经继承了Thread类，所以不能再继承其他父类。</li>
+<li>使用runnable或者callable<br>优势是：线程类只是实现了Runnable接口或Callable接口，还可以继承其他类。<br>在这种方式下，多个线程可以共享同一个target对象，所以非常适合多个相同线程来处理同一份资源的情况，从而可以将CPU、代码和数据分开，形成清晰的模型，较好地体现了面向对象的思想。<br>劣势是：编程稍微复杂，如果要访问当前线程，则必须使用Thread.currentThread()方法。</li>
+<li>runnable和callable区别<br>Callable规定（重写）的方法是call()，Runnable规定（重写）的方法是run()。<br>Callable的任务执行后可返回值，而Runnable的任务是不能返回值的。<br>Call方法可以抛出异常，run方法不可以。<br>运行Callable任务可以拿到一个Future对象，表示异步计算的结果。它提供了检查计算是否完成的方法，以等待计算的完成，并检索计算的结果。通过Future对象可以了解任务执行情况，可取消任务的执行，还可获取执行结果。</li>
+</ul>
+<h3 id="多线程优点"><a href="#多线程优点" class="headerlink" title="多线程优点"></a>多线程优点</h3><ul>
+<li>在一个程序中，有很多的操作是非常耗时的，如数据库读写操作，IO操作等，如果使用单线程，那么程序就必须等待这些操作执行完成之后才能执行其他操作。使用多线程，可以在将耗时任务放在后台继续执行的同时，同时执行其他操作。</li>
+<li>可以提高程序的效率。</li>
+<li>在一些等待的任务上，如用户输入，文件读取等，多线程就非常有用了。</li>
+</ul>
+<h3 id="多线程缺点"><a href="#多线程缺点" class="headerlink" title="多线程缺点"></a>多线程缺点</h3><ul>
+<li>使用太多线程，是很耗系统资源，因为线程需要开辟内存。更多线程需要更多内存。</li>
+<li>影响系统性能，因为操作系统需要在线程之间来回切换。</li>
+<li>需要考虑线程操作对程序的影响，如线程挂起，中止等操作对程序的影响。</li>
+<li>线程使用不当会发生很多问题。</li>
+</ul>
+<h3 id="什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？"><a href="#什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？" class="headerlink" title="什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？"></a>什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？</h3><p>线程调度器是一个操作系统服务，它负责为Runnable状态的线程分配CPU时间。一旦我们创建一个线程并启动它，它的执行便依赖于线程调度器的实现。时间分片是指将可用的CPU时间分配给可用的Runnable线程的过程。分配CPU时间可以基于线程优先级或者线程等待的时间。线程调度并不受到Java虚拟机控制，所以由应用程序来控制它是更好的选择（也就是说不要让你的程序依赖于线程的优先级）。</p>
+<h3 id="线程的调度策略"><a href="#线程的调度策略" class="headerlink" title="线程的调度策略"></a>线程的调度策略</h3><p>线程调度器选择优先级最高的线程运行，但是，如果发生以下情况，就会终止线程的运行：</p>
+<ul>
+<li>线程体中调用了yield方法让出了对cpu的占用权利</li>
+<li>线程体中调用了sleep方法使线程进入睡眠状态</li>
+<li>线程由于IO操作受到阻塞</li>
+<li>另外一个更高优先级线程出现</li>
+<li>在支持时间片的系统中，该线程的时间片用完</li>
+</ul>
+<h3 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h3><ol>
+<li>新建状态（New）：新建一个线程对象。</li>
+<li>就绪/可运行状态（Runnable）：线程对象创建后，其他线程调用了该对象的start方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。</li>
+<li>运行状态（Running）：就绪状态的线程获得CPU并执行程序代码。</li>
+<li>阻塞状态（Blocked）：阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种：<br> <strong>等待阻塞</strong>：运行的线程执行wait方法，JVM会把该线程放入等待池中。(wait会释放持有的锁)<br> <strong>同步阻塞</strong>：运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。<br> <strong>其他阻塞</strong>：运行的线程执行sleep或join方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep的状态超时、join等待线程终止或者超时、以及I/O处理完毕时，线程重新转入就绪状态。</li>
+<li>死亡状态（Dead）：线程执行完成或者因异常退出run方法，该线程结束生命周期。</li>
+</ol>
+<h2 id="线程的相关问题"><a href="#线程的相关问题" class="headerlink" title="线程的相关问题"></a>线程的相关问题</h2><h3 id="ThreadLocal是什么？有什么用？"><a href="#ThreadLocal是什么？有什么用？" class="headerlink" title="ThreadLocal是什么？有什么用？"></a>ThreadLocal是什么？有什么用？</h3><p>ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线程和该线程存放的副本对象做一个映射，各个线程之间的变量互不干扰，在高并发场景下，可以实现无状态的调用，特别适用于各个线程依赖不通的变量值完成操作的场景。<br>简单说ThreadLocal就是一种以空间换时间的做法，在每个Thread里面维护了一个以开地址法实现的ThreadLocal.ThreadLocalMap，把数据进行隔离，数据不共享，自然就没有线程安全方面的问题了。</p>
+<h3 id="为什么sleep是Thread的方法而不是Object的"><a href="#为什么sleep是Thread的方法而不是Object的" class="headerlink" title="为什么sleep是Thread的方法而不是Object的"></a>为什么sleep是Thread的方法而不是Object的</h3><ul>
+<li>在java的内置锁机制中，每个对象都可以成为锁，也就是说每个对象都可以去调用wait，notify方法，而Object类是所有类的一个父类，把这些方法放在Object中，则java中的所有对象都可以去调用这些方法了。</li>
+<li>一个线程可以拥有多个对象锁，wait，notify，notifyAll跟对象锁之间是有一个绑定关系的，比如你用对象锁aObject调用的wait()方法，那么你只能通过aObject.notify()或者aObject.notifyAll()来唤醒这个线程，这样jvm很容易就知道应该从哪个对象锁的等待池中去唤醒线程，假如用Thread.wait()，Thread.notify()，Thread.notifyAll()来调用，虚拟机根本就不知道需要操作的对象锁是哪一个。</li>
+<li>sleep()是让某个线程暂停运行一段时间,其控制范围是由当前线程决定,也就是说,在线程里面决定.sleep()可以将一个线程睡眠，参数可以指定一个时间。</li>
+<li>wait(),是由某个确定的对象来调用的，wait()可以将一个线程挂起，直到超时或者该线程被唤。</li>
+<li>wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用。</li>
+</ul>
+<h3 id="线程B怎么知道线程A修改了变量"><a href="#线程B怎么知道线程A修改了变量" class="headerlink" title="线程B怎么知道线程A修改了变量"></a>线程B怎么知道线程A修改了变量</h3><ul>
+<li>volatile修饰变量<br>Volatile实现内存可见性是通过store和load指令完成的；也就是对volatile变量执行写操作时，会在写操作后加入一条store指令，即强迫线程/进程将最新的值刷新到主内存中；而在读操作时，会加入一条load指令，即强迫从主内存中读入变量的值。每次读取volatile的变量时，都要从它的内存地址中读取，并没有说每次修改完volatile的变量后，都要立刻将它的值写回内存。volatile只提供了内存可见性，而没有提供原子性。<br><em>可见性：当多个线程同时访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</em><br><em>原子性：一个操作或多个操作要么全部执行完成且执行过程不被中断，要么就不执行。</em><br><em>有序性：程序执行的顺序按照代码的先后顺序执行。</em></li>
+<li>synchronized修饰修改变量的方法</li>
+<li>wait/notify<br>wait()：使调用该方法的线程释放共享资源锁，然后从运行状态退出，进入等待队列，直到被再次唤醒。<br>wait(long)：超时等待一段时间，这里的参数时间是毫秒，也就是等待长达n毫秒，如果没有通知就超时返回。<br>wait(long，int)：对于超时时间更细力度的控制，单位为纳秒。<br>notify()：随机唤醒等待队列中等待同一共享资源的一个线程，并使该线程退出等待队列，进入可运行状态，也就是notify()方法仅通知一个线程。<br>notifyAll()：使所有正在等待队列中等待同一共享资源的全部线程退出等待队列，进入可运行状态。此时，优先级最高的那个线程最先执行，但也有可能是随机执行，这取决于JVM虚拟机的实现。</li>
+<li>while轮询</li>
+</ul>
+<h3 id="保证线程安全怎么做？"><a href="#保证线程安全怎么做？" class="headerlink" title="保证线程安全怎么做？"></a>保证线程安全怎么做？</h3><p>当多个线程访问某个方法时，不管你通过怎样的调用方式、或者说这些线程如何交替地执行，我们在主程序中不需要去做任何的同步，这个类的结果行为都是我们设想的正确行为，那么我们就可以说这个类是线程安全的。<br>最常见的一种不安全的情况，就是我们A线程在进入方法后，拿到了count的值，刚把这个值读取出来，还没有改变count的值的时候，结果线程B也进来的，那么导致线程A和线程B拿到的count值是一样的。</p>
+<ol>
+<li>synchronized关键字<br>用来控制线程同步的，保证我们的线程在多线程环境下，不被多个线程同时执行，确保我们数据的完整性，使用方法一般是加在方法上。当synchronized锁住一个对象之后，别的线程如果想要获取锁对象，那么就必须等这个线程执行完释放锁对象之后才可以，否则一直处于等待状态。</li>
+<li>Lock<br>Lock是在Java1.6被引入进来的，Lock的引入让锁有了可操作性。从使用上说Lock明显没有synchronized使用起来方便快捷。进入方法我们首先要获取到锁，然后去执行我们业务代码，这里跟synchronized不同的是，Lock获取的所对象需要我们亲自去进行释放，为了防止我们代码出现异常，所以我们的释放锁操作放在finally中，因为finally中的代码无论如何都是会执行的。<br>Lock在获取锁的时候，如果拿不到锁，就一直处于等待状态，直到拿到锁。<br>tryLock有一个Boolean的返回值，如果没有拿到锁，直接返回false，停止等待。</li>
+</ol>
+<h3 id="怎么等一个线程做完"><a href="#怎么等一个线程做完" class="headerlink" title="怎么等一个线程做完"></a>怎么等一个线程做完</h3><p>join ：主线程等待p终止（强调：是主线程处于等的状态，而p是处于运行的状态）<br>p.join只能join住start开启的进程，而不能join住run开启的进程 （即task）</p>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><h3 id="什么是线程池"><a href="#什么是线程池" class="headerlink" title="什么是线程池"></a>什么是线程池</h3><p>线程池就是提前创建若干个线程，如果有任务需要处理，线程池里的线程就会处理任务，处理完之后线程并不会被销毁，而是等待下一个任务。</p>
+<h3 id="为什么要线程池"><a href="#为什么要线程池" class="headerlink" title="为什么要线程池"></a>为什么要线程池</h3><p>由于创建和销毁线程都是消耗系统资源的，所以当需要频繁的创建和销毁线程的时候就可以考虑使用线程池来提升系统的性能。</p>
+<h3 id="四种线程池的创建："><a href="#四种线程池的创建：" class="headerlink" title="四种线程池的创建："></a>四种线程池的创建：</h3><ol>
+<li>newCachedThreadPool创建一个可缓存线程池</li>
+<li>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数。</li>
+<li>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。</li>
+<li>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务。</li>
+</ol>
+<h3 id="线程池的优点？"><a href="#线程池的优点？" class="headerlink" title="线程池的优点？"></a>线程池的优点？</h3><ol>
+<li>重用存在的线程，减少对象创建销毁的开销。</li>
+<li>可有效的控制最大并发线程数，提高系统资源的使用率，同时避免过多资源竞争，避免堵塞。</li>
+<li>提供定时执行、定期执行、单线程、并发数控制等功能。</li>
+</ol>
+<h3 id="线程池的中的线程数量能不能无限增加，为什么"><a href="#线程池的中的线程数量能不能无限增加，为什么" class="headerlink" title="线程池的中的线程数量能不能无限增加，为什么?"></a>线程池的中的线程数量能不能无限增加，为什么?</h3><p>不能，线程需要一定开销，太多线程会耗尽计算机资源，（而且过多线程也无法发挥多线程的优势，毕竟cpu核就那么多）</p>
+<h3 id="java-里任务提交给线程池后，那些任务是存储在哪的"><a href="#java-里任务提交给线程池后，那些任务是存储在哪的" class="headerlink" title="java 里任务提交给线程池后，那些任务是存储在哪的?"></a>java 里任务提交给线程池后，那些任务是存储在哪的?</h3><p>把任务用 Runable（其实也可以是Callable） 表示，放在一个阻塞队列里。</p>
+<h3 id="阻塞队列怎么实现？"><a href="#阻塞队列怎么实现？" class="headerlink" title="阻塞队列怎么实现？"></a>阻塞队列怎么实现？</h3><p>创建一个数组或者链表，每次取元素或者放元素就对数组操作。没有元素而要取元素时，阻塞，满了而要放元素时，阻塞。</p>
+<h3 id="队列满了，那个线程池的-submit-方法会阻塞在那里？"><a href="#队列满了，那个线程池的-submit-方法会阻塞在那里？" class="headerlink" title="队列满了，那个线程池的 submit 方法会阻塞在那里？"></a>队列满了，那个线程池的 submit 方法会阻塞在那里？</h3><ol>
+<li>如果使用的是无界队列 LinkedBlockingQueue，也就是无界队列的话，可以继续添加任务到阻塞队列中等待执行，因为 LinkedBlockingQueue 可以近乎认为是一个无穷大的队列，可以无限存放任务</li>
+<li>如果使用的是有界队列比如 ArrayBlockingQueue，任务首先会被添加到ArrayBlockingQueue 中，ArrayBlockingQueue满了，会根据maximumPoolSize 的值增加线程数量，如果增加了线程数量还是处理不过来，ArrayBlockingQueue 继续满，那么则会使用拒绝策略RejectedExecutionHandler处理满了的任务，默认是AbortPolicy。</li>
+</ol>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><h3 id="线程和协程区别"><a href="#线程和协程区别" class="headerlink" title="线程和协程区别"></a>线程和协程区别</h3><p>协程（Coroutines）是一种比线程更加轻量级的存在，<strong>一个线程可以拥有多个协程。协程不是被操作系统内核所管理的，而是完全由程序所控制，也就是在用户态执行。</strong>这样带来的好处是性能大幅度的提升，因为不会像线程切换那样消耗资源。<br>协程不是进程也不是线程，而是一个特殊的函数，这个函数可以在某个地方挂起，并且可以重新在挂起处外继续运行。所以说，协程与进程、线程相比并不是一个维度的概念。</p>
+<ul>
+<li>进程的切换者是操作系统，切换时机是根据操作系统自己的切换策略，用户是无感知的。进程的切换内容包括页全局目录、内核栈、硬件上下文，切换内容保存在内存中。进程切换过程是由“用户态到内核态到用户态”的方式，切换效率低。</li>
+<li>线程的切换者是操作系统，切换时机是根据操作系统自己的切换策略，用户无感知。线程的切换内容包括内核栈和硬件上下文。线程切换内容保存在内核栈中。线程切换过程是由“用户态到内核态到用户态”， 切换效率中等。</li>
+<li>协程的切换者是用户（编程者或应用程序），切换时机是用户自己的程序所决定的。协程的切换内容是硬件上下文，切换内存保存在用户自己的变量（用户栈或堆）中。协程的切换过程只有用户态，即没有陷入内核态，因此切换效率高。</li>
+</ul>
+<h3 id="协程Coroutine用法"><a href="#协程Coroutine用法" class="headerlink" title="协程Coroutine用法"></a>协程Coroutine用法</h3><ul>
+<li>将复杂操作分帧计算。</li>
+<li>异步下载。</li>
+<li>使用yield return coroutine等待协程，将多个异步逻辑串联。如先进行异步下载，完成下载任务后再接着运算。</li>
+<li>创建互斥区。如某个下载函数同一时刻只能有一个协程进入。</li>
+</ul>
+<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><p>协程的完成主要靠yield关键字，带有yield关键字的函数自动变成生成器，根据yield函数的记录标签位置继续执行协程函数的后面部分代码。</p>
+<ul>
+<li>yield return new WaitForSeconds(3.0f); // 等待3秒，然后继续从此处开始，常用于做定时器</li>
+<li>yield return null; // 这一帧到此暂停，下一帧再从暂停处继续，常用于循环中</li>
+<li>yield return new WaitForEndOfFrame(); // 等到这一帧的cameras和GUI渲染结束后再从此处继续，即等到这帧的末尾再往下运行。这行之后的代码还是在当前帧运行，是在下一帧开始前执行，跟return null很相似</li>
+<li>yield return new WaitForFixedUpdate(); // 在下一次执行FixedUpdate的时候继续执行这段代码，即等一次物理引擎的更新</li>
+<li>yield return www; // 等待直至异步下载完成</li>
+<li>yield break; // 直接跳出协程，对某些判定失败必须跳出的时候，比如加载AssetBundle的时候，WWW失败了，后边加载bundle没有必要了，这时候可以yield break跳出。</li>
+<li>yield return StartCoroutine(methodName); // 等待另一个协程执行完。这是把协程串联起来的关键，常用于让多个协程按顺序逐个运行</li>
+</ul>
+<blockquote>
+<p>  <a href="https://www.cnblogs.com/zhehan54/p/6130030.html">https://www.cnblogs.com/zhehan54/p/6130030.html</a><br>    <a href="https://blog.csdn.net/zhaohong_bo/java/article/details/89552188">https://blog.csdn.net/zhaohong_bo/java/article/details/89552188</a><br>    <a href="https://blog.csdn.net/shuilan0066/article/details/7683315">https://blog.csdn.net/shuilan0066/article/details/7683315</a><br>    <a href="https://www.cnblogs.com/YeLing0119/p/9754090.html">https://www.cnblogs.com/YeLing0119/p/9754090.html</a><br>    <a href="https://blog.csdn.net/boteman123/article/details/81000631">https://blog.csdn.net/boteman123/article/details/81000631</a><br>    <a href="https://blog.csdn.net/beidaol/article/details/89135277">https://blog.csdn.net/beidaol/article/details/89135277</a><br>    <a href="https://blog.csdn.net/tanmomo/article/details/99671622">https://blog.csdn.net/tanmomo/article/details/99671622</a><br>    <a href="https://www.jianshu.com/p/bb07a4d047eb">https://www.jianshu.com/p/bb07a4d047eb</a><br>    <a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017628290184064">https://www.liaoxuefeng.com/wiki/1016959663602400/1017628290184064</a><br>    <a href="https://www.cnblogs.com/linuxAndMcu/p/11064916.html">https://www.cnblogs.com/linuxAndMcu/p/11064916.html</a><br>    <a href="https://www.cnblogs.com/CharlesGrant/p/8125841.html">https://www.cnblogs.com/CharlesGrant/p/8125841.html</a><br>    <a href="https://blog.csdn.net/y277an/java/article/details/98697454">https://blog.csdn.net/y277an/java/article/details/98697454</a><br>    <a href="https://www.jianshu.com/p/6dde7f92951e">https://www.jianshu.com/p/6dde7f92951e</a><br>    <a href="https://blog.csdn.net/qq_18995513/article/details/51944602?utm_source=itdadao&amp;utm_medium=referral">https://blog.csdn.net/qq_18995513/article/details/51944602?utm_source=itdadao&amp;utm_medium=referral</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>面试准备</category>
+      </categories>
+      <tags>
+        <tag>programming language</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HashMap</title>
+    <url>/2020/12/23/HashMap/</url>
+    <content><![CDATA[<h2 id="java里hashmap是如何实现的？"><a href="#java里hashmap是如何实现的？" class="headerlink" title="java里hashmap是如何实现的？"></a>java里hashmap是如何实现的？</h2><p>JDK1.7：数组+链表<br>JDK1.8：数组+链表+红黑树</p>
+<h2 id="HashMap-为什么线程不安全？为什么ConcurrHashMap线程安全？"><a href="#HashMap-为什么线程不安全？为什么ConcurrHashMap线程安全？" class="headerlink" title="HashMap 为什么线程不安全？为什么ConcurrHashMap线程安全？"></a>HashMap 为什么线程不安全？为什么ConcurrHashMap线程安全？</h2><p>jdk 1.7使用的是头插法，在多线程环境下，使用HashMap的put操作会引起死循环，原因是多线程会导致HashMap的Entry链表形成环形数据结构，导致Entry的next节点永远不为空，就会产生死循环获取Entry。<br>ConcurrentHashMap 采用分段锁的方式，即每一段数据配一把锁，当一个线程占用其中一段时，其它段的数据仍然可以put或get。<br><a id="more"></a></p>
+<h2 id="ConcurrentHashMap的具体实现"><a href="#ConcurrentHashMap的具体实现" class="headerlink" title="ConcurrentHashMap的具体实现"></a>ConcurrentHashMap的具体实现</h2><p>底层分段数组+链表，线程安全。把Map分为N个Segment，提供相同的线程安全，允许多个修改并发，可以段内扩容。<br>ConcurrentHashMap由Segment数组结构和HashEntry数组结构组成；<br>Segment是一种可重入锁（ReentrantLock），HashEntry用于存储键值对数据；<br>一个ConcurrentHashMap包含一个由若干个Segment对象组成的数组，每个Segment对象守护整个散列映射表的若干个桶，每个桶是由若干个HashEntry对象链接起来的链表，table是一个由HashEntry对象组成的数组，table数组的每一个数组成员就是散列映射表的一个桶。<br>把“碰撞”的HashEntry对象链接成一个链表。由于HashEntry的next域为final型，所以新节点只能在链表的表头处插入。（头插法）</p>
+<h2 id="hashArray和list有什么区别？"><a href="#hashArray和list有什么区别？" class="headerlink" title="hashArray和list有什么区别？"></a>hashArray和list有什么区别？</h2><h2 id="ConcurrentHashMap的扩容过程"><a href="#ConcurrentHashMap的扩容过程" class="headerlink" title="ConcurrentHashMap的扩容过程"></a>ConcurrentHashMap的扩容过程</h2><h2 id="ConcurrentHashMap多线程rehash的整体流程"><a href="#ConcurrentHashMap多线程rehash的整体流程" class="headerlink" title="ConcurrentHashMap多线程rehash的整体流程"></a>ConcurrentHashMap多线程rehash的整体流程</h2><h2 id="ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化"><a href="#ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化" class="headerlink" title="ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化"></a>ConcurrentHashMap某个桶内超过八个结点会树化，什么情况下超过八个结点不会树化</h2><p>链表超过了八个结点但是数组大小没有超过64时会进行扩容而不是树化</p>
+<h2 id="HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？"><a href="#HashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？" class="headerlink" title="HashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？"></a>HashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？</h2><p>1.8加入了红黑树。只要用的还是链表，就一直有可能出现链表长度过于长的问题。链表插入效率高查询效率低，红黑树的插入和查询效率都不错。为什么不用别的树，是基于综合考虑：不仅要保证put的效率也要保证get的效率，红黑树的插入和查询效率相同，是一个折衷的考虑。<br>1.8加入了treeify树化的阈值（默认为8），含义是某个index上链表元素大于等于8时需要将链表改成红黑树，8个元素了此时查询效率较低。当一个红黑树结点不足6个就untreeify改成链表。这两个阈值不等的原因是为了防止在临界值进行插入or删除导致的频繁的数据结构转变。<br>1.8中初始化和扩容都在resize()函数中。<br>1.7中元素直接是Entry，1.8的元素称为Node，其中的属性都是一样的，红黑树中结点是TreeNode，TreeNode既是一个树节点又是一个双向链表结点（包含属性prev和next）<br>1.8中如果到达了树化阈值也不一定会树化，如果数组长度小于最小树化容量(MIN_TREEIFY_CAPACITY默认为64)，则会进行扩容而不是继续树化。因为这种情况下通过扩容，大概率也可以缩短这个链表而不需要树化。如果数组大小已经超过64了，那么处于节省内存空间的考虑，会选择树化而不是扩容。<br><strong>因此在1.8中只有当插入之前链表元素大于等于8且数组大小超过64的情况下会转换成红黑树</strong><br>1.8在扩容时应用了扩容的规律，即如果新的有效最高位是1则index是原index+原数组大小。<br>1.8中没有rehash，即1，8在扩容过程中不会重新计算hashcode<br>1.8中链表转红黑树首先把链表上每个结点改为TreeNode，在头结点上开始遍历，更改每个结点关于红黑树的属性即可（红黑树的根节点一定是黑色的）。比较过程先比较hash值再比较key的大小，若仍然相同则比较key的class再比较内部hash值（identityHashCode即jdk自带的hash值）</p>
+<h2 id="ConcurrentHashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？"><a href="#ConcurrentHashMap-1-7-1-8-的区别，在JDK1-8中有哪些改进？" class="headerlink" title="ConcurrentHashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？"></a>ConcurrentHashMap 1.7 / 1.8 的区别，在JDK1.8中有哪些改进？</h2><h2 id="为什么-HashMap的size为2的幂次方-？"><a href="#为什么-HashMap的size为2的幂次方-？" class="headerlink" title="为什么 HashMap的size为2的幂次方 ？"></a>为什么 HashMap的size为2的幂次方 ？</h2><p>方便减一做与运算计算index。</p>
+<h2 id="HashMap-resize-过程能否介绍-？"><a href="#HashMap-resize-过程能否介绍-？" class="headerlink" title="HashMap resize()过程能否介绍 ？"></a>HashMap resize()过程能否介绍 ？</h2><p>resize()即扩容过程。如果没有扩容机制，即数组大小固定，那么如果元素很多，一定会出现链表太长的情况，get()方法效率降低。扩容会新建一个大小翻倍的Entry数组，再使用transfer()方法将已有元素转移到新的数组上：根据元素已包含的hash值(hashcode)来计算在新数组中的index。原本index相同的两个元素可能位置仍然相同也可能相差原始数组的大小，因为只可能是新的最高有效位有区别，低k位一定相同(因为原来在同一位置)。<br>JDK 7中循环数组遍历链表，如果key为null则hash值为0，否则就是这个key的hash值。在新的数组容量下重新计算index，用头插法插入这个元素。<strong>key为null是一定存放在index = 0的位置。</strong>transfer过程中会判断是否需要重新计算hashcode，默认不会重新计算(rehash = false)。<br>JDK 8中计算e.hash &amp; oldCapacity，假设oldCapacity是2的k次幂则它的二进制表示中只有k+1位是1，这个与运算是在判断e.hash的第k+1位是否为0，如果是0，则index不变（低位lo），如果是1，则index += oldCapacity（高位hi）。对原始数组某一位置上的链表，逐个做与运算，根据结果分成两条链（尾插法形成链），直接放到新数组的lo和hi位。对于原始数组某一位置上的红黑树，分成两棵树，如果子树的元素总数小于untreeify的阈值（6）则转换成链表，否则转换成红黑树（如果没有分裂，则等价于将原始红黑树转移），分裂出新的树的时候需要对树进行调整并将新的root挪到链表的起点。</p>
+<h2 id="HashMap效率受什么影响？"><a href="#HashMap效率受什么影响？" class="headerlink" title="HashMap效率受什么影响？"></a>HashMap效率受什么影响？</h2><p> (负载因子、hash数组size)</p>
+<h2 id="HashMap中扰动函数的作用-？"><a href="#HashMap中扰动函数的作用-？" class="headerlink" title="HashMap中扰动函数的作用 ？"></a>HashMap中扰动函数的作用 ？</h2><h2 id="HashMap中put如何实现（向hashmap插入-key-value-）"><a href="#HashMap中put如何实现（向hashmap插入-key-value-）" class="headerlink" title="HashMap中put如何实现（向hashmap插入(key, value)）"></a>HashMap中put如何实现（向hashmap插入(key, value)）</h2><p>原理：</p>
+<ol>
+<li><p>（JDK1.7实现）判断是否为空table，如果为空，则初始化一个数组。要么使用默认容量16，要么使用传入的容量。在初始化过程中找到不小于这个容量的最小的2的幂(roundUpToPowerOf2(tosize))。比如传入initialCapacity为10，则初始化数组大小为16。最大容量是2^30(1&lt;<30)。重算扩容的阈值（min(capacity * loadfactor, max_capacity + 1)）。hashmap的参数：initialcapacity, loadfactor （初始容量默认16和加载因子默认0.75）entry<k, v>包含四个属性：key，value，next(Entry)，hash值(int)。hash值用于两个Entry对象的比较。</30)。重算扩容的阈值（min(capacity></p>
+</li>
+<li><p>计算hashcode<br>调用hash方法：调用key.hashCode()方法并与hash seed做异或运算，再对这个值进行右移或者异或运算。右移相当于高位移动到了低位，低位省略了，异或从而使得高位也可以参与index的计算，使index更平均（异或^：相同为0，不同为1）。hashCode方法可以重写。将计算好的hashCode存入Entry的hash属性。<br>1.8中仍然时右移和异或，只是没有1.7那么复杂，key为null时hashcode为0。</p>
+</li>
+<li><p>计算index<br>即：根据hashCode值计算数组下标。<br>计算key.hashCode() &amp; (table.length - 1) （二进制位运算速度快。table.length是2的k次幂，table.length - 1的低k位全1高位全0，该与操作相当于只保留了key的hashcode的后k位作为index，index的取值范围正好是0到table.length - 1）作为该entry存放在数组中的index。hashmap放入一个键值对时，将该键值对视作一个entry，把这个entry的引用放入数组的某个位置or这个位置连接的链表上，这个位置即index，需要通过key的值来计算。如果取余，很容易冲突（不同key放在数组的同一位置），且取余操作比位操作慢。</p>
+</li>
+<li><p>(JDK1.7中先扩容再添加，JDK1.8是先添加再扩容)扩容：1.7中，如果元素个数超过阈值且当前要放入的index处不为null则开始扩容。1.8中只判断了元素个数超过阈值就扩容。扩容方法：resize()<br>1.7在数组的每次扩容时会判断是否需要扩容，需要扩容时会改变hashseed，使得计算出的hashcode更加分散。</p>
+</li>
+<li><p>如果当前数组的当前index处为空，则新建一个Entry对象，包含key，value，hash和null（next为空）直接放入index处。否则在JDK 1.7中使用头插法：(key, value, hash, header)，其中header是链表头部，即table[index]，再把这个Entry放入table[index]，添加之后size++；而在1.8中使用尾插法，因为本来就需要遍历整个链表来判断元素个数是否达到treeify的阈值，同时在遍历链表时可以判断是否已经存在整个key，如果存在则直接覆盖，如果当前元素的key不相等，则判断当前元素的结点是否instanceof TreeNode，如果已经是一个树的则直接进行红黑树TreeNode结点的插入，否则当前index一定是链表，循环并累计链表上结点个数，对每个结点判断是都需要覆盖，如果下一个是空则说明已经到了尾部，插入这个结点，判断是否需要树化。</p>
+</li>
+</ol>
+<p>如果是覆盖已有的key，则会用新的value覆盖旧的value并返回旧的value。在遍历寻找是否存在这个key的过程中先判断hash值是否相等，如果相等，再进一步比较key是否equals，这里的equals方法可能被重写得较为复杂，因此先对hash进行判断可以减少equals的执行从而提高代码运行效率。先寻找有无相同key，若无再添加这个Entry并返回null。</p>
+<blockquote>
+<p>hashmap.put(“1”, “2”)<br>String value = hashmap.put(“1”, “3”) // value = 2<br>String value = hashmap.put(“2”, “3”) // value = null, no overlap</p>
+</blockquote>
+<h2 id="为什么不直接用key做hash值而是与高16位做异或运算"><a href="#为什么不直接用key做hash值而是与高16位做异或运算" class="headerlink" title="为什么不直接用key做hash值而是与高16位做异或运算"></a>为什么不直接用key做hash值而是与高16位做异或运算</h2><p>异或可以使得高位也可以参与index的计算，使index更平均。</p>
+<h2 id="Hashtable-和-HashMap的区别"><a href="#Hashtable-和-HashMap的区别" class="headerlink" title="Hashtable 和 HashMap的区别"></a>Hashtable 和 HashMap的区别</h2><p>底层数据结构 (JDK1.8后不同)、父类不同  、扩容方法不同 、 线程上锁范围不同（重点）<br>hashtable：底层数组+链表实现，无论是key还是value都不能为null。线程安全，在修改时synchronize锁住了整个hashTable，效率低。<br>HashMap：底层数组+链表实现，可以存储null作为key或value，线程不安全。加载因子：为了降低哈希冲突，键值对达到数组内存75%的时候进行扩容，直接*2。<br>ConcurrentHashMap不支持key为null<br>HashTable容器使用sychronized来保证线程安全，采取锁住整个表结构来达到同步目的，在线程竞争激烈的情况下，当一个线程访问HashTable的同步方法，其他线程也访问同步方法时，会进入阻塞或轮询状态；如线程1使用put方法时，其他线程既不能使用put方法，也不能使用get方法，效率非常低下。</p>
+<h2 id="hashtable的理想的查找效率是多少？"><a href="#hashtable的理想的查找效率是多少？" class="headerlink" title="hashtable的理想的查找效率是多少？"></a>hashtable的理想的查找效率是多少？</h2><h2 id="哈希碰撞（在同一位置存放多个元素）怎么解决？"><a href="#哈希碰撞（在同一位置存放多个元素）怎么解决？" class="headerlink" title="哈希碰撞（在同一位置存放多个元素）怎么解决？"></a>哈希碰撞（在同一位置存放多个元素）怎么解决？</h2><p>链表法：在数组中的entry的引用上加上一个next指针指向下一个元素。对于单链表来说，插入头部的速度时最快的。但是在查找过程中，单链表从数组中存放的entry开始只能向下查找，无法向上回溯，因此可能无法有效获取头插法插入的元素。解决方法：头插之后将链表向下移动，将插入的头元素作为链表放在数组中的那个元素。由于移动头节点相当于移动整个链表，只需将头节点放入数组：table[index] = new Entry(key, value, table[index])<br>探查法，双重散列（发生冲突之后以当前地址为基础找下一个地址直到没有冲突），双重哈希</p>
+<blockquote>
+<p>参考：<a href="https://juejin.cn/post/6844904057128091655">https://juejin.cn/post/6844904057128091655</a><br>     <a href="https://www.cnblogs.com/sulishihupan/p/13418915.html">https://www.cnblogs.com/sulishihupan/p/13418915.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>面试准备</category>
+      </categories>
+      <tags>
+        <tag>hash</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Classical Planning</title>
+    <url>/2021/01/14/AI_Classical%20Planning/</url>
+    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h1 id="Agents"><a href="#Agents" class="headerlink" title="Agents"></a>Agents</h1><p>Perceives its environment through sensors and acts upon the environment through actuators<br><strong>Rational agent</strong>: Acts to achieve the best (expected) outcome<br>For each possible percept sequence, a rational agent should <strong>select an action</strong> that is expected to <strong>maximize its performance measure</strong>, given the evidence provided by the <strong>percept sequence</strong> and whatever <strong>built-in knowledge</strong> the agent has.<br><a id="more"></a></p>
+<h1 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h1>]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+        <tag>RL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Adversarial Machine Learning</title>
+    <url>/2021/01/12/DL_Adversarial%20Machine%20Learning/</url>
+    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Regular ML: build a model based on sample data $x$ in order to make prediction<br>Attack: add invisible noise $\eta$ to clean sample data and fool the model(make the wrong prediction)<br><strong>Adversarial Machine Learning: attempts to fool models by supplying deceptive input</strong><br><em>The malfunction of a ML model may cause damage in many aspects.</em><br><a id="more"></a></p>
+<ul>
+<li>Why ML models can be fooled?<br>The precision $\epsilon$ of an individual input feature is limited so that adding noise beyond that limitation($||\eta||&lt;\epsilon$) is <strong>both invisible to human and cannot be distinguished by hardware</strong>.<br>During the training period, the original data is processed by activation where slight perturbation may be magnified and thus leads to malfunction of the model.<br>the adversarial perturbation causes the activation to grow by $w^T\eta$:<script type="math/tex; mode=display">w^T\tilde{x}=w^Tx-w^T\eta</script><strong>We want to get the max $w^T\eta$ to fool the model.</strong><br><strong>And we need to get the min $\eta$ so that the slight change is hard to be detected.</strong><br>so we assign:<script type="math/tex; mode=display">\eta = \epsilon sign(w)</script>The activation will grow by <strong>$\epsilon mn$</strong> where $m$ is the average magnitude of each element of n-dimensional vector $w$.<br>A simple linear model can have adversarial examples if its input has sufficient dimensionality.</li>
+</ul>
+<h1 id="How-to-attack-a-ML-model"><a href="#How-to-attack-a-ML-model" class="headerlink" title="How to attack a ML model"></a>How to attack a ML model</h1><h2 id="White-box-Attack"><a href="#White-box-Attack" class="headerlink" title="White-box Attack"></a>White-box Attack</h2><p>An attacker has complete access to the ML model.<br>The main idea od white box attack is to generate adversarial examples.</p>
+<h3 id="Fast-Gradient-Sign-Method-FGSM"><a href="#Fast-Gradient-Sign-Method-FGSM" class="headerlink" title="Fast Gradient Sign Method(FGSM)"></a>Fast Gradient Sign Method(FGSM)</h3><p>$\textit{J}(w,x,y^{true})$: loss function<br>SGD: update weights to <strong>decrease</strong> the loss: </p>
+<script type="math/tex; mode=display">w = w - \nabla \textit{J}_w(w,x,y)</script><p>Attack: update samples to <strong>increase</strong> the loss: </p>
+<script type="math/tex; mode=display">x = x + \nabla \textit{J}_x(w,x,y)</script><p>Perturbation:</p>
+<script type="math/tex; mode=display">\eta = \epsilon sign(\nabla \textit{J}_x(w,x,y))\quad x = x + \eta</script><p>THis algorithm is cheap because we don’t update weights or parameters $w$.</p>
+<h3 id="One-step-target-class-method"><a href="#One-step-target-class-method" class="headerlink" title="One-step target class method"></a>One-step target class method</h3><p>In FGSM:</p>
+<script type="math/tex; mode=display">\tilde{x} = x + \epsilon sign(\nabla \textit{J}_x(w,x,y^{true}))</script><p>Using $y^{target}$ which are unlikely to be the correct class of $x$:</p>
+<script type="math/tex; mode=display">\tilde{x} = x - \epsilon sign(\nabla \textit{J}_x(w,x,y^{target}))</script><h2 id="Black-box-Attack"><a href="#Black-box-Attack" class="headerlink" title="Black-box Attack"></a>Black-box Attack</h2><p>Attacker has no access to parameters but only has some idea of the domain of interests (eg. image classification). The number of queries to the system is limited.</p>
+<h1 id="How-to-defend"><a href="#How-to-defend" class="headerlink" title="How to defend?"></a>How to defend?</h1><h1 id="How-to-effectively-defend"><a href="#How-to-effectively-defend" class="headerlink" title="How to effectively defend?"></a>How to effectively defend?</h1><h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1>]]></content>
+      <categories>
+        <category>Neural Network and Deep Learning 2</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Reinforcement Learning</title>
+    <url>/2021/01/19/DL_Reinforcement_Learning/</url>
+    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Alpha Go: beat the best human Go player<br>AlphaFold: a solution to the protein folding</p>
+<p>Reinforcement Learning is a <strong>feedback-based</strong> machine learning technique: an agent learns to behave in an environment by performing the actions and getting the feedback.<br>Sequential decision making + long-term goal(getting the maximum positive rewards)<br>No pre-program and only learns from its own experience<br><a id="more"></a></p>
+<p>During the period of exploring the environment, agent’s state gets changed, and agent receives a reward or penalty after each action as a feedback. The goal of RL is to learn which actions lead to maximum point.</p>
+<h1 id="Terms-used-in-RL"><a href="#Terms-used-in-RL" class="headerlink" title="Terms used in RL"></a>Terms used in RL</h1><h2 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h2><p>An entity that can perceive/explore the environment and act upon it.<br>based on hit and trail process;<br>may get a delayed reward;<br>get the maximum positive rewards.</p>
+<h2 id="Discount-factor"><a href="#Discount-factor" class="headerlink" title="Discount factor"></a>Discount factor</h2><p>Determines the importance of future rewards. A factor of 0 makes the agent “opportunistic” by only considering current rewards, while a factor approaching 1 will make it strive for a long-term high reward. If the discount factor meets or exceeds 1, Q-values may diverge.</p>
+<h2 id="Approaches-to-implement-RL"><a href="#Approaches-to-implement-RL" class="headerlink" title="Approaches to implement RL"></a>Approaches to implement RL</h2><ul>
+<li><p>Value-based<br>The optimal value function, which is the maximum value at a state under any policy.</p>
+</li>
+<li><p>Policy-based<br>Find the optimal policy for the maximum future rewards without using the value function. (Deterministic VS Stochastic policy)</p>
+</li>
+<li><p>Model-based<br>The agent explores a virtual model before exploring the environment.</p>
+</li>
+</ul>
+<h2 id="4-key-elements-of-RL"><a href="#4-key-elements-of-RL" class="headerlink" title="4 key elements of RL"></a>4 key elements of RL</h2><ul>
+<li><p>Policy: how agent behave at a given time.<br>It can be a look-up table or computation as a search process.<br>Deterministic: $a = \pi (s)$<br>Stochastic: $\pi (a|s) = P[A_t=a|S_t=s]$</p>
+</li>
+<li><p>Reward Signal: at each state, environment sends a real-time reward signal.<br>Reward can change the policy to maximize the sum of rewards of actions.</p>
+</li>
+<li><p>Value Function: how much reward an agent can expect in the current state.<br>Depends on the reward, the goal of estimating values is to achieve more rewards.</p>
+</li>
+<li><p>Model of the environment: mimics the behavior of the environment for planning.<br>One can take actions by considering all future situations before actually experiencing them. (Model-based approach VS Model-free approach)</p>
+</li>
+</ul>
+<h2 id="Types-of-Reinforcement-learning"><a href="#Types-of-Reinforcement-learning" class="headerlink" title="Types of Reinforcement learning"></a>Types of Reinforcement learning</h2><ul>
+<li><p>Positive Reinforcement<br>Increase the strength of behavior<br>Sustain the changes for a long time: an overload of states that can reduce the consequences</p>
+</li>
+<li><p>Negative Reinforcement<br>Avoid negative conditions<br>More effective<br>Provides reinforcement only to meet minimum behavior</p>
+</li>
+</ul>
+<h1 id="How-does-Reinforcement-Learning-work"><a href="#How-does-Reinforcement-Learning-work" class="headerlink" title="How does Reinforcement Learning work?"></a>How does Reinforcement Learning work?</h1><p>First we have an agent and an environment.<br>We assign an intial value to each state and update it according to the rewards.</p>
+<p><strong>Bellman equation</strong><br>It is used to calculate the values of a decision in dynamic programming at a certain point by including the values of previous states.<br>key elements used in bellman equation:<br>$a$: action performed by the agent<br>$s$: state occurred by performing the action<br>$R$: reward or feedback obtained at a state by performing an action<br>$\gamma$: a discount factor</p>
+<script type="math/tex; mode=display">V(s)=max_a[R(s,a)+\gamma V(s')]</script><p>$V(s)$: value at state s<br>$V(s’)$: value at the next state of s<br>We start the calculation from the block that is next to the target block.<br>Represent the agent state as the <strong>Markov Decision Process</strong>.<br>If the environment is <strong>completely observable</strong>, then its dynamic can be modeled as a Markov Process.<br>At each action, the environment responds and generates a new state.<br><strong>Current state transition doesn’t depend on past actions/states</strong><br><img src="/images/nndl2/RL_0.png" alt="RL_environment"><br>four elements contained in MDP:<br>$S$: a set of finite states<br>$A$: a set of finite actions<br>$R_a$: rewards received after transitioning from $S$ to $S’$ due to action a<br>$P_a$: probability of taking action a<br><strong>In RL, we only consider finite MDP.</strong><br>State $S$ and transition function $P$ can define the dynamics of the system.</p>
+<h1 id="The-RL-Algorithms"><a href="#The-RL-Algorithms" class="headerlink" title="The RL Algorithms"></a>The RL Algorithms</h1><p>On-policy vs Off-policy<br>On-policy: learn policy $\pi$ from experience sampled from $\pi$, i.e, evaluate the policy that is used to generate data.<br>Off-policy: learn policy $\pi$ from experience sampled from $\mu$, i.e, improve a policy different from that used to generate data.</p>
+<p><strong>Temporal Difference Learning</strong><br>learn how to predict a quantity that depends on future values of a given signal, comparing temporally successive predictions.</p>
+<h2 id="Q-Learning-off-policy"><a href="#Q-Learning-off-policy" class="headerlink" title="Q-Learning (off-policy)"></a>Q-Learning (off-policy)</h2><p>It learns the value function $Q(S,a)$ which maps the state and action to rewards.<br><img src="/images/nndl2/RL_1.png" alt="RL_Q_Learning"><br>A model-free RL based on Bellman equation:</p>
+<script type="math/tex; mode=display">V(s)=max_a[R(s,a)+\gamma \Sigma_{s'}P(s,a,s')V(s')]</script><p>$P$ is the probability of turning to state $s’$ when taking action $a$ on state $s$.<br>Value of a state $s$ depends on the action that has the max Q-value on this state:</p>
+<script type="math/tex; mode=display">V(s) = max_a[Q(s, a)],</script><p>So we have:</p>
+<script type="math/tex; mode=display">Q(s,a)=R(s,a)+\gamma \Sigma_{s'}P(s,a,s')max_{a'}Q(s',a')]</script><p>After each action, the table is updated, and the Q-values are stored within the table.</p>
+<h2 id="State-Action-Reward-State-Action-SARSA-on-policy"><a href="#State-Action-Reward-State-Action-SARSA-on-policy" class="headerlink" title="State Action Reward State Action (SARSA, on-policy)"></a>State Action Reward State Action (SARSA, on-policy)</h2><p>SARSA is an on-policy temporal difference learning method, selects the action for each state while learning using a specific policy.<br>The goal of SARSA is to calculate the $Q_{\pi}(s, a)$ for the selected current policy $\pi$ and all pairs of $(s, a)$. SARSA uses the quintuple $Q(s, a, r,s’,a’)$:<br>$s$ and $a$: original state and action,<br>$r$: reward observed while following the states,<br>$s’$ and $a’$: new state, action pair.</p>
+<h2 id="Deep-Q-Neural-Network-off-policy"><a href="#Deep-Q-Neural-Network-off-policy" class="headerlink" title="Deep Q Neural Network (off-policy)"></a>Deep Q Neural Network (off-policy)</h2><p>In a complex environment where exploring all possible states and actions costs too much, we can use neural network to replace the Q table and make approximation of sequential actions.<br><img src="/images/nndl2/RL_2.png" alt="Deep_Q_NN"></p>
+]]></content>
+      <categories>
+        <category>Neural Network and Deep Learning 2</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Generative Adversarial Networks</title>
+    <url>/2021/01/26/DL_GAN/</url>
+    <content><![CDATA[<h1 id="Introduction-to-GANs"><a href="#Introduction-to-GANs" class="headerlink" title="Introduction to GANs"></a>Introduction to GANs</h1><p>Discriminator learns from real dataset and make judgement of input data.<br>Generator uses noise vestor to generate fake data and feed into discriminator, based on the feedback it can generate better samples.<br><a id="more"></a></p>
+<ul>
+<li>Deep Convolutional GAN can train stable GANs at scale.</li>
+<li>BigGan can generate synthetic photos that are practically indistinguishable.</li>
+<li>Generate faces of anime characters.</li>
+<li>Image-to-Image Translation: transfer from daytime to nighttime; sketcher to color.</li>
+<li>Text-to-Image: generate plausible photos from textual descriptions of simple objects.</li>
+<li>Semantic-Image-to-Photo: given a semantic image or sketch as input.</li>
+<li>Face Frontal View Generation: given photos taken at an angle.</li>
+<li>Photos to Emojis: translate images from one domain to another.</li>
+<li>Photograph Editing: reconstruct photos of faces with specific specified features.</li>
+<li>Face Aging: generate photos of faces with different apparent ages.</li>
+<li>Photo Blending: blend elements from different photos.</li>
+<li>Super Resolution: generate pictures with higher pixel resolution.</li>
+<li>Photo Inpainting: filling in an area of a photo that was removed.</li>
+<li>Clothing Translation: input someone with a cloth on and output the cloth in catalog</li>
+<li>Video Preodiction: predict videos given a single static image (ambiguous task)</li>
+</ul>
+<h1 id="Training-of-GANs"><a href="#Training-of-GANs" class="headerlink" title="Training of GANs"></a>Training of GANs</h1><p>Two neural networks contest with each other in a zero-sum game.<br>The goal of generator is to <strong>fool the discriminator</strong> but not to imitate a specific image.<br>This enables the model to learn in an unsupervised manner(no specific target).<br>Unsupervised: learn the <strong>distribution function</strong> $p(x,y)$ to generate synthetic $x’$ and $y’$.<br>Supervised: model the <strong>conditional probability distriburion function(p.d.f)</strong> $p(y|x)$.</p>
+<p>Other generative models:</p>
+<ul>
+<li>Variational Autoencoders(VAEs)</li>
+<li>pixelCNN / pixelRNN</li>
+<li>real NVP</li>
+</ul>
+<p>GANs are popular because it can <strong>generate high dimensional data</strong>.<br>Generative models can be viewed as <strong>containing more information</strong> than discriminative models and they are also used for discriminative tasks like classification.</p>
+<p>Generative Adversarial Networks are composed of two models:</p>
+<ul>
+<li><strong>Generator</strong> $G(z,\theta_1)$: aims to generate new data similar to the expected one, maps input noise variables $z$ to the desired data space $x$.<br>Goal: <strong>Maximize $D(G(z))$</strong></li>
+<li><strong>Discriminator</strong> $D(x,\theta_2)$: recognizes if an input data is <em>real</em> by outputing the probability that the data comes from the real dataset.<br>Goal: <strong>Maximize $D(x)$ and minimize $D(G(z))$</strong></li>
+</ul>
+<p>The competition between these two models is what improves their knowledge until Generator succeeds in creating realistic data.<br>In practice we use a log loss instead of the raw probability.</p>
+<p>Discriminator and Generator are trying to optimize the opposite loss function: two agents playing a <em>minimax game</em> with value function $V(G,D)$:</p>
+<script type="math/tex; mode=display">\min_G \max_D V(D,G) = \mathbb{E}_{x\sim p_{data} (x)}[logD(x)]+\mathbb{E}_{z\sim p_z(z)}[log(1-D(G(z)))]</script><p><img src="/images/nndl2/GAN_0.png" alt="GAN"><br><img src="/images/nndl2/GAN_1.png" alt="GAN"><br>The fundamental steps to train a GAN:</p>
+<ol>
+<li>Sample a noise set and a real-data set, each with size m</li>
+<li>Train the Discriminator on this data batch <em>for several steps</em></li>
+<li>Sample a different noise subset with size m</li>
+<li>Train the Generator on this data batch</li>
+<li>Repeat from Step 1</li>
+</ol>
+<h1 id="DC-GAN-Conditional-GAN-and-W-GAN"><a href="#DC-GAN-Conditional-GAN-and-W-GAN" class="headerlink" title="DC-GAN, Conditional GAN, and W-GAN"></a>DC-GAN, Conditional GAN, and W-GAN</h1><h2 id="Deep-Convolutional-Generative-Adversarial-Networks"><a href="#Deep-Convolutional-Generative-Adversarial-Networks" class="headerlink" title="Deep Convolutional Generative Adversarial Networks"></a>Deep Convolutional Generative Adversarial Networks</h2><ol>
+<li>Use <strong>strided convolutions</strong> instead of deterministic spatial pooling functions(eg. max pooling), so the Discriminator can learn its own spatial downsampling and Generator can learn its own spatial upsampling.</li>
+<li><strong>Eliminate fully connected layers</strong> on top of convolutional features.</li>
+<li><strong>Batch Normalization</strong> helps gradients flow in deeper models, not applied to Generator’s output layer and Discriminator’s input layer to avoid sample oscillation and model instability.</li>
+<li>Generator uses <strong>ReLU</strong> for all layers except for output which uses <strong>Tanh</strong>,<br>Discriminator uses <strong>LeakyReLU</strong> for all layers.</li>
+</ol>
+<p>Generator: <strong>No fully connected or pooling layers are used.</strong><br><img src="/images/nndl2/GAN_2.png" alt="DC-GAN"></p>
+<p>Discriminator is like an inverse of Generator.<br><img src="/images/nndl2/GAN_3.png" alt="DC-GAN"></p>
+<h2 id="Conditional-GANs"><a href="#Conditional-GANs" class="headerlink" title="Conditional GANs"></a>Conditional GANs</h2><p>Generators is trained to generate examples <strong>from the input domain(conditions)</strong>, so its input is combined with some additional input(eg. a class value).<br>Discriminator is also conditioned and its input image is combined with an additional input.<br><img src="/images/nndl2/GAN_4.png" alt="Conditional GANs"><br>The conditional domain allows for applications such as text-to-image or image-to-image.<br>We can perform conditioning by feeding the extra information $y$ into both the discriminator and generator as additional input layer:</p>
+<script type="math/tex; mode=display">\min_G \max_D V(D,G) = \mathbb{E}_{x\sim p_{data} (x)}[logD(x|y)]+\mathbb{E}_{z\sim p_z(z)}[log(1-D(G(z|y)))]</script><p>If the generator ignores the input conditions, the discriminator will give them a low score even though the input image is realistic.<br><img src="/images/nndl2/GAN_5.png" alt="Conditional GANs"></p>
+<h2 id="Wasserstein-GAN-WGAN"><a href="#Wasserstein-GAN-WGAN" class="headerlink" title="Wasserstein GAN (WGAN)"></a>Wasserstein GAN (WGAN)</h2><p>WGAN uses a critic that <strong>scores the realness or fakeness</strong> of a given image to replace the discriminator who predicts the probability as being real or fake.</p>
+<p>The benefit is that the training process is more stable and less sensitive to model architecture and choice of hyperparameter and the loss of the discriminator appears to relate to the quality of images created by the generator.</p>
+<p><strong>The Wasserstein Distance</strong> is the minimum cost of transporting mass in converting the real data distribution $r$ to generated data distribution $g$ , which is defined as the <strong>greatest lower bound(infimum) for any transport plan</strong>(i.e. the cost of the cheapest plan):</p>
+<script type="math/tex; mode=display">W(\mathbb{P}_r,\mathbb{P}_g)=\inf_{\gamma\in\prod(\mathbb{P}_r,\mathbb{P}_g)}\mathbb{E}_{(x,y)}[||x-y||]</script><p>Using Kantorovich-Rubinstein duality, we can simplify it to:</p>
+<script type="math/tex; mode=display">W(\mathbb{P}_r,\mathbb{P}_\theta)=\sup_{||f||_L\leq 1} \mathbb{E}_{x\sim \mathbb{P}_r}[f(x)] - \mathbb{E}_{x\sim \mathbb{P}_\theta}[f(x)]</script><p>$sup$ is the least upper bound and $f$ is a 1-Lipschitz function which means:</p>
+<script type="math/tex; mode=display">|f(x_1)-f(x_2)|\leq |x_1-x_2|</script><p>so that the minimum $|f(x_1)-f(x_2)|$ correspond to the minimum $|x_1-x_2|$ .<br>We can build a deep network to learn the 1-Lipschitz function. The network is similar to discriminator, just without the sigmoid function and output a score to show how real the input images are rather than a probability.<br><img src="/images/nndl2/GAN_6.png" alt="WGANs"><br>$f$ has to be a 1-Lipschitz function. To enforce the constraint, WGAN applies a very simple clipping to restrict the maximum weight value in $f$ , i.e. the weights of the discriminator must be within a certain range controlled by the hyperparameters $c$.<br><img src="/images/nndl2/GAN_7.png" alt="WGANs"><br>GAN’s loss measures how well it fools the discriminator, while WGAN’s loss function reflects the <strong>image quality</strong> which is more desirable.<br><img src="/images/nndl2/GAN_8.png" alt="WGANs"><br><strong>WGAN is more stable as it can perform without batch normalization but GANs without BN collapse.</strong></p>
+]]></content>
+      <categories>
+        <category>Neural Network and Deep Learning 2</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
       </tags>
   </entry>
 </search>

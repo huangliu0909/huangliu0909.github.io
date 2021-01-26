@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="programming language," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="进程和线程进程与线程的区别进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程 线程 协程">
+<meta property="og:url" content="https://huangliu0909.github.io/2020/12/12/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Wiwi&#39;s Blog">
+<meta property="og:description" content="进程和线程进程与线程的区别进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-12T09:23:04.000Z">
+<meta property="article:modified_time" content="2020-12-23T09:57:18.779Z">
+<meta property="article:author" content="HUANG Liu">
+<meta property="article:tag" content="programming language">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://huangliu0909.github.io/2020/12/12/进程线程协程/"/>
+
+
+
+
+
+  <title>进程 线程 协程 | Wiwi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+  <a href="https://github.com/huangliu0909" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+   
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiwi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/12/12/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进程 线程 协程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-12T17:23:04+08:00">
+                2020-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
+                    <span itemprop="name">面试准备</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  6.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  22
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h1><h2 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h2><p>进程是资源（CPU、内存等）分配的基本单位，它是程序执行时的一个实例。程序运行时系统就会创建一个进程，并为它分配资源，然后把该进程放入进程就绪队列，进程调度器选中它的时候就会为它分配CPU时间，程序开始真正运行。<br>线程是程序执行时的最小单位，它是进程的一个执行流，是CPU调度和分派的基本单位，一个进程可以由很多个线程组成，线程间共享进程的所有资源，每个线程有自己的堆栈和局部变量。线程由CPU独立调度执行，在多CPU环境下就允许多个线程同时运行。同样多线程也可以实现并发操作，每个请求分配一个线程来处理。<br><a id="more"></a></p>
+<ol>
+<li>进程是资源分配的最小单位，线程是程序执行的最小单位。</li>
+<li>进程有自己的独立地址空间，每启动一个进程，系统就会为它分配地址空间，建立数据表来维护代码段、堆栈段和数据段，这种操作非常昂贵。而线程是共享进程中的数据的，使用相同的地址空间，因此CPU切换一个线程的花费远比进程要小很多，同时创建一个线程的开销也比进程要小很多。</li>
+<li>线程之间的通信更方便，同一进程下的线程共享全局变量、静态变量等数据，而进程之间的通信需要以通信的方式（IPC)进行。不过如何处理好同步与互斥是编写多线程程序的难点。</li>
+<li>多进程程序更健壮，多线程程序只要有一个线程死掉，整个进程也死掉了，而一个进程死掉并不会对另外一个进程造成影响，因为进程有自己独立的地址空间。</li>
+</ol>
+<h2 id="同一进程中的线程"><a href="#同一进程中的线程" class="headerlink" title="同一进程中的线程"></a>同一进程中的线程</h2><p>线程共享的环境包括：进程代码段、进程的公有数据(利用这些共享的数据，线程很容易的实现相互之间的通讯)、进程打开的文件描述符、信号的处理器、进程的当前目录和进程用户ID与进程组ID。<br><strong>在一个进程的线程共享堆区，而进程中的线程各自维持自己堆栈。</strong><br>堆：是大家共有的空间，分全局堆和局部堆。全局堆就是所有没有分配的空间，局部堆就是用户分配的空间。堆在操作系统对进程初始化的时候分配，运行过程中也可以向系统要额外的堆，但是记得用完了要还给操作系统，要不然就是内存泄漏。<br>栈：是个线程独有的，保存其运行状态和局部自动变量的。栈在线程开始的时候初始化，每个线程的栈互相独立，因此，栈是　thread safe的。操作系统在切换线程的时候会自动的切换栈，就是切换　ＳＳ／ＥＳＰ寄存器。栈空间不需要在高级语言里面显式的分配和释放。</p>
+<h2 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h2><h3 id="怎么创建新进程，内核做了啥？"><a href="#怎么创建新进程，内核做了啥？" class="headerlink" title="怎么创建新进程，内核做了啥？"></a>怎么创建新进程，内核做了啥？</h3><p>fork, vfork，然后具体do_fork过程，copy on write等<br>进程 : 代码 + 数据 + 堆栈 + PCB<br>PCB （进程控制块）：pid 进程标识符 + pwd 进程标识 + ppid 父进程进程号</p>
+<ol>
+<li>分配一个 PID 从小到大找一个未被使用的进程号<br>0号进程是内核进程，它创建1号进程、还将物理内存搬到磁盘和磁盘搬到物理内存</li>
+<li>分配PCB，拷贝父进程的 PCB的绝大部分数据</li>
+<li>给子进程分配资源</li>
+<li>复制父进程地址空间 </li>
+<li>将子进程置成就绪状态，放入就绪队列</li>
+</ol>
+<p>在unix中系统调用的是：fork，fork会创建一个与父进程一摸一样的副本<br>在windows中该系统调用是：cresteprocess，既负责处理进程的创建，也负责把正确的程序装入新进程<br>无论是unix还是windows，进程只有一个父进程，不同的是：<br>在unix中所有的进程，都是以init进程为根，组成树形结构。父子进程共同组成一个进程组<br>在windows中，没有进程层次的概念，所有的进程地位都相同</p>
+<h3 id="fork-作用"><a href="#fork-作用" class="headerlink" title="fork()作用"></a>fork()作用</h3><p>Linux系统函数fork()可以<strong>在父进程中创建一个子进程</strong>，这样的话，在一个进程接到来自客户端新的请求时就可以复制出一个子进程让其来处理，父进程只需负责监控请求的到来，然后创建子进程让其去处理，这样就能做到并发处理。<strong>fork函数会返回两次结果</strong>，因为操作系统会把当前进程的数据复制一遍，然后程序就分两个进程继续运行后面的代码，fork分别在父进程和子进程中返回，在子进程返回的值pid永远是0，在父进程返回的是子进程的进程id。打印的顺序与系统的进程调度有关。</p>
+<ul>
+<li>父子进程交替进行</li>
+<li>父进程死亡，子进程将变成孤儿进程，由 1号 进程领养</li>
+<li>子进程死亡，成为僵尸进程</li>
+</ul>
+<h3 id="多进程相关函数"><a href="#多进程相关函数" class="headerlink" title="多进程相关函数"></a>多进程相关函数</h3><p>multiprocessing模块就是跨平台版本的多进程模块。创建子进程时，只需要传入一个执行函数和函数的参数，创建一个Process实例，用start()方法启动，这样创建进程比fork()还要简单。<br>join()方法可以等待子进程结束后再继续往下运行，通常用于进程间的同步。<br>如果要启动大量的子进程，可以用进程池的方式批量创建子进程：对Pool对象调用join()方法会等待所有子进程执行完毕，调用join()之前必须先调用close()，调用close()之后就不能继续添加新的Process了。<br>subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。<br>小结：</p>
+<ul>
+<li>在Unix/Linux下，可以使用fork()调用实现多进程。</li>
+<li>要实现跨平台的多进程，可以使用multiprocessing模块。</li>
+<li>进程间通信是通过Queue、Pipes等实现的。</li>
+</ul>
+<h3 id="进程间通信方式"><a href="#进程间通信方式" class="headerlink" title="进程间通信方式"></a>进程间通信方式</h3><ol>
+<li>管道pipe：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</li>
+<li>命名管道FIFO：有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。<br>消息队列MessageQueue：消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
+<li>共享存储SharedMemory：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。</li>
+<li>信号量Semaphore：信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，<strong>主要作为进程间以及同一进程内不同线程之间的同步手段</strong>。</li>
+<li><strong>套接字Socket</strong>：套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</li>
+<li>信号signal： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</li>
+</ol>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><h3 id="多线程的实现"><a href="#多线程的实现" class="headerlink" title="多线程的实现"></a>多线程的实现</h3><ol>
+<li>继承Thread类，重写run方法</li>
+<li>创建MyRunnable类实现runnable接口，重写run方法，创建MyRunnable类的对象，创建Thread类的对象，并把MyRunnable类对象作为参数传递</li>
+<li>使用ExecutorService、Callable、Future实现有返回结果的多线程</li>
+<li>通过线程池创建</li>
+</ol>
+<h3 id="优劣分析"><a href="#优劣分析" class="headerlink" title="优劣分析"></a>优劣分析</h3><ul>
+<li>继承Thread<br>优势：编写简单，如果需要访问当前线程，则无需使用Thread.currentThread()方法，直接使用this即可获得当前线程。<br>劣势是：线程类已经继承了Thread类，所以不能再继承其他父类。</li>
+<li>使用runnable或者callable<br>优势是：线程类只是实现了Runnable接口或Callable接口，还可以继承其他类。<br>在这种方式下，多个线程可以共享同一个target对象，所以非常适合多个相同线程来处理同一份资源的情况，从而可以将CPU、代码和数据分开，形成清晰的模型，较好地体现了面向对象的思想。<br>劣势是：编程稍微复杂，如果要访问当前线程，则必须使用Thread.currentThread()方法。</li>
+<li>runnable和callable区别<br>Callable规定（重写）的方法是call()，Runnable规定（重写）的方法是run()。<br>Callable的任务执行后可返回值，而Runnable的任务是不能返回值的。<br>Call方法可以抛出异常，run方法不可以。<br>运行Callable任务可以拿到一个Future对象，表示异步计算的结果。它提供了检查计算是否完成的方法，以等待计算的完成，并检索计算的结果。通过Future对象可以了解任务执行情况，可取消任务的执行，还可获取执行结果。</li>
+</ul>
+<h3 id="多线程优点"><a href="#多线程优点" class="headerlink" title="多线程优点"></a>多线程优点</h3><ul>
+<li>在一个程序中，有很多的操作是非常耗时的，如数据库读写操作，IO操作等，如果使用单线程，那么程序就必须等待这些操作执行完成之后才能执行其他操作。使用多线程，可以在将耗时任务放在后台继续执行的同时，同时执行其他操作。</li>
+<li>可以提高程序的效率。</li>
+<li>在一些等待的任务上，如用户输入，文件读取等，多线程就非常有用了。</li>
+</ul>
+<h3 id="多线程缺点"><a href="#多线程缺点" class="headerlink" title="多线程缺点"></a>多线程缺点</h3><ul>
+<li>使用太多线程，是很耗系统资源，因为线程需要开辟内存。更多线程需要更多内存。</li>
+<li>影响系统性能，因为操作系统需要在线程之间来回切换。</li>
+<li>需要考虑线程操作对程序的影响，如线程挂起，中止等操作对程序的影响。</li>
+<li>线程使用不当会发生很多问题。</li>
+</ul>
+<h3 id="什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？"><a href="#什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？" class="headerlink" title="什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？"></a>什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？</h3><p>线程调度器是一个操作系统服务，它负责为Runnable状态的线程分配CPU时间。一旦我们创建一个线程并启动它，它的执行便依赖于线程调度器的实现。时间分片是指将可用的CPU时间分配给可用的Runnable线程的过程。分配CPU时间可以基于线程优先级或者线程等待的时间。线程调度并不受到Java虚拟机控制，所以由应用程序来控制它是更好的选择（也就是说不要让你的程序依赖于线程的优先级）。</p>
+<h3 id="线程的调度策略"><a href="#线程的调度策略" class="headerlink" title="线程的调度策略"></a>线程的调度策略</h3><p>线程调度器选择优先级最高的线程运行，但是，如果发生以下情况，就会终止线程的运行：</p>
+<ul>
+<li>线程体中调用了yield方法让出了对cpu的占用权利</li>
+<li>线程体中调用了sleep方法使线程进入睡眠状态</li>
+<li>线程由于IO操作受到阻塞</li>
+<li>另外一个更高优先级线程出现</li>
+<li>在支持时间片的系统中，该线程的时间片用完</li>
+</ul>
+<h3 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h3><ol>
+<li>新建状态（New）：新建一个线程对象。</li>
+<li>就绪/可运行状态（Runnable）：线程对象创建后，其他线程调用了该对象的start方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。</li>
+<li>运行状态（Running）：就绪状态的线程获得CPU并执行程序代码。</li>
+<li>阻塞状态（Blocked）：阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种：<br> <strong>等待阻塞</strong>：运行的线程执行wait方法，JVM会把该线程放入等待池中。(wait会释放持有的锁)<br> <strong>同步阻塞</strong>：运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。<br> <strong>其他阻塞</strong>：运行的线程执行sleep或join方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep的状态超时、join等待线程终止或者超时、以及I/O处理完毕时，线程重新转入就绪状态。</li>
+<li>死亡状态（Dead）：线程执行完成或者因异常退出run方法，该线程结束生命周期。</li>
+</ol>
+<h2 id="线程的相关问题"><a href="#线程的相关问题" class="headerlink" title="线程的相关问题"></a>线程的相关问题</h2><h3 id="ThreadLocal是什么？有什么用？"><a href="#ThreadLocal是什么？有什么用？" class="headerlink" title="ThreadLocal是什么？有什么用？"></a>ThreadLocal是什么？有什么用？</h3><p>ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线程和该线程存放的副本对象做一个映射，各个线程之间的变量互不干扰，在高并发场景下，可以实现无状态的调用，特别适用于各个线程依赖不通的变量值完成操作的场景。<br>简单说ThreadLocal就是一种以空间换时间的做法，在每个Thread里面维护了一个以开地址法实现的ThreadLocal.ThreadLocalMap，把数据进行隔离，数据不共享，自然就没有线程安全方面的问题了。</p>
+<h3 id="为什么sleep是Thread的方法而不是Object的"><a href="#为什么sleep是Thread的方法而不是Object的" class="headerlink" title="为什么sleep是Thread的方法而不是Object的"></a>为什么sleep是Thread的方法而不是Object的</h3><ul>
+<li>在java的内置锁机制中，每个对象都可以成为锁，也就是说每个对象都可以去调用wait，notify方法，而Object类是所有类的一个父类，把这些方法放在Object中，则java中的所有对象都可以去调用这些方法了。</li>
+<li>一个线程可以拥有多个对象锁，wait，notify，notifyAll跟对象锁之间是有一个绑定关系的，比如你用对象锁aObject调用的wait()方法，那么你只能通过aObject.notify()或者aObject.notifyAll()来唤醒这个线程，这样jvm很容易就知道应该从哪个对象锁的等待池中去唤醒线程，假如用Thread.wait()，Thread.notify()，Thread.notifyAll()来调用，虚拟机根本就不知道需要操作的对象锁是哪一个。</li>
+<li>sleep()是让某个线程暂停运行一段时间,其控制范围是由当前线程决定,也就是说,在线程里面决定.sleep()可以将一个线程睡眠，参数可以指定一个时间。</li>
+<li>wait(),是由某个确定的对象来调用的，wait()可以将一个线程挂起，直到超时或者该线程被唤。</li>
+<li>wait，notify和notifyAll只能在同步控制方法或者同步控制块里面使用，而sleep可以在任何地方使用。</li>
+</ul>
+<h3 id="线程B怎么知道线程A修改了变量"><a href="#线程B怎么知道线程A修改了变量" class="headerlink" title="线程B怎么知道线程A修改了变量"></a>线程B怎么知道线程A修改了变量</h3><ul>
+<li>volatile修饰变量<br>Volatile实现内存可见性是通过store和load指令完成的；也就是对volatile变量执行写操作时，会在写操作后加入一条store指令，即强迫线程/进程将最新的值刷新到主内存中；而在读操作时，会加入一条load指令，即强迫从主内存中读入变量的值。每次读取volatile的变量时，都要从它的内存地址中读取，并没有说每次修改完volatile的变量后，都要立刻将它的值写回内存。volatile只提供了内存可见性，而没有提供原子性。<br><em>可见性：当多个线程同时访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</em><br><em>原子性：一个操作或多个操作要么全部执行完成且执行过程不被中断，要么就不执行。</em><br><em>有序性：程序执行的顺序按照代码的先后顺序执行。</em></li>
+<li>synchronized修饰修改变量的方法</li>
+<li>wait/notify<br>wait()：使调用该方法的线程释放共享资源锁，然后从运行状态退出，进入等待队列，直到被再次唤醒。<br>wait(long)：超时等待一段时间，这里的参数时间是毫秒，也就是等待长达n毫秒，如果没有通知就超时返回。<br>wait(long，int)：对于超时时间更细力度的控制，单位为纳秒。<br>notify()：随机唤醒等待队列中等待同一共享资源的一个线程，并使该线程退出等待队列，进入可运行状态，也就是notify()方法仅通知一个线程。<br>notifyAll()：使所有正在等待队列中等待同一共享资源的全部线程退出等待队列，进入可运行状态。此时，优先级最高的那个线程最先执行，但也有可能是随机执行，这取决于JVM虚拟机的实现。</li>
+<li>while轮询</li>
+</ul>
+<h3 id="保证线程安全怎么做？"><a href="#保证线程安全怎么做？" class="headerlink" title="保证线程安全怎么做？"></a>保证线程安全怎么做？</h3><p>当多个线程访问某个方法时，不管你通过怎样的调用方式、或者说这些线程如何交替地执行，我们在主程序中不需要去做任何的同步，这个类的结果行为都是我们设想的正确行为，那么我们就可以说这个类是线程安全的。<br>最常见的一种不安全的情况，就是我们A线程在进入方法后，拿到了count的值，刚把这个值读取出来，还没有改变count的值的时候，结果线程B也进来的，那么导致线程A和线程B拿到的count值是一样的。</p>
+<ol>
+<li>synchronized关键字<br>用来控制线程同步的，保证我们的线程在多线程环境下，不被多个线程同时执行，确保我们数据的完整性，使用方法一般是加在方法上。当synchronized锁住一个对象之后，别的线程如果想要获取锁对象，那么就必须等这个线程执行完释放锁对象之后才可以，否则一直处于等待状态。</li>
+<li>Lock<br>Lock是在Java1.6被引入进来的，Lock的引入让锁有了可操作性。从使用上说Lock明显没有synchronized使用起来方便快捷。进入方法我们首先要获取到锁，然后去执行我们业务代码，这里跟synchronized不同的是，Lock获取的所对象需要我们亲自去进行释放，为了防止我们代码出现异常，所以我们的释放锁操作放在finally中，因为finally中的代码无论如何都是会执行的。<br>Lock在获取锁的时候，如果拿不到锁，就一直处于等待状态，直到拿到锁。<br>tryLock有一个Boolean的返回值，如果没有拿到锁，直接返回false，停止等待。</li>
+</ol>
+<h3 id="怎么等一个线程做完"><a href="#怎么等一个线程做完" class="headerlink" title="怎么等一个线程做完"></a>怎么等一个线程做完</h3><p>join ：主线程等待p终止（强调：是主线程处于等的状态，而p是处于运行的状态）<br>p.join只能join住start开启的进程，而不能join住run开启的进程 （即task）</p>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><h3 id="什么是线程池"><a href="#什么是线程池" class="headerlink" title="什么是线程池"></a>什么是线程池</h3><p>线程池就是提前创建若干个线程，如果有任务需要处理，线程池里的线程就会处理任务，处理完之后线程并不会被销毁，而是等待下一个任务。</p>
+<h3 id="为什么要线程池"><a href="#为什么要线程池" class="headerlink" title="为什么要线程池"></a>为什么要线程池</h3><p>由于创建和销毁线程都是消耗系统资源的，所以当需要频繁的创建和销毁线程的时候就可以考虑使用线程池来提升系统的性能。</p>
+<h3 id="四种线程池的创建："><a href="#四种线程池的创建：" class="headerlink" title="四种线程池的创建："></a>四种线程池的创建：</h3><ol>
+<li>newCachedThreadPool创建一个可缓存线程池</li>
+<li>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数。</li>
+<li>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。</li>
+<li>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务。</li>
+</ol>
+<h3 id="线程池的优点？"><a href="#线程池的优点？" class="headerlink" title="线程池的优点？"></a>线程池的优点？</h3><ol>
+<li>重用存在的线程，减少对象创建销毁的开销。</li>
+<li>可有效的控制最大并发线程数，提高系统资源的使用率，同时避免过多资源竞争，避免堵塞。</li>
+<li>提供定时执行、定期执行、单线程、并发数控制等功能。</li>
+</ol>
+<h3 id="线程池的中的线程数量能不能无限增加，为什么"><a href="#线程池的中的线程数量能不能无限增加，为什么" class="headerlink" title="线程池的中的线程数量能不能无限增加，为什么?"></a>线程池的中的线程数量能不能无限增加，为什么?</h3><p>不能，线程需要一定开销，太多线程会耗尽计算机资源，（而且过多线程也无法发挥多线程的优势，毕竟cpu核就那么多）</p>
+<h3 id="java-里任务提交给线程池后，那些任务是存储在哪的"><a href="#java-里任务提交给线程池后，那些任务是存储在哪的" class="headerlink" title="java 里任务提交给线程池后，那些任务是存储在哪的?"></a>java 里任务提交给线程池后，那些任务是存储在哪的?</h3><p>把任务用 Runable（其实也可以是Callable） 表示，放在一个阻塞队列里。</p>
+<h3 id="阻塞队列怎么实现？"><a href="#阻塞队列怎么实现？" class="headerlink" title="阻塞队列怎么实现？"></a>阻塞队列怎么实现？</h3><p>创建一个数组或者链表，每次取元素或者放元素就对数组操作。没有元素而要取元素时，阻塞，满了而要放元素时，阻塞。</p>
+<h3 id="队列满了，那个线程池的-submit-方法会阻塞在那里？"><a href="#队列满了，那个线程池的-submit-方法会阻塞在那里？" class="headerlink" title="队列满了，那个线程池的 submit 方法会阻塞在那里？"></a>队列满了，那个线程池的 submit 方法会阻塞在那里？</h3><ol>
+<li>如果使用的是无界队列 LinkedBlockingQueue，也就是无界队列的话，可以继续添加任务到阻塞队列中等待执行，因为 LinkedBlockingQueue 可以近乎认为是一个无穷大的队列，可以无限存放任务</li>
+<li>如果使用的是有界队列比如 ArrayBlockingQueue，任务首先会被添加到ArrayBlockingQueue 中，ArrayBlockingQueue满了，会根据maximumPoolSize 的值增加线程数量，如果增加了线程数量还是处理不过来，ArrayBlockingQueue 继续满，那么则会使用拒绝策略RejectedExecutionHandler处理满了的任务，默认是AbortPolicy。</li>
+</ol>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><h3 id="线程和协程区别"><a href="#线程和协程区别" class="headerlink" title="线程和协程区别"></a>线程和协程区别</h3><p>协程（Coroutines）是一种比线程更加轻量级的存在，<strong>一个线程可以拥有多个协程。协程不是被操作系统内核所管理的，而是完全由程序所控制，也就是在用户态执行。</strong>这样带来的好处是性能大幅度的提升，因为不会像线程切换那样消耗资源。<br>协程不是进程也不是线程，而是一个特殊的函数，这个函数可以在某个地方挂起，并且可以重新在挂起处外继续运行。所以说，协程与进程、线程相比并不是一个维度的概念。</p>
+<ul>
+<li>进程的切换者是操作系统，切换时机是根据操作系统自己的切换策略，用户是无感知的。进程的切换内容包括页全局目录、内核栈、硬件上下文，切换内容保存在内存中。进程切换过程是由“用户态到内核态到用户态”的方式，切换效率低。</li>
+<li>线程的切换者是操作系统，切换时机是根据操作系统自己的切换策略，用户无感知。线程的切换内容包括内核栈和硬件上下文。线程切换内容保存在内核栈中。线程切换过程是由“用户态到内核态到用户态”， 切换效率中等。</li>
+<li>协程的切换者是用户（编程者或应用程序），切换时机是用户自己的程序所决定的。协程的切换内容是硬件上下文，切换内存保存在用户自己的变量（用户栈或堆）中。协程的切换过程只有用户态，即没有陷入内核态，因此切换效率高。</li>
+</ul>
+<h3 id="协程Coroutine用法"><a href="#协程Coroutine用法" class="headerlink" title="协程Coroutine用法"></a>协程Coroutine用法</h3><ul>
+<li>将复杂操作分帧计算。</li>
+<li>异步下载。</li>
+<li>使用yield return coroutine等待协程，将多个异步逻辑串联。如先进行异步下载，完成下载任务后再接着运算。</li>
+<li>创建互斥区。如某个下载函数同一时刻只能有一个协程进入。</li>
+</ul>
+<h3 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h3><p>协程的完成主要靠yield关键字，带有yield关键字的函数自动变成生成器，根据yield函数的记录标签位置继续执行协程函数的后面部分代码。</p>
+<ul>
+<li>yield return new WaitForSeconds(3.0f); // 等待3秒，然后继续从此处开始，常用于做定时器</li>
+<li>yield return null; // 这一帧到此暂停，下一帧再从暂停处继续，常用于循环中</li>
+<li>yield return new WaitForEndOfFrame(); // 等到这一帧的cameras和GUI渲染结束后再从此处继续，即等到这帧的末尾再往下运行。这行之后的代码还是在当前帧运行，是在下一帧开始前执行，跟return null很相似</li>
+<li>yield return new WaitForFixedUpdate(); // 在下一次执行FixedUpdate的时候继续执行这段代码，即等一次物理引擎的更新</li>
+<li>yield return www; // 等待直至异步下载完成</li>
+<li>yield break; // 直接跳出协程，对某些判定失败必须跳出的时候，比如加载AssetBundle的时候，WWW失败了，后边加载bundle没有必要了，这时候可以yield break跳出。</li>
+<li>yield return StartCoroutine(methodName); // 等待另一个协程执行完。这是把协程串联起来的关键，常用于让多个协程按顺序逐个运行</li>
+</ul>
+<blockquote>
+<p>  <a href="https://www.cnblogs.com/zhehan54/p/6130030.html">https://www.cnblogs.com/zhehan54/p/6130030.html</a><br>    <a href="https://blog.csdn.net/zhaohong_bo/java/article/details/89552188">https://blog.csdn.net/zhaohong_bo/java/article/details/89552188</a><br>    <a href="https://blog.csdn.net/shuilan0066/article/details/7683315">https://blog.csdn.net/shuilan0066/article/details/7683315</a><br>    <a href="https://www.cnblogs.com/YeLing0119/p/9754090.html">https://www.cnblogs.com/YeLing0119/p/9754090.html</a><br>    <a href="https://blog.csdn.net/boteman123/article/details/81000631">https://blog.csdn.net/boteman123/article/details/81000631</a><br>    <a href="https://blog.csdn.net/beidaol/article/details/89135277">https://blog.csdn.net/beidaol/article/details/89135277</a><br>    <a href="https://blog.csdn.net/tanmomo/article/details/99671622">https://blog.csdn.net/tanmomo/article/details/99671622</a><br>    <a href="https://www.jianshu.com/p/bb07a4d047eb">https://www.jianshu.com/p/bb07a4d047eb</a><br>    <a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017628290184064">https://www.liaoxuefeng.com/wiki/1016959663602400/1017628290184064</a><br>    <a href="https://www.cnblogs.com/linuxAndMcu/p/11064916.html">https://www.cnblogs.com/linuxAndMcu/p/11064916.html</a><br>    <a href="https://www.cnblogs.com/CharlesGrant/p/8125841.html">https://www.cnblogs.com/CharlesGrant/p/8125841.html</a><br>    <a href="https://blog.csdn.net/y277an/java/article/details/98697454">https://blog.csdn.net/y277an/java/article/details/98697454</a><br>    <a href="https://www.jianshu.com/p/6dde7f92951e">https://www.jianshu.com/p/6dde7f92951e</a><br>    <a href="https://blog.csdn.net/qq_18995513/article/details/51944602?utm_source=itdadao&amp;utm_medium=referral">https://blog.csdn.net/qq_18995513/article/details/51944602?utm_source=itdadao&amp;utm_medium=referral</a></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    HUANG Liu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://huangliu0909.github.io/2020/12/12/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/" title="进程 线程 协程">https://huangliu0909.github.io/2020/12/12/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/programming-language/" rel="tag"># programming language</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/30/Reading_Note_FL/" rel="next" title="Note for "Federated Machine Learning -- Concept and Applications"">
+                <i class="fa fa-chevron-left"></i> Note for "Federated Machine Learning -- Concept and Applications"
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/23/HashMap/" rel="prev" title="HashMap">
+                HashMap <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">HUANG Liu</p>
+              <p class="site-description motion-element" itemprop="description">Love always wins.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/huangliu0909" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="wiwillow.99@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程和线程"><span class="nav-number">1.</span> <span class="nav-text">进程和线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程与线程的区别"><span class="nav-number">1.1.</span> <span class="nav-text">进程与线程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同一进程中的线程"><span class="nav-number">1.2.</span> <span class="nav-text">同一进程中的线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程"><span class="nav-number">1.3.</span> <span class="nav-text">多进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么创建新进程，内核做了啥？"><span class="nav-number">1.3.1.</span> <span class="nav-text">怎么创建新进程，内核做了啥？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork-作用"><span class="nav-number">1.3.2.</span> <span class="nav-text">fork()作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程相关函数"><span class="nav-number">1.3.3.</span> <span class="nav-text">多进程相关函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信方式"><span class="nav-number">1.3.4.</span> <span class="nav-text">进程间通信方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程"><span class="nav-number">1.4.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程的实现"><span class="nav-number">1.4.1.</span> <span class="nav-text">多线程的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优劣分析"><span class="nav-number">1.4.2.</span> <span class="nav-text">优劣分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程优点"><span class="nav-number">1.4.3.</span> <span class="nav-text">多线程优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程缺点"><span class="nav-number">1.4.4.</span> <span class="nav-text">多线程缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程调度器-Thread-Scheduler-和时间分片-Time-Slicing-？"><span class="nav-number">1.4.5.</span> <span class="nav-text">什么是线程调度器(Thread Scheduler)和时间分片(Time Slicing)？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的调度策略"><span class="nav-number">1.4.6.</span> <span class="nav-text">线程的调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的状态"><span class="nav-number">1.4.7.</span> <span class="nav-text">线程的状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的相关问题"><span class="nav-number">1.5.</span> <span class="nav-text">线程的相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal是什么？有什么用？"><span class="nav-number">1.5.1.</span> <span class="nav-text">ThreadLocal是什么？有什么用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么sleep是Thread的方法而不是Object的"><span class="nav-number">1.5.2.</span> <span class="nav-text">为什么sleep是Thread的方法而不是Object的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程B怎么知道线程A修改了变量"><span class="nav-number">1.5.3.</span> <span class="nav-text">线程B怎么知道线程A修改了变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保证线程安全怎么做？"><span class="nav-number">1.5.4.</span> <span class="nav-text">保证线程安全怎么做？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么等一个线程做完"><span class="nav-number">1.5.5.</span> <span class="nav-text">怎么等一个线程做完</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">1.6.</span> <span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程池"><span class="nav-number">1.6.1.</span> <span class="nav-text">什么是线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要线程池"><span class="nav-number">1.6.2.</span> <span class="nav-text">为什么要线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种线程池的创建："><span class="nav-number">1.6.3.</span> <span class="nav-text">四种线程池的创建：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的优点？"><span class="nav-number">1.6.4.</span> <span class="nav-text">线程池的优点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的中的线程数量能不能无限增加，为什么"><span class="nav-number">1.6.5.</span> <span class="nav-text">线程池的中的线程数量能不能无限增加，为什么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-里任务提交给线程池后，那些任务是存储在哪的"><span class="nav-number">1.6.6.</span> <span class="nav-text">java 里任务提交给线程池后，那些任务是存储在哪的?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞队列怎么实现？"><span class="nav-number">1.6.7.</span> <span class="nav-text">阻塞队列怎么实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列满了，那个线程池的-submit-方法会阻塞在那里？"><span class="nav-number">1.6.8.</span> <span class="nav-text">队列满了，那个线程池的 submit 方法会阻塞在那里？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协程"><span class="nav-number">1.7.</span> <span class="nav-text">协程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程和协程区别"><span class="nav-number">1.7.1.</span> <span class="nav-text">线程和协程区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协程Coroutine用法"><span class="nav-number">1.7.2.</span> <span class="nav-text">协程Coroutine用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield"><span class="nav-number">1.7.3.</span> <span class="nav-text">yield</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HUANG Liu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">56.3k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
