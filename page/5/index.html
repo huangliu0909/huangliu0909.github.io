@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/19/Hashing/">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/08/08/Disjointed_Set/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HUANG Liu">
@@ -305,7 +305,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/07/19/Hashing/" itemprop="url">散列表 Hash Table</a></h1>
+                <a class="post-title-link" href="/2020/08/08/Disjointed_Set/" itemprop="url">并查集 Disjoint Set</a></h1>
         
 
         <div class="post-meta">
@@ -317,8 +317,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-19T17:23:04+08:00">
-                2020-07-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-08T15:14:04+08:00">
+                2020-08-08
               </time>
             
 
@@ -409,10 +409,10 @@
 
       
         
-          <p>散列表是实现字典操作的一种有效数据结构，最坏情况的查找时间是$\theta (n)$，平均查找时间为$O(1)$。<br>散列表是普通数组概念的推广，数组可以直接寻址。<br>当实际存储的关键字数目比全部可能的关键字总数要小时，可以使用散列表来替代直接数组寻址。<br></p>
+          <h2 id="并查集-Disjoint-Set"><a href="#并查集-Disjoint-Set" class="headerlink" title="并查集(Disjoint Set)"></a>并查集(Disjoint Set)</h2><p>互不相交的数据集合。用一个代表元素来识别每个集合，这个元素属于这个集合。基本操作如下：<br>Make-Set：建立一个新的单元素集合<br>Find：判断元素在哪个集合中。可用于判断两个元素是都属于同一集合。<br>Union：把一个集合中的元素并入另一个集合中。<br>该数据结构可用于确定无向图的连通分量：对每个顶点make-set，遍历每一条边对每条边的两顶点的所在set进行union，最终得到的set的集合就是无向图的连通分量。<br></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/07/19/Hashing/#more" rel="contents">
+            <a class="btn" href="/2020/08/08/Disjointed_Set/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -463,7 +463,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/18/Dynamic_Programming/">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/08/08/Graph_Algorithms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HUANG Liu">
@@ -482,7 +482,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/07/18/Dynamic_Programming/" itemprop="url">分治 动态规划 贪心</a></h1>
+                <a class="post-title-link" href="/2020/08/08/Graph_Algorithms/" itemprop="url">图算法</a></h1>
         
 
         <div class="post-meta">
@@ -494,8 +494,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-18T23:37:04+08:00">
-                2020-07-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-08T13:14:04+08:00">
+                2020-08-08
               </time>
             
 
@@ -548,7 +548,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.9k
+                  2.5k
                 </span>
               
 
@@ -564,7 +564,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  6
+                  11
                 </span>
               
             </div>
@@ -586,14 +586,11 @@
 
       
         
-          <h2 id="分治-Divide-and-Conquer"><a href="#分治-Divide-and-Conquer" class="headerlink" title="分治 Divide and Conquer"></a>分治 Divide and Conquer</h2><p>将问题划分为互不相交的子问题。递归地求解子问题的解，再将这些解组合起来，得到原问题的最优解。（eg. 归并排序算法 $T(n)$）</p>
-<ol>
-<li><strong>分解</strong>原问题为若干子问题，这些子问题是原问题的规模较小的实例。<br>eg. 分解带排序的n个元素的序列成各具n/2个元素的两个子序列。 - - -$D(n)=\theta (1)$</li>
-<li><strong>解决</strong>这些子问题。<br>如果子问题规模足够小（<strong>基本情况</strong>），就直接求解，否则（<strong>递归情况</strong>）使用递归进行求解。<br>eg. 使用归并排序递归地排序两个子序列。 - - -$2T(n/2)$</li>
-<li><strong>合并</strong>这些子问题的解获得原问题的解。<br>eg. 合并两个已排序的子序列以产生已排序的答案。 - - -$C(n)=\theta (n)$</li></ol>
+          <p><strong>完整代码见：<a href="https://github.com/huangliu0909/Graph-Algorithms">https://github.com/huangliu0909/Graph-Algorithms</a></strong></p>
+<h2 id="基本图算法"><a href="#基本图算法" class="headerlink" title="基本图算法"></a>基本图算法</h2><h3 id="深度优先搜索-DFS"><a href="#深度优先搜索-DFS" class="headerlink" title="深度优先搜索 DFS"></a>深度优先搜索 DFS</h3><p>使用栈(First-In-Last-Out)，起始点入栈，当栈不为空时，pop，如果这个点未被访问，则标记为已访问，加入结果数组，将与这个点相连的顶点逐个入栈，循环直到栈为空。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/07/18/Dynamic_Programming/#more" rel="contents">
+            <a class="btn" href="/2020/08/08/Graph_Algorithms/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -644,7 +641,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/13/Normalization%20Methods/">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/08/04/Comparison%20Sorts-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HUANG Liu">
@@ -663,7 +660,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/07/13/Normalization%20Methods/" itemprop="url">正则化方法</a></h1>
+                <a class="post-title-link" href="/2020/08/04/Comparison%20Sorts-3/" itemprop="url">比较排序 - 3：快排 堆排 平滑 内省 奇偶</a></h1>
         
 
         <div class="post-meta">
@@ -675,8 +672,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-13T13:09:04+08:00">
-                2020-07-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-04T01:37:04+08:00">
+                2020-08-04
               </time>
             
 
@@ -698,8 +695,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记：深度学习</span>
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记：算法</span>
                   </a>
                 </span>
 
@@ -729,7 +726,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.5k
+                  527
                 </span>
               
 
@@ -745,7 +742,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  2
                 </span>
               
             </div>
@@ -767,10 +764,11 @@
 
       
         
-          <h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p>点估计point estimator：<br>偏差bias：预测值和真实值之间的差异<br>方差variance：描述预测值作为随机变量的离散程度<br>泛化generalization：在先前未观察的输入上表现良好的能力</p>
+          <p><strong>完整排序算法代码：<a href="https://github.com/huangliu0909/Sort-Algorithms">https://github.com/huangliu0909/Sort-Algorithms</a></strong></p>
+<h1 id="快速排序-Quicksort"><a href="#快速排序-Quicksort" class="headerlink" title="快速排序 Quicksort"></a>快速排序 Quicksort</h1><p>快速排序是一种分治算法，不断找到pivot元素，将比它小的放在它左边，比它大的放在右边。双指针从头、从末尾分别开始与pivot比较，如果满足则移动，如果不满足则交换。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/07/13/Normalization%20Methods/#more" rel="contents">
+            <a class="btn" href="/2020/08/04/Comparison%20Sorts-3/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -821,7 +819,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/12/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/08/03/Comparison%20Sorts-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HUANG Liu">
@@ -840,7 +838,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/07/12/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2020/08/03/Comparison%20Sorts-2/" itemprop="url">比较排序 - 2：归并 timsort 桶排序 圈排序</a></h1>
         
 
         <div class="post-meta">
@@ -852,164 +850,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-12T12:09:03+08:00">
-                2020-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  242
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/07/12/hello-world/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/11/CNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HUANG Liu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wiwi's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/07/11/CNN/" itemprop="url">CNN</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-11T13:09:04+08:00">
-                2020-07-11
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-03T01:37:04+08:00">
+                2020-08-03
               </time>
             
 
@@ -1031,8 +873,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记：深度学习</span>
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记：算法</span>
                   </a>
                 </span>
 
@@ -1062,7 +904,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.5k
+                  919
                 </span>
               
 
@@ -1078,7 +920,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  4
                 </span>
               
             </div>
@@ -1100,11 +942,1083 @@
 
       
         
-          <h2 id="卷积运算的定义"><a href="#卷积运算的定义" class="headerlink" title="卷积运算的定义"></a>卷积运算的定义</h2><p>卷积是对两个实变函数的一种特殊的线性运算，满足交换律和结合律。连续形式如下：</p>
-<script type="math/tex; mode=display">s(t)=∫x(a)w(t-a)da</script><p>其中x(·)是输入信号强度(input)，w(·)是权重，也称作核函数(kernel function)。</p>
+          <p><strong>完整排序算法代码：<a href="https://github.com/huangliu0909/Sort-Algorithms">https://github.com/huangliu0909/Sort-Algorithms</a></strong></p>
+<h1 id="归并排序-Merge-sort"><a href="#归并排序-Merge-sort" class="headerlink" title="归并排序 Merge sort"></a>归并排序 Merge sort</h1><p>分治法，每次将一个数组均分成两部分，对这两部分进行merge。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/07/11/CNN/#more" rel="contents">
+            <a class="btn" href="/2020/08/03/Comparison%20Sorts-2/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/08/02/Comparison%20Sorts-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/02/Comparison%20Sorts-1/" itemprop="url">比较排序 - 1：选择 插入 冒泡 鸡尾酒 希尔</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-02T01:37:04+08:00">
+                2020-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记：算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  803
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Comparison-sort"><a href="#Comparison-sort" class="headerlink" title="Comparison sort"></a>Comparison sort</h1><blockquote>
+<p>“A comparison sort is a type of sorting algorithm that only reads the list elements through a single abstract comparison operation (often a “less than or equal to” operator or a three-way comparison) that determines which of two elements should occur first in the final sorted list. The only requirement is that the operator forms a total preorder over the data, with:<br>    if a ≤ b and b ≤ c then a ≤ c (transitivity)<br>    for all a and b, a ≤ b or b ≤ a (connexity).”<br>    From Wikipedia</p>
+</blockquote>
+<p><strong>完整排序算法代码：<a href="https://github.com/huangliu0909/Sort-Algorithms">https://github.com/huangliu0909/Sort-Algorithms</a></strong><br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/08/02/Comparison%20Sorts-1/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/08/01/Counting%20Sorts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/01/Counting%20Sorts/" itemprop="url">计数排序 & 基数排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-01T01:37:04+08:00">
+                2020-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%9A%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记：算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  730
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="计数排序-Counting-sort"><a href="#计数排序-Counting-sort" class="headerlink" title="计数排序 Counting sort"></a>计数排序 Counting sort</h1><blockquote>
+<p>“In computer science, counting sort is an algorithm for sorting a collection of objects according to keys that are small integers; that is, it is an integer sorting algorithm. It operates by counting the number of objects that have each distinct key value, and using arithmetic on those counts to determine the positions of each key value in the output sequence. “   From Wikipedia</p>
+</blockquote>
+<p><strong>完整排序算法代码：<a href="https://github.com/huangliu0909/Sort-Algorithms">https://github.com/huangliu0909/Sort-Algorithms</a></strong><br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/08/01/Counting%20Sorts/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/29/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/29/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url">数据库</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-29T12:23:04+08:00">
+                2020-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
+                    <span itemprop="name">面试准备</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  665
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          expoll了解吗MVCC数据库事务隔离级别多人同时使用数据库的注意事项MySQL与其他主流数据库相比有什么特点？事务的四大特性四种隔离级别什么是幻读InnoDB 怎么防止幻读B+树原理，为什么使用B+而不是二叉平衡树为什么要分用户态和内核态用户态和内核态的区别Git 切换分支，提交，具体如何合并分支数据库部分知识，手写一个 SQL （子查询 感觉主要看 group by 和 having）MyS
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/07/29/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%BA%93/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9APython/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9APython/" itemprop="url">Python</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-28T18:23:04+08:00">
+                2020-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
+                    <span itemprop="name">面试准备</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  915
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="Python可变参数args，-kwargs"><a href="#Python可变参数args，-kwargs" class="headerlink" title="Python可变参数args，*kwargs"></a>Python可变参数<em>args，*</em>kwargs</h3><p>当函数的参数前面有一个星号的时候表示这是一个可变的位置参数<br>两个星号表示这个是一个可变的关键词参数。<br>星号<em>把序列或者集合解包（unpack）成位置参数，两个星号*</em>把字典解包成关键词参数。</p>
+<h3 id="Python内置容器及其容器及其使用场景"><a href="#Python内置容器及其容器及其使用场景" class="headerlink" title="Python内置容器及其容器及其使用场景 "></a>Python内置容器及其容器及其使用场景</h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9APython/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9AJAVA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9AJAVA/" itemprop="url">JAVA</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-28T17:23:04+08:00">
+                2020-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
+                    <span itemprop="name">面试准备</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="面向对象有哪些特征？解释一下"><a href="#面向对象有哪些特征？解释一下" class="headerlink" title="面向对象有哪些特征？解释一下"></a>面向对象有哪些特征？解释一下</h2><p>面向对象主要有四大特性：<em>抽象、封装、继承和多态</em>。<br>OO开发范式大致为：<strong>划分对象→抽象类→将类组织成为层次化结构(继承和合成) →用类与实例进行设计和实现几个阶段。</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9AJAVA/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/07/27/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/27/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url">计算机网络</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-27T17:23:04+08:00">
+                2020-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
+                    <span itemprop="name">面试准备</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  11k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  39
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><p>锁(lock)或互斥(mutex)是一种同步机制，用于在有许多执行线程的环境中强制对资源的访问限制。锁旨在强制实施互斥排他、并发控制策略。</p>
+<h2 id="常见锁机制"><a href="#常见锁机制" class="headerlink" title="常见锁机制"></a>常见锁机制</h2><p>读写锁、可重入锁、乐观锁、悲观锁、公平锁、非公平锁<br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/07/27/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9A%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1146,7 +2060,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/">Return</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/">Return</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next Page</a>
   </nav>
 
 
@@ -1194,7 +2108,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1205,7 +2119,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1216,7 +2130,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -1290,7 +2204,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">56.3k</span>
+    <span title="Site words total count">62.2k</span>
   
 </div>
 

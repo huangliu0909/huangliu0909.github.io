@@ -1101,9 +1101,9 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
     <title>正则化方法</title>
     <url>/2020/07/13/Normalization%20Methods/</url>
     <content><![CDATA[<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p>点估计point estimator：<br>偏差bias：预测值和真实值之间的差异<br>方差variance：描述预测值作为随机变量的离散程度<br>泛化generalization：在先前未观察的输入上表现良好的能力<a id="more"></a><br>准确率accuracy：<br>错误率errorrate：该模型输出错误结果的样本比率，是0-1损失的期望<br>泛化误差：即测试误差<br>模型的容量capacity：拟合各种函数的能力<br>奥卡姆剃刀原则Occam‘s razor：在同样能够解释已有观测现象的假设中，我们应该选择最“简单”的那个。<br>过拟合overfitting：训练误差和测试误差之间差距较大<br>欠拟合underfitting：模型不能再训练集上获得足够低的误差<br>验证集：用来训练超参数<br>k-fold validation：<br>鲁棒性Robust：算法对数据变化的容忍度<br>正则化：对学习算法的修改，旨在减少泛化误差而不是训练误差。</p>
-<h2 id="参数范数惩罚（权重衰减weight-decay）"><a href="#参数范数惩罚（权重衰减weight-decay）" class="headerlink" title="参数范数惩罚（权重衰减weight decay）"></a>参数范数惩罚（权重衰减weight decay）</h2><p>正则化方法对目标函数添加一个参数惩罚项得到正则化后的目标函数：<br>J ̃(θ;x,y)=J(θ;x,y)+αΩ(θ)<br>其中α是权衡范数惩罚项和标准目标函数相对贡献的超参数。<br>神经网络中参数包括权重和偏置，通常只对权重进行惩罚而不对偏置做惩罚。每个权重会指定两个变量如何相互作用，而每个偏置仅控制一个变量，对偏置不进行正则化也不会导致较大方差，对其正则化反而会导致欠拟合。<br>ω：应受范数惩罚影响的权重参数<br>θ：所有参数</p>
-<h3 id="L1正则化"><a href="#L1正则化" class="headerlink" title="L1正则化"></a>L1正则化</h3><p>各个参数绝对值之和：<br>Ω(θ)=‖w‖_1=∑_i▒|w_i |<br>L1范数损失函数<br>L=∑_(i=1)^n▒|y_i-f(x_i )|<br>鲁棒性更好，因为L2将误差平方化，误差会放大很多。<br>L1正则通常被用来进行特征选择，L1范数会使得很多参数的最优解变成0，产生稀疏解。</p>
-<h3 id="L2正则化"><a href="#L2正则化" class="headerlink" title="L2正则化"></a>L2正则化</h3><p>岭回归、Tikhonov正则<br>Ω(θ)=1/2 ‖w‖_2^2=∑_(i=1)^n▒w_i^2<br>L2范数损失函数<br>L=∑_(i=1)^n▒(y_i-f(x_i ))^2<br>使用在LR任务中：最小二乘法。<br>许多线性模型，包括线性回归和PCA，都依赖于对矩阵x^T x求逆。一旦该矩阵奇异，这个方法就失效了。而加入正则化后对应求逆x^T x+αI，这个正则化矩阵是可以保证可逆的。</p>
+<h2 id="参数范数惩罚（权重衰减weight-decay）"><a href="#参数范数惩罚（权重衰减weight-decay）" class="headerlink" title="参数范数惩罚（权重衰减weight decay）"></a>参数范数惩罚（权重衰减weight decay）</h2><p>正则化方法对目标函数添加一个参数惩罚项得到正则化后的目标函数：<br>$J (\theta ;x,y)=J(\theta ;x,y)+\alpha \Omega(\theta)$<br>其中α是权衡范数惩罚项和标准目标函数相对贡献的超参数。<br>神经网络中参数包括权重和偏置，通常只对权重进行惩罚而不对偏置做惩罚。每个权重会指定两个变量如何相互作用，而每个偏置仅控制一个变量，对偏置不进行正则化也不会导致较大方差，对其正则化反而会导致欠拟合。<br>$w$：应受范数惩罚影响的权重参数<br>$\theta$：所有参数</p>
+<h3 id="L1正则化"><a href="#L1正则化" class="headerlink" title="L1正则化"></a>L1正则化</h3><p>各个参数绝对值之和：<br>$\Omega (\theta) = ||w||_1=\sum_i|w_i|$<br>L1范数损失函数<br>$L=\sum_{i=1}^n|y_i-f(x_i)|$<br>鲁棒性更好，因为L2将误差平方化，误差会放大很多。<br>L1正则通常被用来进行特征选择，L1范数会使得很多参数的最优解变成0，产生稀疏解。</p>
+<h3 id="L2正则化"><a href="#L2正则化" class="headerlink" title="L2正则化"></a>L2正则化</h3><p>岭回归、Tikhonov正则<br>$\Omega (\theta)=\frac{1}{2} ||w||_2^2=\sum_{i=1}^nw_i^2$<br>L2范数损失函数<br>$L=\sum_{i=1}^n(y_i-f(x_i))^2$<br>使用在LR任务中：最小二乘法。<br>许多线性模型，包括线性回归和PCA，都依赖于对矩阵$x^T x$求逆。一旦该矩阵奇异，这个方法就失效了。而加入正则化后对应求逆$x^T x+\alpha I$，这个正则化矩阵是可以保证可逆的。</p>
 <h2 id="数据集增强"><a href="#数据集增强" class="headerlink" title="数据集增强"></a>数据集增强</h2><p>创造假数据，注入噪声等。对于对象识别任务使用数据集增强格外有效</p>
 <h2 id="噪声鲁棒性"><a href="#噪声鲁棒性" class="headerlink" title="噪声鲁棒性"></a>噪声鲁棒性</h2><p>向输入添加方差极小的噪声等价于对权重施加范数惩罚<br>将噪声添加到隐藏单元的效果比简单的收缩参数更大<br>施加于权重的噪声可以被解释为与传统正则形式相同<br>显式地对标签上的噪声进行建模可以获得更好的模型效果</p>
 <h2 id="多任务学习"><a href="#多任务学习" class="headerlink" title="多任务学习"></a>多任务学习</h2><p>通过合并不同任务的样例来提高泛化能力。这些不同任务中包含共享的因素。</p>
@@ -1948,20 +1948,6 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
       </tags>
   </entry>
   <entry>
-    <title>Classical Planning</title>
-    <url>/2021/01/14/AI_Classical%20Planning/</url>
-    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><h1 id="Agents"><a href="#Agents" class="headerlink" title="Agents"></a>Agents</h1><p>Perceives its environment through sensors and acts upon the environment through actuators<br><strong>Rational agent</strong>: Acts to achieve the best (expected) outcome<br>For each possible percept sequence, a rational agent should <strong>select an action</strong> that is expected to <strong>maximize its performance measure</strong>, given the evidence provided by the <strong>percept sequence</strong> and whatever <strong>built-in knowledge</strong> the agent has.<br><a id="more"></a></p>
-<h1 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h1>]]></content>
-      <categories>
-        <category>AI Planning and Decision Making</category>
-      </categories>
-      <tags>
-        <tag>NUS note</tag>
-        <tag>AI Planning</tag>
-        <tag>RL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Adversarial Machine Learning</title>
     <url>/2021/01/12/DL_Adversarial%20Machine%20Learning/</url>
     <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Regular ML: build a model based on sample data $x$ in order to make prediction<br>Attack: add invisible noise $\eta$ to clean sample data and fool the model(make the wrong prediction)<br><strong>Adversarial Machine Learning: attempts to fool models by supplying deceptive input</strong><br><em>The malfunction of a ML model may cause damage in many aspects.</em><br><a id="more"></a></p>
@@ -2106,6 +2092,450 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
       <tags>
         <tag>NN</tag>
         <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Classical Planning 1 -- Agents, Environment &amp; Domain</title>
+    <url>/2021/01/14/AI_Classical_Planning_1/</url>
+    <content><![CDATA[<h1 id="Agents"><a href="#Agents" class="headerlink" title="Agents"></a>Agents</h1><p>Perceives its environment through sensors and acts upon the environment through actuators<br><strong>Rational agent</strong>: Acts to achieve the best (expected) outcome<br>For each possible percept sequence, a rational agent should <strong>select an action</strong> that is expected to <strong>maximize its performance measure</strong>, given the evidence provided by the <strong>percept sequence</strong> and whatever <strong>built-in knowledge</strong> the agent has.<br><a id="more"></a></p>
+<h1 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h1><p><img src="/images/CS5446/Environment.png" alt="Environment"></p>
+<h1 id="Classical-Planning"><a href="#Classical-Planning" class="headerlink" title="Classical Planning"></a>Classical Planning</h1><p>Planning: make a sequence of decisions. (choose actions and organize them)<br>Classical planning deals with <em>Fully observable, Deterministic, Finite, Discrete</em> environments.</p>
+<h1 id="Domain-independent-heuristics"><a href="#Domain-independent-heuristics" class="headerlink" title="Domain independent heuristics"></a>Domain independent heuristics</h1><p>Without good heuristics, planning can become difficult very quickly as the problem size grows.<br>Problem solving with search takes a lot of time and memory.<br>Deriving heuristics for individual problems is time consuming.<br><strong>Domain independent heuristics tend to work well in planning.</strong><br>Need specific representations:</p>
+<ul>
+<li>Strips</li>
+<li>Satisfiability</li>
+<li>Planning graph </li>
+</ul>
+]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+        <tag>RL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Classical Planning 2 -- STRIPS VS PDDL</title>
+    <url>/2021/01/21/AI_Classical_Planning_2/</url>
+    <content><![CDATA[<h1 id="Planning"><a href="#Planning" class="headerlink" title="Planning"></a>Planning</h1><p>Planning means identifying appropriate actions and their sequence, it’s the basis of rational behavior.<br>We need to design intelligent machines because:</p>
+<ol>
+<li>the machine may be out of reach, eg. satellites</li>
+<li>experts are not always available.</li>
+</ol>
+<p>So the machine should learn how to work rationally by itself.<br><a id="more"></a></p>
+<h2 id="Types-of-planning"><a href="#Types-of-planning" class="headerlink" title="Types of planning"></a>Types of planning</h2><ul>
+<li>Path and motion planning<br>Generate a path from start to end and a control trajectory along the path.</li>
+<li>Perception planning<br>Sensing actions to gather information and model the environment.</li>
+<li>Navigation planning<br>Motion + perception planning to generate a policy based on localization/sensor-based primitives to explore an area.</li>
+<li>Manipulation planning<br>Concerned with handling objects (think automobile assembly line).</li>
+</ul>
+<h2 id="Solving-planning-problems"><a href="#Solving-planning-problems" class="headerlink" title="Solving planning problems"></a>Solving planning problems</h2><p><strong>Need domain independent representation and efficient solution mechanism.</strong></p>
+<h1 id="STRIPS"><a href="#STRIPS" class="headerlink" title="STRIPS"></a>STRIPS</h1><p>STRIPS and PDDL both are languages to specify the problem.<br>STRIPS is one of the first representation languages for planning by Stanford.</p>
+<h2 id="Factored-representation"><a href="#Factored-representation" class="headerlink" title="Factored representation"></a>Factored representation</h2><p><strong>A atomic representation</strong> is one in which each state is treated as a black box, having no internal structure: the state either does or does not match the goal.</p>
+<p><strong>A factored representation</strong> is one in which the states are defined by set of features, having more internal structure. State is represented as <strong>a set of attribute/value pairs</strong>, e.g. in Strips and Pddl, we use <strong>binary variables</strong> which menas the state is either true or false.</p>
+<p>In planning problems, <strong>state variables are often referred to as fluents</strong>.</p>
+<h2 id="Logic-notation"><a href="#Logic-notation" class="headerlink" title="Logic notation"></a>Logic notation</h2><p><strong>Term</strong>: an object in the world. Can be a variable, constant or function<br><strong>Atomic sentence or Atom</strong>: a predicate(<em>relations</em>) symbol, optionally followed by a parenthesized list of terms, it can be true or false<br><strong>Literal</strong>: atom or its negation<br><strong>Ground literal</strong>: A literal with no variable<br><strong>Sentence or Formula</strong>: Formed from atoms together with quantifiers ($\forall$, $\exists$), logical connectives ($\wedge$, $\vee$, $\neg$), equality symbol ($=$), Sentence can take values 𝑇𝑟𝑢𝑒 or 𝐹𝑎𝑙𝑠𝑒<br><strong>Substitution</strong>: replaces variables by terms<br><strong>Unifier</strong>: takes 2 sentences and returns a substitution that makes the sentence look identical, if such a substitution exists</p>
+<p>For every pair of unifiable sentences, there is a <strong>most general unifier (MGU)</strong>, which is unique up to renaming and substitution of variables<br>Let $\sigma$ be a most general unifier and $\theta$ be a unifier. After applying $\sigma$, we can find another unifier $w$ such that applying $w$ to the output of $\sigma$ gives the same effect as applying $\theta$.</p>
+<h2 id="STRIPS-1"><a href="#STRIPS-1" class="headerlink" title="STRIPS"></a>STRIPS</h2><p>To specify a problem, we need 5 components:</p>
+<ul>
+<li>Initial state</li>
+<li>Goal test</li>
+<li>Set of actions</li>
+<li>Transition model</li>
+<li>Path cost</li>
+</ul>
+<p>With STRIPS, we can specify 4 of them:</p>
+<ul>
+<li>Initial state</li>
+<li>Actions available</li>
+<li>Result of applying an action in a  (Effect)</li>
+<li>Goal state<br><strong>There’s no cost function in STRIPS</strong></li>
+</ul>
+<p><strong>State</strong> is represented by a <strong>conjunction of positive</strong> literals that are <strong>grounded and function-free</strong>. Literals not mentioned are false due to <strong>closed-world assumption</strong>. (unique name assumption)<br>Eg. 𝐴𝑡(𝐹𝑎𝑡ℎ𝑒𝑟(𝐹𝑟𝑒𝑑), 𝑆𝑦𝑑𝑛𝑒𝑦) is not allowed because STRIPS doesn’t allow functions.</p>
+<p><strong>Goal</strong> is a partially specified state, represented as a conjunction of <strong>positive ground literals</strong>.<br>A state 𝑠 satisfies a goal 𝑔 if 𝑠 contains all the literals in 𝑔.</p>
+<p><strong>Action Schema</strong> consists of：</p>
+<ul>
+<li>the action name, </li>
+<li>list of variables used, </li>
+<li><strong>precondition</strong>(conjunction of <strong>function-free positive literals</strong>),</li>
+<li><strong>effect</strong>(conjunction of <strong>function-free (positive/negative) literals</strong>).</li>
+</ul>
+<p>Action 𝑎 is <strong>applicable</strong> in state 𝑠 if all precondition of 𝑎 is satisfied in 𝑠.</p>
+<p>Ground actions: obtained by instantiating the variables in the schema.</p>
+<p>For an action 𝑎 with 𝑣 variables in a domain with 𝑘 objects, there are $O(k^v)$ distinct ground actions in the worst case. So there’s a blow up in the number of ground actions which are difficult to evaluate.</p>
+<p>Result of executing 𝑎 in state 𝑠 is a state 𝑠′ which is a set of fluents formed as follows:</p>
+<ul>
+<li>Start from 𝑠</li>
+<li>Remove fluents that appear as negative literals in the effect (delete list: 𝐷𝐸𝐿(𝑎))</li>
+<li>Add fluents that appear as positive literals in the effect (add list: 𝐴𝐷𝐷(𝑎))</li>
+</ul>
+<script type="math/tex; mode=display">𝑅𝐸𝑆𝑈𝐿𝑇(𝑠, 𝑎)=(𝑠 −𝐷𝐸𝐿(𝑎))\cup 𝐴𝐷𝐷(𝑎)</script><h2 id="STRIPS-summary"><a href="#STRIPS-summary" class="headerlink" title="STRIPS summary"></a>STRIPS summary</h2><p><strong>State</strong>: conjunction of ground positive function-free literals (Closed world assumption)<br><strong>Goal</strong>: conjunction of ground positive function-free literals (Satisfied by states that contain all literals)<br><strong>Action precondition</strong>: conjunction of positive function-free literals<br><strong>Action effects</strong>: conjunction of function-free literals<br>Positive literals for add list<br>Negative literals for delete list</p>
+<h1 id="Planning-domain"><a href="#Planning-domain" class="headerlink" title="Planning domain"></a>Planning domain</h1><p><strong>A set of action schemas define planning domain</strong><br>Planning problem: <strong>action schema + initial state + goal</strong></p>
+<h1 id="PDDL"><a href="#PDDL" class="headerlink" title="PDDL"></a>PDDL</h1><p>Strips – restrictive<br>$\surd$ Efficient to solve (∵ of restrictions)<br>$\Large\times$ Hard to describe the problem</p>
+<p>So we need more expressive power.</p>
+<p><strong>Action Description Language (ADL)</strong></p>
+<ul>
+<li>positive and negative literals in states, <em>open world assumption</em></li>
+<li>quantified variables at goal, conjunctions and disjunctions at goal</li>
+<li>conditional effects</li>
+<li>equality predicate, typed variables</li>
+</ul>
+<p><strong>PDDL : ADL + extensions</strong><br><strong>Inequality predicate – not in STRIPS but available in PDDL</strong>   eg. $a\neq b$</p>
+<h1 id="Solving-the-planning-problem"><a href="#Solving-the-planning-problem" class="headerlink" title="Solving the planning problem"></a>Solving the planning problem</h1><ul>
+<li>Forward Search (heuristics)<br><strong>Very large state space</strong> – exponential with the number of state variables<br><strong>Action space can be very large</strong><br>Forward search is hopeless without <strong>good heuristics</strong></li>
+<li>Backward Search (Research / relevant-state search)</li>
+<li>or combined</li>
+</ul>
+]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+        <tag>RL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Classical Planning 3 -- Solving the planning problem</title>
+    <url>/2021/01/28/AI_Classical_Planning_3/</url>
+    <content><![CDATA[<h1 id="Forward-search-Progression-search"><a href="#Forward-search-Progression-search" class="headerlink" title="Forward search (Progression search)"></a>Forward search (Progression search)</h1><p>Forward search is not useful without heuristic.<br>From the current state, we try to apply actions and see what states we can get in this domain until we reach the goal.<br><a id="more"></a></p>
+<h1 id="Backward-search-Regression-Relevant-state-search"><a href="#Backward-search-Regression-Relevant-state-search" class="headerlink" title="Backward search (Regression / Relevant-state search)"></a>Backward search (Regression / Relevant-state search)</h1><p><strong>state</strong>: conjunction of ground literals<br><strong>description</strong>: conjunction of relevant ground literals + any other fluent</p>
+<ul>
+<li>Subset of first-order logic</li>
+<li>Easy for us to understand and specify</li>
+<li>Hard to deal with</li>
+<li>Hard to develop good heuristics</li>
+<li>Allows formula to represent a set of propositional variables</li>
+</ul>
+<p><em>Description represents a set of states.</em><br>For $n$ ground fluents, there is $2^n$ ground states(true or false) and $3^n$ descriptions(true, false and NA).</p>
+<p>Backward search starts from the goal states and go back.<br>It needs inverse transitions and relevant actions.</p>
+<p>Forward:</p>
+<script type="math/tex; mode=display">𝑔=(𝑠 −𝐷𝐸𝐿(𝑎))\cup 𝐴𝐷𝐷(𝑎)</script><p>Backward:</p>
+<script type="math/tex; mode=display">𝑔′=(𝑔 −𝐴𝐷𝐷(𝑎))\cup 𝑃𝑟𝑒𝑐𝑜𝑛𝑑(𝑎)</script><p>Preconditions must have been true ⇒ add $𝑃𝑟𝑒𝑐𝑜𝑛𝑑(𝑎)$ to $𝑔′$<br>Add-list (or effects) need not be true before the action ⇒ remove $𝐴𝐷𝐷(𝑎)$<br>$𝐷𝐸𝐿(𝑎)$ disappears: it doesn’t matter if they were true or not before the action.</p>
+<p><strong>Relevant actions</strong>:<br>At least one of the action’s effect must unify with an element of the current goal;<br>Must not contain effects that negate an element of the current goal.</p>
+<p>Backward search can improve efficiency, has lower branching factor as compared to forward search (mostly) and does not rule out any solution.</p>
+<h1 id="Heuristics-for-Planning-Relax-the-problem"><a href="#Heuristics-for-Planning-Relax-the-problem" class="headerlink" title="Heuristics for Planning (Relax the problem)"></a>Heuristics for Planning (Relax the problem)</h1><h2 id="Ignore-preconditions-heuristics"><a href="#Ignore-preconditions-heuristics" class="headerlink" title="Ignore preconditions heuristics"></a>Ignore preconditions heuristics</h2><p>Drop all the preconditions<br>Relaxation: actions applicable everywhere<br>Number of steps to solve the problem ≈ number of unsatisfied goals</p>
+<ul>
+<li>Further relax: remove all remove effects except goal literals<br>Need minimum number of actions such that their union satisfies the goal<br>Becomes a set-cover problem (NP-Hard)<br>Greedy algorithm – within a factor of log⁡(𝑛) factor of the optimal</li>
+</ul>
+<h2 id="Ignore-delete-list-heuristic"><a href="#Ignore-delete-list-heuristic" class="headerlink" title="Ignore delete list heuristic"></a>Ignore delete list heuristic</h2><p>Monotonically move towards the goal<br>Relaxation : no action will undo progress made by another action<br>Optimal length of the solution can be used as heuristic<br>Still NP-hard (searching is still exponential)<br>Hill-climbing gives approximate solution in polynomial time(not exact solution)</p>
+<h2 id="Problem-decomposition"><a href="#Problem-decomposition" class="headerlink" title="Problem decomposition"></a>Problem decomposition</h2><p>If each subplan uses an admissible heuristic, take maximum of them for the plan<br>Assume subgoal independence: decompose to disjoint subsets<br>Sum of cost of each plan, if admissible, is better than max of the heuristics</p>
+<p>These are heuristics because:</p>
+<ol>
+<li>There are factor representation</li>
+<li>Use STRIPS to represent the problem</li>
+</ol>
+<h1 id="SATPLAN"><a href="#SATPLAN" class="headerlink" title="SATPLAN"></a>SATPLAN</h1><p>Transfer planning(search) problem to boolean satisfiability problem.<br>SAT is NP-hard, but is still effective in practice with millions of variables and constraints so it can be solved in a good(polynominal) time.</p>
+<p>SAT: Finding an assignment to variables such that: boolean formula becomes TRUE<br>Input to SAT solvers: Conjunctive Normal Form (CNF) formulas</p>
+<ul>
+<li>CNF – conjunction of clauses</li>
+<li>Clause – disjunction of literals</li>
+<li>Literal – variable or its negation</li>
+<li>$\neg$ should appear only on literals</li>
+</ul>
+<h2 id="Any-Boolean-formula-can-be-converted-to-CNF"><a href="#Any-Boolean-formula-can-be-converted-to-CNF" class="headerlink" title="Any Boolean formula can be converted to CNF"></a>Any Boolean formula can be converted to CNF</h2><p>Step1: Eliminate $\Leftrightarrow$; replace $\alpha\Leftrightarrow\beta$ with $\alpha\Rightarrow\beta\wedge\beta\Rightarrow\alpha$<br>Step2: Eliminate $\Rightarrow$; replace $\alpha\Rightarrow\beta$ with $\neg\alpha\vee\beta$<br>Step3: Move $\neg$ inwards by repeatedly applying:<br>$\qquad\neg(\neg\alpha)\equiv\alpha\quad$    Double negation elimination<br>$\qquad\neg(\alpha\wedge\beta)\equiv\neg\alpha\vee\neg\beta\quad$DeMorgan<br>$\qquad\neg(\alpha\vee\beta)\equiv\neg\alpha\wedge\neg\beta\quad$DeMorgan<br>Step4: Apply distributive law<br>Distribute $\vee$ over $\wedge$ when possible.</p>
+<h2 id="Transfrom-STRIPS-to-SAT"><a href="#Transfrom-STRIPS-to-SAT" class="headerlink" title="Transfrom STRIPS to SAT"></a>Transfrom STRIPS to SAT</h2><ol>
+<li>Propositionize actions<br>replace each action scheme with all ground actions.</li>
+<li>Define initial state<br>Assert $F^0$ for every fluent $F$ in initial state and $\neg F^0$ for every fluent not in the initial state.</li>
+<li>Propositionalize the goal<br>Construct a disjunction over <em>all possible ground conjunctions</em> obtained by replacing the variables with constants.</li>
+<li>Add <strong>successor-state axiom</strong> (defining the transition)<br>Stating what is and what is not affected by the action<br>For each fluent $F$ add axiom of the form:<script type="math/tex; mode=display">F^{t+1}\Leftrightarrow ActionCausesF^t\vee(F^t\wedge \neg ActionCausesNotF^t)</script>which means F is true i.i.f. some action caused it or it was already true and no action changed it.<br>$ActionCausesF^t$ is a disjunction of all ground actions that have $F$ in their add list.<br>$ActionCausesNotF^t$ is a disjunction of all ground actions that have $F$ in their delete list.<br><strong>Frame problem</strong><br>Most actions leave most fluents unchanged.<br>Solution: write frame axioms to show nothing else changed on taking an action.<br>For $m$ actions and $n$ fluents, need $O(mn)$ axioms<br>Improvement: successor-state axiom only need $O(n)$<br>Each axiom is longer, but only involves actions that has an affect on the fluent.</li>
+<li>Add <strong>precondition axioms</strong><br>If an action is taken at time $t$, its preconditions must have been true.<br>For each ground action $A$, add axiom $A^t\Rightarrow PRE(A)^t$</li>
+<li>Add <strong>action exclusion axiom</strong><br>Every action is distinct from every other action (only one action is allowed at each time step, two actions cannot happen at the same time)<br>Specify mutual exclusion $\neg (A_i^t\wedge A_j^t)\Leftrightarrow\neg A_i^t\vee\neg A_j^t$</li>
+<li>Create a conjunction of all the axioms (This is the problem definition)</li>
+<li>Convert this conjunction to CNF</li>
+</ol>
+<h2 id="SATPLAN-1"><a href="#SATPLAN-1" class="headerlink" title="SATPLAN"></a>SATPLAN</h2><p>Problem: do not know how many steps<br>Solution: try values $T$ up to $T_{max}$<br>If you get a solution within $T_{max}$ then stop and output it, otherwise we do not know if there exists valid solutions.<br>After finding a solution, we extract the actions and trace back what actions have been done.<br><img src="/images/CS5446/satplan.png" alt="satplan"></p>
+<h2 id="Complexity-of-planning"><a href="#Complexity-of-planning" class="headerlink" title="Complexity of planning"></a>Complexity of planning</h2><p>Worst case: intractable<br>PlanSat: answers the question is there any plan that solves a planning problem.<br>Bounded PlanSat: answers the question if there is a solution of length $k$ or less.<br><strong>Decidable for classical planning as the number of states is finite.</strong><br>PlanSat and BoundedPlanSat are <strong>PSPACE</strong> (solvable with polynomial space)</p>
+]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+        <tag>RL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Planning Graph</title>
+    <url>/2021/02/03/AI_Planning_Graph/</url>
+    <content><![CDATA[<h1 id="Planning-Graphs"><a href="#Planning-Graphs" class="headerlink" title="Planning Graphs"></a>Planning Graphs</h1><p>Search trees grow <strong>exponentially</strong> large very fast. Depth at which the goal first appears means <strong>the minimum number of steps</strong> required to achieve the goal.<br><a id="more"></a></p>
+<p>Planning graph is a <strong>polynomial</strong> sized approximation to the search tree.<br><img src="/images/CS5446/plan_graph.png" alt="Planning_graph"><br>$S_i$ contains all literals that could hold at time $i$ and $A_i$ contains all actions that could have their preconditions satisfied at time $i$.<br>The level at which a literal first appears is <strong>a good estimate of how difficult</strong> it is to achieve the literal. The graph can also estimates which set of propositions are <strong>reachable</strong> from $S_0$ with which actions.</p>
+<p>Planning graphs work only on <strong>propositional planning problems</strong> – need to propositionalize PDDL action schemas.<br><strong>Propositionalize the actions</strong>: replace each action schema with a set of <strong>ground actions</strong> formed by substituting constants for each of the variables. These ground actions are not part of the translation, but will be used in subsequent steps.</p>
+<h2 id="Construct-a-planning-graph"><a href="#Construct-a-planning-graph" class="headerlink" title="Construct a planning graph"></a>Construct a planning graph</h2><p><strong>Level off</strong> – the graph is constructed until two consecutive levels are identical - <strong>constructed level by level</strong></p>
+<p>Search tree:</p>
+<ul>
+<li>one action at each level; branch on each action</li>
+<li>gives true depth when goal is achieved</li>
+</ul>
+<p>Planning graph:</p>
+<ul>
+<li>all actions that have preconditions satisfied appear in parallel and produce all possible effects<br>No need to choose among actions<br>Records if some choices are impossible</li>
+<li>optimistic estimate of goal depth</li>
+</ul>
+<p>Goal: Construct a plan where at each time step, have such a set of actions<br>Planning graph – search for plan with parallel actions OR usual plan search</p>
+<p><img src="/images/CS5446/mutex_link.png" alt="mutex_link"></p>
+<h2 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h2><p>For a planning graph with $l$ literals and $a$ actions,<br>Each $S_i$ has at most $l$ nodes and $O(l^2)$ mutex links</p>
+<p>Each $A_i$ has at most $a+l$ nodes (including no-op), $(a+l)^2$ mutex links, and $2(al+l)$ precondition and effect links</p>
+<p>Entire graph with $n$ levels has size $𝑂(n(a+l)^2)$<br>Same complexity for time to build the graph</p>
+<p><img src="/images/CS5446/Heuristic.png" alt="Heuristic"></p>
+<h1 id="GraphPlan-algorithm"><a href="#GraphPlan-algorithm" class="headerlink" title="GraphPlan algorithm"></a>GraphPlan algorithm</h1><p>A planning graph is a polynominal approximation of the search tree, which means it is much smaller than a search tree for the same planning problem.<br>Constructed level by level.<br>Constrained by mutex links.</p>
+<p>Two-stage: limit the search space + search for solution<br>Expand the graph, if the goal is satisfied, extract the solution(similar to backward search)<br><img src="/images/CS5446/graph_plan.png" alt="graph_plan"></p>
+]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Neural Architecture Search (NAS)</title>
+    <url>/2021/02/03/DL_NAS/</url>
+    <content><![CDATA[<h1 id="Why-do-we-need-neural-architecture-search"><a href="#Why-do-we-need-neural-architecture-search" class="headerlink" title="Why do we need neural architecture search?"></a>Why do we need neural architecture search?</h1><p>To get higher accuracy, the neural nets are getting deeper and more complicated.<br>It requires a lot of expert knowledge and takes lots of time and eventually will go beyond human capacity.</p>
+<p>Neural Architecture Search (NAS) is a kind of Automated Machine Learning (AutoML). Basic idea is to <strong>generate some candidate children networks</strong>, train them, optimize their accuracy until successfully select the best architecture for a given task.<br><a id="more"></a><br>Different optimization methods for NAS:</p>
+<ul>
+<li><strong>Reinforcement Learning</strong> (Zoph &amp; Le 2017; Pham et al. 2018)</li>
+<li>Sequential model-based method (Liu et al. 2018)</li>
+<li>Evolutionary method (Liu et al. 2018)</li>
+<li>Bayesian optimization (Jin et al. 2018)</li>
+<li>Gradient-based model (Liu et al. 2019)</li>
+</ul>
+<h1 id="Vanilla-NAS-—-using-RL-and-RNN-to-search-an-architecture"><a href="#Vanilla-NAS-—-using-RL-and-RNN-to-search-an-architecture" class="headerlink" title="Vanilla NAS — using RL and RNN to search an architecture"></a>Vanilla NAS — using RL and RNN to search an architecture</h1><h2 id="Generate-CNN-using-RNN"><a href="#Generate-CNN-using-RNN" class="headerlink" title="Generate CNN using RNN"></a>Generate CNN using RNN</h2><h3 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h3><p>The structure and connectivity of a neural network can be specified by a<br>variable-length string which can be generated by a RNN(the controller).<br>Training the network specified by the string – the “child network” –<br>on the real data will result in an accuracy on a validation set.<br>Using this accuracy as the reward signal, we can <strong>compute the policy gradient to update the controller</strong>.<br>In the next iteration, the controller will give higher probabilities to architectures that receive high valid accuracies.<br><img src="/images/nndl2/NAS.png" alt="NAS"></p>
+<h3 id="Controller-—-RNN"><a href="#Controller-—-RNN" class="headerlink" title="Controller — RNN"></a>Controller — RNN</h3><p>Use the controller(RNN) to generate their hyper-parameters as a sequence of tokens. It predicts filter height, filter width, stride height, stride width, and number of filters for one layer and repeats. Every prediction is carried out by a softmax classifier and then fed into the next time-step as input.<br>The process of generating an architecture stops if the number of layers is larger than a certain value which is increased in the training process.<br><strong>The parameters of the controller RNN, $\theta_c$, are optimized to maximize the expected validation accuracy of the proposed architectures</strong><br><img src="/images/nndl2/NAS_RNN.png" alt="NAS_RNN"><br>This process can be viewed as reinforcement learning:<br>The list of tokens that the controller predicts can be viewed as a list of actions $a_{1∶T}$ to design an architecture for a child network and the valid accuracy of a given dataset is the feedback $R$.<br>The goal of the controller is to maximize its expected reward $J(\theta_c)$.<br><img src="/images/nndl2/NAS_reward.png" alt="NAS_reward"><br><img src="/images/nndl2/NAS_R.png" alt="NAS_R"><br>The baseline b is an exponential moving average of the previous architecture accuracies and does not depend on the current action. (Similar to Adam)</p>
+<h3 id="Generate-architecture-with-Skip-Connections"><a href="#Generate-architecture-with-Skip-Connections" class="headerlink" title="Generate architecture with Skip Connections"></a>Generate architecture with Skip Connections</h3><p><strong>Set-selection type attention</strong><br>At layer N, we add an anchor point which has <strong>N − 1 content-based sigmoids to indicate the previous layers that need to be connected</strong>.<br>Each sigmoid is a function of current hidden-state of the controller and previous hidden-states of the previous N − 1 anchor points.<br><img src="/images/nndl2/attention.png" alt="attention"><br><img src="/images/nndl2/attention_1.png" alt="attention"></p>
+<p>Failures:</p>
+<ul>
+<li>One layer is not compatible with another layer</li>
+<li>One layer may not have any input or output</li>
+</ul>
+<p>Solutions:</p>
+<ul>
+<li>Pad the smaller layer with zeros.</li>
+<li>If no input layer, take the original data as input.</li>
+<li>Concat all the layers where output is not connected and send this hidden state to the classifier.</li>
+</ul>
+<h2 id="Generate-RNN-using-RNN"><a href="#Generate-RNN-using-RNN" class="headerlink" title="Generate RNN using RNN"></a>Generate RNN using RNN</h2><p><img src="/images/nndl2/RNN_1.png" alt="RNN_1"><br><img src="/images/nndl2/RNN_2.png" alt="RNN_2"></p>
+<h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>In experiments of autoML, we still need human knowledge such as the filter height, number of filters and initialazition of parameters to design the model.<br>Reward for updating the contoller is the maximum validation accuracy of the last 5 epochs(total 50) of one generated model.</p>
+<h3 id="CNN-for-Cifar10"><a href="#CNN-for-Cifar10" class="headerlink" title="CNN for Cifar10"></a>CNN for Cifar10</h3><p>Accuracy by human of denseNet is a little higher than NAS. We wish to minimize the parameters to make the model cheap enough to set into a mobile device. NAS can generate small models with reasonable accuracy.</p>
+<h3 id="RNN-for-Penn-Tree-Bank-dataset"><a href="#RNN-for-Penn-Tree-Bank-dataset" class="headerlink" title="RNN for Penn Tree-Bank dataset"></a>RNN for Penn Tree-Bank dataset</h3><p>LR for controller is 0.0005.<br>The number of input pairs to the RNN cell is called the “<strong>base number</strong>“ and set to 8 in our experiments(much more complex than 2 in the above example).<br>Every child model is constructed and trained for 35 epochs.<br>Every child model has two layers, with the number of hidden units adjusted so that total number of learnable parameters roughly match the “medium” baselines.<br>The reward function is $\frac{c}{(validation\quad perplexity)^2}$.<br>When the base number is 8, the search space has approximately $6×10^{16}$ architectures, it is too expensive to search them all.</p>
+<p>Goal: keep a medium size model<br>NAS works well in this task to have both less parameters and lower test perplexity.</p>
+<h3 id="Policy-Gradient-vs-Random-Search"><a href="#Policy-Gradient-vs-Random-Search" class="headerlink" title="Policy Gradient vs Random Search"></a>Policy Gradient vs Random Search</h3><p><img src="/images/nndl2/vs_random.png" alt="vs_random"></p>
+<h1 id="NASNet-searching-a-cell-rather-than-an-architecture"><a href="#NASNet-searching-a-cell-rather-than-an-architecture" class="headerlink" title="NASNet: searching a cell rather than an architecture"></a>NASNet: searching a cell rather than an architecture</h1><p>Limitations of vanilla NAS:</p>
+<ul>
+<li>Computationally expensive even for small datasets (e.g. Cifar-10)</li>
+<li>No transferable between datasets (from small to large?)</li>
+</ul>
+<p>People observe that successful models are repeating special patterns. So instead of searching the whole architecture, we can search for efficient patterns.</p>
+<h2 id="Concepts-and-Method"><a href="#Concepts-and-Method" class="headerlink" title="Concepts and Method"></a>Concepts and Method</h2><p>It may be possible for the controller to predict a general convolutional cell expressed in terms of motifs. The cell can then be stacked in series to handle inputs of arbitrary spatial dimensions and filter depth.<br>The overall architectures of the convolutional nets are manually predetermined.</p>
+<ul>
+<li>They are composed of convolutional cells repeated many times</li>
+<li>Each cell has the same architecture, but different weights</li>
+</ul>
+<p>Two type of cells to easily build scalable architectures for images of any size:<br><strong>Normal Cell</strong>: returning a feature map of the same dimension.<br><strong>Reduction Cell</strong>: returning a feature map where the feature map’s<br>height and width is reduced by a factor of two.<br>Researchers empirically found it beneficial to learn two separate architectures for normal cell and reduction cell.<br><img src="/images/nndl2/NASNet.png" alt="NASNet"><br>We use a common heuristic to <strong>double the number of filters in the output</strong> whenever the spatial activation size is reduced in order to maintain roughly constant hidden state dimension.<br>We consider the number of motif repeating times N and the number of initial convolutional filters as free parameters.</p>
+<p>Now the question is: how to use a controller to generate a block of a cell.<br>So we first build a block, and combine several blocks as a cell, then use the cell to build the architecture.<br><img src="/images/nndl2/NASNet_block.png" alt="NASNet_block"><br>To allow the controller to predict both Normal Cell and Reduction Cell, we simply make the controller have 2 × 5B predictions in total.<br>The first 5B predictions are for the Normal Cell and the second 5B predictions are for the Reduction Cell.<br><img src="/images/nndl2/NAS34.png" alt="NAS34"><br><img src="/images/nndl2/NAS5.png" alt="NAS5"><br><img src="/images/nndl2/NASNetA.png" alt="NASNetA"></p>
+<h2 id="Experimental-Results"><a href="#Experimental-Results" class="headerlink" title="Experimental Results"></a>Experimental Results</h2><p><img src="/images/nndl2/NASNet_random.png" alt="NASNet_random"></p>
+]]></content>
+      <categories>
+        <category>Neural Network and Deep Learning 2</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+        <tag>RL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Decision Theory 1</title>
+    <url>/2021/02/03/AI_Decision_Theory_1/</url>
+    <content><![CDATA[<h1 id="Uncertainty"><a href="#Uncertainty" class="headerlink" title="Uncertainty"></a>Uncertainty</h1><p>The real environment is full of uncertainty.<br>Partial observability(traffic) + non-determinism(car break down)</p>
+<h1 id="Utility-theory"><a href="#Utility-theory" class="headerlink" title="Utility theory"></a>Utility theory</h1><p>“How agent can make a rational decision in a random environment?”<br>Question for machine is what a rational decision is and how to make rational decisions.<br><a id="more"></a></p>
+<p><strong>Axiomatic approach</strong><br>We say something about the environment and assert they are always true.<br>To define the axioms: start with <strong>preferences</strong> between outcomes $A$ and $B$. Based on the preferences, agents can make a choice.<br>$A&gt;B$: agent prefers $A$ over $B$ (Partial order)<br>$A\sim B$: agent is indifferent between $A$ and $B$<br>$A\ge B$: agent prefers $A$ over $B$ or is indifferent</p>
+<p><strong>Utility – consequence of the preference</strong><br>A function $U$, for any $A,B\in S$ (outcomes in one domain):</p>
+<script type="math/tex; mode=display">U(A)>U(B)\Leftrightarrow A>B</script><script type="math/tex; mode=display">U(A)=U(B)\Leftrightarrow A\sim B</script><p>Function $U$ is not unique, any monotonically increasing transformation will <strong>preserve the preference relation</strong>. </p>
+<p><strong>Lottery</strong> is to model the state of <em>chance</em>.<br>A lottery $L$ with outcomes $S_1,S_2,…,S_n$ that occur with probabilities $p_1,p_2,…,p_n$ is denoted as:</p>
+<script type="math/tex; mode=display">L=[p_1,S_1;p_2,S_2;...p_n,S_n]</script><p>Each of the outcome $S_i$ can be an atomic state or another lottery(another probability).</p>
+<h1 id="Axioms-of-Utility-theory"><a href="#Axioms-of-Utility-theory" class="headerlink" title="Axioms of Utility theory"></a>Axioms of Utility theory</h1><h2 id="Axiom-1-Orderability-or-Completeness"><a href="#Axiom-1-Orderability-or-Completeness" class="headerlink" title="Axiom 1: Orderability or Completeness"></a>Axiom 1: Orderability or Completeness</h2><p>Given any 2 outcomes $A,B\in S$, exactly one of the following holds:<br>$𝐴&gt;B$, $B&gt;A$ and $A\sim B$. </p>
+<h2 id="Axiom-2-Transitivity"><a href="#Axiom-2-Transitivity" class="headerlink" title="Axiom 2: Transitivity"></a>Axiom 2: Transitivity</h2><p>If the agent prefers $A$ to $B$ and $B$ to $C$, then the agent must prefer $A$ to $C$(Similarly for $\sim$):</p>
+<script type="math/tex; mode=display">(A>B)\wedge (B>C)\Rightarrow A>C</script><script type="math/tex; mode=display">(A\sim B)\wedge (B\sim C)\Rightarrow A\sim C</script><p><em>If the order is circle, the transitivity is broken, and the agent is behaving irrationally.</em><br><em>Group preference may be non-transitive, studied in social choice theory</em></p>
+<h2 id="Axiom-3-Continuity"><a href="#Axiom-3-Continuity" class="headerlink" title="Axiom 3: Continuity"></a>Axiom 3: Continuity</h2><p>If $B$ is in between $A$ and $C$ in preference, there must be a probability $p$, such that the agent is indifferent to:</p>
+<script type="math/tex; mode=display">A>B>C\Rightarrow\exists p [p,A;(1-p),C]\sim B</script><h2 id="Axiom-4-Substitutability"><a href="#Axiom-4-Substitutability" class="headerlink" title="Axiom 4: Substitutability"></a>Axiom 4: Substitutability</h2><p>If an agent is indifferent between two lotteries $A$ and $B$, the agent is indifferent to two complex lotteries that are the same, except $B$ is substituted for $A$ in one of the (Similarly for preference):</p>
+<script type="math/tex; mode=display">A\sim B\Rightarrow [p,A;(1-p),C]\sim [p,B;(1-p),C]</script><h2 id="Axiom-5-Monotonicity"><a href="#Axiom-5-Monotonicity" class="headerlink" title="Axiom 5: Monotonicity"></a>Axiom 5: Monotonicity</h2><p>Prefer higher probability of getting prefered outcome:</p>
+<script type="math/tex; mode=display">A>B\Rightarrow ((p>q)\Leftrightarrow [p,A;(1-p),B]>[q,A;(1-q),B])</script><h2 id="Axiom-6-Decomposability"><a href="#Axiom-6-Decomposability" class="headerlink" title="Axiom 6: Decomposability"></a>Axiom 6: Decomposability</h2><p>Compound lotteries can be reduced to simpler ones using laws of probability:</p>
+<script type="math/tex; mode=display">[p,A;(1-p),[q,B;(1-q),C]]\sim [p,A;(1-p)q,B;(1-p)(1-q)C]</script><p><img src="/images/CS5446/Decomposability.png" alt="Decomposability"></p>
+<h1 id="Axioms-to-consequence"><a href="#Axioms-to-consequence" class="headerlink" title="Axioms to consequence"></a>Axioms to consequence</h1><ol>
+<li><p>Existence of Utility function<br>If agent’s preferences obey the axioms of utility, then there exists a function 𝑈 such that, for any two lotteries 𝐴 and 𝐵:</p>
+<script type="math/tex; mode=display">U(A)>U(B)\Leftrightarrow A>B</script><script type="math/tex; mode=display">U(A)\sim U(B)\Leftrightarrow A\sim B</script></li>
+<li><p>Expected Utility of a lottery<br>The utility of a lottery is the expected value of the utilities of the outcomes:</p>
+<script type="math/tex; mode=display">U([p_1,S_1;...;p_n,S_n])=\sum_ip_iU(S_i)</script></li>
+<li><p>Acting Rationally<br>The agent acts rationally, i.f.f. it chooses the action that <strong>maximizes the expected utility</strong>.<br>Agent’s behavior doesn’t change if $U$ is subjected to an <em>affine transformation</em>: $U’(s)=aU(s)+b$ with $a&gt;0$.</p>
+</li>
+</ol>
+<p><em>An affine transformation is any transformation that preserves collinearity (i.e., all points lying on a line initially still lie on a line after transformation) and ratios of distances (e.g., the midpoint of a line segment remains the midpoint after transformation).</em></p>
+<h1 id="Rational-agent"><a href="#Rational-agent" class="headerlink" title="Rational agent"></a>Rational agent</h1><p><strong>Maximum Expected Utility</strong>: Rational agent should choose the action that maximized its expected utility:</p>
+<script type="math/tex; mode=display">\arg\max_a EU(a|e)=\arg\max_a \sum_{s'}P(Result(a)=s'|a,e)U(s')</script><p>Human Irrationality:<br>Decision theory is normative – describe how ration agent should act.<br>Descriptive theory – describe how humans actually act.</p>
+]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Decision Theory 2</title>
+    <url>/2021/02/10/AI_Decision_Theory_2/</url>
+    <content><![CDATA[<h1 id="Decision-Networks"><a href="#Decision-Networks" class="headerlink" title="Decision Networks"></a>Decision Networks</h1><p>Essentially, decision networks are extensions of Bayesian networks.<br>Bayesian networks decrease the number of variables leading to the result.<br>Decision Networks (aka. influence diagrams) is to combine BN with <strong>action and utility nodes</strong> to figure out how to get a specific result.<br><a id="more"></a><br><img src="/images/CS5446/DecisionNetwork.png" alt="Decision Network"><br>A simplified form is to eliminate chance nodes that represent outcome state, which means that action node and current state are directly connected to the utility node.<br>Utility node represents the expected utility associated with each action and is then associated with the action-utility function or 𝑄-function(Q: quality of action)<br>In this lecture we view Probability Inference(refer to Uncertainty in AI) as a black box and use tool to solve it.</p>
+<h1 id="Value-of-information"><a href="#Value-of-information" class="headerlink" title="Value of information"></a>Value of information</h1><p>Assume exact evidence can be obtained about variable $E_j$;<br>To compute <strong>value of perfect information (VPI)</strong>:</p>
+<ol>
+<li>Given current evidence $e$, expected utility with current best action $a$:<script type="math/tex; mode=display">EU(a|e)=\max_a\sum_{s'}P(Result(a)=s'|a,e)U(s')</script></li>
+<li>Value of the best new action after $E_j=e_j$ is obtained:<script type="math/tex; mode=display">EU(a_{e_j}|e,e_j)=\max_a\sum_{s'}P(Result(a)=s'|a,e,e_j)U(s')</script></li>
+<li>Variable $E_j$ can take multiple values $e_{jk}$, so on averaging:<script type="math/tex; mode=display">VPI_e(E_j)=\sum_k P(E_j=e_{jk}|e)EU(a_{e_{jk}}|e,e_{jk})-EU(a|e)</script></li>
+</ol>
+<p>Proporties:</p>
+<ul>
+<li><p>Expected value of information is always non-negative:</p>
+<script type="math/tex; mode=display">\forall e,e_j\quad VPI_e(E_j)\geq 0</script></li>
+<li><p>VPI is not additive:</p>
+<script type="math/tex; mode=display">VPI_e(E_j,E_k)\neq VPI_e(E_j) + VPI_e(E_k)</script></li>
+<li><p>VPI is order independent:</p>
+<script type="math/tex; mode=display">VPI_e(E_j,E_k)= VPI_e(E_j) + VPI_{e,e_j}(E_k)= VPI_e(E_k) + VPI_{e,e_k}(E_j)</script></li>
+</ul>
+<h1 id="Design-a-new-agent"><a href="#Design-a-new-agent" class="headerlink" title="Design a new agent"></a>Design a new agent</h1><p>Agent should gather information before taking actions, if possible.<br><img src="/images/CS5446/ChooseInfo.png" alt="Choose Infomation"></p>
+]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markov Decision Process</title>
+    <url>/2021/02/17/AI_Markov_Decision_Processes/</url>
+    <content><![CDATA[<h1 id="Sequential-decision-problems"><a href="#Sequential-decision-problems" class="headerlink" title="Sequential decision problems"></a>Sequential decision problems</h1><p>Deals with fully observable and partially observable cases.<br>Markovian assumption: Probability depends only on current state $s$ not the history of earlier states.<br>Markov decision process (MDP): A sequential decision problem for a fully observable stochastic environment with Markovian transition and additive rewards.</p>
+<a id="more"></a>
+<p>MDP: $(S, A, T, R)$<br>A set of states, $S$, with initial state $s_0$<br>A set of actions, $A$<br>A transition model, $T$, defined by $P(s’|s,a)$, outcomes of actions are stochastic.<br>A reward function, $R(s)$ (sometimes, more generally: $R(s,a,a’)$, Utility function depends on sequence of states while each state has a corresponding reward 𝑅(𝑠)</p>
+<p>Policy($\pi (s)$) is a solution to MDP(<em>a function from state to action</em>) and <strong>is not unique</strong>. It is a mapping given whatever state in a system and output appropriate actions.<br>The difference is how good these policies are(quality of the policy): measured by the <strong>expected return</strong>(Expected utility of possible state sequence generated by the policy).<br>Optimal policy $\pi^{*}$: policy that generates highest expected utility.</p>
+<h1 id="Ways-to-evaluate"><a href="#Ways-to-evaluate" class="headerlink" title="Ways to evaluate"></a>Ways to evaluate</h1><p><strong>Finite horizon</strong>: </p>
+<ul>
+<li>fixed time $N$ and terminate,</li>
+<li>return is usually the addition of rewards over the sequence:<script type="math/tex; mode=display">U_h([s_0,s_1,...,s_N])=R(s_0)+R(s_1)+...+R(s_N)</script></li>
+<li>optimal action at a state can change depending on how many steps remain,</li>
+<li>optimal policy is <strong>non-stationary</strong>.</li>
+</ul>
+<p><strong>Infinite horizon</strong>:</p>
+<ul>
+<li>no fixed time limit,</li>
+<li>optimal action depends only current state: <strong>stationary</strong>.</li>
+<li>comparing utilities are difficult: utilities can be infinite.</li>
+<li><strong>discounted rewards</strong>: (bounded by $\pm R_{max}$)<script type="math/tex; mode=display">U_h([s_0,s_1,...,s_N])=R(s_0)+\gamma R(s_1)+\gamma^2R(s_2)+...</script><script type="math/tex; mode=display">U_h([s_0,s_1,...,s_N])=\sum_{t=1}^{\infty}\gamma^tR(s_t)\leq\sum_{t=1}^{\infty}\gamma^tR_{max}=\frac{R_{max}}{1-\gamma}</script></li>
+<li><strong>Expected utility</strong> of executing $\pi$ starting from $s$:<script type="math/tex; mode=display">U^{\pi}(s)=E[\sum_{t=1}^{\infty}\gamma^tR_{t}]</script>Optimal policy:<script type="math/tex; mode=display">\pi_s^{*}=\arg\max_{\pi}U^{\pi}(s)</script>Number of policies $\pi$ is finite if the number of states is finite.<br>$n$ states and $a$ actions lead to $a^n$ policies.</li>
+</ul>
+<h1 id="Value-function"><a href="#Value-function" class="headerlink" title="Value function"></a>Value function</h1><p><strong>Value of optimal policy is called value function $U^{\pi^{*}}(s)$</strong><br>Given the value function, we can compute an optimal policy as:</p>
+<script type="math/tex; mode=display">\pi^{*}(s)=\arg\max_{a\in A(s)}\sum_{s'}P(s'|s,a)U(s')</script><h1 id="Value-iteration"><a href="#Value-iteration" class="headerlink" title="Value iteration"></a>Value iteration</h1><p>What if the agent performs suboptimally on purpose? Is the agent still rational? (eg. taking longer route to reduce the probability of utility loss)<br><strong>State variables</strong>: factorced representation, each variable can have various values;<br><strong>State</strong>: atomic representation, each variable is set to be a specific value. A state is an assignment of state variable.</p>
+<p>Fixed point algorithm: run the algorithms many times and it will finally converge to a fixed result.</p>
+<p>If apply an operator to a function, it will be updated to another function.</p>
+<p>The algorithm comes to an end when the utility function no longer update.</p>
+<p>All MDP can be solved by value iteration in theory, but in practice if there are too many states it cannot be solved.</p>
+<h1 id="Policy-iteration"><a href="#Policy-iteration" class="headerlink" title="Policy iteration"></a>Policy iteration</h1><p>Compared to Bellman: no $max$ — linear equations</p>
+<p>“one-step look ahead” to update the policy’s action</p>
+<h1 id="Improving-policy-iteration"><a href="#Improving-policy-iteration" class="headerlink" title="Improving policy iteration"></a>Improving policy iteration</h1><h2 id="Modified-policy-iteration"><a href="#Modified-policy-iteration" class="headerlink" title="Modified policy iteration"></a>Modified policy iteration</h2><p>Do only $k$ iterations instead of going to convergence.<br>Evaluate approximately.</p>
+<h2 id="Asynchronous-policy-iteration"><a href="#Asynchronous-policy-iteration" class="headerlink" title="Asynchronous policy iteration"></a>Asynchronous policy iteration</h2><p>Pick only a subset of states for either policy improvement or for updating in policy evaluation.<br>Converges as long as we continuously update all states.</p>
+<h2 id="Generalized-policy-iteration-a-general-scheme-of-solution"><a href="#Generalized-policy-iteration-a-general-scheme-of-solution" class="headerlink" title="Generalized policy iteration (a general scheme of solution)"></a>Generalized policy iteration (a general scheme of solution)</h2><p>Update value according to policy, and improve policy WRT the value function.<br>VI, PI, Async-PI are all special cases of GPI.</p>
+<h1 id="Online-search"><a href="#Online-search" class="headerlink" title="Online search"></a>Online search</h1>]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Student Performance Analysis</title>
+    <url>/2021/02/12/Info_Vis_A0/</url>
+    <content><![CDATA[<p>This Student Performance dataset includes scores from three exams and a variety of personal, social, and economic factors that have interaction effects upon them.<br>Data source: <a href="http://roycekimmons.com/tools/generated_data/exams">http://roycekimmons.com/tools/generated_data/exams</a><br><a id="more"></a><br>Data samples:<br><img src="/images/CS5346/StudentPerformance/table_sample.png" alt="table_sample.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Bar</span><br><span class="line"></span><br><span class="line">color = sns.color_palette()</span><br><span class="line">SP = pd.read_csv(<span class="string">"StudentsPerformance.csv"</span>)</span><br></pre></td></tr></table></figure>
+<p>Purpose of visualization:</p>
+<h1 id="How-effective-is-the-test-preparation-course"><a href="#How-effective-is-the-test-preparation-course" class="headerlink" title="How effective is the test preparation course?"></a>How effective is the test preparation course?</h1><p>(x, y) represents the proportion(y) of the number of people with this score(x) to the total number of people with/without test preparation.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">prep_none = SP.loc[SP[<span class="string">'test preparation course'</span>] == <span class="string">'none'</span>]</span><br><span class="line">prep = SP.loc[SP[<span class="string">'test preparation course'</span>] == <span class="string">'completed'</span>]</span><br><span class="line"></span><br><span class="line">bar0 = Bar(<span class="string">"Test Preparation Efficiency"</span>, <span class="string">"Math"</span>)</span><br><span class="line">bar0.add(<span class="string">"none"</span>, prep_none[<span class="string">'math score'</span>].value_counts().sort_index().index,</span><br><span class="line">         prep_none[<span class="string">'math score'</span>].value_counts().sort_index().values / len(prep_none[<span class="string">'math score'</span>]))</span><br><span class="line">bar0.add(<span class="string">"completed"</span>, prep[<span class="string">'math score'</span>].value_counts().sort_index().index,</span><br><span class="line">         prep[<span class="string">'math score'</span>].value_counts().sort_index().values / len(prep[<span class="string">'math score'</span>]))</span><br><span class="line">bar0.render(<span class="string">"1-prep2math.html"</span>)</span><br></pre></td></tr></table></figure><br><img src="/images/CS5346/StudentPerformance/1_Test_math.png" alt="1_Test_math.png"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bar1 = Bar(<span class="string">"Test Preparation Efficiency"</span>, <span class="string">"Reading"</span>)</span><br><span class="line">bar1.add(<span class="string">"none"</span>, prep_none[<span class="string">'reading score'</span>].value_counts().sort_index().index,</span><br><span class="line">         prep_none[<span class="string">'reading score'</span>].value_counts().sort_index().values / len(prep_none[<span class="string">'reading score'</span>]))</span><br><span class="line">bar1.add(<span class="string">"completed"</span>, prep[<span class="string">'reading score'</span>].value_counts().sort_index().index,</span><br><span class="line">         prep[<span class="string">'reading score'</span>].value_counts().sort_index().values / len(prep[<span class="string">'reading score'</span>]))</span><br><span class="line">bar1.render(<span class="string">"1-prep2reading.html"</span>)</span><br></pre></td></tr></table></figure><br><img src="/images/CS5346/StudentPerformance/1_Test_reading.png" alt="1_Test_reading.png"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bar2 = Bar(<span class="string">"Test Preparation Efficiency"</span>, <span class="string">"Writing"</span>)</span><br><span class="line">bar2.add(<span class="string">"none"</span>, prep_none[<span class="string">'writing score'</span>].value_counts().sort_index().index,</span><br><span class="line">         prep_none[<span class="string">'writing score'</span>].value_counts().sort_index().values / len(prep_none[<span class="string">'writing score'</span>]))</span><br><span class="line">bar2.add(<span class="string">"completed"</span>, prep[<span class="string">'writing score'</span>].value_counts().sort_index().index,</span><br><span class="line">         prep[<span class="string">'writing score'</span>].value_counts().sort_index().values / len(prep[<span class="string">'writing score'</span>]))</span><br><span class="line">bar2.render(<span class="string">"1-prep2writing.html"</span>)</span><br></pre></td></tr></table></figure><br><img src="/images/CS5346/StudentPerformance/1_Test_writing.png" alt="1_Test_writing.png"></p>
+<p>These histograms show that test preparation courses do not play a big role in overall scores, but they do help people to get high scores(100) in reading and writing. </p>
+<h1 id="What-is-the-distribution-of-parent-level-of-education-and-how-they-contribute-to-students’-scores"><a href="#What-is-the-distribution-of-parent-level-of-education-and-how-they-contribute-to-students’-scores" class="headerlink" title="What is the distribution of parent level of education and how they contribute to students’ scores?"></a>What is the distribution of parent level of education and how they contribute to students’ scores?</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>] = (<span class="number">15</span>, <span class="number">9</span>)</span><br><span class="line">sns.countplot(SP[<span class="string">'parental level of education'</span>], palette=<span class="string">'RdPu'</span>)</span><br><span class="line">plt.title(<span class="string">'Comparison of Parental Education'</span>, fontweight=<span class="number">30</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Degree'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'count'</span>)</span><br><span class="line">plt.savefig(<span class="string">"2-EducationLevel.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/CS5346/StudentPerformance/2-EducationLevel.png" alt="EducationLevel.png"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getgrade</span><span class="params">(score)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> score &gt;= <span class="number">90</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&gt;=90'</span></span><br><span class="line">    <span class="keyword">if</span> score &gt;= <span class="number">80</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'80~90'</span></span><br><span class="line">    <span class="keyword">if</span> score &gt;= <span class="number">70</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'70~80'</span></span><br><span class="line">    <span class="keyword">if</span> score &gt;= <span class="number">60</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'60~70'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Fail'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sns.countplot(x=SP[<span class="string">'parental level of education'</span>], data=SP, hue=SP.apply(<span class="keyword">lambda</span> x: getgrade(x[<span class="string">'math score'</span>]), axis=<span class="number">1</span>),</span><br><span class="line">              palette=<span class="string">'Reds'</span>)</span><br><span class="line">plt.title(<span class="string">'Parent Education vs Math Scores'</span>, fontsize=<span class="number">20</span>, fontweight=<span class="number">30</span>)</span><br><span class="line">plt.savefig(<span class="string">"2-Education2Math.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br><span class="line"></span><br><span class="line">sns.countplot(x=SP[<span class="string">'parental level of education'</span>], data=SP,</span><br><span class="line">              hue=SP.apply(<span class="keyword">lambda</span> x: getgrade(x[<span class="string">'reading score'</span>]), axis=<span class="number">1</span>), palette=<span class="string">'Blues'</span>)</span><br><span class="line">plt.title(<span class="string">'Parent Education vs Reading Scores'</span>, fontsize=<span class="number">20</span>, fontweight=<span class="number">30</span>)</span><br><span class="line">plt.savefig(<span class="string">"2-Education2Reading.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br><span class="line"></span><br><span class="line">sns.countplot(x=SP[<span class="string">'parental level of education'</span>], data=SP,</span><br><span class="line">              hue=SP.apply(<span class="keyword">lambda</span> x: getgrade(x[<span class="string">'writing score'</span>]), axis=<span class="number">1</span>), palette=<span class="string">'Set2'</span>)</span><br><span class="line">plt.title(<span class="string">'Parent Education vs Writing Scores'</span>, fontsize=<span class="number">20</span>, fontweight=<span class="number">30</span>)</span><br><span class="line">plt.savefig(<span class="string">"2-Education2Writing.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br></pre></td></tr></table></figure><br><img src="/images/CS5346/StudentPerformance/2-Education2Math.png" alt="Education2Math.png"><br><img src="/images/CS5346/StudentPerformance/2-Education2Reading.png" alt="Education2Reading.png"><br><img src="/images/CS5346/StudentPerformance/2-Education2Writing.png" alt="Education2Writing.png"><br>Most of parents have degree from college or high school, only a few parents have bachelor’s or master’s degrees. Students whose parents have bachelor’s or master’s degrees are less likely to fail the class.</p>
+<h1 id="What-are-the-statistical-characteristics-of-each-subject’s-scores-and-the-distribution-of-total-score"><a href="#What-are-the-statistical-characteristics-of-each-subject’s-scores-and-the-distribution-of-total-score" class="headerlink" title="What are the statistical characteristics of each subject’s scores and the distribution of total score?"></a>What are the statistical characteristics of each subject’s scores and the distribution of total score?</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>] = (<span class="number">15</span>, <span class="number">9</span>)</span><br><span class="line">colorDic = dict(boxes=<span class="string">'DarkGreen'</span>, whiskers=<span class="string">'DarkOrange'</span>, medians=<span class="string">'DarkBlue'</span>, caps=<span class="string">'Gray'</span>)</span><br><span class="line">SP.plot(kind=<span class="string">'box'</span>, color=colorDic, sym=<span class="string">'r+'</span>, vert=<span class="literal">False</span>)</span><br><span class="line">plt.title(<span class="string">'Comparison of Scores'</span>, fontweight=<span class="number">30</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">plt.savefig(<span class="string">"3-Scores_box.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/CS5346/StudentPerformance/3-Scores_box.png" alt="Education2Writing.png"><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>] = (<span class="number">15</span>, <span class="number">9</span>)</span><br><span class="line">SP.hist([<span class="string">'math score'</span>, <span class="string">'reading score'</span>, <span class="string">'writing score'</span>], ec=<span class="string">'black'</span>, grid=<span class="literal">False</span>, color=<span class="string">'slategrey'</span>)</span><br><span class="line">plt.savefig(<span class="string">"3-Scores_hist.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br></pre></td></tr></table></figure><br><img src="/images/CS5346/StudentPerformance/3-Scores_hist.png" alt="Education2Writing.png"><br>The highest scores in three subjects are 100. Median of writing and reading is around 72 while median of math score is around 66. 25% - 75% scores are in range of 56/58 to 78/80.<br>The distribution of each subject scores can be approximated to the normal distribution.</p>
+<h1 id="What-is-the-hidden-relationship-among-students’-performance-in-various-subjects"><a href="#What-is-the-hidden-relationship-among-students’-performance-in-various-subjects" class="headerlink" title="What is the hidden relationship among students’ performance in various subjects?"></a>What is the hidden relationship among students’ performance in various subjects?</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>] = (<span class="number">15</span>, <span class="number">9</span>)</span><br><span class="line">SP.plot.scatter(x=<span class="string">'math score'</span>, y=<span class="string">'reading score'</span>, c=<span class="string">'writing score'</span>, colormap=<span class="string">'viridis'</span>)</span><br><span class="line">plt.savefig(<span class="string">"4-Relationship.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/CS5346/StudentPerformance/4-Relationship.png" alt="Relation.png"><br>We can see from the scatter plot combined with heat map that the performance of each student in the three courses is very similar, and there is no obvious biased student. Most students pass all three courses. Students with high reading scores also have high writing scores, but their math scores are not necessarily as high. There are more people with a score of 80 or higher in reading and writing than in math.  </p>
+<h1 id="How-does-gender-and-race-influence-to-each-subject"><a href="#How-does-gender-and-race-influence-to-each-subject" class="headerlink" title="How does gender and race influence to each subject?"></a>How does gender and race influence to each subject?</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.countplot(x=SP[<span class="string">'gender'</span>], data=SP,</span><br><span class="line">              hue=SP.apply(<span class="keyword">lambda</span> x: getgrade((x[<span class="string">'math score'</span>] + x[<span class="string">'reading score'</span>] + x[<span class="string">'writing score'</span>]) / <span class="number">3</span>), axis=<span class="number">1</span>),</span><br><span class="line">              palette=<span class="string">'pastel'</span>)</span><br><span class="line">plt.title(<span class="string">'Gender vs Average Scores'</span>, fontsize=<span class="number">20</span>, fontweight=<span class="number">30</span>)</span><br><span class="line">plt.savefig(<span class="string">"5-Gender2Ave.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br></pre></td></tr></table></figure>
+<p><img src="/images/CS5346/StudentPerformance/5-Gender2Ave.png" alt="Gender2Ave.png"><br>This histogram shows that the average score of female is higher than that of male, and the proportion of male who drop out of courses is greater than female.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.countplot(x=SP[<span class="string">'race/ethnicity'</span>], data=SP,</span><br><span class="line">              hue=SP.apply(<span class="keyword">lambda</span> x: getgrade((x[<span class="string">'math score'</span>] + x[<span class="string">'reading score'</span>] + x[<span class="string">'writing score'</span>]) / <span class="number">3</span>), axis=<span class="number">1</span>),</span><br><span class="line">              palette=<span class="string">'husl'</span>)</span><br><span class="line">plt.title(<span class="string">'Race/Ethnicity vs Average Scores'</span>, fontsize=<span class="number">20</span>, fontweight=<span class="number">30</span>)</span><br><span class="line">plt.savefig(<span class="string">"5-Race2Ave.png"</span>)</span><br><span class="line">plt.show()</span><br><span class="line">plt.clf()</span><br></pre></td></tr></table></figure><br><img src="/images/CS5346/StudentPerformance/5-Race2Ave.png" alt="Race2Ave.png"><br>Group C has a higher proportion of failing the sources in average while group E are more likely to get a nice score (&gt;=90).</p>
+]]></content>
+      <categories>
+        <category>Information Visualization</category>
+      </categories>
+      <tags>
+        <tag>Information Visualization</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mixture of Experts (MoE)</title>
+    <url>/2021/02/18/DL_Mixture%20_of_Experts/</url>
+    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Simply increasing the number of parameters may have a negative impact on the performance.<br>Question is: how to scale the model effectively?<br>eg. Switch-Transformer(1.6T parameters)<br>The core framework is <strong>Mixture of Experts</strong>.<br><a id="more"></a></p>
+<p>Conditional computation: word embedding(transfer a high-dimensional vector to a low-dimensional vector)<br>The goal is to increase model capacity without a proportional increase in conputational costs.</p>
+<h1 id="Sparsely-Gated-MoE-for-LSTM"><a href="#Sparsely-Gated-MoE-for-LSTM" class="headerlink" title="Sparsely-Gated MoE for LSTM"></a>Sparsely-Gated MoE for LSTM</h1><p>MoE layer has n expert networks $E_1,…,E_n$, each has its own parameters.<br>$G(x)$: output of the gating network, a sparse n-dimensional vector.<br>$E_i(x)$: output of the $i^{th}$ expert network.<br>Wherever $G(x)_i$ = 0, we don’t need to compute $E_i(x)$.</p>
+<ul>
+<li>Idea of conditional computation.</li>
+<li>We can have up to thousands of experts, but only need to evaluate a few of them for every example.<br><img src="/images/nndl2/moe.png" alt="MixtureOfExperts"><br>Gating networks:</li>
+</ul>
+<ol>
+<li>Softmax Gating: a simple choice of non-sparse function</li>
+<li>Noisy Top-K Gating: sparsity(save computation) and noise(helps with load balancing)<br><img src="/images/nndl2/TopKgating.png" alt="Top-K Gating"><br><strong>Load-Unbalanced Issue</strong><br>Some experts have too many tasks, other experts are idle.</li>
+</ol>
+<ul>
+<li>The system’s speed will be limited by the slowest expert(the busiest expert), which is a very serious issue on distributed systems.</li>
+<li>The gating network tends to converge to a state where it always produces large weights for the same few experts.</li>
+<li>The load-imbalance is <em>self-reinforcing</em>: the favored experts are trained more rapidly and thus are selected even more by the gating network.</li>
+</ul>
+<p><img src="/images/nndl2/moe_loss.png" alt="moe_loss"></p>
+<h1 id="Why-Transformers"><a href="#Why-Transformers" class="headerlink" title="Why Transformers?"></a>Why Transformers?</h1><p>Many researchers are using transformer to replace LSTM.<br>Transformer: Encoder &amp; Decoder</p>
+<h1 id="Sparsely-Gated-MoE-for-Transformers"><a href="#Sparsely-Gated-MoE-for-Transformers" class="headerlink" title="Sparsely-Gated MoE for Transformers"></a>Sparsely-Gated MoE for Transformers</h1>]]></content>
+      <categories>
+        <category>Neural Network and Deep Learning 2</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>NUS note</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Object_detection</title>
+    <url>/2021/02/18/Object_detection/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>面试准备</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LSTM VS Transformer</title>
+    <url>/2021/02/18/LSTM%20VS%20Transformer/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>面试准备</category>
+      </categories>
+      <tags>
+        <tag>NN</tag>
         <tag>ML</tag>
       </tags>
   </entry>
