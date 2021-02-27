@@ -2442,16 +2442,51 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
 </ul>
 <h1 id="Value-function"><a href="#Value-function" class="headerlink" title="Value function"></a>Value function</h1><p><strong>Value of optimal policy is called value function $U^{\pi^{*}}(s)$</strong><br>Given the value function, we can compute an optimal policy as:</p>
 <script type="math/tex; mode=display">\pi^{*}(s)=\arg\max_{a\in A(s)}\sum_{s'}P(s'|s,a)U(s')</script><h1 id="Value-iteration"><a href="#Value-iteration" class="headerlink" title="Value iteration"></a>Value iteration</h1><p>What if the agent performs suboptimally on purpose? Is the agent still rational? (eg. taking longer route to reduce the probability of utility loss)<br><strong>State variables</strong>: factorced representation, each variable can have various values;<br><strong>State</strong>: atomic representation, each variable is set to be a specific value. A state is an assignment of state variable.</p>
-<p>Fixed point algorithm: run the algorithms many times and it will finally converge to a fixed result.</p>
+<p><strong>Fixed point algorithm</strong>: run the algorithms many times and it will finally converge to a fixed result ($\gamma &lt; 1$). The algorithm comes to an end when the utility function no longer update.</p>
 <p>If apply an operator to a function, it will be updated to another function.</p>
-<p>The algorithm comes to an end when the utility function no longer update.</p>
-<p>All MDP can be solved by value iteration in theory, but in practice if there are too many states it cannot be solved.</p>
-<h1 id="Policy-iteration"><a href="#Policy-iteration" class="headerlink" title="Policy iteration"></a>Policy iteration</h1><p>Compared to Bellman: no $max$ — linear equations</p>
-<p>“one-step look ahead” to update the policy’s action</p>
+<p><img src="/images/CS5446/ValueIteration.png" alt="ValueIteration"></p>
+<p>Function – mapping from input to output. For finite domains, function is a vector<br>Operator – takes a function as input and gives another function as output<br>Contraction – distance between 2 functions reduce on applying an operator</p>
+<p><strong>Max norm : $||U||=\max_s U(s)$</strong></p>
+<script type="math/tex; mode=display">||A\cdot B||\leq ||A||\cdot ||B||</script><script type="math/tex; mode=display">||A+B||\leq ||A|| + ||B||</script><p><strong>Bellman operator $B$</strong>: $R^{|s|}\Rightarrow R^{|s|}$</p>
+<script type="math/tex; mode=display">BV(s)=R(s)+\gamma \max_{a\in A} \sum_{s'\in S} P(s'|s,a) V(s') = R + \gamma TV</script><p>$T$ is the transition matrix and $V$ is the value matrix.</p>
+<script type="math/tex; mode=display">||T||=\max_{a,s}\sum_{s'\in S}P(s'|s,a) = \max_s\sum_{s'}T(s,s')=1</script><p><strong>Lemma 1: Bellman operation is a contraction</strong></p>
+<script type="math/tex; mode=display">\begin{aligned}
+||BV - BV'|| &= ||R + \gamma TV - (R + \gamma TV')||\\
+&=||\gamma TV - \gamma TV'||\\
+&=||\gamma T(V-V')||\\
+&\leq\gamma ||T||\cdot ||V-V'|| \\
+&=\gamma ||V-V'||
+\end{aligned}</script><p><strong>Lemma 2: Value Iteration converges to $V^{\pi}$ with any initial estimate $V$</strong><br>Property of convergence: $\forall t, H^t(V^{\pi}) = V^{\pi}$<br>After $N$ iterations:</p>
+<script type="math/tex; mode=display">\begin{aligned}||H^N(V) - H^N(V^{\pi})||&\leq \gamma ||H^{N - 1}(V) - H^{N - 1}(V^{\pi})||\\ &\leq...\\& \leq \gamma^N||H^0(V) - H^0(V^{\pi})||\\ &= \gamma^N||V - V^{\pi}||\end{aligned}</script><p>which is equivalent to:</p>
+<script type="math/tex; mode=display">||H^N(V) - V^{\pi}|| \leq \gamma^N||V - V^{\pi}||</script><p>When $N$ is large enough, the right side of the inequality approaches zero, and the value matrix converge to $V^{\pi}$.<br>$H^t(V)$: apply bellman operator to $V$ for $t$ times</p>
+<p><strong>Time needed to converge:</strong><br>The max initial error is:</p>
+<script type="math/tex; mode=display">||V^{\pi} - V^0||\leq \frac{2\cdot R_{max}}{1-\gamma }</script><p>After $N$ iteration:</p>
+<script type="math/tex; mode=display">||V^{\pi} - V^N||\leq \gamma^N \cdot \frac{2\cdot R_{max}}{1-\gamma }</script><p>Termination condition is for error to be small enough:</p>
+<script type="math/tex; mode=display">\gamma^N\cdot \frac{2\cdot R_{max}}{1-\gamma }\leq \epsilon</script><script type="math/tex; mode=display">\Rightarrow \frac{2\cdot R_{max}}{1-\gamma }\leq (\frac{1}{\gamma})^N</script><script type="math/tex; mode=display">\Rightarrow \frac{log \frac{2\cdot R_{max}}{1-\gamma }}{log (\frac{1}{\gamma})}\leq N</script><p><strong>Approximate Policy Evaluation</strong></p>
+<script type="math/tex; mode=display">||H^N(V) - H^{N - 1}(V)|| \leq \epsilon \Rightarrow ||V^{\pi} - H^N(V) ||\leq \frac{\epsilon}{1 - \gamma}</script><p>proof:</p>
+<script type="math/tex; mode=display">\begin{aligned}||V^{\pi} - H^N(V)||&=||H^{\infty}(V) - H^N(V)||\\ 
+&= ||\sum^{\infty}_{t = N} H^t(V) - H^{t - 1}(V)||\\ 
+&\leq \sum^{\infty}_{t = N} ||H^t(V) - H^{t - 1}(V)||\\
+&=\epsilon + \gamma\cdot\epsilon + \gamma^2 \cdot\epsilon+...\\
+&=\frac{\epsilon}{1-\gamma}\end{aligned}</script><p>So the terminate condition with a discount factor $\gamma$ is :</p>
+<script type="math/tex; mode=display">||H^N(V) - H^{N - 1}(V)|| \leq \epsilon (1 - \gamma)</script><p>All MDP can be solved by value iteration in theory, but in practice if there are too many states it cannot be solved.</p>
+<h1 id="Policy-iteration"><a href="#Policy-iteration" class="headerlink" title="Policy iteration"></a>Policy iteration</h1><p>Problem with VI: Exact algorithm + Scales poorly</p>
+<p>VI compute the utility of each state exactly, but to get an optimal solution we only need to know if one action is clearly better than others. So PI is doing <strong>ordering</strong> of policies.</p>
+<p>Policy evaluation – given a policy $\pi_i$, calculate $U_i = U^{\pi_i}$, if $\pi_i$ is executed.<br>Policy improvement – calculate new policy $\pi_{i + 1}$ using <strong>one-step look ahead</strong> based on $U_i$.<br>Terminate when there is no change in the policy (must terminate since the number of policies is finite).<br><img src="/images/CS5446/PI.png" alt="PolicyIteration"><br><img src="/images/CS5446/PI_evalue.png" alt="Policy evaluation"><br><img src="/images/CS5446/PI_improvement.png" alt="PI_improvement"><br><img src="/images/CS5446/PI_improvement-1.png" alt="PI_improvement"></p>
 <h1 id="Improving-policy-iteration"><a href="#Improving-policy-iteration" class="headerlink" title="Improving policy iteration"></a>Improving policy iteration</h1><h2 id="Modified-policy-iteration"><a href="#Modified-policy-iteration" class="headerlink" title="Modified policy iteration"></a>Modified policy iteration</h2><p>Do only $k$ iterations instead of going to convergence.<br>Evaluate approximately.</p>
 <h2 id="Asynchronous-policy-iteration"><a href="#Asynchronous-policy-iteration" class="headerlink" title="Asynchronous policy iteration"></a>Asynchronous policy iteration</h2><p>Pick only a subset of states for either policy improvement or for updating in policy evaluation.<br>Converges as long as we continuously update all states.</p>
 <h2 id="Generalized-policy-iteration-a-general-scheme-of-solution"><a href="#Generalized-policy-iteration-a-general-scheme-of-solution" class="headerlink" title="Generalized policy iteration (a general scheme of solution)"></a>Generalized policy iteration (a general scheme of solution)</h2><p>Update value according to policy, and improve policy WRT the value function.<br>VI, PI, Async-PI are all special cases of GPI.</p>
-<h1 id="Online-search"><a href="#Online-search" class="headerlink" title="Online search"></a>Online search</h1>]]></content>
+<h1 id="Online-search"><a href="#Online-search" class="headerlink" title="Online search"></a>Online search</h1><p>VI/PI iterates through all states, exponential with the number of variables<br>To handle curse of <strong>dimensionality</strong></p>
+<ul>
+<li>Use function approximation<br>Linear function of features<br>Deep neural networks</li>
+<li>Do online search with sampling</li>
+</ul>
+<p><img src="/images/CS5446/online-search.png" alt="online-search"><br><img src="/images/CS5446/online-search-1.png" alt="online-search"></p>
+<h1 id="Some-other-resources"><a href="#Some-other-resources" class="headerlink" title="Some other resources"></a>Some other resources</h1><blockquote>
+<p><a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/lecture-notes/lecture5-2pp.pdf">https://people.eecs.berkeley.edu/~pabbeel/cs287-fa09/lecture-notes/lecture5-2pp.pdf</a><br><img src="/images/CS5446/Bellman_0.png" alt="Bellman_0"><br><a href="https://www.cs.cmu.edu/~arielpro/15381f16/c_slides/781f16-11.pdf">https://www.cs.cmu.edu/~arielpro/15381f16/c_slides/781f16-11.pdf</a><br><img src="/images/CS5446/Bellman.png" alt="Bellman"><br><img src="/images/CS5446/VIconverge.png" alt="Value Iteration converge"></p>
+</blockquote>
+<p>Within one iteration:<br><img src="/images/CS5446/VIbound.png" alt="Value Iteration Bound"></p>
+]]></content>
       <categories>
         <category>AI Planning and Decision Making</category>
       </categories>
