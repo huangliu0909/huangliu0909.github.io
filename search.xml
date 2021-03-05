@@ -2419,7 +2419,7 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
       </tags>
   </entry>
   <entry>
-    <title>Markov Decision Process</title>
+    <title>Markov Decision Process - VI &amp; PI</title>
     <url>/2021/02/17/AI_Markov_Decision_Processes/</url>
     <content><![CDATA[<h1 id="Sequential-decision-problems"><a href="#Sequential-decision-problems" class="headerlink" title="Sequential decision problems"></a>Sequential decision problems</h1><p>Deals with fully observable and partially observable cases.<br>Markovian assumption: Probability depends only on current state $s$ not the history of earlier states.<br>Markov decision process (MDP): A sequential decision problem for a fully observable stochastic environment with Markovian transition and additive rewards.</p>
 <a id="more"></a>
@@ -2551,27 +2551,96 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
       </tags>
   </entry>
   <entry>
-    <title>Object_detection</title>
-    <url>/2021/02/18/Object_detection/</url>
-    <content><![CDATA[]]></content>
+    <title>Self-Supervised Learning(SSL)</title>
+    <url>/2021/03/01/DL_SSL/</url>
+    <content><![CDATA[<h1 id="Introduction-to-Self-Supervised-Learning-SSL"><a href="#Introduction-to-Self-Supervised-Learning-SSL" class="headerlink" title="Introduction to Self-Supervised Learning (SSL)"></a>Introduction to Self-Supervised Learning (SSL)</h1><h2 id="Technical-terms"><a href="#Technical-terms" class="headerlink" title="Technical terms"></a>Technical terms</h2><p><strong>Supervised Learning</strong>: using data with fine-grained human-annotated labels to train AI models.<br><strong>Semi-supervised Learning</strong>: using a small amount of labeled data and a large amount of unlabeled data.<br><a id="more"></a></p>
+<p><strong>Weakly-supervised Learning</strong>: using data with coarse-grained labels or inaccurate labels.<br>The cost of making weak supervision labels is generally much cheaper than fine-grained labels for supervised methods.<br>e.g. label tiger, cat, dog as ‘animal’<br><strong>Unsupervised Learning</strong>: learning methods without using any human-annotated labels.</p>
+<ul>
+<li><strong>Self-supervised Learning</strong>: models are explicitly trained with <em>automatically generated labels</em>.<br>The learned features can be transferred to multiple different tasks.<br>Self-supervised learning is a subset of unsupervised learning.</li>
+</ul>
+<h2 id="Motivation-of-self-supervised-learning"><a href="#Motivation-of-self-supervised-learning" class="headerlink" title="Motivation of self-supervised learning"></a>Motivation of self-supervised learning</h2><p>Hard/expensive to obtain annotation.<br>Untapped/availability of vast numbers of unlabelled data.<br>Instead of relying on annotations, self-supervised learning generates labels from data by discovering relationships between the data - a step believed to be critical to achieve human-level intelligence.</p>
+<h2 id="Learning-visual-representations-without-human-supervision"><a href="#Learning-visual-representations-without-human-supervision" class="headerlink" title="Learning visual representations without human supervision"></a>Learning visual representations without human supervision</h2><ul>
+<li>Generative approaches<br>It learns to generate or otherwise model pixels in the input space.<br>Pixel-level generation is computationally expensive and may not be necessary for representation learning.</li>
+<li>Discriminative approaches<br>It learns representations using objective functions similar to those used for supervised learning.<br>It trains networks to perform pretext tasks where both the inputs and labels are derived from an unlabeled dataset.<br>Many such approaches used heuristics to design pretext tasks, which could limit the generality of the learned representations.<br>Discriminative approaches based on <em>contrastive learning</em> in the latent space have recently shown great promise, achieving great results.</li>
+</ul>
+<h2 id="Define-a-Pretext-Task-or-Proxy-Task"><a href="#Define-a-Pretext-Task-or-Proxy-Task" class="headerlink" title="Define a Pretext Task or Proxy Task"></a>Define a Pretext Task or Proxy Task</h2><ul>
+<li>Pretext Task (Proxy task)<br>Pre-designed tasks for networks to solve, and features are learned by learning objective functions of pretext tasks.</li>
+<li>Downstream Task<br>Applications that are used to evaluate the quality of features learned by self-supervised learning.<br>These applications can greatly benefit from the pretrained models when training data are not enough.<br><img src="/images/nndl2/ssl.png" alt="Pretext and Downstream task"></li>
+</ul>
+<h2 id="Examples-of-Pretext-Task"><a href="#Examples-of-Pretext-Task" class="headerlink" title="Examples of Pretext Task"></a>Examples of Pretext Task</h2><ul>
+<li>Colourization<br>CNN model learns to predict colours from a greyscale image.</li>
+<li>Placing image patches in the right place<br>The patches are extracted from an image and shuffled.<br>The model learns to solve this jigsaw and arrange the patches in the correct sequence.</li>
+<li>Placing frames in the right order<br>The model learns to sort the shuffled frames in a video sequence.</li>
+</ul>
+<h1 id="SimCLR-state-of-the-art-SSL-framework"><a href="#SimCLR-state-of-the-art-SSL-framework" class="headerlink" title="SimCLR: state-of-the-art SSL framework"></a>SimCLR: state-of-the-art SSL framework</h1><h2 id="The-Intuition-behind-Contrastive-Learning"><a href="#The-Intuition-behind-Contrastive-Learning" class="headerlink" title="The Intuition behind Contrastive Learning"></a>The Intuition behind Contrastive Learning</h2><p>No need to know the exact label of an image.<br>Only need to tell which images are similar and which are different:</p>
+<ul>
+<li>Examples of similar and dissimilar images</li>
+<li>Ability to know what an image represents</li>
+<li>Ability to quantify if two images are similar</li>
+</ul>
+<h2 id="Similar-and-dissimilar-images"><a href="#Similar-and-dissimilar-images" class="headerlink" title="Similar and dissimilar images"></a>Similar and dissimilar images</h2><p>We need example pairs of images that are similar and images that are different to train a model.<br>We need some techniques to get representations that allow the machine to understand an image - to find the pattern.<br><img src="/images/nndl2/simCLR.png" alt="simCLR"></p>
+<h1 id="Step-by-step-example-of-SimCLR"><a href="#Step-by-step-example-of-SimCLR" class="headerlink" title="Step-by-step example of SimCLR"></a>Step-by-step example of SimCLR</h1><h2 id="Self-supervised-Formulation-Data-Augmentation"><a href="#Self-supervised-Formulation-Data-Augmentation" class="headerlink" title="Self-supervised Formulation [Data Augmentation]"></a>Self-supervised Formulation [Data Augmentation]</h2><p><img src="/images/nndl2/ssl_0.png" alt="SSL_data_augmentation"></p>
+<h2 id="Getting-Representations-Base-Encoder"><a href="#Getting-Representations-Base-Encoder" class="headerlink" title="Getting Representations [Base Encoder]"></a>Getting Representations [Base Encoder]</h2><p>Each augmented image in a pair is passed through an encoder to get image representations.<br>The encoder is general and replaceable with other architectures.<br>The two encoders have shared weights and we get vectors $h_i$ and $h_j$.<br>For example, the authors used ResNet-50 architecture as the ConvNet encoder and the output is a 2048-dimensional vector h.<br><img src="/images/nndl2/ssl_1.png" alt="SSL_encoder"></p>
+<h2 id="Projection-Head"><a href="#Projection-Head" class="headerlink" title="Projection Head"></a>Projection Head</h2><p>The representations $h_i$ and $h_j$ of the two augmented images are then passed through several <strong>non-linear Dense → Relu → Dense<br>layers</strong> to apply non-linear transformation and project it into a representation $z_i$ and $z_j$(<strong>embedding vector for augmebted images</strong>).<br>This is denoted by $g(.)$ in the paper and called <strong>projection head</strong>.<br><img src="/images/nndl2/ssl_2.png" alt="SSL_proj_head"></p>
+<h2 id="Tuning-Model-Bringing-similar-closer"><a href="#Tuning-Model-Bringing-similar-closer" class="headerlink" title="Tuning Model: [Bringing similar closer]"></a>Tuning Model: [Bringing similar closer]</h2><p><strong>Calculation of Cosine Similarity</strong><br><img src="/images/nndl2/ssl_cosine.png" alt="SSL_proj_head"></p>
+<p><strong>Loss Calculation</strong><br>SimCLR uses a contrastive loss called <strong>“NT-Xent loss” (Normalized Temperature-Scaled Cross-Entropy Loss)</strong>.</p>
+<ul>
+<li>First, the augmented pairs in the batch are taken one by one.</li>
+<li>Next, we apply the softmax function to get the probability of these two images being similar.<br>This softmax calculation is equivalent to getting the probability of the second augmented cat image being the most similar to the first<br>cat image in the pair.<br>Here, all remaining images in the batch are sampled as a dissimilar image (negative pair).<br>Thus, we don’t need specialized architecture, memory bank or queue need by previous approaches like InstDisc, MoCo or PIRL.<br><img src="/images/nndl2/ssl_loss.png" alt="SSL_loss"></li>
+<li>Then, the loss is calculated for a pair by taking the negative of the log of the Softmax calculation.<br>This formulation is the <strong>Noise Contrastive Estimation(NCE) Loss</strong>.<br><img src="/images/nndl2/ssl_loss_1.png" alt="SSL_loss"><br>We interchange the positions of the images and calculate the loss for the same pair again.</li>
+<li>Finally, we compute loss over all the pairs in the batch of size $N$ and take an average.<br>Based on the loss, the encoder and projection head representations improves over time.<br>The representations obtained place similar images closer.<br><img src="/images/nndl2/ssl_loss_eg.png" alt="SSL_loss_example"></li>
+</ul>
+<h2 id="SimCLR-Algorithm"><a href="#SimCLR-Algorithm" class="headerlink" title="SimCLR Algorithm"></a>SimCLR Algorithm</h2><p><img src="/images/nndl2/SimCLR_algo.png" alt="SimCLR"></p>
+<h2 id="4-major-components-of-SimCLR"><a href="#4-major-components-of-SimCLR" class="headerlink" title="4 major components of SimCLR"></a>4 major components of SimCLR</h2><p><strong>A stochastic data augmentation module</strong> that transforms any given data example randomly resulting in two correlated views of the same example, denoted $\tilde{x}_i$ and $\tilde{x}_j$ (positive pair).</p>
+<ul>
+<li>SimCLR sequentially applied 3 simple augmentations:<br>random cropping followed by resize back to the original size<br>random color distortions<br>random Gaussian blur</li>
+<li>The combination of random crop and color distortion is crucial to a good performance.</li>
+</ul>
+<p><strong>A neural network base encoder f(⋅)</strong> that extracts representation vectors from augmented data examples.</p>
+<ul>
+<li>SimCLR allows different choices of the network architecture without any constraints.<br>For simplicity, SimCLR used ResNet for $h_i=f(x_i)=ResNet(x_i)$ where $h_i\in R^d$ is the <em>output after the average pooling layer</em>.</li>
+</ul>
+<p><strong>A small neural network projection head g(⋅)</strong> that maps representations to the space where contrastive loss is applied.</p>
+<ul>
+<li>SimCLR used a MLP with one hidden layer to obtain</li>
+<li>$z_i = g(h_i) = W^{(2)}ReLU(W^{(1)}h_i)$</li>
+<li>It is beneficial to define the contrastive loss on $z_i$’s rather than $h_i$’s.</li>
+</ul>
+<p><strong>A contrastive loss function</strong> defined for a contrastive prediction task</p>
+<ul>
+<li>Given a data batch $\tilde{x}_k$ including a positive pair of examples $\tilde{x}_i$ and<br>$\tilde{x}_j$, the contrastive prediction task aims to identify $\tilde{x}_j$ in $\{\tilde{x}_k\}_{k\neq i}$ for a given data sample $\tilde{x}_i$.</li>
+</ul>
+<h1 id="Takeaway-of-SimCLR"><a href="#Takeaway-of-SimCLR" class="headerlink" title="Takeaway of SimCLR"></a>Takeaway of SimCLR</h1><ul>
+<li>Combination of multiple data augmentation operations is crucial in defining the contrastive prediction tasks that yield effective representations.<br>In addition, unsupervised contrastive learning benefits from stronger data augmentation than supervised learning.</li>
+<li>Introducing a learnable nonlinear transformation between the representation and the contrastive loss.<br>It substantially improves the quality of the learned representations.</li>
+<li>Representation learning with contrastive cross entropy loss benefits from <strong>normalized embeddings</strong> and an properly tuned <strong>temperature parameter</strong>.</li>
+<li>Contrastive learning benefits from <strong>larger batch sizes</strong> and <strong>longer training</strong> compared to supervised learning.</li>
+<li>Like supervised learning, contrastive learning benefits from <strong>deeper and wider networks</strong>.</li>
+</ul>
+]]></content>
       <categories>
-        <category>面试准备</category>
+        <category>Neural Network and Deep Learning 2</category>
       </categories>
       <tags>
         <tag>NN</tag>
+        <tag>NUS note</tag>
         <tag>ML</tag>
       </tags>
   </entry>
   <entry>
-    <title>LSTM VS Transformer</title>
-    <url>/2021/02/18/LSTM%20VS%20Transformer/</url>
-    <content><![CDATA[]]></content>
+    <title>Markov Decision Process - Tree search</title>
+    <url>/2021/03/20/AI_MDP_1/</url>
+    <content><![CDATA[<h1 id="Online-search-approximate-solution"><a href="#Online-search-approximate-solution" class="headerlink" title="Online search (approximate solution)"></a>Online search (approximate solution)</h1><a id="more"></a>
+<h1 id="Monte-Carlo-Tree-Search"><a href="#Monte-Carlo-Tree-Search" class="headerlink" title="Monte Carlo Tree Search"></a>Monte Carlo Tree Search</h1><p>Reach a leaf node: you have a certain result of winning or losing.<br>If you have not reach the depth, you can add more nodes to the tree(expansion).</p>
+<h1 id="Upper-confidence-tree-UCT"><a href="#Upper-confidence-tree-UCT" class="headerlink" title="Upper confidence tree (UCT)"></a>Upper confidence tree (UCT)</h1><p>Trial in MCTs: selection + …<br>Trial in UCT: selection<br>select a to max Q and min N(n, a) : adaptivity</p>
+<h1 id="POMDP"><a href="#POMDP" class="headerlink" title="POMDP"></a>POMDP</h1><p>Partial Observed</p>
+]]></content>
       <categories>
-        <category>面试准备</category>
+        <category>AI Planning and Decision Making</category>
       </categories>
       <tags>
-        <tag>NN</tag>
-        <tag>ML</tag>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
       </tags>
   </entry>
 </search>

@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NN,NUS note,ML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Introduction to Self-Supervised Learning (SSL)Technical termsSupervised Learning: using data with fine-grained human-annotated labels to train AI models.Semi-supervised Learning: using a small amount">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Self-Supervised Learning(SSL)">
+<meta property="og:url" content="https://huangliu0909.github.io/2021/03/01/DL_SSL/index.html">
+<meta property="og:site_name" content="Wiwi&#39;s Blog">
+<meta property="og:description" content="Introduction to Self-Supervised Learning (SSL)Technical termsSupervised Learning: using data with fine-grained human-annotated labels to train AI models.Semi-supervised Learning: using a small amount">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/ssl.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/simCLR.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/ssl_0.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/ssl_1.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/ssl_2.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/ssl_cosine.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/ssl_loss.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/ssl_loss_1.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/ssl_loss_eg.png">
+<meta property="og:image" content="https://huangliu0909.github.io/images/nndl2/SimCLR_algo.png">
+<meta property="article:published_time" content="2021-03-01T10:11:04.000Z">
+<meta property="article:modified_time" content="2021-03-01T14:15:40.853Z">
+<meta property="article:author" content="HUANG Liu">
+<meta property="article:tag" content="NN">
+<meta property="article:tag" content="NUS note">
+<meta property="article:tag" content="ML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huangliu0909.github.io/images/nndl2/ssl.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://huangliu0909.github.io/2021/03/01/DL_SSL/"/>
+
+
+
+
+
+  <title>Self-Supervised Learning(SSL) | Wiwi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+  <a href="https://github.com/huangliu0909" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+   
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiwi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2021/03/01/DL_SSL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HUANG Liu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wiwi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Self-Supervised Learning(SSL)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-01T18:11:04+08:00">
+                2021-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Neural-Network-and-Deep-Learning-2/" itemprop="url" rel="index">
+                    <span itemprop="name">Neural Network and Deep Learning 2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Introduction-to-Self-Supervised-Learning-SSL"><a href="#Introduction-to-Self-Supervised-Learning-SSL" class="headerlink" title="Introduction to Self-Supervised Learning (SSL)"></a>Introduction to Self-Supervised Learning (SSL)</h1><h2 id="Technical-terms"><a href="#Technical-terms" class="headerlink" title="Technical terms"></a>Technical terms</h2><p><strong>Supervised Learning</strong>: using data with fine-grained human-annotated labels to train AI models.<br><strong>Semi-supervised Learning</strong>: using a small amount of labeled data and a large amount of unlabeled data.<br><a id="more"></a></p>
+<p><strong>Weakly-supervised Learning</strong>: using data with coarse-grained labels or inaccurate labels.<br>The cost of making weak supervision labels is generally much cheaper than fine-grained labels for supervised methods.<br>e.g. label tiger, cat, dog as ‘animal’<br><strong>Unsupervised Learning</strong>: learning methods without using any human-annotated labels.</p>
+<ul>
+<li><strong>Self-supervised Learning</strong>: models are explicitly trained with <em>automatically generated labels</em>.<br>The learned features can be transferred to multiple different tasks.<br>Self-supervised learning is a subset of unsupervised learning.</li>
+</ul>
+<h2 id="Motivation-of-self-supervised-learning"><a href="#Motivation-of-self-supervised-learning" class="headerlink" title="Motivation of self-supervised learning"></a>Motivation of self-supervised learning</h2><p>Hard/expensive to obtain annotation.<br>Untapped/availability of vast numbers of unlabelled data.<br>Instead of relying on annotations, self-supervised learning generates labels from data by discovering relationships between the data - a step believed to be critical to achieve human-level intelligence.</p>
+<h2 id="Learning-visual-representations-without-human-supervision"><a href="#Learning-visual-representations-without-human-supervision" class="headerlink" title="Learning visual representations without human supervision"></a>Learning visual representations without human supervision</h2><ul>
+<li>Generative approaches<br>It learns to generate or otherwise model pixels in the input space.<br>Pixel-level generation is computationally expensive and may not be necessary for representation learning.</li>
+<li>Discriminative approaches<br>It learns representations using objective functions similar to those used for supervised learning.<br>It trains networks to perform pretext tasks where both the inputs and labels are derived from an unlabeled dataset.<br>Many such approaches used heuristics to design pretext tasks, which could limit the generality of the learned representations.<br>Discriminative approaches based on <em>contrastive learning</em> in the latent space have recently shown great promise, achieving great results.</li>
+</ul>
+<h2 id="Define-a-Pretext-Task-or-Proxy-Task"><a href="#Define-a-Pretext-Task-or-Proxy-Task" class="headerlink" title="Define a Pretext Task or Proxy Task"></a>Define a Pretext Task or Proxy Task</h2><ul>
+<li>Pretext Task (Proxy task)<br>Pre-designed tasks for networks to solve, and features are learned by learning objective functions of pretext tasks.</li>
+<li>Downstream Task<br>Applications that are used to evaluate the quality of features learned by self-supervised learning.<br>These applications can greatly benefit from the pretrained models when training data are not enough.<br><img src="/images/nndl2/ssl.png" alt="Pretext and Downstream task"></li>
+</ul>
+<h2 id="Examples-of-Pretext-Task"><a href="#Examples-of-Pretext-Task" class="headerlink" title="Examples of Pretext Task"></a>Examples of Pretext Task</h2><ul>
+<li>Colourization<br>CNN model learns to predict colours from a greyscale image.</li>
+<li>Placing image patches in the right place<br>The patches are extracted from an image and shuffled.<br>The model learns to solve this jigsaw and arrange the patches in the correct sequence.</li>
+<li>Placing frames in the right order<br>The model learns to sort the shuffled frames in a video sequence.</li>
+</ul>
+<h1 id="SimCLR-state-of-the-art-SSL-framework"><a href="#SimCLR-state-of-the-art-SSL-framework" class="headerlink" title="SimCLR: state-of-the-art SSL framework"></a>SimCLR: state-of-the-art SSL framework</h1><h2 id="The-Intuition-behind-Contrastive-Learning"><a href="#The-Intuition-behind-Contrastive-Learning" class="headerlink" title="The Intuition behind Contrastive Learning"></a>The Intuition behind Contrastive Learning</h2><p>No need to know the exact label of an image.<br>Only need to tell which images are similar and which are different:</p>
+<ul>
+<li>Examples of similar and dissimilar images</li>
+<li>Ability to know what an image represents</li>
+<li>Ability to quantify if two images are similar</li>
+</ul>
+<h2 id="Similar-and-dissimilar-images"><a href="#Similar-and-dissimilar-images" class="headerlink" title="Similar and dissimilar images"></a>Similar and dissimilar images</h2><p>We need example pairs of images that are similar and images that are different to train a model.<br>We need some techniques to get representations that allow the machine to understand an image - to find the pattern.<br><img src="/images/nndl2/simCLR.png" alt="simCLR"></p>
+<h1 id="Step-by-step-example-of-SimCLR"><a href="#Step-by-step-example-of-SimCLR" class="headerlink" title="Step-by-step example of SimCLR"></a>Step-by-step example of SimCLR</h1><h2 id="Self-supervised-Formulation-Data-Augmentation"><a href="#Self-supervised-Formulation-Data-Augmentation" class="headerlink" title="Self-supervised Formulation [Data Augmentation]"></a>Self-supervised Formulation [Data Augmentation]</h2><p><img src="/images/nndl2/ssl_0.png" alt="SSL_data_augmentation"></p>
+<h2 id="Getting-Representations-Base-Encoder"><a href="#Getting-Representations-Base-Encoder" class="headerlink" title="Getting Representations [Base Encoder]"></a>Getting Representations [Base Encoder]</h2><p>Each augmented image in a pair is passed through an encoder to get image representations.<br>The encoder is general and replaceable with other architectures.<br>The two encoders have shared weights and we get vectors $h_i$ and $h_j$.<br>For example, the authors used ResNet-50 architecture as the ConvNet encoder and the output is a 2048-dimensional vector h.<br><img src="/images/nndl2/ssl_1.png" alt="SSL_encoder"></p>
+<h2 id="Projection-Head"><a href="#Projection-Head" class="headerlink" title="Projection Head"></a>Projection Head</h2><p>The representations $h_i$ and $h_j$ of the two augmented images are then passed through several <strong>non-linear Dense → Relu → Dense<br>layers</strong> to apply non-linear transformation and project it into a representation $z_i$ and $z_j$(<strong>embedding vector for augmebted images</strong>).<br>This is denoted by $g(.)$ in the paper and called <strong>projection head</strong>.<br><img src="/images/nndl2/ssl_2.png" alt="SSL_proj_head"></p>
+<h2 id="Tuning-Model-Bringing-similar-closer"><a href="#Tuning-Model-Bringing-similar-closer" class="headerlink" title="Tuning Model: [Bringing similar closer]"></a>Tuning Model: [Bringing similar closer]</h2><p><strong>Calculation of Cosine Similarity</strong><br><img src="/images/nndl2/ssl_cosine.png" alt="SSL_proj_head"></p>
+<p><strong>Loss Calculation</strong><br>SimCLR uses a contrastive loss called <strong>“NT-Xent loss” (Normalized Temperature-Scaled Cross-Entropy Loss)</strong>.</p>
+<ul>
+<li>First, the augmented pairs in the batch are taken one by one.</li>
+<li>Next, we apply the softmax function to get the probability of these two images being similar.<br>This softmax calculation is equivalent to getting the probability of the second augmented cat image being the most similar to the first<br>cat image in the pair.<br>Here, all remaining images in the batch are sampled as a dissimilar image (negative pair).<br>Thus, we don’t need specialized architecture, memory bank or queue need by previous approaches like InstDisc, MoCo or PIRL.<br><img src="/images/nndl2/ssl_loss.png" alt="SSL_loss"></li>
+<li>Then, the loss is calculated for a pair by taking the negative of the log of the Softmax calculation.<br>This formulation is the <strong>Noise Contrastive Estimation(NCE) Loss</strong>.<br><img src="/images/nndl2/ssl_loss_1.png" alt="SSL_loss"><br>We interchange the positions of the images and calculate the loss for the same pair again.</li>
+<li>Finally, we compute loss over all the pairs in the batch of size $N$ and take an average.<br>Based on the loss, the encoder and projection head representations improves over time.<br>The representations obtained place similar images closer.<br><img src="/images/nndl2/ssl_loss_eg.png" alt="SSL_loss_example"></li>
+</ul>
+<h2 id="SimCLR-Algorithm"><a href="#SimCLR-Algorithm" class="headerlink" title="SimCLR Algorithm"></a>SimCLR Algorithm</h2><p><img src="/images/nndl2/SimCLR_algo.png" alt="SimCLR"></p>
+<h2 id="4-major-components-of-SimCLR"><a href="#4-major-components-of-SimCLR" class="headerlink" title="4 major components of SimCLR"></a>4 major components of SimCLR</h2><p><strong>A stochastic data augmentation module</strong> that transforms any given data example randomly resulting in two correlated views of the same example, denoted $\tilde{x}_i$ and $\tilde{x}_j$ (positive pair).</p>
+<ul>
+<li>SimCLR sequentially applied 3 simple augmentations:<br>random cropping followed by resize back to the original size<br>random color distortions<br>random Gaussian blur</li>
+<li>The combination of random crop and color distortion is crucial to a good performance.</li>
+</ul>
+<p><strong>A neural network base encoder f(⋅)</strong> that extracts representation vectors from augmented data examples.</p>
+<ul>
+<li>SimCLR allows different choices of the network architecture without any constraints.<br>For simplicity, SimCLR used ResNet for $h_i=f(x_i)=ResNet(x_i)$ where $h_i\in R^d$ is the <em>output after the average pooling layer</em>.</li>
+</ul>
+<p><strong>A small neural network projection head g(⋅)</strong> that maps representations to the space where contrastive loss is applied.</p>
+<ul>
+<li>SimCLR used a MLP with one hidden layer to obtain</li>
+<li>$z_i = g(h_i) = W^{(2)}ReLU(W^{(1)}h_i)$</li>
+<li>It is beneficial to define the contrastive loss on $z_i$’s rather than $h_i$’s.</li>
+</ul>
+<p><strong>A contrastive loss function</strong> defined for a contrastive prediction task</p>
+<ul>
+<li>Given a data batch $\tilde{x}_k$ including a positive pair of examples $\tilde{x}_i$ and<br>$\tilde{x}_j$, the contrastive prediction task aims to identify $\tilde{x}_j$ in $\{\tilde{x}_k\}_{k\neq i}$ for a given data sample $\tilde{x}_i$.</li>
+</ul>
+<h1 id="Takeaway-of-SimCLR"><a href="#Takeaway-of-SimCLR" class="headerlink" title="Takeaway of SimCLR"></a>Takeaway of SimCLR</h1><ul>
+<li>Combination of multiple data augmentation operations is crucial in defining the contrastive prediction tasks that yield effective representations.<br>In addition, unsupervised contrastive learning benefits from stronger data augmentation than supervised learning.</li>
+<li>Introducing a learnable nonlinear transformation between the representation and the contrastive loss.<br>It substantially improves the quality of the learned representations.</li>
+<li>Representation learning with contrastive cross entropy loss benefits from <strong>normalized embeddings</strong> and an properly tuned <strong>temperature parameter</strong>.</li>
+<li>Contrastive learning benefits from <strong>larger batch sizes</strong> and <strong>longer training</strong> compared to supervised learning.</li>
+<li>Like supervised learning, contrastive learning benefits from <strong>deeper and wider networks</strong>.</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    HUANG Liu
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://huangliu0909.github.io/2021/03/01/DL_SSL/" title="Self-Supervised Learning(SSL)">https://huangliu0909.github.io/2021/03/01/DL_SSL/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NN/" rel="tag"># NN</a>
+          
+            <a href="/tags/NUS-note/" rel="tag"># NUS note</a>
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/18/DL_Mixture%20_of_Experts/" rel="next" title="Mixture of Experts (MoE)">
+                <i class="fa fa-chevron-left"></i> Mixture of Experts (MoE)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/20/AI_MDP_1/" rel="prev" title="Markov Decision Process - Tree search">
+                Markov Decision Process - Tree search <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">HUANG Liu</p>
+              <p class="site-description motion-element" itemprop="description">Love always wins.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/huangliu0909" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="wiwillow.99@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-to-Self-Supervised-Learning-SSL"><span class="nav-number">1.</span> <span class="nav-text">Introduction to Self-Supervised Learning (SSL)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Technical-terms"><span class="nav-number">1.1.</span> <span class="nav-text">Technical terms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation-of-self-supervised-learning"><span class="nav-number">1.2.</span> <span class="nav-text">Motivation of self-supervised learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learning-visual-representations-without-human-supervision"><span class="nav-number">1.3.</span> <span class="nav-text">Learning visual representations without human supervision</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Define-a-Pretext-Task-or-Proxy-Task"><span class="nav-number">1.4.</span> <span class="nav-text">Define a Pretext Task or Proxy Task</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples-of-Pretext-Task"><span class="nav-number">1.5.</span> <span class="nav-text">Examples of Pretext Task</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SimCLR-state-of-the-art-SSL-framework"><span class="nav-number">2.</span> <span class="nav-text">SimCLR: state-of-the-art SSL framework</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Intuition-behind-Contrastive-Learning"><span class="nav-number">2.1.</span> <span class="nav-text">The Intuition behind Contrastive Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Similar-and-dissimilar-images"><span class="nav-number">2.2.</span> <span class="nav-text">Similar and dissimilar images</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Step-by-step-example-of-SimCLR"><span class="nav-number">3.</span> <span class="nav-text">Step-by-step example of SimCLR</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Self-supervised-Formulation-Data-Augmentation"><span class="nav-number">3.1.</span> <span class="nav-text">Self-supervised Formulation [Data Augmentation]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Getting-Representations-Base-Encoder"><span class="nav-number">3.2.</span> <span class="nav-text">Getting Representations [Base Encoder]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Projection-Head"><span class="nav-number">3.3.</span> <span class="nav-text">Projection Head</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tuning-Model-Bringing-similar-closer"><span class="nav-number">3.4.</span> <span class="nav-text">Tuning Model: [Bringing similar closer]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SimCLR-Algorithm"><span class="nav-number">3.5.</span> <span class="nav-text">SimCLR Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-major-components-of-SimCLR"><span class="nav-number">3.6.</span> <span class="nav-text">4 major components of SimCLR</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Takeaway-of-SimCLR"><span class="nav-number">4.</span> <span class="nav-text">Takeaway of SimCLR</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HUANG Liu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">64k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

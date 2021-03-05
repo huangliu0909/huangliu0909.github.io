@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NN,ML," />
+  <meta name="keywords" content="NUS note,AI Planning," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Love always wins.">
+<meta name="description" content="Online search (approximate solution)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LSTM VS Transformer">
-<meta property="og:url" content="https://huangliu0909.github.io/2021/02/18/LSTM%20VS%20Transformer/index.html">
+<meta property="og:title" content="Markov Decision Process - Tree search">
+<meta property="og:url" content="https://huangliu0909.github.io/2021/03/20/AI_MDP_1/index.html">
 <meta property="og:site_name" content="Wiwi&#39;s Blog">
-<meta property="og:description" content="Love always wins.">
+<meta property="og:description" content="Online search (approximate solution)">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-02-18T09:23:04.000Z">
-<meta property="article:modified_time" content="2021-02-18T08:43:35.113Z">
+<meta property="article:published_time" content="2021-03-20T10:11:04.000Z">
+<meta property="article:modified_time" content="2021-03-05T03:17:09.154Z">
 <meta property="article:author" content="HUANG Liu">
-<meta property="article:tag" content="NN">
-<meta property="article:tag" content="ML">
+<meta property="article:tag" content="NUS note">
+<meta property="article:tag" content="AI Planning">
 <meta name="twitter:card" content="summary">
 
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://huangliu0909.github.io/2021/02/18/LSTM VS Transformer/"/>
+  <link rel="canonical" href="https://huangliu0909.github.io/2021/03/20/AI_MDP_1/"/>
 
 
 
 
 
-  <title>LSTM VS Transformer | Wiwi's Blog</title>
+  <title>Markov Decision Process - Tree search | Wiwi's Blog</title>
   
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2021/02/18/LSTM%20VS%20Transformer/">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2021/03/20/AI_MDP_1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HUANG Liu">
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LSTM VS Transformer</h1>
+          <h1 class="post-title" itemprop="name headline">Markov Decision Process - Tree search</h1>
         
 
         <div class="post-meta">
@@ -318,8 +318,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-02-18T17:23:04+08:00">
-                2021-02-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-20T18:11:04+08:00">
+                2021-03-20
               </time>
             
 
@@ -341,8 +341,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
-                    <span itemprop="name">面试准备</span>
+                  <a href="/categories/AI-Planning-and-Decision-Making/" itemprop="url" rel="index">
+                    <span itemprop="name">AI Planning and Decision Making</span>
                   </a>
                 </span>
 
@@ -372,7 +372,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  0
+                  60
                 </span>
               
 
@@ -409,7 +409,11 @@
       
 
       
-        
+        <h1 id="Online-search-approximate-solution"><a href="#Online-search-approximate-solution" class="headerlink" title="Online search (approximate solution)"></a>Online search (approximate solution)</h1><a id="more"></a>
+<h1 id="Monte-Carlo-Tree-Search"><a href="#Monte-Carlo-Tree-Search" class="headerlink" title="Monte Carlo Tree Search"></a>Monte Carlo Tree Search</h1><p>Reach a leaf node: you have a certain result of winning or losing.<br>If you have not reach the depth, you can add more nodes to the tree(expansion).</p>
+<h1 id="Upper-confidence-tree-UCT"><a href="#Upper-confidence-tree-UCT" class="headerlink" title="Upper confidence tree (UCT)"></a>Upper confidence tree (UCT)</h1><p>Trial in MCTs: selection + …<br>Trial in UCT: selection<br>select a to max Q and min N(n, a) : adaptivity</p>
+<h1 id="POMDP"><a href="#POMDP" class="headerlink" title="POMDP"></a>POMDP</h1><p>Partial Observed</p>
+
       
     </div>
     
@@ -429,7 +433,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://huangliu0909.github.io/2021/02/18/LSTM%20VS%20Transformer/" title="LSTM VS Transformer">https://huangliu0909.github.io/2021/02/18/LSTM%20VS%20Transformer/</a>
+    <a href="https://huangliu0909.github.io/2021/03/20/AI_MDP_1/" title="Markov Decision Process - Tree search">https://huangliu0909.github.io/2021/03/20/AI_MDP_1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -444,9 +448,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NN/" rel="tag"># NN</a>
+            <a href="/tags/NUS-note/" rel="tag"># NUS note</a>
           
-            <a href="/tags/ML/" rel="tag"># ML</a>
+            <a href="/tags/AI-Planning/" rel="tag"># AI Planning</a>
           
         </div>
       
@@ -459,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/17/AI_Markov_Decision_Processes/" rel="next" title="Markov Decision Process">
-                <i class="fa fa-chevron-left"></i> Markov Decision Process
+              <a href="/2021/03/01/DL_SSL/" rel="next" title="Self-Supervised Learning(SSL)">
+                <i class="fa fa-chevron-left"></i> Self-Supervised Learning(SSL)
               </a>
             
           </div>
@@ -468,10 +472,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/02/18/Object_detection/" rel="prev" title="Object_detection">
-                Object_detection <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -525,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -603,6 +612,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Online-search-approximate-solution"><span class="nav-number">1.</span> <span class="nav-text">Online search (approximate solution)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Monte-Carlo-Tree-Search"><span class="nav-number">2.</span> <span class="nav-text">Monte Carlo Tree Search</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Upper-confidence-tree-UCT"><span class="nav-number">3.</span> <span class="nav-text">Upper confidence tree (UCT)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POMDP"><span class="nav-number">4.</span> <span class="nav-text">POMDP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -637,7 +662,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">62.8k</span>
+    <span title="Site words total count">64k</span>
   
 </div>
 
