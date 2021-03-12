@@ -1497,7 +1497,7 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
   </entry>
   <entry>
     <title>JAVA</title>
-    <url>/2020/07/28/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9AJAVA/</url>
+    <url>/2021/03/01/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%EF%BC%9AJAVA/</url>
     <content><![CDATA[<h2 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h2><p>面向对象主要有四大特性：<em>抽象、封装、继承和多态</em>。<br>OO开发范式大致为：<strong>划分对象→抽象类→将类组织成为层次化结构(继承和合成) →用类与实例进行设计和实现几个阶段。</strong><a id="more"></a></p>
 <blockquote>
 <p>  <a href="https://juejin.im/entry/59f292635188254115701364">https://juejin.im/entry/59f292635188254115701364</a><br>    <a href="https://blog.csdn.net/cancan8538/article/details/8057095">https://blog.csdn.net/cancan8538/article/details/8057095</a></p>
