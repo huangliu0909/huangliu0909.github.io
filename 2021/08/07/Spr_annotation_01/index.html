@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NUS note,AI,ML,PGM," />
+  <meta name="keywords" content="database," />
 
 
 
@@ -79,29 +79,18 @@
 
 
 
-<meta name="description" content="条件独立 conditional independence完全独立不足以对现实的随机变量建模，而完全相关会导致计算量过大。随机变量 $X_A$ 和 $X_C$ 关于 $X_B$ 条件独立：$p(x_A,x_C|x_B)&#x3D;p(x_A|x_B) p(x_C|x_B)$等价于：$p(x_A|x_B,x_C)&#x3D;p(x_A|x_B) \qquad \forall X_B:x_B&gt;0$也可以写作：$X_">
+<meta name="description" content="Spring注解：用配置类 @configuration 代替配置文件@Bean 给容器注册一个 Bean ，类型为返回值的类型，id 默认是用方法名作为 id ，可以在注解中指定方法名：@Bean(“person”)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bayesian Networks (Directed Graphical Models)">
-<meta property="og:url" content="https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/index.html">
+<meta property="og:title" content="MySql">
+<meta property="og:url" content="https://huangliu0909.github.io/2021/08/07/Spr_annotation_01/index.html">
 <meta property="og:site_name" content="Wiwi&#39;s Blog">
-<meta property="og:description" content="条件独立 conditional independence完全独立不足以对现实的随机变量建模，而完全相关会导致计算量过大。随机变量 $X_A$ 和 $X_C$ 关于 $X_B$ 条件独立：$p(x_A,x_C|x_B)&#x3D;p(x_A|x_B) p(x_C|x_B)$等价于：$p(x_A|x_B,x_C)&#x3D;p(x_A|x_B) \qquad \forall X_B:x_B&gt;0$也可以写作：$X_">
+<meta property="og:description" content="Spring注解：用配置类 @configuration 代替配置文件@Bean 给容器注册一个 Bean ，类型为返回值的类型，id 默认是用方法名作为 id ，可以在注解中指定方法名：@Bean(“person”)">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://huangliu0909.github.io/images/Markov_Assumption.png">
-<meta property="og:image" content="https://huangliu0909.github.io/images/parameter_reduction.png">
-<meta property="og:image" content="https://huangliu0909.github.io/images/3-Node-Graph-1.png">
-<meta property="og:image" content="https://huangliu0909.github.io/images/3-Node-Graph-2.png">
-<meta property="og:image" content="https://huangliu0909.github.io/images/3-Node-Graph-3.png">
-<meta property="og:image" content="https://huangliu0909.github.io/images/3-Node-Graph-4.png">
-<meta property="og:image" content="https://huangliu0909.github.io/images/Markov_Blanket.png">
-<meta property="article:published_time" content="2020-08-19T13:11:04.000Z">
-<meta property="article:modified_time" content="2020-10-02T02:11:21.205Z">
+<meta property="article:published_time" content="2021-08-07T11:11:04.000Z">
+<meta property="article:modified_time" content="2021-08-09T11:52:38.565Z">
 <meta property="article:author" content="HUANG Liu">
-<meta property="article:tag" content="NUS note">
-<meta property="article:tag" content="AI">
-<meta property="article:tag" content="ML">
-<meta property="article:tag" content="PGM">
+<meta property="article:tag" content="database">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://huangliu0909.github.io/images/Markov_Assumption.png">
 
 
 
@@ -131,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://huangliu0909.github.io/2020/08/19/CS5340 Lec02/"/>
+  <link rel="canonical" href="https://huangliu0909.github.io/2021/08/07/Spr_annotation_01/"/>
 
 
 
 
 
-  <title>Bayesian Networks (Directed Graphical Models) | Wiwi's Blog</title>
+  <title>MySql | Wiwi's Blog</title>
   
 
 
@@ -299,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/">
+    <link itemprop="mainEntityOfPage" href="https://huangliu0909.github.io/2021/08/07/Spr_annotation_01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HUANG Liu">
@@ -316,7 +305,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Bayesian Networks (Directed Graphical Models)</h1>
+          <h1 class="post-title" itemprop="name headline">MySql</h1>
         
 
         <div class="post-meta">
@@ -328,8 +317,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-08-19T21:11:04+08:00">
-                2020-08-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-08-07T19:11:04+08:00">
+                2021-08-07
               </time>
             
 
@@ -351,8 +340,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Uncertainty-Modelling-in-AI/" itemprop="url" rel="index">
-                    <span itemprop="name">Uncertainty Modelling in AI</span>
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87/" itemprop="url" rel="index">
+                    <span itemprop="name">面试准备</span>
                   </a>
                 </span>
 
@@ -382,7 +371,7 @@
                   <span class="post-meta-item-text">Words count in article&#58;</span>
                 
                 <span title="Words count in article">
-                  1.3k
+                  56
                 </span>
               
 
@@ -398,7 +387,7 @@
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
                 <span title="Reading time">
-                  5
+                  1
                 </span>
               
             </div>
@@ -419,32 +408,7 @@
       
 
       
-        <h1 id="条件独立-conditional-independence"><a href="#条件独立-conditional-independence" class="headerlink" title="条件独立 conditional independence"></a>条件独立 conditional independence</h1><p>完全独立不足以对现实的随机变量建模，而完全相关会导致计算量过大。<br>随机变量 $X_A$ 和 $X_C$ 关于 $X_B$ 条件独立：$p(x_A,x_C|x_B)=p(x_A|x_B) p(x_C|x_B)$<br>等价于：$p(x_A|x_B,x_C)=p(x_A|x_B) \qquad \forall X_B:x_B&gt;0$<br>也可以写作：$X_A \perp X_C | X_B$<br><a id="more"></a></p>
-<p>例如：一个人的基因与父母之外的非后代的基因在给定其父母基因的条件下相互独立：</p>
-<script type="math/tex; mode=display">X_{child}\perp (X_{non-descendants}\backslash X_{parent}) | X_{parent}</script><p><strong>Markov假设：任意节点在局部仅仅依赖于它的直接父节点</strong></p>
-<h1 id="贝叶斯网络-Bayes-Network"><a href="#贝叶斯网络-Bayes-Network" class="headerlink" title="贝叶斯网络 Bayes Network"></a>贝叶斯网络 Bayes Network</h1><h2 id="定义-Definition"><a href="#定义-Definition" class="headerlink" title="定义 Definition"></a>定义 Definition</h2><p>使用有向无环图(DAG: directed acyclic graph)$\mathcal G(\mathcal V,\mathcal E)$来表示条件独立，其中 $\mathcal V$ 是顶点集合，$\mathcal E$ 是有向边集合。每个顶点代表一个随机变量，有向边代表随机变量之间的依赖关系。</p>
-<p>Ancestors：前序结点<br>Descendants：后续结点</p>
-<p>$X_{\pi_i}$是随机变量 $X_i$ 的parent<br>如果$X_i$入度为0，则parent为空集</p>
-<ul>
-<li>必须是无环图，即：图中必须存在拓扑排序(“There exists an ordering of the nodes such that there are no links that go from any node to any lower numbered node. “)</li>
-<li>For practical applications of probabilistic models, it will typically be the highernumbered variables corresponding to terminal nodes of the graph that represent the observations, with lower-numbered nodes corresponding to latent variables. </li>
-<li>The hidden variables in a probabilistic model need not, however, have any explicit physical interpretation but may be introduced simply to allow a more complex joint distribution to be constructed from simpler components. </li>
-</ul>
-<h2 id="Markov-Assumption"><a href="#Markov-Assumption" class="headerlink" title="Markov Assumption"></a>Markov Assumption</h2><script type="math/tex; mode=display">X_i\perp (X_{nonDesc(X_i)})\backslash X_{\pi_i})|X_{\pi_i}</script><p>这种parent-child模型代表了条件独立：$p(x_i|X_{\pi_i})$</p>
-<h2 id="联合概率-Joint-Probability"><a href="#联合概率-Joint-Probability" class="headerlink" title="联合概率 Joint Probability"></a>联合概率 Joint Probability</h2><p>“ The joint distribution deﬁned by a graph is given by the product, over all of the nodes of the graph, of a conditional distribution for each node conditioned on the variables corresponding to the parents of that node in the graph”<br>随机变量的联合概率可以从图中表示为所有局部条件独立的乘积：（假设$x_1,…x_N$是拓扑排序）</p>
-<script type="math/tex; mode=display">p(x_1,...x_N)=\prod_{i=1}^Np(x_i|x_{\pi_i})</script><p>This key equation expresses the factorization properties of the joint distribution for a directed graphical model.<br><img src="/images/Markov_Assumption.png" alt="Markov_Assumption"><br>要证明 $X_1$ 和 $X_3$ 在给定 $X_2$ 的情况下与 $X_4$ 独立，即证：$p(x_4|x_1,x_2,x_3)=p(x_4|x_2)$，可以分别求出 $p(x_1,x_2,x_3,x_4)$ 和 $p(x_1,x_2,x_3)$，两者相除得到 $p(x_4|x_1,x_2,x_3)$</p>
-<h2 id="Parameter-Reduction"><a href="#Parameter-Reduction" class="headerlink" title="Parameter Reduction"></a>Parameter Reduction</h2><p>$m_i$ 是点 $X_i$ 的直接parent结点的个数，$K$ 是每个点可取值的个数。<br>$X_i$ 的条件概率可以用 $K^{(m_i+1)}$ 个参数来表示。<br>参数个数从 $K^N$ 减少到了 $K^{(m_i+1)}$，其中 $m_i &lt;&lt; N$。<br><img src="/images/parameter_reduction.png" alt="history"></p>
-<h2 id="其它条件独立"><a href="#其它条件独立" class="headerlink" title="其它条件独立"></a>其它条件独立</h2><p>除了parent-child产生的条件独立，图中也有其它的条件独立。如：$X_1\perp X_6| \{X_2,X_3\}$<br>直观解释：图中 $X_2,X_3$ 这两个点阻隔了(block)所有从 $X_1$ 到 $X_6$ 的路径<br>这暗示了图的分隔可以导向相对独立的产生。</p>
-<h3 id="Three-Canonical-3-Node-Graphs"><a href="#Three-Canonical-3-Node-Graphs" class="headerlink" title="Three Canonical 3-Node Graphs"></a>Three Canonical 3-Node Graphs</h3><p>顶点 $C$ 被称作 “head-to-tail” w.r.t $A$ 到 $B$ 的路径，这个顶点隔开了 $A$ 和 $B$ 并且成为了他们相互独立的条件。即：<strong>给定当前状态的情况下过去状态和未来状态相互独立。</strong><br><img src="/images/3-Node-Graph-1.png" alt="history"></p>
-<p>顶点 $C$ 被称作 “tail-to-tail” w.r.t $A$ 到 $B$ 的路径，这个顶点隔开了 $A$ 和 $B$ 并且成为了他们相互独立的条件。即：<strong>$C$ 解释了 $A$ 和 $B$ 之间所有的关联性。</strong><br><img src="/images/3-Node-Graph-2.png" alt="3-Node-Graph"></p>
-<p>顶点 $C$ 被称作 “head-to-head” w.r.t $A$ 到 $B$ 的路径，也称作”V-structure”。当 $C$ 不存在时，$A$ 和 $B$ 之间路径被阻隔，$A$ 和 $B$ 相互独立。而将 $C$ 当作条件时，连通了这条路径，导致存在了关联性(explaining-away effect)。<br><img src="/images/3-Node-Graph-3.png" alt="3-Node-Graph"><br>$C$ 的每个子节点也都提供了这种连通性。<br><img src="/images/3-Node-Graph-4.png" alt="3-Node-Graph"><br>In summary, a tail-to-tail node or a head-to-tail node leaves a path unblocked unless it is observed in which case it blocks the path. By contrast, a head-to-head node blocks a path if it is unobserved, but once the node, and/or at least one of its descendants, is observed the path becomes unblocked. </p>
-<h3 id="Graph-Separation-directional-seperated"><a href="#Graph-Separation-directional-seperated" class="headerlink" title="Graph Separation (directional-seperated)"></a>Graph Separation (directional-seperated)</h3><p>如果所有从点集$A$到点集$B$的路径都在点集$C$被观察到时被阻隔了(blocked)，那么 $A\perp B|C$。<br><strong>$A$ is d-separated from $B$ by $C$.</strong><br> Any such path is said to be blocked if it includes a node such that either </p>
-<ul>
-<li>the arrows on the path meet either head-to-tail or tail-to-tail at the node, and the node is in the set C, or </li>
-<li>the arrows meet head-to-head at the node, and neither the node, nor any of its descendants, is in the set C.</li>
-</ul>
-<h3 id="Bayes-Ball-Algorithm"><a href="#Bayes-Ball-Algorithm" class="headerlink" title="Bayes Ball Algorithm"></a>Bayes Ball Algorithm</h3><p>是一个可达性算法，可以用BFS完成。<br>将点集$A$中的每个点上放置一个球，沿着路径进行滚动，如果被$C$阻隔则停住。<br>如果$A$中每个球都最终无法到达$B$中的点，则说明 $A\perp B|C$ ，否则$A$和$B$在给定$C$时不满足条件独立。</p>
-<h3 id="Markov-Blanket"><a href="#Markov-Blanket" class="headerlink" title="Markov Blanket"></a>Markov Blanket</h3><p>一个顶点 $X_i$ 仅依赖于自己的直接父节点(parent) $X_{\pi_i}$、直接子节点(child)和子节点的其它父节点(co-parent)。<br>$p(x_m|x_{\pi_m}:x_i\in x_{\pi_m})$ ：代表了顶点 $X_i$ 的直接子节点与它的直接父节点( $X_i$ 和它的co-parent)之间的依赖关系。<br><img src="/images/Markov_Blanket.png" alt="history"></p>
+        <p>Spring注解：用配置类 @configuration 代替配置文件<br>@Bean 给容器注册一个 Bean ，类型为返回值的类型，id 默认是用方法名作为 id ，可以在注解中指定方法名：@Bean(“person”)</p>
 
       
     </div>
@@ -465,7 +429,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/" title="Bayesian Networks (Directed Graphical Models)">https://huangliu0909.github.io/2020/08/19/CS5340%20Lec02/</a>
+    <a href="https://huangliu0909.github.io/2021/08/07/Spr_annotation_01/" title="MySql">https://huangliu0909.github.io/2021/08/07/Spr_annotation_01/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -480,13 +444,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/NUS-note/" rel="tag"># NUS note</a>
-          
-            <a href="/tags/AI/" rel="tag"># AI</a>
-          
-            <a href="/tags/ML/" rel="tag"># ML</a>
-          
-            <a href="/tags/PGM/" rel="tag"># PGM</a>
+            <a href="/tags/database/" rel="tag"># database</a>
           
         </div>
       
@@ -499,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/08/18/ML_Classification/" rel="next" title="Classification">
-                <i class="fa fa-chevron-left"></i> Classification
+              <a href="/2021/05/18/Spr03/" rel="next" title="Spring -- IoC">
+                <i class="fa fa-chevron-left"></i> Spring -- IoC
               </a>
             
           </div>
@@ -508,10 +466,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/08/25/ML_Deep_Neural_Network/" rel="prev" title="From Shallow to Deep Neural Network">
-                From Shallow to Deep Neural Network <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -565,17 +519,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -651,22 +596,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#条件独立-conditional-independence"><span class="nav-number">1.</span> <span class="nav-text">条件独立 conditional independence</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#贝叶斯网络-Bayes-Network"><span class="nav-number">2.</span> <span class="nav-text">贝叶斯网络 Bayes Network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-Definition"><span class="nav-number">2.1.</span> <span class="nav-text">定义 Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markov-Assumption"><span class="nav-number">2.2.</span> <span class="nav-text">Markov Assumption</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合概率-Joint-Probability"><span class="nav-number">2.3.</span> <span class="nav-text">联合概率 Joint Probability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameter-Reduction"><span class="nav-number">2.4.</span> <span class="nav-text">Parameter Reduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它条件独立"><span class="nav-number">2.5.</span> <span class="nav-text">其它条件独立</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Three-Canonical-3-Node-Graphs"><span class="nav-number">2.5.1.</span> <span class="nav-text">Three Canonical 3-Node Graphs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Graph-Separation-directional-seperated"><span class="nav-number">2.5.2.</span> <span class="nav-text">Graph Separation (directional-seperated)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bayes-Ball-Algorithm"><span class="nav-number">2.5.3.</span> <span class="nav-text">Bayes Ball Algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Markov-Blanket"><span class="nav-number">2.5.4.</span> <span class="nav-text">Markov Blanket</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
