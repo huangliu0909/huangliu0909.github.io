@@ -1598,6 +1598,12 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
 <li>Copy/Clean up，多线程清除失活对象，会有STW。G1将回收区域的存活对象拷贝到新区域，清除Remember Sets，并发清空回收区域并把它返回到空闲区域链表中。</li>
 <li>复制/清除过程后。回收区域的活性对象已经被集中回收到深蓝色和深绿色区域。<br>优点：<br><strong>空间整合</strong>：G1收集器采用标记整理算法，不会产生内存空间碎片。分配大对象时不会因为无法找到连续空间而提前触发下一次GC。<br><strong>可预测停顿</strong>，这是G1的另一大优势，降低停顿时间是G1和CMS的共同关注点，但G1除了追求低停顿外，还能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为N毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒，这几乎已经是实时Java（RTSJ）的垃圾收集器的特征了。<br>关于Remembered Set概念：G1收集器中，Region之间的对象引用以及其他收集器中的新生代和老年代之间的对象引用是使用Remembered Set来避免扫描全堆。G1中每个Region都有一个与之对应的Remembered Set，虚拟机发现程序对Reference类型数据进行写操作时，会产生一个Write Barrier暂时中断写操作，检查Reference引用的对象是否处于不同的Region之间(在分代中例子中就是检查是否老年代中的对象引用了新生代的对象)，如果是便通过CardTable把相关引用信息记录到被引用对象所属的Region的Remembered Set中。当内存回收时，在GC根节点的枚举范围加入Remembered Set即可保证不对全局堆扫描也不会有遗漏。</li>
 </ol>
+<h2 id="Java语言关键字"><a href="#Java语言关键字" class="headerlink" title="Java语言关键字"></a>Java语言关键字</h2><h3 id="Static-静态关键字"><a href="#Static-静态关键字" class="headerlink" title="Static 静态关键字"></a>Static 静态关键字</h3><p><strong>即使没有创建对象，也能使用的属性和调用方法</strong></p>
+<ul>
+<li>修饰变量：static 数据类型 变量名</li>
+<li>修饰方法：【访问权限修饰符】 static 方法返回值 方法名(参数列表)</li>
+</ul>
+<p>被static修饰的变量或者方法是独立于该类的任何对象，也就是说，这些变量和方法不属于任何一个实例对象，而是被类的实例对象所共享。<br>在类被加载的时候，就会去加载被static修饰的部分，所以在静态方法中没有this关键字，因为this是随着对象的创建而存在的，静态比对象优先存在。<br>被static修饰的变量或者方法是优先于对象存在的，也就是说当一个类加载完毕之后，即便没有创建对象，也可以去访问。<strong>强烈建议不要通过对象的方式去访问静态的变量或者方法。</strong><br>静态可以访问静态的，但是静态不能访问非静态的。<br>非静态的可以去访问静态的。</p>
 <h2 id="others"><a href="#others" class="headerlink" title="others"></a>others</h2><h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><p>例子： { 单例 ， 容器 等等}<br>原因 ： 长生命周期持有短生命周期引用</p>
 <h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><p>强引用、 软引用、 弱引用 、 虚引用  </p>
 <h3 id="如何高效进行数组拷贝（其实是System-arraycopy-的原理"><a href="#如何高效进行数组拷贝（其实是System-arraycopy-的原理" class="headerlink" title="如何高效进行数组拷贝（其实是System.arraycopy()的原理"></a>如何高效进行数组拷贝（其实是System.arraycopy()的原理</h3><h3 id="equals-和-区别"><a href="#equals-和-区别" class="headerlink" title="equals 和 == 区别"></a>equals 和 == 区别</h3><h3 id="为啥重写equals要重写hashCode"><a href="#为啥重写equals要重写hashCode" class="headerlink" title="为啥重写equals要重写hashCode()"></a>为啥重写equals要重写hashCode()</h3><p>如果两个对象相同（equals 方法返回 true），那么它们的hashCode 值一定要相同；<br>如果两个对象的 hashCode 相同，它们并不一定相同。</p>
@@ -2732,6 +2738,160 @@ p(x|\bar{x_E})=\frac{1}{Z^E}(\prod_{i\in V}\psi^E(x_i)\prod_{(i,j)\in E}\psi(x_i
         <tag>NN</tag>
         <tag>NUS note</tag>
         <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Reinforcement Learning</title>
+    <url>/2021/03/22/AI_RL/</url>
+    <content><![CDATA[<p>RL: </p>
+<ul>
+<li>figure out what leads to good result / bad result</li>
+<li>do something to get the good result</li>
+</ul>
+<p>Adaptive Dynamic Programming:</p>
+<ul>
+<li>Learn the model (transition &amp; reward function): supervised learning</li>
+<li>policy evaluation<a id="more"></a>
+TD’s advantage over ADP:<br>no need for simulator?</li>
+</ul>
+]]></content>
+      <categories>
+        <category>AI Planning and Decision Making</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>AI Planning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring -- IoC</title>
+    <url>/2021/05/18/Spr03/</url>
+    <content><![CDATA[<p>IOC 容器具有依赖注入功能的容器，它可以创建对象，IOC 容器负责实例化、定位、配置应用程序中的对象及建立这些对象间的依赖。通常 new 一个实例，是由程序员控制的，而<strong>控制反转</strong>是指该工作不由程序员来做而是交给Spring容器来做。在Spring中<strong>BeanFactory</strong>是IOC容器的实际代表者。<br><a id="more"></a><br>Spring 提供 BeanFactory 和 ApplicationContext 这两种容器，类图如下：<br><img src="/images/Spring/3/class.PNG" alt="class relations"></p>
+<h2 id="BeanFactory-容器"><a href="#BeanFactory-容器" class="headerlink" title="BeanFactory 容器"></a>BeanFactory 容器</h2><p>它是最简单的容器，给 DI 提供了基本的支持，它用 org.springframework.beans.factory.BeanFactory 接口来定义。BeanFactory 或者相关的接口，如 BeanFactoryAware，InitializingBean，DisposableBean，在 Spring 中仍然存在具有大量的与 Spring 整合的第三方框架的反向兼容性的目的。</p>
+<p>This interface is implemented by objects that hold a number of bean definitions, each uniquely identified by a String name. Depending on the bean definition, the factory will return either <strong>an independent instance of a contained object</strong> (the Prototype design pattern), or <strong>a single shared instance</strong> (a superior alternative to the Singleton design pattern, in which the instance is a singleton in the scope of the factory). Which type of instance will be returned depends on the bean factory configuration: the API is the same.</p>
+<p>The point of this approach is that the <strong>BeanFactory is a central registry of application components, and centralizes configuration of application components</strong> (no more do individual objects need to read properties files, for example). </p>
+<p><strong>Normally a BeanFactory will load bean definitions stored in a configuration source (such as an XML document)</strong>, and use the {@code org.springframework.beans} package to configure the beans. However, an implementation could simply return Java objects it creates as necessary directly in Java code. There are no constraints on how the definitions could be stored: LDAP, RDBMS, XML, properties file, etc. <strong>Implementations are encouraged to support references amongst beans (Dependency Injection).</strong></p>
+<h2 id="ApplicationContext-容器"><a href="#ApplicationContext-容器" class="headerlink" title="ApplicationContext 容器"></a>ApplicationContext 容器</h2><p>该容器添加了更多的企业特定的功能，例如从一个属性文件中解析文本信息的能力，发布应用程序事件给感兴趣的事件监听器的能力。该容器是由 org.springframework.context.ApplicationContext 接口定义。</p>
+<p>Central interface to provide configuration for an application. This is read-only while the application is running, but may be reloaded if the implementation supports this.</p>
+<p>An ApplicationContext provides:</p>
+<ul>
+<li>Bean factory methods for accessing application components.</li>
+<li>The ability to <strong>load file</strong> resources in a generic fashion.</li>
+<li>The ability to <strong>publish events</strong> to registered listeners.</li>
+<li>The ability to <strong>resolve messages</strong>, supporting internationalization.</li>
+<li><strong>Inheritance from a parent context</strong>. Definitions in a descendant context will always take priority. This means, for example, that a single parent context can be used by an entire web application, while each servlet has its own child context that is independent of that of any other servlet.</li>
+<li>In addition to standard BeanFactory lifecycle capabilities, ApplicationContext implementations <strong>detect and invoke</strong> ApplicationContextAware beans as well as ResourceLoaderAware, ApplicationEventPublisherAware and MessageSourceAware beans.</li>
+</ul>
+<h2 id="Comparison"><a href="#Comparison" class="headerlink" title="Comparison"></a>Comparison</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainApp</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      <span class="comment">// BeansFactory</span></span><br><span class="line">      XmlBeanFactory factory = <span class="keyword">new</span> XmlBeanFactory(<span class="keyword">new</span> ClassPathResource(<span class="string">"Beans.xml"</span>));</span><br><span class="line">      HelloWorld obj = (HelloWorld) factory.getBean(<span class="string">"helloWorld"</span>);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// ApplicationContext</span></span><br><span class="line">      ApplicationContext context = <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">"Beans.xml"</span>);</span><br><span class="line">      HelloWorld obj = (HelloWorld) context.getBean(<span class="string">"helloWorld"</span>);</span><br><span class="line"></span><br><span class="line">      obj.getMessage();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Spring-Bean-定义"><a href="#Spring-Bean-定义" class="headerlink" title="Spring Bean 定义"></a>Spring Bean 定义</h2><p>配置文件 Beans.xml<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- A simple bean definition --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"..."</span> <span class="attr">class</span>=<span class="string">"..."</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- A bean definition with lazy init set on 当第一次请求这个bean时再创建--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"..."</span> <span class="attr">class</span>=<span class="string">"..."</span> <span class="attr">lazy-init</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- A bean definition with initialization method --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"..."</span> <span class="attr">class</span>=<span class="string">"..."</span> <span class="attr">init-method</span>=<span class="string">"..."</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- A bean definition with destruction method --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"..."</span> <span class="attr">class</span>=<span class="string">"..."</span> <span class="attr">destroy-method</span>=<span class="string">"..."</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- collaborators and configuration for this bean go here --&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- more bean definitions go here --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>通过配置bean标签来完成对象的管理</p>
+<ul>
+<li>id: 对象名</li>
+<li>class: 对象的模板类，所有交给IoC容器来管理的类必须有<strong>无参构造函数</strong>，因为Spring底层是通过反射机制来创建对象的，而反射机制调用的是无参构造</li>
+</ul>
+</li>
+<li><p>对象的成员变量通过property这个标签来完成赋值</p>
+<ul>
+<li>name: 成员变量名</li>
+<li>value: 成员变量值（基本数据类型，String可以直接赋值，如果是其它引用类型，不能通过value赋值）</li>
+<li>ref: 将IoC中的另外一个bean赋值给当前成员变量（<strong>依赖注入DI</strong>）</li>
+<li>内部bean: <property> <bean ...> <property></property></bean></property></li>
+<li>集合： <property>内可以配置<props> <list> <map> <set><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"address_1"</span> <span class="attr">class</span>=<span class="string">".....Address"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">value</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span> = <span class="string">"上海路"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span> = <span class="string">"student_1"</span> <span class="attr">class</span> = <span class="string">".....Student"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"student_name"</span> <span class="attr">value</span>=<span class="string">"张三"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"age"</span> <span class="attr">value</span>=<span class="string">"15"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span> = <span class="string">"address"</span> <span class="attr">ref</span>=<span class="string">"address_1"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</set></map></list></props></property></li>
+</ul>
+</li>
+</ul>
+<h2 id="IoC底层原理"><a href="#IoC底层原理" class="headerlink" title="IoC底层原理"></a>IoC底层原理</h2><ul>
+<li>读取配置文件，解析XML （可以用 SAXReader 对 XML 文件解析，转换成 Document 对象）</li>
+<li>通过反射机制实例化配置文件中所配置的所有的bean</li>
+</ul>
+<p><img src="/images/Spring/3/bean-spr.PNG" alt="Relation Between Beans and Spring"></p>
+]]></content>
+      <categories>
+        <category>Spring -- from 0</category>
+      </categories>
+      <tags>
+        <tag>framework</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring -- 构建源码</title>
+    <url>/2021/05/15/Spr02/</url>
+    <content><![CDATA[<p>首先从github上下载源代码<br>用IDEA打开<br><a id="more"></a></p>
+<h1 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h1><p>在构建源码完成之后，就搭建好了阅读源码的环境，此时需要将源码编译打包<br>编译之前要进行一些配置修改，可以查看import-into-idea.md文档<br><img src="/images/Spring/2/import-md.PNG" alt="import-into-idea.md"></p>
+<p>文档中显示要首先编译 spring-oxm ，打开右侧的 gradle ，找到 spring-oxm ，点开Tasks —&gt; other ，双击 compileTestJava 即可编译。<br><img src="/images/Spring/2/compile-oxm.PNG" alt="compile oxm.md"></p>
+<p>可以再编译 spring-core 模块，因为之后 spring-context 依赖于 core ，方法同上。<br><img src="/images/Spring/2/compile-core.PNG" alt="compile-core"></p>
+<p>现在可以对所有项目进行编译了，在 spring —&gt; Tasks —&gt; build 中双击 build ：<br><img src="/images/Spring/2/compile-all.PNG" alt="compile-all"></p>
+<h1 id="创建test-module"><a href="#创建test-module" class="headerlink" title="创建test module"></a>创建test module</h1><p><strong>基于Java代码配置：无xml,通过@Configuration来声明配置、对象实例化与依赖关系</strong><br>创建新的gradle module<br><img src="/images/Spring/2/module.PNG" alt="module"><br><img src="/images/Spring/2/module1.PNG" alt="module1"><br>finish 之后会自动在 spring-mytest 中生成一个 build.gradle 文件，全局的 setting.gradle 文件的最下面会自动加上 spring-mytest 模块。<br><img src="/images/Spring/2/setting.PNG" alt="setting"><br>在 spring-mytest 的 build.gradle 中默认的 dependencies 依赖只有 junit ，我们需要手动添加 spring-context ， spring-beans , spring-core , spring-aop 这四个核心模块：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    <span class="comment">// 添加之后要build，否则代码中无法使用</span></span><br><span class="line">    compile(project(<span class="string">":spring-context"</span>))</span><br><span class="line">    compile(project(<span class="string">":spring-beans"</span>))</span><br><span class="line">    compile(project(<span class="string">":spring-core"</span>))</span><br><span class="line">    compile(project(<span class="string">":spring-aop"</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下面这俩是默认的</span></span><br><span class="line">    testImplementation <span class="string">'org.junit.jupiter:junit-jupiter-api:5.7.0'</span></span><br><span class="line">    testRuntimeOnly <span class="string">'org.junit.jupiter:junit-jupiter-engine:5.7.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><img src="/images/Spring/2/add-depend.PNG" alt="add-depend"><br>在 spring-mytest 的 src.main.java 中新建 com.mx.User 类：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mx;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String id;</span><br><span class="line">	<span class="keyword">private</span> String userName;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String id, String userName)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">		<span class="keyword">this</span>.userName = userName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getUserName</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> userName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserName</span><span class="params">(String userName)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.userName = userName;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"User&#123;"</span> + <span class="string">"id="</span> + id + <span class="string">"'"</span> + <span class="string">", userName='"</span> + userName + <span class="string">"'"</span> + <span class="string">"&#125;"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>新建 JavaConfig.java （使用注解的方式声明 bean ）<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mx;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ComponentScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> User <span class="title">user</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> User(<span class="string">"001"</span>, <span class="string">"HuangLiu"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>再添加一个测试类 Test ：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mx;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.AnnotationConfigApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">		AnnotationConfigApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(JavaConfig<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">		User user = (User) context.getBean(<span class="string">"user"</span>);</span><br><span class="line">		System.out.println(user.toString());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>运行 Test 的主函数：<br><img src="/images/Spring/2/result.PNG" alt="result"></p>
+<h1 id="会踩坑的mytest-（已解决）"><a href="#会踩坑的mytest-（已解决）" class="headerlink" title="会踩坑的mytest （已解决）"></a>会踩坑的mytest （已解决）</h1><p><strong>基于XML配置： 清晰明了，简单易用</strong><br>在 com.mx 中增加一个 HelloWorld 类：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mx;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String message;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.message  = message;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"Your Message : "</span> + message);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将 Test 类改成：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mx;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">		ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"Beans.xml"</span>);</span><br><span class="line">		HelloWorld obj = (HelloWorld) context.getBean(<span class="string">"helloWorld"</span>);</span><br><span class="line">		obj.getMessage();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 resources 文件夹下新建一个 Beans.xml 配置文件：<br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">	   <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	   <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"helloWorld"</span> <span class="attr">class</span>=<span class="string">"com.mx.HelloWorld"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"message"</span> <span class="attr">value</span>=<span class="string">"Hello World!"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>此时运行 Test 文件，会输出配置文件 Beans.xml 中 message 的赋值 Hello World!<br><img src="/images/Spring/2/result1.PNG" alt="result"></p>
+<p>这个 test 会出现问题的地方主要是在 IDEA 中， Beans.xml 的放置位置不当会导致主函数找不到该配置文件。<strong>IDEA 中配置文件应该同意放在默认的 resources 文件夹中！</strong></p>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_38771884/article/details/88671207?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&amp;spm=1001.2101.3001.4242">https://blog.csdn.net/weixin_38771884/article/details/88671207?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&amp;spm=1001.2101.3001.4242</a><br><a href="https://stackoverflow.com/questions/12893760/spring-cannot-find-bean-xml-configuration-file-when-it-does-exist">https://stackoverflow.com/questions/12893760/spring-cannot-find-bean-xml-configuration-file-when-it-does-exist</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Spring -- from 0</category>
+      </categories>
+      <tags>
+        <tag>framework</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Overview of Spring</title>
+    <url>/2021/05/11/Spr01/</url>
+    <content><![CDATA[<p>暑假回国隔离中，想来自学一下java框架，以免实习的时候一问三不知。目前对开发的印象就是大二的时候在实验室，有mapper还有一些别的xml文件，当时就是简单的运用数据库、注册api之类的。虽然在写代码，但是没有一个总体对框架的概念。当年应该是简单的Mybatis，最近看了看决定还是从最popular的Spring开始看吧，过程可能很煎熬，毕竟想要同步看用法和源码。之前看hashmap源码的时候就在想，如果当时自学java查用法的时候顺手就把数据结构的源码看了，是不是未来会方便很多。Anyway就在blog记录一下自学Spring的进程啦，真就从0开始呗！<br><a id="more"></a><br>IDEA读Spring源码环境搭建：<a href="https://blog.csdn.net/bskfnvjtlyzmv867/article/details/81171802">https://blog.csdn.net/bskfnvjtlyzmv867/article/details/81171802</a><br>Spring教程推荐：<a href="https://www.w3cschool.cn/wkspring/">https://www.w3cschool.cn/wkspring/</a></p>
+<h1 id="相关名词"><a href="#相关名词" class="headerlink" title="相关名词"></a>相关名词</h1><p><strong>IoC</strong> Inversion of control 反转控制：Spring负责控制对象的生命周期和对象之间的关系<br><strong>DI</strong>  Dependency Injection 依赖注入：解耦合，组件之间的依赖关系由容器在运行期间决定<br><strong>Singleton</strong>  单例模式：保证一个类仅有一个实例，并提供一个访问它的全局访问点<br><strong>JNDI</strong> Java Naming and Directory Interface Java命名与目录接口<br><strong>J2EE</strong> Java 2 platform Enterprise Edition<br><strong>JSP</strong> Java Server Pages<br><strong>JDBC</strong> Java DataBase Connectivity: 一种用于执行Sql语句的API<br><strong>DAO</strong> Data Access Object: 一个面向对象的数据库接口<br><strong>ORM</strong> Object/Relational Mapping<br><strong>OXM</strong> Object/XML Mapping<br><strong>JMS</strong> Java Message Service<br><strong>POJO</strong> Plain Ordinary Java Object: 普通java类，与EJB(Enterprise Java Beans)对应<br><strong>OOP</strong> Object-Oriented Programming 面向对象编程：面向名词，旨在用正确的语义描述世界，而关系数据库旨在从数学的角度更有效的进行数据存储和管理<br><strong>AOP</strong> Aspect-Oriented Programming 面向切面编程：面向动词，对各业务进行隔离，通过预编译和动态代理实现程序功能的统一维护<br><strong>MVC</strong> model-view-controller</p>
+<h1 id="Spring-整体架构"><a href="#Spring-整体架构" class="headerlink" title="Spring 整体架构"></a>Spring 整体架构</h1><p>Spring是一个企业级开发框架，是软件设计层面的框架，<strong>两大核心机制是 IoC/DI 和 AOP</strong> 。企业级项目特点主要是：</p>
+<ul>
+<li>大规模：用户数量多，数据规模大，功能模块众多，团队需要交互</li>
+<li>业务复杂</li>
+<li>性能和安全要求高</li>
+<li>灵活多变：需求变化多</li>
+</ul>
+<p>Spring架构是分层架构，可以将应用程序进行分层，优势是允许开发者在每一层选择一个适用的组件：<br>MVC: Struts2, Spring MVC<br>ORM: Hibernate, MyBatis, Spring Data//持久层，与数据库相关联<br>主要由Core Container、Data Access/Integration、Web、AOP和Test模块组成。<br><img src="/images/Spring/1/overview.PNG" alt="Spring framework"></p>
+<p>Spring 的优点：</p>
+<ul>
+<li>低侵入式设计</li>
+<li>独立于各种应用服务器</li>
+<li>依赖注入特性将组件关系透明化，降低了耦合度</li>
+<li>面向切面编程特性允许将通用任务进行集中式处理</li>
+<li>与第三方框架的良好整合</li>
+</ul>
+<h2 id="Core-Container"><a href="#Core-Container" class="headerlink" title="Core Container"></a>Core Container</h2><p>从程序逻辑中分离出正确的依赖关系和配置</p>
+<ol>
+<li>Core</li>
+<li>Beans 访问配置文件，创建和管理所有类</li>
+<li>Context 提供一种类似于JNDI注册器的框架式对象访问方法</li>
+<li>Expression Language 用于在运行时查询和操作对象的表达式语言</li>
+</ol>
+<h2 id="Data-Access-Integration"><a href="#Data-Access-Integration" class="headerlink" title="Data Access/Integration"></a>Data Access/Integration</h2><ol>
+<li>JDBC 对JDBC数据访问进行封装</li>
+<li>ORM 为对象-关系映射API提供了一个交互层，解决OO和OR不匹配问题</li>
+<li>OXM 提供了一个对Object/XML映射实现的抽象层</li>
+<li>JMS 主要包含制造和消费信息的特征</li>
+<li>Transaction 支持编程和声明性的事务管理，对所有POJO都适用</li>
+</ol>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><ol>
+<li>Web</li>
+<li>Web-Servlet 清楚区分模型代码与web forms，包含MVC(model-view-controller)实现</li>
+<li>Web-Struts 提供对Struts Web层的支持</li>
+<li>Web-Porlet 提供porlet环境和MVC实现</li>
+</ol>
+<h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><ol>
+<li>Aspects 提供对AspectJ的集成支持</li>
+<li>Instrumentation 提供 class instrument支持和classloader实现</li>
+</ol>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>支持JUnit和TestNG对Spring组件进行测试</p>
+]]></content>
+      <categories>
+        <category>Spring -- from 0</category>
+      </categories>
+      <tags>
+        <tag>framework</tag>
       </tags>
   </entry>
 </search>
