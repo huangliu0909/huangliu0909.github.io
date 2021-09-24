@@ -2636,13 +2636,21 @@ p(y^+|x)&=\frac{exp(w_+^Tx)}{exp(w_+^Tx)+exp(w_-^Tx)}\qquad w'=w_+-w_-
 <li>Copy/Clean up，多线程清除失活对象，会有STW。G1将回收区域的存活对象拷贝到新区域，清除Remember Sets，并发清空回收区域并把它返回到空闲区域链表中。</li>
 <li>复制/清除过程后。回收区域的活性对象已经被集中回收到深蓝色和深绿色区域。<br>优点：<br><strong>空间整合</strong>：G1收集器采用标记整理算法，不会产生内存空间碎片。分配大对象时不会因为无法找到连续空间而提前触发下一次GC。<br><strong>可预测停顿</strong>，这是G1的另一大优势，降低停顿时间是G1和CMS的共同关注点，但G1除了追求低停顿外，还能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为N毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒，这几乎已经是实时Java（RTSJ）的垃圾收集器的特征了。<br>关于Remembered Set概念：G1收集器中，Region之间的对象引用以及其他收集器中的新生代和老年代之间的对象引用是使用Remembered Set来避免扫描全堆。G1中每个Region都有一个与之对应的Remembered Set，虚拟机发现程序对Reference类型数据进行写操作时，会产生一个Write Barrier暂时中断写操作，检查Reference引用的对象是否处于不同的Region之间(在分代中例子中就是检查是否老年代中的对象引用了新生代的对象)，如果是便通过CardTable把相关引用信息记录到被引用对象所属的Region的Remembered Set中。当内存回收时，在GC根节点的枚举范围加入Remembered Set即可保证不对全局堆扫描也不会有遗漏。</li>
 </ol>
-<h2 id="Java语言关键字"><a href="#Java语言关键字" class="headerlink" title="Java语言关键字"></a>Java语言关键字</h2><h3 id="Static-静态关键字"><a href="#Static-静态关键字" class="headerlink" title="Static 静态关键字"></a>Static 静态关键字</h3><p><strong>即使没有创建对象，也能使用的属性和调用方法</strong></p>
+<h2 id="Java关键字"><a href="#Java关键字" class="headerlink" title="Java关键字"></a>Java关键字</h2><h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><ol>
+<li><p>final 用在变量的前面表示变量的值不可以改变，此时该变量可以被称为常量。<br>final 修饰的局部变量必须使用之前被赋值一次才能使用。<br>final 修饰的成员变量在声明时没有赋值的叫“空白 final 变量”。空白 final 变量必须在构造方法或静态代码块中初始化。<br>final 修饰引用变量的时候只需要保证引用地址不变即可，即一直引用同一个对象，对象的内容可以改变。<br><strong>static final ：全局变量</strong></p>
+</li>
+<li><p>final 用在方法的前面表示方法不可以被重写（子类中如果创建了一个与父类中相同名称、相同返回值类型、相同参数列表的方法，只是方法体中的实现不同，以实现不同于父类的功能，这种方式被称为方法重写，又称为方法覆盖）。<br>final 方法可以被重载（方法名相同，输入输出不完全相同）</p>
+</li>
+<li><p>final 用在类的前面表示该类不能有子类，即该类不可以被继承，意味着此类不需要扩展。<br>当子类继承父类时，将可以访问到父类内部数据，并可通过重写父类方法来改变父类方法的实现细节，这可能导致一些不安全的因素。</p>
+</li>
+</ol>
+<h3 id="Static"><a href="#Static" class="headerlink" title="Static"></a>Static</h3><p><strong>即使没有创建对象，也能使用的属性和调用方法</strong></p>
 <ul>
 <li>修饰变量：static 数据类型 变量名</li>
 <li>修饰方法：【访问权限修饰符】 static 方法返回值 方法名(参数列表)</li>
 </ul>
 <p>被static修饰的变量或者方法是独立于该类的任何对象，也就是说，这些变量和方法不属于任何一个实例对象，而是被类的实例对象所共享。<br>在类被加载的时候，就会去加载被static修饰的部分，所以在静态方法中没有this关键字，因为this是随着对象的创建而存在的，静态比对象优先存在。<br>被static修饰的变量或者方法是优先于对象存在的，也就是说当一个类加载完毕之后，即便没有创建对象，也可以去访问。<strong>强烈建议不要通过对象的方式去访问静态的变量或者方法。</strong><br>静态可以访问静态的，但是静态不能访问非静态的。<br>非静态的可以去访问静态的。</p>
-<h3 id="Synchronized-关键字"><a href="#Synchronized-关键字" class="headerlink" title="Synchronized 关键字"></a>Synchronized 关键字</h3><h2 id="others"><a href="#others" class="headerlink" title="others"></a>others</h2><h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><p>例子： { 单例 ， 容器 等等}<br>原因 ： 长生命周期持有短生命周期引用</p>
+<h3 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a>Synchronized</h3><h3 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h3><h2 id="others"><a href="#others" class="headerlink" title="others"></a>others</h2><h3 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h3><p>例子： { 单例 ， 容器 等等}<br>原因 ： 长生命周期持有短生命周期引用</p>
 <h3 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h3><p>强引用、 软引用、 弱引用 、 虚引用  </p>
 <h3 id="如何高效进行数组拷贝（其实是System-arraycopy-的原理"><a href="#如何高效进行数组拷贝（其实是System-arraycopy-的原理" class="headerlink" title="如何高效进行数组拷贝（其实是System.arraycopy()的原理"></a>如何高效进行数组拷贝（其实是System.arraycopy()的原理</h3><h3 id="equals-和-区别"><a href="#equals-和-区别" class="headerlink" title="equals 和 == 区别"></a>equals 和 == 区别</h3><h3 id="为啥重写equals要重写hashCode"><a href="#为啥重写equals要重写hashCode" class="headerlink" title="为啥重写equals要重写hashCode()"></a>为啥重写equals要重写hashCode()</h3><p>如果两个对象相同（equals 方法返回 true），那么它们的hashCode 值一定要相同；<br>如果两个对象的 hashCode 相同，它们并不一定相同。</p>
 <h3 id="String-StringBuffer-StringBuilder-区别-和各自使用场景"><a href="#String-StringBuffer-StringBuilder-区别-和各自使用场景" class="headerlink" title="String StringBuffer StringBuilder  区别 和各自使用场景"></a>String StringBuffer StringBuilder  区别 和各自使用场景</h3><p>深入一些 ： String 是如何实现它不可变的？ 为什么要设置String为不可变对象  ?  </p>
@@ -2895,15 +2903,107 @@ p(y^+|x)&=\frac{exp(w_+^Tx)}{exp(w_+^Tx)+exp(w_-^Tx)}\qquad w'=w_+-w_-
       </tags>
   </entry>
   <entry>
-    <title>MySql</title>
-    <url>/2021/08/07/Spr_annotation_01/</url>
-    <content><![CDATA[<p>Spring注解：用配置类 @configuration 代替配置文件<br>@Bean 给容器注册一个 Bean ，类型为返回值的类型，id 默认是用方法名作为 id ，可以在注解中指定方法名：@Bean(“person”)</p>
+    <title>MySql存储引擎InnoDB</title>
+    <url>/2021/08/14/MySql%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8EInnoDB/</url>
+    <content><![CDATA[<p>存储引擎：对数据库进行写入和读取，不同存储引擎使用不同的格式存放数据<br>Mysql服务器支持多种存储引擎，默认是InnoDB<br>对数据进行操作需要在内存上进行，而数据是存储在磁盘上的，磁盘读写比内存读写慢很多，从磁盘上一条一条地读数据很慢，所以InnoDB将数据划分为若干个页，以页作为磁盘和内存之间交互的基本单位，InnoDB中页的大小一般为 16 KB<br><a id="more"></a><br>记录在磁盘上的存放方式也被称为行格式或者记录格式 (ROW_FORMAT: Compact, Redundant, Dynamic, Compressed)</p>
+<p>InnoDB 优先使用用户自定义主键作为主键，如果用户没有定义主键，则选取一个 Unique 键作为主键，如果表中连 Unique 键都没有定义的话，则 InnoDB 会为表默认添加一个名为 row_id 的隐藏列作为主键。</p>
+<p>InnoDB存储引擎会为每条记录都添加 transaction_id 和 roll_pointer 这两个列，但是 row_id 是可选的（在没有自定义主键以及Unique键的情况下才会添加该列）。</p>
+<p>在 Compact 行格式下只会把变长类型的列的长度逆序存到 变长字段长度列表 中。<br><img src="/images/InnoDB/compact.png" alt="dataPage]"></p>
+<p>数据页代表的这块 16KB 大小的存储空间可以被划分为多个部分，不同部分有不同的功能。<br>在一开始生成页的时候，其实并没有 User Records 这个部分，每当我们插入一条记录，都会从 Free Space 部分，也就是尚未使用的存储空间中申请一个记录大小的空间划分到 User Records 部分，当 Free Space 部分的空间全部被 User Records 部分替代掉之后，也就意味着这个页使用完了，如果还有新的记录插入的话，就需要去申请新的页了，<br><img src="/images/InnoDB/数据页.png" alt="dataPage]"></p>
+<p>记录的头信息中的 next_record 指得并不是按照我们插入顺序的下一条记录，而是按照主键值由小到大的顺序的下一条记录。而且规定 Infimum记录（也就是最小记录） 的下一条记录就是本页中主键值最小的用户记录，而本页中主键值最大的用户记录的下一条记录就是 Supremum记录（也就是最大记录）<br><img src="/images/InnoDB/MinMax.png" alt="dataPage]"></p>
+<p>被删除的记录之所以不立即从磁盘上移除，是因为移除它们之后把其他的记录在磁盘上重新排列需要性能消耗，所以只是打一个删除标记而已，所有被删除掉的记录都会组成一个所谓的 垃圾链表 ，在这个链表中的记录占用的空间称之为所谓的 可重用空间 ，之后如果有新记录插入到表中的话，可能把这些被删除的记录占用的存储空间覆盖掉。<br><img src="/images/InnoDB/delete.png" alt="dataPage]"></p>
 ]]></content>
       <categories>
         <category>面试准备</category>
       </categories>
       <tags>
-        <tag>database</tag>
+        <tag>DB</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Big Data Analytics</title>
+    <url>/2021/08/06/Big_Data_01/</url>
+    <content><![CDATA[<h1 id="Scalable-and-Interpretable-Data-Analytics"><a href="#Scalable-and-Interpretable-Data-Analytics" class="headerlink" title="Scalable and Interpretable Data Analytics"></a>Scalable and Interpretable Data Analytics</h1><h2 id="Interactive-Visualization"><a href="#Interactive-Visualization" class="headerlink" title="Interactive Visualization"></a>Interactive Visualization</h2><p>User’s Interpretation and Control</p>
+<h2 id="Statistical-Learning"><a href="#Statistical-Learning" class="headerlink" title="Statistical Learning"></a>Statistical Learning</h2><p>Statistical Patterns and Models. i.e. Machine Learning</p>
+<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>Scalable Data Processing and Data Semantics Modelling. i.e. capture information behind data</p>
+<h2 id="Parallel-Processing"><a href="#Parallel-Processing" class="headerlink" title="Parallel Processing"></a>Parallel Processing</h2><p>Massively Parallel Computation on Modern Hardware<br><a id="more"></a></p>
+<h1 id="What-is-Big-data"><a href="#What-is-Big-data" class="headerlink" title="What is Big data"></a>What is Big data</h1><p>3Vs: </p>
+<ul>
+<li><strong>High-volume</strong> (Terabytes-&gt;Zettabytes)</li>
+<li><strong>High-velocity</strong> (Batch-&gt;Streaming data)<br>Real-time analysis:late decisions-&gt;Missed opportunities  TIME-SENSITIVE</li>
+<li><strong>High-variety</strong> (Structured_&gt;Semistructured &amp; unstructured data)<br>various databases:relational, XML, transactional, spatial, graph, text, multimedia…<br>Better place in HDFS or non-relational NoSQL databases</li>
+</ul>
+<p>4V: <strong>Veracity</strong> How accurate or trustworthy is the data</p>
+<p>5V: <strong>Value</strong> Data contains value and knowledge</p>
+<h1 id="Big-Data-Analytics-Data-Mining-Data-Science"><a href="#Big-Data-Analytics-Data-Mining-Data-Science" class="headerlink" title="Big Data Analytics (Data Mining / Data Science)"></a>Big Data Analytics (Data Mining / Data Science)</h1><p>raw data -&gt; actionable indormation(patterns, correlations, trends, preferences)<br>Data needs to be Stored, Managed and Analyzed.<br>Discover patterns that are:</p>
+<ul>
+<li>valid: fit in new data</li>
+<li>useful: possible to act on the item</li>
+<li>unexpected: not easy to diriectly tell from data</li>
+<li>understandable</li>
+</ul>
+<h1 id="Data-Analytics-Tasks"><a href="#Data-Analytics-Tasks" class="headerlink" title="Data Analytics Tasks"></a>Data Analytics Tasks</h1><p>Descriptive methods: Clustering<br>Predictive methods: Recommandation Systems</p>
+<h1 id="Data-Analytics-Pipeline"><a href="#Data-Analytics-Pipeline" class="headerlink" title="Data Analytics Pipeline"></a>Data Analytics Pipeline</h1><ul>
+<li>Data collection: acquire data from various sources<br>different name representation, conflict/incomplete information, ambiguous references</li>
+<li>Data curation: clean, format, integrate with other datasets, store in database<br>duplicate, conflict, missing values, outlieirs, entity resolution</li>
+<li>Data processing: ren queries, plot graphs</li>
+<li>Data analysis: examine trends and anomalies, understand results</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Big-Data Analytics Technology</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>Big Data</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MapReduce and Hadoop</title>
+    <url>/2021/08/13/Big_Data_02/</url>
+    <content><![CDATA[<h1 id="Why-Parallelism"><a href="#Why-Parallelism" class="headerlink" title="Why Parallelism"></a>Why Parallelism</h1><p>Increasing data size<br>Limitations of single node architecture(bandwidth/memory limitation..)<br>Emerging affordable cluster architecture(Clusters of Linux nodes, Gigabit Ethernet connection)<br><a id="more"></a></p>
+<h1 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge"></a>Challenge</h1><ul>
+<li><strong>Cheap nodes fail</strong><br>Solution: Build fault-tolenrance into storage infrastructure(DFS, replicate)</li>
+<li><strong>Low bandwidth of commodity network</strong><br>Solution: Bring computation close to the data</li>
+<li><strong>Programming distributed systems is hard</strong><br>Solution: Data-parallel programming model<br>Users write “map” and “reduce” functions.<br>System handles work distribution and <strong>fault tolerance</strong><br>1 GBps bandwidth in rack, 8 GBps out of rack</li>
+<li><strong>Other failure</strong><br>Loss of single node, i.e. disk crash<br>Loss of entire rack, i.e. network failure</li>
+</ul>
+<h1 id="Hadoop-Component"><a href="#Hadoop-Component" class="headerlink" title="Hadoop Component"></a>Hadoop Component</h1><h2 id="Distributed-File-System-files-stored-redundantly"><a href="#Distributed-File-System-files-stored-redundantly" class="headerlink" title="Distributed File System: files stored redundantly"></a>Distributed File System: files stored redundantly</h2><p>Files are big<br>rarely updated<br>reads and append-only</p>
+<ul>
+<li><strong>data node</strong><br>file split into contiguous chunks(64 - 128MB)<br>each chunk replicated around 3 times and kept in different racks</li>
+<li><strong>master node</strong><br>store meta data about where files are located, may be replicated<br>CLient library talks to master to find chunk servers, connects directly to chunk servers to access data</li>
+<li><strong>reliability and availability</strong><br>data kept in chunks and chunks replicated on various machines(chunck server)<br>chunk servers also serve as compute servers</li>
+</ul>
+<h2 id="MapReduce-Programming-System-divide-computations-into-tasks"><a href="#MapReduce-Programming-System-divide-computations-into-tasks" class="headerlink" title="MapReduce Programming System: divide computations into tasks"></a>MapReduce Programming System: divide computations into tasks</h2><p>MapReduce is a data-parallel programming model for clusters of commodity machines</p>
+<ol>
+<li>Sequentially read a lot of data</li>
+<li><strong>Map</strong>: extract sth you care about (define by user)</li>
+<li><strong>Group by key</strong>: sort and shuffle (done by system)</li>
+<li><strong>Reduce</strong>: aggregate, summarize, filter or transform (define by user)</li>
+<li>write the result</li>
+</ol>
+<h2 id="MapReduce-environment"><a href="#MapReduce-environment" class="headerlink" title="MapReduce environment"></a>MapReduce environment</h2><p>takes care of </p>
+<ul>
+<li>partitioning input data</li>
+<li>scheduling program’s execution across a set of machines</li>
+<li>performing the <strong>Group by key</strong> step</li>
+<li>handling machine failures</li>
+<li>managing <strong>inter-machine communication</strong></li>
+</ul>
+<h2 id="Grouping-by-key"><a href="#Grouping-by-key" class="headerlink" title="Grouping by key"></a>Grouping by key</h2><ul>
+<li>User defines number of Reduce tasks <em>R</em></li>
+<li>System produces a bucket number from <em>0</em> to <em>R-1</em></li>
+<li><strong>Hash each key output by Map task</strong>, put key-value pair in one of <em>R</em> local files</li>
+<li>Master controller merge files from Map tasks destined for the same Reduce task as a sequence of pairs</li>
+</ul>
+<h2 id="MapReduce-Diagram"><a href="#MapReduce-Diagram" class="headerlink" title="MapReduce Diagram"></a>MapReduce Diagram</h2><p><img src="/images/CS5344/MapReduce.PNG" alt="MapReduce"></p>
+]]></content>
+      <categories>
+        <category>Big-Data Analytics Technology</category>
+      </categories>
+      <tags>
+        <tag>NUS note</tag>
+        <tag>Big Data</tag>
       </tags>
   </entry>
 </search>
